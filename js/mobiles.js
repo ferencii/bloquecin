@@ -1,7 +1,7 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 
 export function setupMobilesSection(vnumRangeCheckFunction) {
-    setupDynamicSection('add-mob-btn', 'mobiles-container', 'mob-template', '.mob-card', vnumRangeCheckFunction);
+    setupDynamicSection('add-mob-btn', 'mobiles-container', 'mob-template', '.mob-card', vnumRangeCheckFunction, '.mob-vnum');
 }
 
 export function generateMobilesSection() {

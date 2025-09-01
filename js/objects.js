@@ -1,4 +1,4 @@
-import { getFlagString } from './utils.js';
+import { setupDynamicSection, getFlagString } from './utils.js';
 
 const OBJECT_VALUE_LABELS = {
     'weapon': ['Weap Type', 'Num Dice', 'Side Dices', 'Dam Type', 'Weap Flags'],
@@ -31,20 +31,14 @@ function updateObjectValuesUI(objectCard) {
 }
 
 export function setupObjectsSection(vnumRangeCheckFunction) {
-    const btn = document.getElementById('add-object-btn');
-    const container = document.getElementById('objects-container');
-    if (!btn) return;
+    setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, '.obj-vnum');
 
-    btn.addEventListener('click', () => {
-        if (vnumRangeCheckFunction && !vnumRangeCheckFunction()) {
-            alert('¡Atención! Debes definir un rango de VNUMs válido en la sección #AREA para poder añadir elementos.');
-            return;
+    // Add event listener for type change on newly added cards
+    const container = document.getElementById('objects-container');
+    container.addEventListener('change', e => {
+        if (e.target.classList.contains('obj-type')) {
+            updateObjectValuesUI(e.target.closest('.object-card'));
         }
-        const objectClone = document.getElementById('object-template').content.cloneNode(true);
-        const objectCard = objectClone.querySelector('.object-card');
-        objectCard.querySelector('.obj-type').addEventListener('change', () => updateObjectValuesUI(objectCard));
-        container.appendChild(objectClone);
-        updateObjectValuesUI(objectCard);
     });
 
     container.addEventListener('click', (e) => {

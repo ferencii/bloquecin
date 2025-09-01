@@ -1,18 +1,9 @@
-import { getFlagString } from './utils.js';
+import { setupDynamicSection, getFlagString } from './utils.js';
 
 export function setupRoomsSection(vnumRangeCheckFunction) {
-    const btn = document.getElementById('add-room-btn');
+    setupDynamicSection('add-room-btn', 'rooms-container', 'room-template', '.room-card', vnumRangeCheckFunction, '.room-vnum');
+
     const container = document.getElementById('rooms-container');
-    if (!btn) return;
-
-    btn.addEventListener('click', () => {
-        if (vnumRangeCheckFunction && !vnumRangeCheckFunction()) {
-            alert('¡Atención! Debes definir un rango de VNUMs válido en la sección #AREA para poder añadir elementos.');
-            return;
-        }
-        container.appendChild(document.getElementById('room-template').content.cloneNode(true));
-    });
-
     container.addEventListener('click', (e) => {
         const target = e.target;
         if (target.classList.contains('remove-btn')) target.closest('.room-card').remove();
