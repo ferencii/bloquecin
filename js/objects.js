@@ -30,12 +30,16 @@ function updateObjectValuesUI(objectCard) {
     }
 }
 
-export function setupObjectsSection() {
+export function setupObjectsSection(vnumRangeCheckFunction) {
     const btn = document.getElementById('add-object-btn');
     const container = document.getElementById('objects-container');
     if (!btn) return;
 
     btn.addEventListener('click', () => {
+        if (vnumRangeCheckFunction && !vnumRangeCheckFunction()) {
+            alert('¡Atención! Debes definir un rango de VNUMs válido en la sección #AREA para poder añadir elementos.');
+            return;
+        }
         const objectClone = document.getElementById('object-template').content.cloneNode(true);
         const objectCard = objectClone.querySelector('.object-card');
         objectCard.querySelector('.obj-type').addEventListener('change', () => updateObjectValuesUI(objectCard));

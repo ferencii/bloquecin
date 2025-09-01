@@ -22,20 +22,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup all sections
     setupAreaSection();
-    setupMobilesSection();
-    setupObjectsSection();
-    setupRoomsSection();
+    setupMobilesSection(isValidVnumRange);
+    setupObjectsSection(isValidVnumRange);
+    setupRoomsSection(isValidVnumRange);
     setupResetsSection();
     setupSetSection();
-    setupShopsSection();
-    setupSpecialsSection();
-    setupProgsSection('mobprogs');
-    setupProgsSection('objprogs');
-    setupProgsSection('roomprogs');
+    setupShopsSection(isValidVnumRange);
+    setupSpecialsSection(isValidVnumRange);
+    setupProgsSection('mobprogs', isValidVnumRange);
+    setupProgsSection('objprogs', isValidVnumRange);
+    setupProgsSection('roomprogs', isValidVnumRange);
 
     // Setup main generate button
     document.getElementById('generate-btn').addEventListener('click', generateAreFile);
 });
+
+function isValidVnumRange() {
+    const vnumStartInput = document.getElementById('area-vnum-start');
+    const vnumEndInput = document.getElementById('area-vnum-end');
+    const start = parseInt(vnumStartInput.value);
+    const end = parseInt(vnumEndInput.value);
+    return !isNaN(start) && !isNaN(end) && start <= end;
+}
 
 function generateAreFile() {
     let c = '' // fileContent

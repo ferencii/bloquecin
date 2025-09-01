@@ -1,7 +1,7 @@
 import { setupDynamicSection } from './utils.js';
 
-export function setupProgsSection(type) {
-    setupDynamicSection(`add-${type}-btn`, `${type}-container`, 'prog-template', '.prog-card');
+export function setupProgsSection(type, vnumRangeCheckFunction) {
+    setupDynamicSection(`add-${type}-btn`, `${type}-container`, 'prog-template', '.prog-card', vnumRangeCheckFunction);
 }
 
 export function generateProgsSection(containerId, sectionName) {

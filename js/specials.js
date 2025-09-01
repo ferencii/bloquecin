@@ -1,7 +1,7 @@
 import { setupDynamicSection } from './utils.js';
 
-export function setupSpecialsSection() {
-    setupDynamicSection('add-special-btn', 'specials-container', 'special-template', '.special-card');
+export function setupSpecialsSection(vnumRangeCheckFunction) {
+    setupDynamicSection('add-special-btn', 'specials-container', 'special-template', '.special-card', vnumRangeCheckFunction);
 }
 
 export function generateSpecialsSection() {

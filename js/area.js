@@ -8,15 +8,13 @@ export function setupAreaSection() {
         const end = parseInt(vnumEndInput.value);
         const isValidRange = !isNaN(start) && !isNaN(end) && start <= end;
 
-        document.querySelectorAll('.add-btn:not(#generate-btn)').forEach(button => {
-            button.disabled = !isValidRange;
-        });
-
         if (!isValidRange) {
             vnumRangeMessage.textContent = '¡Atención! Define un rango de VNUMs válido para habilitar la creación de elementos.';
+            vnumRangeMessage.className = 'info-message error-message'; // Add error-message class
             vnumRangeMessage.style.display = 'block';
         } else {
             vnumRangeMessage.textContent = '';
+            vnumRangeMessage.className = 'info-message'; // Remove error-message class
             vnumRangeMessage.style.display = 'none';
         }
     };
