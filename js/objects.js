@@ -31,7 +31,7 @@ function updateObjectValuesUI(objectCard) {
 }
 
 export function setupObjectsSection(vnumRangeCheckFunction) {
-    setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, '.obj-vnum');
+    setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, '.obj-vnum', '.obj-vnum-display');
 
     // Add event listener for type change on newly added cards
     const container = document.getElementById('objects-container');

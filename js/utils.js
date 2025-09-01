@@ -1,4 +1,4 @@
-export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null) {
+export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null) {
     const addButton = document.getElementById(buttonId);
     const container = document.getElementById(containerId);
     const template = document.getElementById(templateId);
@@ -12,6 +12,9 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
         const newCard = template.content.cloneNode(true);
         container.appendChild(newCard);
 
+        const addedCardElement = container.lastElementChild;
+
+        // Vnum auto-suggestion
         if (vnumSelector) {
             const vnumInputs = container.querySelectorAll(vnumSelector);
             let maxVnum = 0;
@@ -21,8 +24,7 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
                     maxVnum = vnum;
                 }
             });
-            // Set the new vnum to the last added card's vnum input
-            const newVnumInput = container.lastElementChild.querySelector(vnumSelector);
+            const newVnumInput = addedCardElement.querySelector(vnumSelector);
             if (newVnumInput) {
                 if (maxVnum === 0) {
                     const areaVnumStart = parseInt(document.getElementById('area-vnum-start').value);
@@ -30,9 +32,36 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
                 } else {
                     newVnumInput.value = maxVnum + 1;
                 }
+                // Update vnum display in header
+                if (vnumDisplaySelector) {
+                    addedCardElement.querySelector(vnumDisplaySelector).textContent = newVnumInput.value;
+                }
+            }
+        }
+
+        // Collapsible logic
+        const collapsibleHeader = addedCardElement.querySelector('.collapsible-header');
+        const collapsibleContent = addedCardElement.querySelector('.collapsible-content');
+        if (collapsibleHeader && collapsibleContent) {
+            collapsibleHeader.addEventListener('click', () => {
+                collapsibleContent.classList.toggle('collapsed');
+            });
+            // New cards are expanded by default, existing ones (on load) could be collapsed
+            // For now, all new cards start expanded.
+        }
+
+        // Update vnum display on input change
+        if (vnumSelector && vnumDisplaySelector) {
+            const vnumInput = addedCardElement.querySelector(vnumSelector);
+            const vnumDisplay = addedCardElement.querySelector(vnumDisplaySelector);
+            if (vnumInput && vnumDisplay) {
+                vnumInput.addEventListener('input', () => {
+                    vnumDisplay.textContent = vnumInput.value;
+                });
             }
         }
     });
+
     container.addEventListener('click', e => {
         if (e.target.classList.contains('remove-btn')) e.target.closest(cardSelector).remove();
     });

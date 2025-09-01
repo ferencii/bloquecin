@@ -328,3 +328,45 @@ select:focus {
     border: 1px solid #ff0000;
     background-color: #330000;
 }
+
+/* Collapsible Sections */
+.collapsible-header {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible-header:hover {
+    background-color: #333;
+}
+
+.collapsible-header h4 {
+    margin: 0;
+    color: var(--header-color);
+}
+
+.collapsible-header .vnum-display {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-left: 1rem;
+}
+
+.collapsible-content {
+    max-height: 1000px; /* Arbitrarily large value */
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 1.5rem; /* Matches card padding */
+    border: 1px solid var(--border-color);
+    border-top: none; /* Remove top border to connect with header */
+    background-color: var(--primary-color); /* Matches card background */
+}
+
+.collapsible-content.collapsed {
+    max-height: 0;
+    padding: 0 1.5rem; /* Collapse padding as well */
+}

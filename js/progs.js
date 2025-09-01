@@ -2,7 +2,7 @@ import { setupDynamicSection } from './utils.js';
 
 export function setupProgsSection(type, vnumRangeCheckFunction) {
     const buttonType = type.replace('s', '');
-    setupDynamicSection(`add-${buttonType}-btn`, `${type}-container`, 'prog-template', '.prog-card', vnumRangeCheckFunction, '.prog-vnum');
+    setupDynamicSection(`add-${buttonType}-btn`, `${type}-container`, 'prog-template', '.prog-card', vnumRangeCheckFunction, '.prog-vnum', '.prog-vnum-display');
 }
 
 export function generateProgsSection(containerId, sectionName) {

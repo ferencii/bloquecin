@@ -231,6 +231,17 @@ Los programas (`#MOBPROGS`, `#OBJPROGS`, `#ROOMPROGS`) se deben vincular a sus r
 
 ### **3. Funcionalidad de la Aplicación (HTML/CSS/JavaScript)**
 
+#### **3.1. Mejora de Navegación y Edición (Colapsar/Expandir Secciones)**
+
+Para facilitar la navegación y edición de múltiples elementos (mobs, objetos, habitaciones, etc.) que pueden tener muchas características, se implementará una funcionalidad de colapsar/expandir para cada tarjeta individual.
+
+*   **Objetivo**: Permitir al usuario ocultar los detalles de las tarjetas en las que no está trabajando activamente, haciendo la lista de elementos más compacta y reduciendo la necesidad de desplazamiento vertical excesivo.
+*   **Implementación**: 
+    *   Cada tarjeta de elemento (Mob, Objeto, Habitación, Prog, Set, Tienda, Especial) incluirá un encabezado o un botón de alternancia.
+    *   Al hacer clic en este encabezado/botón, se mostrarán u ocultarán los campos de detalle de la tarjeta.
+    *   Las nuevas tarjetas creadas se mostrarán expandidas por defecto para facilitar la entrada de datos.
+    *   Las tarjetas existentes (si se implementa la carga de archivos) se mostrarán colapsadas por defecto para una vista general más limpia.
+
 *   **Interfaz de Usuario (UI)**:
     *   Navegación clara entre las secciones (`#AREA`, `#MOBILES`, `#OBJECTS`, etc.).
     *   Formularios dinámicos para cada tipo de entidad (Mob, Objeto, Habitación, etc.).
@@ -251,7 +262,27 @@ Los programas (`#MOBPROGS`, `#OBJPROGS`, `#ROOMPROGS`) se deben vincular a sus r
 
 ---
 
-### **4. Referencia de Ejemplo**
+### **4. Resumen de Funcionalidades Implementadas**
+
+La aplicación actual proporciona las siguientes características para facilitar la creación y edición de archivos `.are`:
+
+*   **Navegación por Secciones**: Permite al usuario cambiar entre las diferentes secciones del archivo `.are` (AREA, MOBILES, OBJECTS, ROOMS, RESETS, SET, SHOPS, SPECIALS, MOBPROGS, OBJPROGS, ROOMPROGS) a través de botones de navegación claros.
+*   **Gestión Dinámica de Elementos**:
+    *   **Adición de Elementos**: Botones dedicados para añadir nuevas entradas en secciones como MOBILES, OBJECTS, ROOMS, SHOPS, SPECIALS, MOBPROGS, OBJPROGS, y ROOMPROGS.
+    *   **Eliminación de Elementos**: Cada elemento añadido dinámicamente incluye un botón para su eliminación.
+    *   **Auto-sugerencia de VNUMs**: Al añadir un nuevo elemento, su campo VNUM se auto-rellena con el siguiente VNUM disponible, comenzando por el `Vnum Inicial` definido en la sección #AREA si no hay elementos previos.
+*   **Validación de VNUMs**:
+    *   **Rango de Área**: Se valida que el rango de VNUMs definido en la sección #AREA sea numérico y coherente (`Vnum Inicial` <= `Vnum Final`).
+    *   **Mensajes de Alerta al Añadir**: Si se intenta añadir un elemento (Mob, Objeto, Habitación, Prog, Tienda, Especial) cuando el rango de VNUMs en la sección #AREA es inválido, se muestra un mensaje de alerta claro indicando la necesidad de corregir el rango.
+*   **Interfaz de Usuario Detallada por Sección**:
+    *   Cada sección presenta formularios específicos con campos de entrada para todas las propiedades relevantes de Mobs, Objetos, Habitaciones, Resets, Sets, Tiendas, Especiales y Progs, según la estructura del archivo `.are`.
+    *   Se incluyen campos para flags, tipos, materiales, y valores especiales, con opciones de selección donde aplica.
+*   **Generación de Archivo .are**: Un botón "Generar Archivo .are" compila toda la información introducida en el formato de texto exacto requerido por el MUD "Petria" y permite la descarga del archivo resultante.
+*   **Mejora de Navegación y Edición (Colapsar/Expandir Secciones)**: Se ha implementado la funcionalidad de colapsar/expandir para cada tarjeta individual de elemento (Mob, Objeto, Habitación, Prog, Set, Tienda, Especial). Esto permite ocultar los detalles de las tarjetas no activas, mejorando la visibilidad y reduciendo el desplazamiento vertical. Las nuevas tarjetas se muestran expandidas por defecto.
+
+---
+
+### **5. Referencia de Ejemplo**
 
 Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir el archivo de salida. La IA puede analizar este archivo para entender las convenciones de formato, espaciado y estructura de un archivo `.are` real.
 
