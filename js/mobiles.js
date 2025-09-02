@@ -5,10 +5,6 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
     const mobContainer = document.getElementById('mobiles-container');
     const addMobBtn = document.getElementById('add-mob-btn');
 
-    // This event listener is now handled by setupDynamicSection in utils.js
-    // We just need to ensure the callback for new card is handled.
-    // The setupDynamicSection function now returns the addedCardElement directly.
-
     // Function to attach event listeners to a single mob card
     const attachMobCardListeners = (cardElement) => {
         const levelInput = cardElement.querySelector('.mob-level');

@@ -218,7 +218,7 @@ async function handleRoomAiGeneration(e) {
 }
 
 
-export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null, nameInputSelector = null, nameDisplaySelector = null) {
+export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null, nameInputSelector = null, nameDisplaySelector = null, postAddCallback = null) {
     const addButton = document.getElementById(buttonId);
     const container = document.getElementById(containerId);
     if (!addButton) return;
@@ -343,6 +343,13 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
                 nameInput.dispatchEvent(new Event('input'));
             }
         }
+
+        // Execute post-add callback if provided
+        if (postAddCallback && typeof postAddCallback === 'function') {
+            postAddCallback(addedCardElement);
+        }
+
+        return addedCardElement; // Return the added card element
     });
 
     container.addEventListener('click', e => {
