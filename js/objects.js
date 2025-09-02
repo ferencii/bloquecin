@@ -11,12 +11,8 @@ function updateObjectValuesUI(objectCard) {
 }
 
 function populateObjectTypeSelect(objectCard) {
-    console.log('populateObjectTypeSelect function called.');
-    console.log('gameData.objectTypes:', gameData.objectTypes);
-
     const selectElement = objectCard.querySelector('.obj-type');
     if (selectElement) {
-        console.log('Select element found:', selectElement);
         // Clear existing options (if any)
         selectElement.innerHTML = '';
         gameData.objectTypes.forEach(type => {
@@ -25,7 +21,6 @@ function populateObjectTypeSelect(objectCard) {
             option.textContent = type;
             selectElement.appendChild(option);
         });
-        console.log('Select populated. Number of options:', selectElement.options.length);
         // Trigger UI update for V0-V4 labels after populating
         updateObjectValuesUI(objectCard);
     }
@@ -70,7 +65,8 @@ export function generateObjectsSection() {
         section += `${type} ${extraFlags} ${wearFlags}\n`;
 
         section += `${obj.querySelector('.obj-v0').value} ${obj.querySelector('.obj-v1').value} ${obj.querySelector('.obj-v2').value} ${obj.querySelector('.obj-v3').value} ${obj.querySelector('.obj-v4').value}\n`;
-        section += `${obj.querySelector('.obj-level').value} ${obj.querySelector('.obj-weight').value} ${obj.querySelector('.obj-price').value}\n`;
+        const isDrinkContainer = obj.querySelector('.obj-is-drink-container').checked ? 'G' : 'P';
+        section += `${obj.querySelector('.obj-level').value} ${obj.querySelector('.obj-weight').value} ${obj.querySelector('.obj-price').value} ${isDrinkContainer}\n`;
 
         obj.querySelectorAll('.applies-container .sub-item-row').forEach(row => {
             const location = row.querySelector('.apply-location').value;

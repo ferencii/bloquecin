@@ -417,7 +417,7 @@ export const gameData = {
         'food_buff': ['duracion', 'Cantidad', 'apply', 'A/I/R/V', 'flags/A=veneno'],
         'portal': ['cargas', 'exit flags', 'gate flags', 'Vnum Room', 'CONFIGURAR A 0'], // Assuming 'portals'
         'furniture': ['gente', 'total wei', 'fur flags', 'heal bon', 'mana bon'],
-        'emblema': ['id_clan', 'rango', 'DEJAR VACÍO', 'DEJAR VACÍO', 'DEJAR VACÍO'], // Adjusted for 5 values, empty for unused
+        'emblema': ['id_clan', 'rango', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'], // Adjusted for 5 values, empty for unused
         'default': ['Valor 0', 'Valor 1', 'Valor 2', 'Valor 3', 'Valor 4'] // Default for types not explicitly listed
     },
 
