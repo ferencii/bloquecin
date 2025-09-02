@@ -155,6 +155,24 @@ Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
     await generateDescriptions(generateBtn, promptText, promptInstructions, targetFields);
 }
 
+// Object Extra Description AI generation handler
+async function handleExtraDescAiGeneration(e) {
+    const generateBtn = e.target;
+    const card = generateBtn.closest('.sub-item-row'); // Note: closest sub-item-row
+    if (!card) return;
+
+    const promptText = card.querySelector('.ai-prompt').value;
+    const extraDescInput = card.querySelector('.extra-desc'); // Note: extra-desc
+
+    const promptInstructions = `Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción extra para un objeto de un juego MUD. Esta descripción debe ser extensa y muy descriptiva, similar a la descripción al mirar de un mob, detallando el objeto, su apariencia, historia, etc. Responde solo con el objeto JSON, usando la clave "extra_desc".`;
+
+    const targetFields = {
+        extra_desc: extraDescInput
+    };
+
+    await generateDescriptions(generateBtn, promptText, promptInstructions, targetFields);
+}
+
 
 export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null, nameInputSelector = null, nameDisplaySelector = null) {
     const addButton = document.getElementById(buttonId);
@@ -280,6 +298,8 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
                 handleMobAiGeneration(e);
             } else if (aiTarget === 'object-short-long') { // New object button
                 handleObjectShortLongAiGeneration(e);
+            } else if (aiTarget === 'extra-description') { // New extra description button
+                handleExtraDescAiGeneration(e);
             }
             // Add more conditions here for other AI buttons
         }
