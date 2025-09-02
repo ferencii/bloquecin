@@ -69,7 +69,7 @@ export function generateObjectsSection() {
         const wearFlags = getFlagString(obj, 'fieldset[legend="Lugar de Vestir"] input[type="checkbox"]');
         section += `${type} ${extraFlags} ${wearFlags}\n`;
 
-        section += `${obj.querySelector('.obj-v0').value || 0} ${obj.querySelector('.obj-v1').value || 0} ${obj.querySelector('.obj-v2').value || 0} ${obj.querySelector('.obj-v3').value || 0} ${obj.querySelector('.obj-v4').value || 0}\n`;
+        section += `${obj.querySelector('.obj-v0').value} ${obj.querySelector('.obj-v1').value} ${obj.querySelector('.obj-v2').value} ${obj.querySelector('.obj-v3').value} ${obj.querySelector('.obj-v4').value}\n`;
         section += `${obj.querySelector('.obj-level').value} ${obj.querySelector('.obj-weight').value} ${obj.querySelector('.obj-price').value}\n`;
 
         obj.querySelectorAll('.applies-container .sub-item-row').forEach(row => {
