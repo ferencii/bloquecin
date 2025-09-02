@@ -1,17 +1,7 @@
 import { gameData } from './config.js';
 
-async function handleAiGeneration(e) {
-    if (!e.target.classList.contains('ai-generate-btn')) return;
-
-    const generateBtn = e.target;
-    const card = generateBtn.closest('.mob-card');
-    if (!card) return;
-
-    const promptText = card.querySelector('.ai-prompt').value;
-    const shortDescInput = card.querySelector('.mob-short-desc');
-    const longDescInput = card.querySelector('.mob-long-desc');
-    const lookDescInput = card.querySelector('.mob-look-desc');
-
+// Generic function to handle AI description generation
+async function generateDescriptions(generateBtn, promptText, promptInstructions, targetFields) {
     if (!promptText) {
         alert('Por favor, introduce un prompt para la IA.');
         return;
@@ -22,15 +12,7 @@ async function handleAiGeneration(e) {
         return;
     }
 
-    const fullPrompt = `Basado en la siguiente idea: "${promptText}", genera tres descripciones para un PNJ (mob) de un juego MUD en formato JSON. Las descripciones deben seguir estas reglas:
-
-"short_desc": Descripción super breve (máximo 20 caracteres). Si es un mob genérico (barrendero, perro, guardia), usa el artículo: "El barrendero", "El perro", "El guardia", "La tendera". Si el mob tiene un nombre propio, no uses artículo: "Arturo", "Cleopatra", "Thor".
-
-"long_desc": No muy extensa. Nombra al mob y describe lo que está haciendo o una característica clave. Ejemplos: "Un troll de piedra con una sonrisa pétrea.", "Arturo está sentado en el suelo afilando la espada.", "El asesino acecha en las sombras."
-
-"look_desc": Extensa y muy descriptiva. Describe profundamente el mob, sus detalles, apariencia, etc.
-
-Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
+    const fullPrompt = promptInstructions.replace('${promptText}', promptText);
 
     generateBtn.textContent = 'Generando...';
     generateBtn.disabled = true;
@@ -70,7 +52,6 @@ Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
         const data = await response.json();
         console.log('Paso 3: Datos de la API parseados:', data); // Debug log
 
-        // Check if data.candidates[0].content.parts[0].text exists
         if (!data || !data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0] || !data.candidates[0].content.parts[0].text) {
             throw new Error('La respuesta de la IA no contiene el texto esperado (estructura de datos inesperada).');
         }
@@ -78,22 +59,36 @@ Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
         console.log('Paso 4: textResponse extraído:', textResponse); // Debug log
 
         try {
-            // Limpiar la respuesta para asegurarse de que es un JSON válido
             const jsonString = textResponse.replace(/```json/g, '').replace(/```/g, '').trim();
             console.log('Paso 5: jsonString limpio:', jsonString); // Debug log
-            const allDescriptions = JSON.parse(jsonString); // Renamed to clarify it's an array
+            const allDescriptions = JSON.parse(jsonString);
             console.log('Paso 6: Descripciones parseadas:', allDescriptions); // Debug log
 
-            // Check if it's an array and has at least one element
             if (!Array.isArray(allDescriptions) || allDescriptions.length === 0) {
-                throw new Error('La IA no devolvió un array de descripciones válido.');
+                // If it's not an array, assume it's a single object (AI might return directly)
+                if (typeof allDescriptions === 'object' && allDescriptions !== null) {
+                    // If it's an object, use it directly
+                    const descriptions = allDescriptions;
+                    // Assign values to target fields
+                    for (const key in targetFields) {
+                        if (targetFields.hasOwnProperty(key) && descriptions.hasOwnProperty(key)) {
+                            targetFields[key].value = descriptions[key] || '';
+                        }
+                    }
+                    console.log('Paso 7: Campos rellenados.'); // Debug log
+                    return; // Exit successfully
+                }
+                throw new Error('La IA no devolvió un array de descripciones válido ni un objeto JSON directo.');
             }
 
             const descriptions = allDescriptions[0]; // Take the first set of descriptions
 
-            shortDescInput.value = descriptions.short_desc || '';
-            longDescInput.value = descriptions.long_desc || '';
-            lookDescInput.value = descriptions.look_desc || '';
+            // Assign values to target fields
+            for (const key in targetFields) {
+                if (targetFields.hasOwnProperty(key) && descriptions.hasOwnProperty(key)) {
+                    targetFields[key].value = descriptions[key] || '';
+                }
+            }
             console.log('Paso 7: Campos rellenados.'); // Debug log
 
         } catch (parseError) {
@@ -103,7 +98,7 @@ Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
         }
 
     } catch (error) {
-        console.error('Error general en handleAiGeneration:', error);
+        console.error('Error general en generateDescriptions:', error);
         alert(`Hubo un error: ${error.message}`);
     } finally {
         generateBtn.textContent = 'Generar Descripciones';
@@ -111,6 +106,55 @@ Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
         console.log('Paso Final: Botón re-habilitado.'); // Debug log
     }
 }
+
+// Mob-specific AI generation handler
+async function handleMobAiGeneration(e) {
+    const generateBtn = e.target;
+    const card = generateBtn.closest('.mob-card');
+    if (!card) return;
+
+    const promptText = card.querySelector('.ai-prompt').value;
+    const shortDescInput = card.querySelector('.mob-short-desc');
+    const longDescInput = card.querySelector('.mob-long-desc');
+    const lookDescInput = card.querySelector('.mob-look-desc');
+
+    const promptInstructions = `Basado en la siguiente idea: ${promptText}, genera tres descripciones para un PNJ (mob) de un juego MUD en formato JSON. Las descripciones deben seguir estas reglas:\n\n"short_desc": Descripción super breve (máximo 20 caracteres). Si es un mob genérico (barrendero, perro, guardia), usa el artículo: "El barrendero", "El perro", "El guardia", "La tendera". Si el mob tiene un nombre propio, no uses artículo: "Arturo", "Cleopatra", "Thor".\n\n"long_desc": No muy extensa. Nombra al mob y describe lo que está haciendo o una característica clave. Ejemplos: "Un troll de piedra con una sonrisa pétrea.", "Arturo está sentado en el suelo afilando la espada.", "El asesino acecha en las sombras."
+
+"look_desc": Extensa y muy descriptiva. Describe profundamente el mob, sus detalles, apariencia, etc.
+
+Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
+
+    const targetFields = {
+        short_desc: shortDescInput,
+        long_desc: longDescInput,
+        look_desc: lookDescInput
+    };
+
+    await generateDescriptions(generateBtn, promptText, promptInstructions, targetFields);
+}
+
+// Object Short/Long-specific AI generation handler
+async function handleObjectShortLongAiGeneration(e) {
+    const generateBtn = e.target;
+    const card = generateBtn.closest('.object-card'); // Note: object-card
+    if (!card) return;
+
+    const promptText = card.querySelector('.ai-prompt').value;
+    const shortDescInput = card.querySelector('.obj-short-desc'); // Note: obj-short-desc
+    const longDescInput = card.querySelector('.obj-long-desc');   // Note: obj-long-desc
+
+    const promptInstructions = `Basado en la siguiente idea: ${promptText}, genera una descripción para un objeto de un juego MUD en formato JSON. Las descripciones deben seguir estas reglas:\n\n"short_desc": Descripción muy breve (máximo 10 palabras). Es la que se usa en el inventario. Ejemplos: "un anillo de oro", "la espada excalibur", "un zurrón lleno de remaches".\n\n"long_desc": No muy extensa. Es la que se ve cuando llegas a la sala. Nombra al objeto y describe lo que está haciendo o una característica clave. Ejemplos: "Una llave con el anagrama del Hotel Renedo y una pequeña inscripción.", "Un cofre de madera reposa en el centro de la sala."
+
+Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
+
+    const targetFields = {
+        short_desc: shortDescInput,
+        long_desc: longDescInput
+    };
+
+    await generateDescriptions(generateBtn, promptText, promptInstructions, targetFields);
+}
+
 
 export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null, nameInputSelector = null, nameDisplaySelector = null) {
     const addButton = document.getElementById(buttonId);
@@ -229,7 +273,16 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
         if (e.target.classList.contains('remove-btn')) {
             e.target.closest(cardSelector).remove();
         }
-        handleAiGeneration(e);
+        // Dispatch AI generation based on data-ai-target
+        else if (e.target.classList.contains('ai-generate-btn')) {
+            const aiTarget = e.target.dataset.aiTarget;
+            if (aiTarget === 'mob-short-long-look') { // Original mob button
+                handleMobAiGeneration(e);
+            } else if (aiTarget === 'object-short-long') { // New object button
+                handleObjectShortLongAiGeneration(e);
+            }
+            // Add more conditions here for other AI buttons
+        }
     });
 }
 
