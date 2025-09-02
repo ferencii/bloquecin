@@ -126,7 +126,8 @@ La aplicación debe permitir añadir múltiples objetos. Cada objeto tendrá los
 *   **F (Affects permanentes)** (Opcional): Inmunidades, resistencias o vulnerabilidades (ej. `F A 0 0 PV`).
     *   Formato: `F <tipo_affect> <bits_affect>`.
     *   Tipos: `A` (Affected), `I` (Immune), `R` (Resist), `V` (Vulnerable).
-    *   Bits (para Affects/Imm/Res/Vul): `A` (Summon), `B` (Charm), `C` (Magic), `D` (Weapons), `E` (Bash), `F` (Pierce), `G` (Slash), `H` (Fire), `I` (Cold), `J` (Lightning), `K` (Acid), `L` (Poison), `M` (Negative), `N` (Holy), `O` (Energy), `P` (Mental), `Q` (Disease), `R` (Drowning), `S` (Light), `T` (Sound), `X` (Wood), `Y` (Silver), `Z` (Iron).
+    *   Localizaciones para `A` (Affected): `A` (Blind), `B` (Invisible), `C` (Detect_evil), `D` (Detect_invis), `E` (Detect_magic), `F` (Detect_hidden), `G` (Detect_good), `H` (Sanctuary), `I` (Faerie_fire), `J` (Infrared), `K` (Curse), `L` (Flaming - No Implementado), `M` (Poisoned), `N` (Prot_evil), `O` (Prot_good), `P` (Sneak), `Q` (Hide), `R` (Sleep), `S` (Charm), `T` (Flying), `U` (Pass_door), `V` (Haste), `W` (Calm), `X` (Plague), `Y` (Weaken), `Z` (Dark_vis), `a` (Berserk - No Implementado), `b` (Swim - No Implementado), `c` (Regen), `d` (Slow).
+    *   Bits para `I`, `R` y `V`: `A` (Summon), `B` (Charm), `C` (Magic), `D` (Weapons), `E` (Bash), `F` (Pierce), `G` (Slash), `H` (Fire), `I` (Cold), `J` (Lightning), `K` (Acid), `L` (Poison), `M` (Negative), `N` (Holy), `O` (Energy), `P` (Mental), `Q` (Disease), `R` (Drowning), `S` (Light), `T` (Sound), `X` (Wood), `Y` (Silver), `Z` (Iron).
 *   **E (Descripciones adicionales)** (Opcional): (ej. `E inscripcion inscripción~ Esta llave abre...`).
 
 #### **2.4. Sección `#ROOMS`**

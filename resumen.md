@@ -37,3 +37,7 @@
         *   **Solución**: Se refactorizó la función `getFlagString` en `js/utils.js` para que encuentre el `fieldset` correcto buscando por el texto de su `legend` (`legend.textContent.trim()`).
         *   **Confirmación**: Se verificó mediante `console.log` que `getFlagString` ahora identifica correctamente los `fieldset`s y recolecta los valores de los checkboxes marcados.
         *   **Limpieza**: Se eliminaron los `console.log` de depuración de `js/utils.js` y `js/objects.js`.
+    *   **Affects (F) con Bits Desplegables**:
+        *   **Funcionalidad**: Los Affects ahora utilizan un `<select>` para elegir los bits disponibles en lugar de un campo de texto libre.
+        *   **Opciones Dinámicas**: Las opciones se cargan según el tipo de affect seleccionado (`A`, `I`, `R`, `V`), utilizando la nueva estructura `affectBitOptions` en `js/config.js`.
+        *   **Integración**: La lógica se añadió en `js/objects.js`, `js/sets.js` y `js/parser.js` para poblar y mantener sincronizados estos desplegables.
