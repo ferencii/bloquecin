@@ -118,7 +118,7 @@ async function handleMobAiGeneration(e) {
     const longDescInput = card.querySelector('.mob-long-desc');
     const lookDescInput = card.querySelector('.mob-look-desc');
 
-    const promptInstructions = `Basado en la siguiente idea: ${promptText}, genera tres descripciones para un PNJ (mob) de un juego MUD en formato JSON. Las descripciones deben seguir estas reglas:\n\n"short_desc": Descripción super breve (máximo 20 caracteres). Si es un mob genérico (barrendero, perro, guardia), usa el artículo: "El barrendero", "El perro", "El guardia", "La tendera". Si el mob tiene un nombre propio, no uses artículo: "Arturo", "Cleopatra", "Thor".\n\n"long_desc": No muy extensa. Nombra al mob y describe lo que está haciendo o una característica clave. Ejemplos: "Un troll de piedra con una sonrisa pétrea.", "Arturo está sentado en el suelo afilando la espada.", "El asesino acecha en las sombras."
+    const promptInstructions = `Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con tres descripciones para un PNJ (mob) de un juego MUD. Las descripciones deben seguir estas reglas:\n\n"short_desc": Descripción super breve (máximo 20 caracteres). Si es un mob genérico (barrendero, perro, guardia), usa el artículo: "El barrendero", "El perro", "El guardia", "La tendera". Si el mob tiene un nombre propio, no uses artículo: "Arturo", "Cleopatra", "Thor".\n\n"long_desc": No muy extensa. Nombra al mob y describe lo que está haciendo o una característica clave. Ejemplos: "Un troll de piedra con una sonrisa pétrea.", "Arturo está sentado en el suelo afilando la espada.", "El asesino acecha en las sombras."
 
 "look_desc": Extensa y muy descriptiva. Describe profundamente el mob, sus detalles, apariencia, etc.
 
@@ -143,7 +143,7 @@ async function handleObjectShortLongAiGeneration(e) {
     const shortDescInput = card.querySelector('.obj-short-desc'); // Note: obj-short-desc
     const longDescInput = card.querySelector('.obj-long-desc');   // Note: obj-long-desc
 
-    const promptInstructions = `Basado en la siguiente idea: ${promptText}, genera una descripción para un objeto de un juego MUD en formato JSON. Las descripciones deben seguir estas reglas:\n\n"short_desc": Descripción muy breve (máximo 10 palabras). Es la que se usa en el inventario. Ejemplos: "un anillo de oro", "la espada excalibur", "un zurrón lleno de remaches".\n\n"long_desc": No muy extensa. Es la que se ve cuando llegas a la sala. Nombra al objeto y describe lo que está haciendo o una característica clave. Ejemplos: "Una llave con el anagrama del Hotel Renedo y una pequeña inscripción.", "Un cofre de madera reposa en el centro de la sala."
+    const promptInstructions = `Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con la descripción para un objeto de un juego MUD. Las descripciones deben seguir estas reglas:\n\n"short_desc": Descripción muy breve (máximo 10 palabras). Es la que se usa en el inventario. Ejemplos: "un anillo de oro", "la espada excalibur", "un zurrón lleno de remaches".\n\n"long_desc": No muy extensa. Es la que se ve cuando llegas a la sala. Nombra al objeto y describe lo que está haciendo o una característica clave. Ejemplos: "Una llave con el anagrama del Hotel Renedo y una pequeña inscripción.", "Un cofre de madera reposa en el centro de la sala."
 
 Responde solo con el objeto JSON, sin texto adicional ni markdown.`;
 
