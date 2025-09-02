@@ -245,6 +245,18 @@ export const gameData = {
         { level: 118, hpManaDice: { num: 115, sides: 20, bonus: 16875 }, armor: -74, damageDice: { num: 20, sides: 10, bonus: 33 } },
         { level: 119, hpManaDice: { num: 115, sides: 20, bonus: 17000 }, armor: -75, damageDice: { num: 20, sides: 10, bonus: 35 } },
         { level: 120, hpManaDice: { num: 120, sides: 24, bonus: 17000 }, armor: -75, damageDice: { num: 20, sides: 10, bonus: 37 } }
-    ]
+    ],
+    aiPrompts: {
+        mob: {
+            shortLongLook: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con tres descripciones para un PNJ (mob) de un juego MUD, no puede haber más de UN ÚNICO objeto JSON. Las descripciones deben seguir estas reglas:\n\n\"short_desc\": Descripción super breve (máximo 20 caracteres). Si es un mob genérico (barrendero, perro, guardia), usa el artículo: \"El barrendero\", \"El perro\", \"El guardia\", \"La tendera\". Si el mob tiene un nombre propio, no uses artículo: \"Arturo\", \"Cleopatra\", \"Thor\".\n\n\"long_desc\": No muy extensa. Nombra al mob y describe lo que está haciendo o una característica clave. Ejemplos: \"Un troll de piedra con una sonrisa pétrea.\", \"Arturo está sentado en el suelo afilando la espada.\", \"El asesino acecha en las sombras.\"\n\n\"look_desc\": Extensa y muy descriptiva. Describe profundamente el mob, sus detalles, apariencia, etc.\n\nResponde solo con el objeto JSON, sin texto adicional ni markdown."
+        },
+        object: {
+            shortLong: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con la descripción para un objeto de un juego MUD. Las descripciones deben seguir estas reglas:\n\n\"short_desc\": Descripción muy breve (máximo 10 palabras). Es la que se usa en el inventario. Ejemplos: \"un anillo de oro\", \"la espada excalibur\", \"un zurrón lleno de remaches\".\n\n\"long_desc\": No muy extensa. Es la que se ve cuando llegas a la sala. Nombra al objeto y describe lo que está haciendo o una característica clave. Ejemplos: \"Una llave con el anagrama del Hotel Renedo y una pequeña inscripción.\", \"Un cofre de madera reposa en el centro de la sala.\"\n\nResponde solo con el objeto JSON, sin texto adicional ni markdown.",
+            extra: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción extra para un objeto de un juego MUD. Esta descripción debe ser extensa y muy descriptiva, similar a la descripción al mirar de un mob, detallando el objeto, su apariencia, historia, etc. Responde solo con el objeto JSON, usando la clave \"extra_desc\"."
+        },
+        room: {
+            description: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción para una habitación de un juego MUD. Esta descripción debe ser extensa y muy descriptiva, detallando el ambiente, objetos, sonidos, olores, etc. Responde solo con el objeto JSON, usando la clave \"room_desc\"."
+        }
+    }
     // Aquí se pueden añadir futuras listas (materiales, tipos de armas, etc.)
 };
