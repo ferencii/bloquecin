@@ -1,4 +1,5 @@
 export const gameData = {
+    apiKey: "AIzaSyB5raGlKb5kw9Rlag0CNJQeVcF17XBrdk8", // Pega aquí tu API Key de Google AI Studio
     races: [
         'aguila',
         'aranya',
