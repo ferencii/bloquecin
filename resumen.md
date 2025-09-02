@@ -11,3 +11,23 @@
     *   **Integración de Tipos de Daño en la UI**: Se modificó `index.html` para cambiar el campo 'Tipo de Daño' de un `input` de texto a un `select` en la plantilla del mob. Posteriormente, se actualizó `js/utils.js` para poblar dinámicamente este `select` con las opciones de `gameData.damageTypes`, permitiendo la selección de tipos de daño predefinidos y estableciendo 'none' como opción por defecto.
     *   **Auto-rellenado de Hitroll**: Se implementó la funcionalidad de auto-rellenado para el campo '+Hitroll' de los mobs. Se añadió una tabla de recomendaciones (`hitrollRecommendations`) a `js/config.js` y se desarrolló la lógica en `js/mobiles.js` para calcular el hitroll sugerido basándose en el nivel del mob, utilizando interpolación lineal para los rangos.
     *   **Auto-rellenado de HP, Mana, Armaduras y Daño**: Se añadió una tabla de recomendaciones (`mobStatsRecommendations`) a `js/config.js` para los valores de HP, Mana, Armaduras y Daño por nivel. Se modificó `js/mobiles.js` para auto-rellenar estos campos basándose en el nivel del mob. El cálculo de Mana se ajustó para seguir la fórmula `1d10 + 100 * Nivel`, y la Armadura Mágica se calcula con la fórmula `((ac - 10) / 3) + 10`.
+*   **Mejoras en la Sección Objects**:
+    *   **Campo Material (Datalist)**:
+        *   **Funcionalidad**: Se implementó un campo de entrada para "Material" que permite seleccionar de una lista de sugerencias o escribir un valor personalizado. Esto se logró utilizando un elemento `<datalist>` en `index.html` vinculado al campo de entrada.
+        *   **Configuración**: Se añadió la lista `materials` a `gameData` en `js/config.js`.
+        *   **Población Dinámica**: Se implementó la lógica en `script.js` para poblar el `datalist` de materiales al cargar la aplicación.
+        *   **Comportamiento UI**: Se ajustó el campo para que inicie vacío con un `placeholder` ("ej. acero"), y se confirmó que la lista de sugerencias aparece al borrar el campo y hacer clic en la flecha, o al escribir.
+        *   **Depuración**: Se realizaron varias iteraciones de depuración para resolver errores de sintaxis (`Uncaught SyntaxError: Identifier 'populateMaterialsDatalist' has already been declared`) y asegurar la correcta carga y población del `datalist`, incluyendo la adición y posterior eliminación de `console.log`s.
+    *   **Campo Tipo y Valores V0-V4 Dinámicos**:
+        *   **Funcionalidad**: Se implementó el campo "Tipo" (`<select>`) para objetos, que al cambiar su valor, actualiza dinámicamente las etiquetas de los campos V0-V4 (`<input type="text">`) según el tipo de objeto seleccionado.
+        *   **Configuración**: Se añadieron las listas `objectTypes` y `objectValueLabels` a `gameData` en `js/config.js`, definiendo las etiquetas específicas para cada tipo de objeto (ej. `weapon`, `proteccion`, `light`, etc.).
+        *   **Población Dinámica**: Se modificó `js/objects.js` para importar `gameData` y para que la función `populateObjectTypeSelect` (pasada como `postAddCallback` a `setupDynamicSection`) rellene el `<select>` de "Tipo" con las opciones de `objectTypes`.
+        *   **Actualización de Etiquetas**: La función `updateObjectValuesUI` en `js/objects.js` fue modificada para usar `gameData.objectValueLabels` y así cambiar las etiquetas de V0-V4 según el tipo seleccionado.
+        *   **Depuración**: Se depuró un problema inicial donde el desplegable de "Tipo" aparecía vacío, lo que llevó a la confirmación de que las listas `objectTypes` y `objectValueLabels` no se habían añadido correctamente en una iteración anterior.
+    *   **Eliminación de Campos Redundantes**:
+        *   **V0-V4**: Se eliminó un grupo redundante de campos de entrada V0-V4 (`<input type="number">`) del `object-template` en `index.html`, asegurando que solo el `fieldset` con las etiquetas dinámicas sea el utilizado.
+        *   **Flags y Lugar de Vestir**: Se eliminaron los campos de entrada de texto redundantes para "Flags" y "Lugar de vestir" del `object-template` en `index.html`, manteniendo solo los `fieldset`s con checkboxes.
+        *   **Generación de Archivo**: Se confirmó que `generateObjectsSection` en `js/objects.js` lee correctamente los valores de V0-V4, Flags y Lugar de Vestir de los campos correctos (los `fieldset`s).
+    *   **Bandera P/G después del Precio**:
+        *   **Funcionalidad**: Se añadió un checkbox "Es Contenedor de Bebida (G)" en el `object-template` de `index.html` después del campo "Precio".
+        *   **Generación de Archivo**: Se modificó `generateObjectsSection` en `js/objects.js` para que, al generar el archivo `.are`, añada `G` si el checkbox está marcado, y `P` si no lo está, después del valor del precio.
