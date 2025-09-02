@@ -85,6 +85,12 @@ export function generateObjectsSection() {
             const desc = row.querySelector('.extra-desc').value;
             if (keyword && desc) section += `E\n${keyword}~\n${desc}~\n`;
         });
+
+        const setIdInput = obj.querySelector('.obj-set-id');
+        if (setIdInput && setIdInput.value.trim() !== '') {
+            section += `S ${setIdInput.value.trim()}\n`;
+        }
+
         section += '\n';
     });
     section += '#0\n\n';
