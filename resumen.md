@@ -65,6 +65,8 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
 
 ### Fase 4: Implementación de la Carga de Archivos .are
 
+*ESTO NO ES FUNCIONAL, SOLO SE CONTINUARÁ CON ESTO CUANDO LO PIDA EL USUARIO*
+
 *   **Funcionalidad de Carga de Archivos**:
     *   **Objetivo**: Permitir al usuario cargar un archivo `.are` existente para su edición.
     *   **Detalles de la Implementación**:
@@ -90,6 +92,8 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
         *   **Población de Sub-formularios Complejos**: Se implementaron `populateApplies`, `populateAffects`, `populateExtraDescriptions`, `populateExits`, `populateTiers` y se integraron en sus respectivas funciones `populateXSection` para manejar la creación dinámica y población de sub-elementos.
 
 ### Fase 5: Depuración de la Visualización Dinámica del Nombre(Problemas Recurrentes)
+*SOLUCIONADO*
+SOLO SE MUESTRA ESTO PARA INTERES DE MEMORIA
 
 *   **Visualización Dinámica del Nombre en Encabezados Colapsables**:
     *   **Problema Inicial**: El texto "Nuevo Mob" (o similar) no desaparecía y el nombre escrito por el usuario no aparecía.
@@ -125,3 +129,7 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
         *   Para **Mobs** y **Objects**, se cambió de "Descripción Corta" a "Nombres Identificativos" (usando las clases `.mob-keywords` y `.obj-keywords`).
         *   Para **Specials**, se cambió de "Nombre del Especial" a "Comentario (Opcional)" (usando la clase `.special-comment`).
     *   Esto se logró modificando las llamadas a las funciones `setup...Section` en `script.js` para que pasaran los selectores CSS correctos a la lógica de `utils.js`.
+
+### Fase 7: Depuración de cada sección
+
+* estamos yendo sección por sección solucionando los problemas o modificaciones que pide el usuario.
