@@ -379,16 +379,18 @@ select:focus {
     padding: 0 1.5rem; /* Collapse padding as well */
 }
 
-/* Mobiles, Objects & Rooms Section Specific Layout */
+/* Mobiles, Objects, Rooms & Shops Section Specific Layout */
 .mob-form-layout,
 .object-form-layout,
-.room-form-layout {
+.room-form-layout,
+.shop-form-layout {
     grid-template-columns: 1fr; /* Force a single column */
 }
 
 .mob-form-layout .form-inline,
 .object-form-layout .form-inline,
-.room-form-layout .form-inline {
+.room-form-layout .form-inline,
+.shop-form-layout .form-inline {
     flex-direction: column; /* Stack elements in inline groups */
     align-items: flex-start; /* Align them to the left */
     gap: 0.5rem; /* Reduce gap for stacked elements */
@@ -396,6 +398,7 @@ select:focus {
 
 .mob-form-layout .form-inline label,
 .object-form-layout .form-inline label,
-.room-form-layout .form-inline label {
+.room-form-layout .form-inline label,
+.shop-form-layout .form-inline label {
     margin-bottom: 0.5rem; /* Add margin back to labels in inline groups */
 }
