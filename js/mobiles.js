@@ -1,7 +1,64 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
+import { gameData } from './config.js';
 
 export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
-    setupDynamicSection('add-mob-btn', 'mobiles-container', 'mob-template', '.mob-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
+    const mobContainer = document.getElementById('mobiles-container');
+    const addMobBtn = document.getElementById('add-mob-btn');
+
+    // This event listener is now handled by setupDynamicSection in utils.js
+    // We just need to ensure the callback for new card is handled.
+    // The setupDynamicSection function now returns the addedCardElement directly.
+
+    // Function to attach event listeners to a single mob card
+    const attachMobCardListeners = (cardElement) => {
+        const levelInput = cardElement.querySelector('.mob-level');
+        const hitrollInput = cardElement.querySelector('.mob-hitroll');
+
+        const updateHitroll = () => {
+            const level = parseInt(levelInput.value);
+            if (isNaN(level)) {
+                hitrollInput.value = '';
+                return;
+            }
+
+            let recommendedHitroll = 0;
+            for (const rec of gameData.hitrollRecommendations) {
+                if (level >= rec.levelStart && level <= rec.levelEnd) {
+                    // Linear interpolation
+                    const levelRatio = (level - rec.levelStart) / (rec.levelEnd - rec.levelStart);
+                    recommendedHitroll = Math.round(rec.hitrollMin + levelRatio * (rec.hitrollMax - rec.hitrollMin));
+                    break;
+                } else if (level < rec.levelStart) { // If level is below the first range
+                    recommendedHitroll = rec.hitrollMin;
+                    break;
+                } else if (level > gameData.hitrollRecommendations[gameData.hitrollRecommendations.length - 1].levelEnd) { // If level is above the last range
+                    recommendedHitroll = gameData.hitrollRecommendations[gameData.hitrollRecommendations.length - 1].hitrollMax;
+                    break;
+                }
+            }
+            hitrollInput.value = recommendedHitroll;
+        };
+
+        levelInput.addEventListener('input', updateHitroll);
+        // Initial update if a default level is set
+        updateHitroll();
+    };
+
+    // Override the default add button behavior from setupDynamicSection
+    // to attach our specific listeners after the card is added.
+    addMobBtn.removeEventListener('click', setupDynamicSection); // Remove previous listener if any
+
+    addMobBtn.addEventListener('click', () => {
+        const newCardElement = setupDynamicSection('add-mob-btn', 'mobiles-container', 'mob-template', '.mob-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
+        if (newCardElement) {
+            attachMobCardListeners(newCardElement);
+        }
+    });
+
+    // Attach event listeners for existing cards if they are loaded (e.g., from file)
+    mobContainer.querySelectorAll('.mob-card').forEach(card => {
+        attachMobCardListeners(card);
+    });
 }
 
 export function generateMobilesSection() {

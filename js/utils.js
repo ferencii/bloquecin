@@ -254,6 +254,20 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
             });
         }
 
+        // Populate damage type dropdown if it exists in the new card
+        const damageTypeSelect = addedCardElement.querySelector('.mob-dam-type');
+        if (damageTypeSelect) {
+            gameData.damageTypes.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type.value;
+                option.textContent = type.description;
+                if (type.value === 'none') { // Set 'none' as default if it exists
+                    option.selected = true;
+                }
+                damageTypeSelect.appendChild(option);
+            });
+        }
+
         // Vnum auto-suggestion
         if (vnumSelector) {
             const vnumInputs = container.querySelectorAll(vnumSelector);
