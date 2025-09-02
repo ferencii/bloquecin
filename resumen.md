@@ -65,6 +65,8 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
 
 ### Fase 4: Implementación de la Carga de Archivos .are
 
+* actualmente no funciona correctamente, pero no se revisará hasta que el usario lo indique.
+
 *   **Funcionalidad de Carga de Archivos**:
     *   **Objetivo**: Permitir al usuario cargar un archivo `.are` existente para su edición.
     *   **Detalles de la Implementación**:
@@ -89,7 +91,7 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
         *   **Población de Flags**: Se implementó la función `populateCheckboxesFromFlags` y se integró en `populateMobilesSection`, `populateObjectsSection` y `populateRoomsSection` para manejar la población de checkboxes.
         *   **Población de Sub-formularios Complejos**: Se implementaron `populateApplies`, `populateAffects`, `populateExtraDescriptions`, `populateExits`, `populateTiers` y se integraron en sus respectivas funciones `populateXSection` para manejar la creación dinámica y población de sub-elementos.
 
-### Fase 5: Depuración de la Visualización Dinámica del Nombre y Colapsado (Problemas Recurrentes)
+### Fase 5: Depuración de la Visualización Dinámica del Nombre(Problemas Recurrentes)
 
 *   **Visualización Dinámica del Nombre en Encabezados Colapsables**:
     *   **Problema Inicial**: El texto "Nuevo Mob" (o similar) no desaparecía y el nombre escrito por el usuario no aparecía.
@@ -98,11 +100,4 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
         *   Se modificó `index.html` para mover el texto "Nuevo Mob" *dentro* del `<span>` (`mob-name-display`) para que pudiera ser sobrescrito por JavaScript.
         *   Se modificó `js/utils.js` para eliminar el fallback `|| 'Nuevo Elemento'` en el evento `input`, asegurando que el `<span>` se vaciara si el campo de entrada estaba vacío.
         *   Se añadió `dispatchEvent(new Event('input'))` en las funciones `populateXSection` de `js/parser.js` para forzar la actualización del nombre al cargar un archivo.
-        *   **Estado Actual del Problema**: El usuario reporta que el problema persiste. El texto "Mob: " (o similar) se mantiene estático y el nombre escrito no aparece. El usuario desea que el texto sea "Mob: [nombre escrito]".
-*   **Formularios No Colapsables**:
-    *   **Problema**: La funcionalidad de colapsar/expandir dejó de funcionar.
-    *   **Intentos de Solución**:
-        *   Se añadió `console.warn` en `js/utils.js` para diagnosticar si `collapsibleHeader` o `collapsibleContent` no se encontraban.
-        *   Se eliminó una regla CSS duplicada para `.collapsible-header .vnum-display` en `style.css`.
-        *   Se añadió `!important` a `max-height: 0;` y `padding: 0;` para `.collapsible-content.collapsed` en `style.css` para asegurar que las reglas de colapsado no fueran sobrescritas.
-        *   **Estado Actual del Problema**: El usuario reporta que el problema persiste.
+        *   **Estado Actual del Problema**: El usuario reporta que el problema persiste. El texto "Mob: " (o similar) se mantiene estático y el nombre escrito no aparece. El usuario desea que el texto sea "Mob: [nombre escrito]". el usuario insiste que se realice igual que se tiene realizado en (Vnum: ) donde aparece el Vnum del campo 
