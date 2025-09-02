@@ -362,7 +362,6 @@ export const gameData = {
         'antidenso',
         'denso'
     ],
-
     // Lista de materiales disponibles para objetos.
     // Utilizada para sugerencias en el campo de material de objetos.
     materials: [
@@ -466,6 +465,64 @@ export const gameData = {
         'antidenso',
         'denso'
     ],
+
+    // Lista de tipos de objetos disponibles.
+    objectTypes: [
+        'boat',
+        'clothing',
+        'container',
+        'disfraz',
+        'drink',
+        'emblema',
+        'food',
+        'fountain',
+        'furniture',
+        'gem',
+        'jewelry',
+        'jukebox',
+        'key',
+        'light',
+        'map',
+        'money',
+        'npc_corpse',
+        'pc_corpse',
+        'pill',
+        'portal',
+        'potion',
+        'protect',
+        'proteccion',
+        'room_key',
+        'scroll',
+        'staff',
+        'treasure',
+        'trash',
+        'wand',
+        'warp_stone',
+        'weapon'
+    ],
+
+    // Etiquetas para los valores V0-V4 de objetos, según su tipo.
+    objectValueLabels: {
+        'weapon': ['weap type', 'num dice', 'side dices', 'dam type', 'weap flags'],
+        'proteccion': ['pierce', 'bash', 'slash', 'exotic', 'bulk'],
+        'light': ['0', '0', 'light dur', '0', '0'],
+        'money': ['silver', 'gold', '0', '0', '0'],
+        'drink': ['max capac', 'cur capac', 'liquid', '0/A=pois', '0'], // Assuming 'drink' is 'drink containers'
+        'fountain': ['-1', '-1', 'liquid', '0', '0'],
+        'wand': ['spel lv', 'max charg', 'cur charg', 'spell', '0'],
+        'staff': ['spel lv', 'max charg', 'cur charg', 'spell', '0'],
+        'potion': ['spel lv', 'spell', 'spell', 'spell', 'spell'],
+        'scroll': ['spel lv', 'spell', 'spell', 'spell', 'spell'],
+        'pill': ['spel lv', 'spell', 'spell', 'spell', 'spell'],
+        'container': ['max wei', 'flags', 'Key Vnum', 'obj max', 'mult'], // Assuming 'containers'
+        'food': ['hours full', 'hour hung', '0', '0/A=pois', '0'],
+        'food_buff': ['duracion', 'Cantidad', 'apply', 'A/I/R/V', 'flags/A=veneno'],
+        'portal': ['cargas', 'exit flags', 'gate flags', 'rnum', '0'], // Assuming 'portals'
+        'furniture': ['gente', 'total wei', 'fur flags', 'heal bon', 'mana bon'],
+        'emblema': ['id_clan', 'rango', '', '', ''], // Adjusted for 5 values, empty for unused
+        'default': ['Valor 0', 'Valor 1', 'Valor 2', 'Valor 3', 'Valor 4'] // Default for types not explicitly listed
+    },
+
     // Prompts detallados para la generación de descripciones de IA.
     // Cada clave representa un tipo de entidad (mob, object, room) y contiene sub-prompts específicos.
     aiPrompts: {

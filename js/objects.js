@@ -1,37 +1,38 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
-
-const OBJECT_VALUE_LABELS = {
-    'weapon': ['Weap Type', 'Num Dice', 'Side Dices', 'Dam Type', 'Weap Flags'],
-    'proteccion': ['Pierce', 'Bash', 'Slash', 'Exotic', 'Bulk'],
-    'light': ['0', '0', 'Light Dur', '0', '0'],
-    'money': ['Silver', 'Gold', '0', '0', '0'],
-    'drink_container': ['Max Capac', 'Cur Capac', 'Liquid', '0/A=Pois', '0'],
-    'fountain': ['-1', '-1', 'Liquid', '0', '0'],
-    'wand': ['Spel Lv', 'Max Charg', 'Cur Charg', 'Spell', '0'],
-    'staff': ['Spel Lv', 'Max Charg', 'Cur Charg', 'Spell', '0'],
-    'potion': ['Spel Lv', 'Spell', 'Spell', 'Spell', 'Spell'],
-    'scroll': ['Spel Lv', 'Spell', 'Spell', 'Spell', 'Spell'],
-    'pill': ['Spel Lv', 'Spell', 'Spell', 'Spell', 'Spell'],
-    'container': ['Max Wei', 'Flags', 'Key Vnum', 'Obj Max', 'Wei Mult'],
-    'food': ['Hours Full', 'Hour Hung', '0', '0/A=Pois', '0'],
-    'food_buff': ['Duracion', 'Cantidad', 'Apply Code', 'A/I/R/V', 'Flags/A=Pois'],
-    'portal': ['Cargas', 'Exit Flags', 'Gate Flags', 'Dest Vnum', '0'],
-    'furniture': ['Gente', 'Total Wei', 'Fur Flags', 'Heal Bon', 'Mana Bon'],
-    'emblema': ['Clan ID', 'Rango', '0', '0', '0'],
-    'default': ['Valor 0', 'Valor 1', 'Valor 2', 'Valor 3', 'Valor 4']
-};
+import { gameData } from './config.js';
 
 function updateObjectValuesUI(objectCard) {
     const type = objectCard.querySelector('.obj-type').value;
-    const labels = OBJECT_VALUE_LABELS[type] || OBJECT_VALUE_LABELS['default'];
+    const labels = gameData.objectValueLabels[type] || gameData.objectValueLabels['default'];
     for (let i = 0; i < 5; i++) {
         const labelElement = objectCard.querySelector(`label[data-label-for="v${i}"]`);
         if (labelElement) labelElement.textContent = labels[i] + ':';
     }
 }
 
+function populateObjectTypeSelect(objectCard) {
+    console.log('populateObjectTypeSelect function called.');
+    console.log('gameData.objectTypes:', gameData.objectTypes);
+
+    const selectElement = objectCard.querySelector('.obj-type');
+    if (selectElement) {
+        console.log('Select element found:', selectElement);
+        // Clear existing options (if any)
+        selectElement.innerHTML = '';
+        gameData.objectTypes.forEach(type => {
+            const option = document.createElement('option');
+            option.value = type;
+            option.textContent = type;
+            selectElement.appendChild(option);
+        });
+        console.log('Select populated. Number of options:', selectElement.options.length);
+        // Trigger UI update for V0-V4 labels after populating
+        updateObjectValuesUI(objectCard);
+    }
+}
+
 export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
-    setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
+    setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, populateObjectTypeSelect);
 
     // Add event listener for type change on newly added cards
     const container = document.getElementById('objects-container');
