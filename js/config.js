@@ -372,6 +372,7 @@ export const gameData = {
         'drink',
         'emblema',
         'food',
+        'food_buff',
         'fountain',
         'furniture',
         'gem',
