@@ -26,12 +26,30 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
             });
             const newVnumInput = addedCardElement.querySelector(vnumSelector);
             if (newVnumInput) {
+                let proposedVnum;
                 if (maxVnum === 0) {
                     const areaVnumStart = parseInt(document.getElementById('area-vnum-start').value);
-                    newVnumInput.value = !isNaN(areaVnumStart) ? areaVnumStart : 1;
+                    proposedVnum = !isNaN(areaVnumStart) ? areaVnumStart : 1;
                 } else {
-                    newVnumInput.value = maxVnum + 1;
+                    proposedVnum = maxVnum + 1;
                 }
+
+                const areaVnumEnd = parseInt(document.getElementById('area-vnum-end').value);
+                if (isNaN(areaVnumEnd) || proposedVnum > areaVnumEnd) {
+                    alert(`El VNUM ${proposedVnum} excede el VNUM final del área (${areaVnumEnd}). Por favor, ajusta el rango del área o el VNUM.`);
+                    addedCardElement.remove(); // Remove the partially added card
+                    return;
+                }
+
+                const existingVnums = Array.from(container.querySelectorAll(vnumSelector)).map(input => parseInt(input.value));
+                if (existingVnums.includes(proposedVnum)) {
+                    alert(`El VNUM ${proposedVnum} ya existe en esta sección. Por favor, elige un VNUM diferente.`);
+                    addedCardElement.remove(); // Remove the partially added card
+                    return;
+                }
+
+                newVnumInput.value = proposedVnum;
+
                 // Update vnum display in header
                 if (vnumDisplaySelector) {
                     addedCardElement.querySelector(vnumDisplaySelector).textContent = newVnumInput.value;
