@@ -400,23 +400,23 @@ export const gameData = {
 
     // Etiquetas para los valores V0-V4 de objetos, según su tipo.
     objectValueLabels: {
-        'weapon': ['weap type', 'num dice', 'side dices', 'dam type', 'weap flags'],
-        'proteccion': ['pierce', 'bash', 'slash', 'exotic', 'bulk'],
-        'light': ['0', '0', 'light dur', '0', '0'],
-        'money': ['silver', 'gold', '0', '0', '0'],
-        'drink': ['max capac', 'cur capac', 'liquid', '0/A=pois', '0'], // Assuming 'drink' is 'drink containers'
-        'fountain': ['-1', '-1', 'liquid', '0', '0'],
-        'wand': ['spel lv', 'max charg', 'cur charg', 'spell', '0'],
-        'staff': ['spel lv', 'max charg', 'cur charg', 'spell', '0'],
-        'potion': ['spel lv', 'spell', 'spell', 'spell', 'spell'],
-        'scroll': ['spel lv', 'spell', 'spell', 'spell', 'spell'],
-        'pill': ['spel lv', 'spell', 'spell', 'spell', 'spell'],
-        'container': ['max wei', 'flags', 'Key Vnum', 'obj max', 'mult'], // Assuming 'containers'
-        'food': ['hours full', 'hour hung', '0', '0/A=pois', '0'],
+        'weapon': ['Tipo de arma', 'Número de dados', 'Cara de dados', 'Tipo de daño', 'Flags de arma'],
+        'proteccion': ['perforar', 'golpear', 'cortar', 'exótico', 'volumen'],
+        'light': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'duración de luz', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'money': ['plata', 'oro', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'drink': ['capacidad máxima', 'capacidad actual', 'líquido', '0/A=veneno', 'CONFIGURAR A 0'], // Assuming 'drink' is 'drink containers'
+        'fountain': ['CONFIGURAR A -1', 'CONFIGURAR A -1', 'líquido', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'wand': ['nivel de hechizo', 'cargas máximas', 'cargas actuales', 'hechizo', 'CONFIGURAR A 0'],
+        'staff': ['nivel de hechizo', 'cargas máximas', 'cargas actuales', 'hechizo', 'CONFIGURAR A 0'],
+        'potion': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
+        'scroll': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
+        'pill': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
+        'container': ['Maximo peso', 'Flags', 'Vnum de la llave', 'Objetos maximos dentro', 'Multiplicador de peso'], // Assuming 'containers'
+        'food': ['hours full', 'hour hung', 'CONFIGURAR A 0', '0/A=pois', 'CONFIGURAR A 0'],
         'food_buff': ['duracion', 'Cantidad', 'apply', 'A/I/R/V', 'flags/A=veneno'],
-        'portal': ['cargas', 'exit flags', 'gate flags', 'rnum', '0'], // Assuming 'portals'
+        'portal': ['cargas', 'exit flags', 'gate flags', 'Vnum Room', 'CONFIGURAR A 0'], // Assuming 'portals'
         'furniture': ['gente', 'total wei', 'fur flags', 'heal bon', 'mana bon'],
-        'emblema': ['id_clan', 'rango', '', '', ''], // Adjusted for 5 values, empty for unused
+        'emblema': ['id_clan', 'rango', 'DEJAR VACÍO', 'DEJAR VACÍO', 'DEJAR VACÍO'], // Adjusted for 5 values, empty for unused
         'default': ['Valor 0', 'Valor 1', 'Valor 2', 'Valor 3', 'Valor 4'] // Default for types not explicitly listed
     },
 
