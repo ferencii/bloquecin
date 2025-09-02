@@ -7,8 +7,20 @@ import { setupSetSection, generateSetSection } from './js/sets.js';
 import { setupShopsSection, generateShopsSection } from './js/shops.js';
 import { setupSpecialsSection, generateSpecialsSection } from './js/specials.js';
 import { setupProgsSection, generateProgsSection } from './js/progs.js';
+import { gameData } from './js/config.js';
 import { parseAreFile } from './js/parser.js';
 
+
+function populateMaterialsDatalist() {
+    const datalist = document.getElementById('materials-list');
+    if (datalist) {
+        gameData.materials.forEach(material => {
+            const option = document.createElement('option');
+            option.value = material;
+            datalist.appendChild(option);
+        });
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Setup navigation
@@ -33,6 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupProgsSection('mobprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
     setupProgsSection('objprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
     setupProgsSection('roomprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
+
+    populateMaterialsDatalist(); // Call the new function here
 
     // Setup main generate button
     document.getElementById('generate-btn').addEventListener('click', generateAreFile);
