@@ -76,7 +76,10 @@ export function generateObjectsSection() {
         obj.querySelectorAll('.applies-container .sub-item-row').forEach(row => {
             const location = row.querySelector('.apply-location').value;
             const modifier = row.querySelector('.apply-modifier').value;
-            if (location && modifier) section += `A ${location} ${modifier}\n`;
+            if (location && modifier) {
+                section += `A\n`;
+                section += `${location} ${modifier}\n`;
+            }
         });
 
         obj.querySelectorAll('.affects-container .sub-item-row').forEach(row => {
