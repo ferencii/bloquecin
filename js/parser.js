@@ -1,3 +1,5 @@
+import { populateAffectBitSelect } from './objects.js';
+
 export function parseAreFile(content) {
     console.log('Parsing .are file...');
 
@@ -295,7 +297,7 @@ function parseObjectsSection(sectionContent) {
                     obj.applies.push({ location: parts[0], modifier: parts[1] });
                 } else if (line.startsWith('F ')) {
                     const parts = line.substring(2).trim().split(' ');
-                    obj.affects.push({ type: parts[0], bits: parts.slice(1).join(' ') });
+                    obj.affects.push({ type: parts[0], bits: parts.slice(3).join('') });
                 } else if (line.startsWith('E ')) {
                     const keywordLine = line.substring(2).trim();
                     const keywordMatch = keywordLine.match(/^(.*?~)\s*(.*)/);
@@ -387,6 +389,7 @@ function populateAffects(containerElement, affectsData) {
         const addedAffectElement = newAffect.querySelector('.sub-item-row');
 
         addedAffectElement.querySelector('.affect-type').value = affect.type;
+        populateAffectBitSelect(addedAffectElement);
         addedAffectElement.querySelector('.affect-bits').value = affect.bits;
 
         affectsContainer.appendChild(addedAffectElement);

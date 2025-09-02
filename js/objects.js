@@ -26,6 +26,20 @@ function populateObjectTypeSelect(objectCard) {
     }
 }
 
+export function populateAffectBitSelect(row) {
+    const type = row.querySelector('.affect-type').value;
+    const select = row.querySelector('.affect-bits');
+    const options = gameData.affectBitOptions[type] || [];
+    select.innerHTML = '';
+    options.forEach(opt => {
+        const option = document.createElement('option');
+        option.value = opt.value;
+        option.textContent = `${opt.value} - ${opt.label}`;
+        select.appendChild(option);
+    });
+    if (options.length > 0) select.selectedIndex = 0;
+}
+
 export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
     setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, populateObjectTypeSelect);
 
@@ -34,6 +48,8 @@ export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDi
     container.addEventListener('change', e => {
         if (e.target.classList.contains('obj-type')) {
             updateObjectValuesUI(e.target.closest('.object-card'));
+        } else if (e.target.classList.contains('affect-type')) {
+            populateAffectBitSelect(e.target.closest('.sub-item-row'));
         }
     });
 
@@ -41,7 +57,12 @@ export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDi
         const target = e.target;
         if (target.classList.contains('remove-btn')) target.closest('.object-card').remove();
         else if (target.classList.contains('add-apply-btn')) target.previousElementSibling.appendChild(document.getElementById('apply-template').content.cloneNode(true));
-        else if (target.classList.contains('add-affect-btn')) target.previousElementSibling.appendChild(document.getElementById('affect-template').content.cloneNode(true));
+        else if (target.classList.contains('add-affect-btn')) {
+            const container = target.previousElementSibling;
+            const fragment = document.getElementById('affect-template').content.cloneNode(true);
+            container.appendChild(fragment);
+            populateAffectBitSelect(container.lastElementChild);
+        }
         else if (target.classList.contains('add-extra-btn')) target.previousElementSibling.appendChild(document.getElementById('extra-desc-template').content.cloneNode(true));
         else if (target.classList.contains('remove-sub-btn')) target.parentElement.remove();
     });

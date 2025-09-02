@@ -1,4 +1,5 @@
 import { setupDynamicSection } from './utils.js';
+import { populateAffectBitSelect } from './objects.js';
 
 export function setupSetSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
     setupDynamicSection('add-set-btn', 'sets-container', 'set-template', '.set-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
@@ -13,7 +14,15 @@ export function setupSetSection(vnumRangeCheckFunction, vnumSelector, vnumDispla
         } else if (target.classList.contains('add-apply-btn')) {
             target.previousElementSibling.appendChild(document.getElementById('apply-template').content.cloneNode(true));
         } else if (target.classList.contains('add-affect-btn')) {
-            target.previousElementSibling.appendChild(document.getElementById('affect-template').content.cloneNode(true));
+            const container = target.previousElementSibling;
+            const fragment = document.getElementById('affect-template').content.cloneNode(true);
+            container.appendChild(fragment);
+            populateAffectBitSelect(container.lastElementChild);
+        }
+    });
+    container.addEventListener('change', e => {
+        if (e.target.classList.contains('affect-type')) {
+            populateAffectBitSelect(e.target.closest('.sub-item-row'));
         }
     });
 }

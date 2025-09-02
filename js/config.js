@@ -1,3 +1,29 @@
+const affectIRVBits = [
+    { value: 'A', label: 'Summon' },
+    { value: 'B', label: 'Charm' },
+    { value: 'C', label: 'Magic' },
+    { value: 'D', label: 'Weapons' },
+    { value: 'E', label: 'Bash' },
+    { value: 'F', label: 'Pierce' },
+    { value: 'G', label: 'Slash' },
+    { value: 'H', label: 'Fire' },
+    { value: 'I', label: 'Cold' },
+    { value: 'J', label: 'Lightning' },
+    { value: 'K', label: 'Acid' },
+    { value: 'L', label: 'Poison' },
+    { value: 'M', label: 'Negative' },
+    { value: 'N', label: 'Holy' },
+    { value: 'O', label: 'Energy' },
+    { value: 'P', label: 'Mental' },
+    { value: 'Q', label: 'Disease' },
+    { value: 'R', label: 'Drowning' },
+    { value: 'S', label: 'Light' },
+    { value: 'T', label: 'Sound' },
+    { value: 'X', label: 'Wood' },
+    { value: 'Y', label: 'Silver' },
+    { value: 'Z', label: 'Iron' }
+];
+
 export const gameData = {
     // Configuración de las API Keys para los modelos de IA de Gemini.
     // Se pueden añadir múltiples keys para rotación o fallback.
@@ -419,6 +445,44 @@ export const gameData = {
         'furniture': ['gente', 'total wei', 'fur flags', 'heal bon', 'mana bon'],
         'emblema': ['id_clan', 'rango', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'], // Adjusted for 5 values, empty for unused
         'default': ['Valor 0', 'Valor 1', 'Valor 2', 'Valor 3', 'Valor 4'] // Default for types not explicitly listed
+    },
+
+    affectBitOptions: {
+        A: [
+            { value: 'A', label: 'Blind' },
+            { value: 'B', label: 'Invisible' },
+            { value: 'C', label: 'Detect_evil' },
+            { value: 'D', label: 'Detect_invis' },
+            { value: 'E', label: 'Detect_magic' },
+            { value: 'F', label: 'Detect_hidden' },
+            { value: 'G', label: 'Detect_good' },
+            { value: 'H', label: 'Sanctuary' },
+            { value: 'I', label: 'Faerie_fire' },
+            { value: 'J', label: 'Infrared' },
+            { value: 'K', label: 'Curse' },
+            { value: 'L', label: 'Flaming (No Implementado)' },
+            { value: 'M', label: 'Poisoned' },
+            { value: 'N', label: 'Prot_evil' },
+            { value: 'O', label: 'Prot_good' },
+            { value: 'P', label: 'Sneak' },
+            { value: 'Q', label: 'Hide' },
+            { value: 'R', label: 'Sleep' },
+            { value: 'S', label: 'Charm' },
+            { value: 'T', label: 'Flying' },
+            { value: 'U', label: 'Pass_door' },
+            { value: 'V', label: 'Haste' },
+            { value: 'W', label: 'Calm' },
+            { value: 'X', label: 'Plague' },
+            { value: 'Y', label: 'Weaken' },
+            { value: 'Z', label: 'Dark_vis' },
+            { value: 'a', label: 'Berserk (No Implementado)' },
+            { value: 'b', label: 'Swim (No Implementado)' },
+            { value: 'c', label: 'Regen' },
+            { value: 'd', label: 'Slow' }
+        ],
+        I: affectIRVBits,
+        R: affectIRVBits,
+        V: affectIRVBits
     },
 
     // Prompts detallados para la generación de descripciones de IA.
