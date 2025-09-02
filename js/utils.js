@@ -85,8 +85,9 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
 
             // Assign values to target fields
             for (const key in targetFields) {
-                if (targetFields.hasOwnProperty(key) && descriptions.hasOwnProperty(key)) {
-                    targetFields[key].value = descriptions[key] || '';
+                if (targetFields.hasOwnProperty(key) && finalDescriptions.hasOwnProperty(key)) {
+                    targetFields[key].value = finalDescriptions[key] || '';
+                    console.log(`Asignando ${key}: ${finalDescriptions[key]} a ${targetFields[key].className}`); // NEW DEBUG LOG
                 }
             }
             console.log('Paso 7: Campos rellenados.'); // Debug log
@@ -168,6 +169,24 @@ async function handleExtraDescAiGeneration(e) {
 
     const targetFields = {
         extra_desc: extraDescInput
+    };
+
+    await generateDescriptions(generateBtn, promptText, promptInstructions, targetFields);
+}
+
+// Room Description AI generation handler
+async function handleRoomAiGeneration(e) {
+    const generateBtn = e.target;
+    const card = generateBtn.closest('.room-card'); // Note: closest room-card
+    if (!card) return;
+
+    const promptText = card.querySelector('.ai-prompt').value;
+    const roomDescInput = card.querySelector('.room-desc'); // Note: room-desc
+
+    const promptInstructions = `Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción para una habitación de un juego MUD. Esta descripción debe ser extensa y muy descriptiva, detallando el ambiente, objetos, sonidos, olores, etc. Responde solo con el objeto JSON, usando la clave "room_desc".`;
+
+    const targetFields = {
+        room_desc: roomDescInput
     };
 
     await generateDescriptions(generateBtn, promptText, promptInstructions, targetFields);
@@ -300,6 +319,8 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
                 handleObjectShortLongAiGeneration(e);
             } else if (aiTarget === 'extra-description') { // New extra description button
                 handleExtraDescAiGeneration(e);
+            } else if (aiTarget === 'room-description') { // New room button
+                handleRoomAiGeneration(e);
             }
             // Add more conditions here for other AI buttons
         }
