@@ -8,35 +8,122 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
     const attachMobCardListeners = (cardElement) => {
         const levelInput = cardElement.querySelector('.mob-level');
         const hitrollInput = cardElement.querySelector('.mob-hitroll');
+        const hpDiceNumInput = cardElement.querySelector('.mob-hp-dice-num');
+        const hpDiceSidesInput = cardElement.querySelector('.mob-hp-dice-sides');
+        const hpDiceBonusInput = cardElement.querySelector('.mob-hp-dice-bonus');
+        const manaDiceNumInput = cardElement.querySelector('.mob-mana-dice-num');
+        const manaDiceSidesInput = cardElement.querySelector('.mob-mana-dice-sides');
+        const manaDiceBonusInput = cardElement.querySelector('.mob-mana-dice-bonus');
+        const damDiceNumInput = cardElement.querySelector('.mob-dam-dice-num');
+        const damDiceSidesInput = cardElement.querySelector('.mob-dam-dice-sides');
+        const damDiceBonusInput = cardElement.querySelector('.mob-dam-dice-bonus');
+        const acPierceInput = cardElement.querySelector('.mob-ac-pierce');
+        const acBashInput = cardElement.querySelector('.mob-ac-bash');
+        const acSlashInput = cardElement.querySelector('.mob-ac-slash');
+        const acExoticInput = cardElement.querySelector('.mob-ac-exotic');
+        const acMagicInput = cardElement.querySelector('.mob-ac-magic');
 
-        const updateHitroll = () => {
+        const updateMobStats = () => {
             const level = parseInt(levelInput.value);
             if (isNaN(level)) {
                 hitrollInput.value = '';
+                hpDiceNumInput.value = '';
+                hpDiceSidesInput.value = '';
+                hpDiceBonusInput.value = '';
+                manaDiceNumInput.value = '';
+                manaDiceSidesInput.value = '';
+                manaDiceBonusInput.value = '';
+                damDiceNumInput.value = '';
+                damDiceSidesInput.value = '';
+                damDiceBonusInput.value = '';
+                acPierceInput.value = '';
+                acBashInput.value = '';
+                acSlashInput.value = '';
+                acExoticInput.value = '';
+                acMagicInput.value = '';
                 return;
             }
 
+            // Update Hitroll
             let recommendedHitroll = 0;
             for (const rec of gameData.hitrollRecommendations) {
                 if (level >= rec.levelStart && level <= rec.levelEnd) {
-                    // Linear interpolation
                     const levelRatio = (level - rec.levelStart) / (rec.levelEnd - rec.levelStart);
                     recommendedHitroll = Math.round(rec.hitrollMin + levelRatio * (rec.hitrollMax - rec.hitrollMin));
                     break;
-                } else if (level < rec.levelStart) { // If level is below the first range
+                } else if (level < rec.levelStart) {
                     recommendedHitroll = rec.hitrollMin;
                     break;
-                } else if (level > gameData.hitrollRecommendations[gameData.hitrollRecommendations.length - 1].levelEnd) { // If level is above the last range
+                } else if (level > gameData.hitrollRecommendations[gameData.hitrollRecommendations.length - 1].levelEnd) {
                     recommendedHitroll = gameData.hitrollRecommendations[gameData.hitrollRecommendations.length - 1].hitrollMax;
                     break;
                 }
             }
             hitrollInput.value = recommendedHitroll;
+
+            // Update HP, Mana, Armor, Damage
+            let mobStats = null;
+            // Find exact match or closest lower level
+            for (let i = gameData.mobStatsRecommendations.length - 1; i >= 0; i--) {
+                if (level >= gameData.mobStatsRecommendations[i].level) {
+                    mobStats = gameData.mobStatsRecommendations[i];
+                    break;
+                }
+            }
+
+            if (mobStats) {
+                hpDiceNumInput.value = mobStats.hpManaDice.num;
+                hpDiceSidesInput.value = mobStats.hpManaDice.sides;
+                hpDiceBonusInput.value = mobStats.hpManaDice.bonus;
+
+                // Calculate Mana based on formula: 1d10 + 100 * Level
+                manaDiceNumInput.value = 1;
+                manaDiceSidesInput.value = 10;
+                manaDiceBonusInput.value = 100 * level;
+
+                damDiceNumInput.value = mobStats.damageDice.num;
+                damDiceSidesInput.value = mobStats.damageDice.sides;
+                damDiceBonusInput.value = mobStats.damageDice.bonus;
+
+                acPierceInput.value = mobStats.armor;
+                acBashInput.value = mobStats.armor;
+                acSlashInput.value = mobStats.armor;
+                acExoticInput.value = mobStats.armor;
+
+                // Calculate AC Magic
+                const ac = parseInt(mobStats.armor);
+                if (!isNaN(ac)) {
+                    acMagicInput.value = Math.round(((ac - 10) / 3) + 10);
+                }
+            } else { // If level is below the first entry, use first entry's values
+                const firstStats = gameData.mobStatsRecommendations[0];
+                hpDiceNumInput.value = firstStats.hpManaDice.num;
+                hpDiceSidesInput.value = firstStats.hpManaDice.sides;
+                hpDiceBonusInput.value = firstStats.hpManaDice.bonus;
+
+                manaDiceNumInput.value = firstStats.hpManaDice.num;
+                manaDiceSidesInput.value = firstStats.hpManaDice.sides;
+                manaDiceBonusInput.value = firstStats.hpManaDice.bonus;
+
+                damDiceNumInput.value = firstStats.damageDice.num;
+                damDiceSidesInput.value = firstStats.damageDice.sides;
+                damDiceBonusInput.value = firstStats.damageDice.bonus;
+
+                acPierceInput.value = firstStats.armor;
+                acBashInput.value = firstStats.armor;
+                acSlashInput.value = firstStats.armor;
+                acExoticInput.value = firstStats.armor;
+
+                const ac = parseInt(firstStats.armor);
+                if (!isNaN(ac)) {
+                    acMagicInput.value = Math.round(((ac - 10) / 3) + 10);
+                }
+            }
         };
 
-        levelInput.addEventListener('input', updateHitroll);
+        levelInput.addEventListener('input', updateMobStats);
         // Initial update if a default level is set
-        updateHitroll();
+        updateMobStats();
     };
 
     // Call setupDynamicSection and pass the callback for new cards
