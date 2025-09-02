@@ -1,3 +1,5 @@
+import { gameData } from './config.js';
+
 export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null, nameInputSelector = null, nameDisplaySelector = null) {
     const addButton = document.getElementById(buttonId);
     const container = document.getElementById(containerId);
@@ -19,6 +21,20 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
         container.appendChild(newCard);
 
         const addedCardElement = container.lastElementChild;
+
+        // Populate race dropdown if it exists in the new card
+        const raceSelect = addedCardElement.querySelector('.mob-race');
+        if (raceSelect) {
+            gameData.races.forEach(race => {
+                const option = document.createElement('option');
+                option.value = race;
+                option.textContent = race;
+                if (race === 'humano') {
+                    option.selected = true;
+                }
+                raceSelect.appendChild(option);
+            });
+        }
 
         // Vnum auto-suggestion
         if (vnumSelector) {
@@ -105,4 +121,11 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
 export function getFlagString(container, selector) {
     const flags = Array.from(container.querySelectorAll(selector)).filter(cb => cb.checked).map(cb => cb.value).join('');
     return flags || '0';
+}
+
+export function populateCheckboxesFromFlags(container, selector, flagString) {
+    const checkboxes = container.querySelectorAll(selector);
+    checkboxes.forEach(cb => {
+        cb.checked = flagString.includes(cb.value);
+    });
 }
