@@ -23,7 +23,7 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
         for (const apiKey of gameData.apiKeys) {
             for (const model of gameData.modelFallbackOrder) {
                 try {
-                    console.log(`Paso 1: Iniciando fetch a la API con modelo ${model} y API Key ${apiKey.substring(0, 5)}...`); // Debug log
+
                     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
                         method: 'POST',
                         headers: {
@@ -37,7 +37,7 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
                             }]
                         })
                     });
-                    console.log('Paso 2: Respuesta de fetch recibida. Status:', response.status); // Debug log
+
 
                     if (!response.ok) {
                         let errorMessage = `Error de la API con ${model}: ${response.status} ${response.statusText}`;
@@ -57,7 +57,7 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
                     }
 
                     const data = await response.json();
-                    console.log('Paso 3: Datos de la API parseados:', data); // Debug log
+
 
                     if (!data || !data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts || !data.candidates[0].content.parts[0] || !data.candidates[0].content.parts[0].text) {
                         lastError = new Error('La respuesta de la IA no contiene el texto esperado (estructura de datos inesperada).');
@@ -65,13 +65,13 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
                         continue; // Try next model/API key
                     }
                     const textResponse = data.candidates[0].content.parts[0].text;
-                    console.log('Paso 4: textResponse extraído:', textResponse); // Debug log
+
 
                     try {
                         const jsonString = textResponse.replace(/```json/g, '').replace(/```/g, '').trim();
-                        console.log('Paso 5: jsonString limpio:', jsonString); // Debug log
+
                         const allDescriptions = JSON.parse(jsonString);
-                        console.log('Paso 6: Descripciones parseadas:', allDescriptions); // Debug log
+
 
                         if (!Array.isArray(allDescriptions) || allDescriptions.length === 0) {
                             // If it's not an array, assume it's a single object (AI might return directly)
@@ -84,7 +84,7 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
                                         targetFields[key].value = descriptions[key] || '';
                                     }
                                 }
-                                console.log('Paso 7: Campos rellenados.'); // Debug log
+
                                 return; // Exit successfully
                             }
                             lastError = new Error('La IA no devolvió un array de descripciones válido ni un objeto JSON directo.');
@@ -98,10 +98,10 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
                         for (const key in targetFields) {
                             if (targetFields.hasOwnProperty(key) && descriptions.hasOwnProperty(key)) { // Changed finalDescriptions to descriptions
                                 targetFields[key].value = descriptions[key] || '';
-                                console.log(`Asignando ${key}: ${descriptions[key]} a ${targetFields[key].className}`); // NEW DEBUG LOG
+
                             }
                         }
-                        console.log('Paso 7: Campos rellenados.'); // Debug log
+
                         return; // Exit successfully
                     } catch (parseError) {
                         console.error("Error al parsear la respuesta JSON de la IA:", textResponse);
@@ -129,7 +129,7 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
     } finally {
         generateBtn.textContent = 'Generar Descripciones';
         generateBtn.disabled = false;
-        console.log('Paso Final: Botón re-habilitado.'); // Debug log
+
     }
 }
 
@@ -368,9 +368,6 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
 }
 
 export function getFlagString(container, legendText) { // Changed selector to legendText
-    console.log('getFlagString called with container:', container);
-    console.log('getFlagString called with legendText:', legendText);
-
     let targetFieldset = null;
     const fieldsets = container.querySelectorAll('fieldset'); // Get all fieldsets within the container
     for (const fieldset of fieldsets) {
@@ -385,12 +382,8 @@ export function getFlagString(container, legendText) { // Changed selector to le
         console.error(`Fieldset with legend "${legendText}" not found in container.`);
         return '0'; // Return default if fieldset not found
     }
-    console.log('Found targetFieldset:', targetFieldset);
-
     const checkboxes = Array.from(targetFieldset.querySelectorAll('input[type="checkbox"]'));
-    console.log('Found checkboxes within targetFieldset:', checkboxes);
     const flags = checkboxes.filter(cb => cb.checked).map(cb => cb.value).join('');
-    console.log('Collected flags:', flags);
     return flags || '0';
 }
 

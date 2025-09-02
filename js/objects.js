@@ -62,8 +62,6 @@ export function generateObjectsSection() {
         const type = obj.querySelector('.obj-type').value;
         const extraFlags = getFlagString(obj, 'Flags');
         const wearFlags = getFlagString(obj, 'Lugar de Vestir');
-        console.log('Generated extraFlags:', extraFlags);
-        console.log('Generated wearFlags:', wearFlags);
         section += `${type} ${extraFlags} ${wearFlags}\n`;
 
         section += `${obj.querySelector('.obj-v0').value} ${obj.querySelector('.obj-v1').value} ${obj.querySelector('.obj-v2').value} ${obj.querySelector('.obj-v3').value} ${obj.querySelector('.obj-v4').value}\n`;

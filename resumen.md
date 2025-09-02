@@ -31,3 +31,9 @@
     *   **Bandera P/G después del Precio**:
         *   **Funcionalidad**: Se añadió un checkbox "Es Contenedor de Bebida (G)" en el `object-template` de `index.html` después del campo "Precio".
         *   **Generación de Archivo**: Se modificó `generateObjectsSection` en `js/objects.js` para que, al generar el archivo `.are`, añada `G` si el checkbox está marcado, y `P` si no lo está, después del valor del precio.
+    *   **Flags y Lugar de Vestir (Checkboxes)**:
+        *   **Funcionalidad**: Se aseguró que los checkboxes de "Flags" y "Lugar de Vestir" en el `object-template` funcionen correctamente, generando una cadena combinada de flags (`ej. ADGI`).
+        *   **Depuración**: Se depuró un problema donde `getFlagString` devolvía `0` a pesar de que los checkboxes estaban marcados. Se descubrió que el selector `fieldset[legend="Flags"]` era incorrecto.
+        *   **Solución**: Se refactorizó la función `getFlagString` en `js/utils.js` para que encuentre el `fieldset` correcto buscando por el texto de su `legend` (`legend.textContent.trim()`).
+        *   **Confirmación**: Se verificó mediante `console.log` que `getFlagString` ahora identifica correctamente los `fieldset`s y recolecta los valores de los checkboxes marcados.
+        *   **Limpieza**: Se eliminaron los `console.log` de depuración de `js/utils.js` y `js/objects.js`.

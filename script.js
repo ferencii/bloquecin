@@ -17,11 +17,11 @@ function populateMaterialsDatalist() {
         gameData.materials.forEach(material => {
             const option = document.createElement('option');
             option.value = material;
+            option.textContent = material; // Added textContent for clarity, though value is often enough
             datalist.appendChild(option);
         });
-    } else {
-        console.error('Datalist element with ID "materials-list" not found!');
     }
+    // Removed else block with console.error
 }
 
 document.addEventListener('DOMContentLoaded', () => {
