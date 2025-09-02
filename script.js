@@ -23,13 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup all sections
     setupAreaSection();
-    setupMobilesSection(isValidVnumRange, '.mob-vnum', '.mob-vnum-display', '.mob-short-desc', '.mob-name-display');
-    setupObjectsSection(isValidVnumRange, '.obj-vnum', '.obj-vnum-display', '.obj-short-desc', '.obj-name-display');
+    setupObjectsSection(isValidVnumRange, '.obj-vnum', '.obj-vnum-display', '.obj-keywords', '.obj-name-display');
+    setupMobilesSection(isValidVnumRange, '.mob-vnum', '.mob-vnum-display', '.mob-keywords', '.mob-name-display');
     setupRoomsSection(isValidVnumRange, '.room-vnum', '.room-vnum-display', '.room-name', '.room-name-display');
     setupResetsSection();
     setupSetSection(null, '.set-id', '.set-id-display', '.set-name', '.set-name-display');
     setupShopsSection(isValidVnumRange, '.shop-vnum', '.shop-vnum-display', null, null);
-    setupSpecialsSection(isValidVnumRange, '.special-vnum', '.special-vnum-display', '.special-name', '.special-name-display');
+    setupSpecialsSection(isValidVnumRange, '.special-vnum', '.special-vnum-display', '.special-comment', '.special-name-display');
     setupProgsSection('mobprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
     setupProgsSection('objprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
     setupProgsSection('roomprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);

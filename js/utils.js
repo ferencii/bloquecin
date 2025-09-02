@@ -1,10 +1,16 @@
 export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null, nameInputSelector = null, nameDisplaySelector = null) {
     const addButton = document.getElementById(buttonId);
     const container = document.getElementById(containerId);
-    const template = document.getElementById(templateId);
     if (!addButton) return;
 
     addButton.addEventListener('click', () => {
+        const template = document.getElementById(templateId);
+        if (!template) {
+            console.error(`Template with ID '${templateId}' not found.`);
+            alert(`Error: No se pudo encontrar la plantilla para este elemento.`);
+            return;
+        }
+
         if (vnumRangeCheckFunction && !vnumRangeCheckFunction()) {
             alert('¡Atención! Debes definir un rango de VNUMs válido en la sección #AREA para poder añadir elementos.');
             return;
@@ -35,7 +41,7 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
                 }
 
                 const areaVnumEnd = parseInt(document.getElementById('area-vnum-end').value);
-                if (isNaN(areaVnumEnd) || proposedVnum > areaVnumEnd) {
+                if (!isNaN(areaVnumEnd) && proposedVnum > areaVnumEnd) {
                     alert(`El VNUM ${proposedVnum} excede el VNUM final del área (${areaVnumEnd}). Por favor, ajusta el rango del área o el VNUM.`);
                     addedCardElement.remove(); // Remove the partially added card
                     return;
@@ -64,8 +70,6 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
             collapsibleHeader.addEventListener('click', () => {
                 collapsibleContent.classList.toggle('collapsed');
             });
-            // New cards are expanded by default, existing ones (on load) could be collapsed
-            // For now, all new cards start expanded.
         }
 
         // Update vnum display on input change
@@ -84,12 +88,11 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
             const nameInput = addedCardElement.querySelector(nameInputSelector);
             const nameDisplay = addedCardElement.querySelector(nameDisplaySelector);
             if (nameInput && nameDisplay) {
-                // Set initial name display
-                nameDisplay.textContent = nameInput.value || nameDisplay.textContent; // Use existing text if input is empty
-
                 nameInput.addEventListener('input', () => {
-                    nameDisplay.textContent = nameInput.value || 'Nuevo Elemento'; // Default text if input is cleared
+                    nameDisplay.textContent = nameInput.value;
                 });
+                // Trigger the event immediately to set the initial state
+                nameInput.dispatchEvent(new Event('input'));
             }
         }
     });

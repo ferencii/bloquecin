@@ -65,8 +65,6 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
 
 ### Fase 4: Implementación de la Carga de Archivos .are
 
-* actualmente no funciona correctamente, pero no se revisará hasta que el usario lo indique.
-
 *   **Funcionalidad de Carga de Archivos**:
     *   **Objetivo**: Permitir al usuario cargar un archivo `.are` existente para su edición.
     *   **Detalles de la Implementación**:
@@ -100,4 +98,30 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
         *   Se modificó `index.html` para mover el texto "Nuevo Mob" *dentro* del `<span>` (`mob-name-display`) para que pudiera ser sobrescrito por JavaScript.
         *   Se modificó `js/utils.js` para eliminar el fallback `|| 'Nuevo Elemento'` en el evento `input`, asegurando que el `<span>` se vaciara si el campo de entrada estaba vacío.
         *   Se añadió `dispatchEvent(new Event('input'))` en las funciones `populateXSection` de `js/parser.js` para forzar la actualización del nombre al cargar un archivo.
-        *   **Estado Actual del Problema**: El usuario reporta que el problema persiste. El texto "Mob: " (o similar) se mantiene estático y el nombre escrito no aparece. El usuario desea que el texto sea "Mob: [nombre escrito]". el usuario insiste que se realice igual que se tiene realizado en (Vnum: ) donde aparece el Vnum del campo 
+        *   **Estado Actual del Problema**: El usuario reporta que el problema persiste. El texto "Mob: " (o similar) se mantiene estático y el nombre escrito no aparece. El usuario desea que el texto sea "Mob: [nombre escrito]". el usuario insiste que se realice igual que se tiene realizado en (Vnum: ) donde aparece el Vnum del campo
+
+### Fase 6: Depuración Intensiva de Errores de Renderizado y Sintaxis HTML
+
+*   **Problema Persistente**: A pesar de múltiples correcciones en los archivos JavaScript, la aplicación seguía sufriendo un error crítico y extraño: `TypeError: Cannot read properties of null (reading 'content')` en `utils.js`. El síntoma principal era que solo el botón "Añadir Mob" funcionaba correctamente al inicio, mientras que el resto de los botones "Añadir" fallaban.
+
+*   **Proceso de Depuración Detallado**:
+    1.  **Hipótesis Inicial (Errónea)**: Se creyó que el problema residía en los archivos `.js` de cada sección (ej. `shops.js`, `progs.js`), pensando que no pasaban los parámetros necesarios a la función `setupDynamicSection`. Se corrigieron todos estos archivos, pero el error persistió.
+    2.  **Pistas Clave del Usuario**: El usuario proporcionó información crucial que cambió el rumbo de la investigación:
+        *   El error se solucionaba temporalmente si se navegaba a una sección con lógica distinta (como `#RESETS`).
+        *   Posteriormente, se descubrió que un botón fallido (ej. "Añadir Objeto") empezaba a funcionar *después* de haber pulsado el botón que sí funcionaba ("Añadir Mob").
+    3.  **Diagnóstico Final**: Estas pistas apuntaron inequívocamente a un **error de análisis (parsing) del DOM** por parte del navegador. El problema no estaba en el JavaScript, sino en un archivo `index.html` con sintaxis inválida. El acto de añadir un Mob forzaba al navegador a re-analizar el DOM, y en ese proceso "descubría" las plantillas que antes, debido al error de sintaxis, no podía encontrar.
+    4.  **Identificación de Errores de Sintaxis Múltiples**: Una revisión exhaustiva de `index.html` reveló varios errores graves introducidos durante las fases de desarrollo:
+        *   Un carácter `2` y comentarios duplicados (`<!-- ALL TEMPLATES -->`) se habían insertado por error al principio de la sección de plantillas.
+        *   Una etiqueta `<template id="prog-template">` no estaba cerrada correctamente.
+        *   El error más grave: un gran bloque de plantillas HTML estaba duplicado y pegado **después** de la etiqueta de cierre `</html>`, lo que invalida toda la estructura del documento.
+
+*   **Solución Definitiva**:
+    *   Se tomó la decisión de reescribir por completo el archivo `index.html` para garantizar una estructura limpia y sin errores.
+    *   Se utilizó la herramienta `write_file` para reemplazar todo el contenido del archivo con una versión correcta y validada, eliminando los caracteres extraños, las etiquetas mal cerradas y todo el bloque de código duplicado después de `</html>`.
+    *   Esta acción resolvió de forma permanente el error `template not found`, permitiendo que todos los botones "Añadir" funcionen correctamente desde el inicio.
+
+*   **Ajustes Finales de Funcionalidad**:
+    *   **Cambio de Campo para el Nombre**: A petición del usuario, se modificó el campo de origen para el nombre que se muestra en el encabezado de las tarjetas.
+        *   Para **Mobs** y **Objects**, se cambió de "Descripción Corta" a "Nombres Identificativos" (usando las clases `.mob-keywords` y `.obj-keywords`).
+        *   Para **Specials**, se cambió de "Nombre del Especial" a "Comentario (Opcional)" (usando la clase `.special-comment`).
+    *   Esto se logró modificando las llamadas a las funciones `setup...Section` en `script.js` para que pasaran los selectores CSS correctos a la lógica de `utils.js`.

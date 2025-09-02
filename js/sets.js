@@ -1,17 +1,20 @@
-export function setupSetSection() {
-    const btn = document.getElementById('add-set-btn');
+import { setupDynamicSection } from './utils.js';
+
+export function setupSetSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
+    setupDynamicSection('add-set-btn', 'sets-container', 'set-template', '.set-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
+
     const container = document.getElementById('sets-container');
-    if (!btn) return;
-
-    btn.addEventListener('click', () => container.appendChild(document.getElementById('set-template').content.cloneNode(true)));
-
     container.addEventListener('click', (e) => {
         const target = e.target;
-        if (target.classList.contains('remove-btn')) target.closest('.set-card').remove();
-        else if (target.classList.contains('add-tier-btn')) target.previousElementSibling.appendChild(document.getElementById('tier-template').content.cloneNode(true));
-        else if (target.classList.contains('remove-sub-btn')) target.closest('.tier-card').remove();
-        else if (target.classList.contains('add-apply-btn')) target.previousElementSibling.appendChild(document.getElementById('apply-template').content.cloneNode(true));
-        else if (target.classList.contains('add-affect-btn')) target.previousElementSibling.appendChild(document.getElementById('affect-template').content.cloneNode(true));
+        if (target.classList.contains('add-tier-btn')) {
+            target.previousElementSibling.appendChild(document.getElementById('tier-template').content.cloneNode(true));
+        } else if (target.classList.contains('remove-sub-btn')) {
+            target.closest('.tier-card').remove();
+        } else if (target.classList.contains('add-apply-btn')) {
+            target.previousElementSibling.appendChild(document.getElementById('apply-template').content.cloneNode(true));
+        } else if (target.classList.contains('add-affect-btn')) {
+            target.previousElementSibling.appendChild(document.getElementById('affect-template').content.cloneNode(true));
+        }
     });
 }
 

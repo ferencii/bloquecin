@@ -1,7 +1,7 @@
 import { setupDynamicSection } from './utils.js';
 
-export function setupShopsSection(vnumRangeCheckFunction) {
-    setupDynamicSection('add-shop-btn', 'shops-container', 'shop-template', '.shop-card', vnumRangeCheckFunction, '.shop-vnum', '.shop-vnum-display');
+export function setupShopsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
+    setupDynamicSection('add-shop-btn', 'shops-container', 'shop-template', '.shop-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
 }
 
 export function generateShopsSection() {

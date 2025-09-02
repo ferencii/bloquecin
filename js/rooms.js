@@ -1,7 +1,7 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 
-export function setupRoomsSection(vnumRangeCheckFunction) {
-    setupDynamicSection('add-room-btn', 'rooms-container', 'room-template', '.room-card', vnumRangeCheckFunction, '.room-vnum');
+export function setupRoomsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
+    setupDynamicSection('add-room-btn', 'rooms-container', 'room-template', '.room-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
 
     const container = document.getElementById('rooms-container');
     container.addEventListener('click', (e) => {
