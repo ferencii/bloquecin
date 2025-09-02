@@ -1,4 +1,4 @@
-export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null) {
+export function setupDynamicSection(buttonId, containerId, templateId, cardSelector, vnumRangeCheckFunction = null, vnumSelector = null, vnumDisplaySelector = null, nameInputSelector = null, nameDisplaySelector = null) {
     const addButton = document.getElementById(buttonId);
     const container = document.getElementById(containerId);
     const template = document.getElementById(templateId);
@@ -75,6 +75,20 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
             if (vnumInput && vnumDisplay) {
                 vnumInput.addEventListener('input', () => {
                     vnumDisplay.textContent = vnumInput.value;
+                });
+            }
+        }
+
+        // Update name display on input change
+        if (nameInputSelector && nameDisplaySelector) {
+            const nameInput = addedCardElement.querySelector(nameInputSelector);
+            const nameDisplay = addedCardElement.querySelector(nameDisplaySelector);
+            if (nameInput && nameDisplay) {
+                // Set initial name display
+                nameDisplay.textContent = nameInput.value || nameDisplay.textContent; // Use existing text if input is empty
+
+                nameInput.addEventListener('input', () => {
+                    nameDisplay.textContent = nameInput.value || 'Nuevo Elemento'; // Default text if input is cleared
                 });
             }
         }

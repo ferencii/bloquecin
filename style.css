@@ -1,4 +1,9 @@
 /* Estilos Generales - Tema MUD */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 :root {
     --bg-color: #000000;
     --primary-color: #0a0a0a;
@@ -98,7 +103,7 @@ nav ul li {
 /* Contenido Principal */
 main {
     flex-grow: 1;
-    padding: 2rem;
+    padding: 1rem;
     overflow-y: auto;
 }
 
@@ -145,6 +150,7 @@ select {
     border-radius: 0;
     font-family: inherit;
     font-size: 1rem;
+    max-width: 100%; /* Ensure inputs don't overflow */
 }
 
 .form-group input:focus,
@@ -222,7 +228,7 @@ select:focus {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem 1.5rem;
 }
 
@@ -357,10 +363,12 @@ select:focus {
 }
 
 .collapsible-content {
-    max-height: 1000px; /* Arbitrarily large value */
+    max-height: 5000px; /* Increased to accommodate extensive forms */
     overflow: hidden;
+    overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+    word-break: break-word; /* Break long words to prevent overflow */
     transition: max-height 0.3s ease-out;
-    padding: 1.5rem; /* Matches card padding */
+    padding: 1rem; /* Matches card padding */
     border: 1px solid var(--border-color);
     border-top: none; /* Remove top border to connect with header */
     background-color: var(--primary-color); /* Matches card background */

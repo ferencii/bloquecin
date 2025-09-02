@@ -7,6 +7,7 @@ import { setupSetSection, generateSetSection } from './js/sets.js';
 import { setupShopsSection, generateShopsSection } from './js/shops.js';
 import { setupSpecialsSection, generateSpecialsSection } from './js/specials.js';
 import { setupProgsSection, generateProgsSection } from './js/progs.js';
+import { parseAreFile } from './js/parser.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,19 +23,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup all sections
     setupAreaSection();
-    setupMobilesSection(isValidVnumRange);
-    setupObjectsSection(isValidVnumRange);
-    setupRoomsSection(isValidVnumRange);
+    setupMobilesSection(isValidVnumRange, '.mob-vnum', '.mob-vnum-display', '.mob-short-desc', '.mob-name-display');
+    setupObjectsSection(isValidVnumRange, '.obj-vnum', '.obj-vnum-display', '.obj-short-desc', '.obj-name-display');
+    setupRoomsSection(isValidVnumRange, '.room-vnum', '.room-vnum-display', '.room-name', '.room-name-display');
     setupResetsSection();
-    setupSetSection();
-    setupShopsSection(isValidVnumRange);
-    setupSpecialsSection(isValidVnumRange);
-    setupProgsSection('mobprogs', isValidVnumRange);
-    setupProgsSection('objprogs', isValidVnumRange);
-    setupProgsSection('roomprogs', isValidVnumRange);
+    setupSetSection(null, '.set-id', '.set-id-display', '.set-name', '.set-name-display');
+    setupShopsSection(isValidVnumRange, '.shop-vnum', '.shop-vnum-display', null, null);
+    setupSpecialsSection(isValidVnumRange, '.special-vnum', '.special-vnum-display', '.special-name', '.special-name-display');
+    setupProgsSection('mobprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
+    setupProgsSection('objprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
+    setupProgsSection('roomprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
 
     // Setup main generate button
     document.getElementById('generate-btn').addEventListener('click', generateAreFile);
+
+    // Setup file loading
+    const loadFileInput = document.getElementById('load-file-input');
+    const loadFileBtn = document.getElementById('load-file-btn');
+
+    loadFileBtn.addEventListener('click', () => {
+        loadFileInput.click();
+    });
+
+    loadFileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const content = e.target.result;
+                parseAreFile(content);
+            };
+            reader.readAsText(file);
+        }
+    });
 });
 
 function isValidVnumRange() {
