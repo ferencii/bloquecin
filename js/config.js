@@ -1,14 +1,20 @@
 export const gameData = {
+    // Configuración de las API Keys para los modelos de IA de Gemini.
+    // Se pueden añadir múltiples keys para rotación o fallback.
     apiKeys: [
         "AIzaSyB5raGlKb5kw9Rlag0CNJQeVcF17XBrdk8", // Pega aquí tu primera API Key
         "AIzaSyA7byKbrGETHW7Vn_IA7ACUeJJ3H0NU-8c", // Opcional: tu segunda API Key
         "AIzaSyBb3Fx3KTxL2KHtijQHpGMUQfLrXyJT9_k"  // Opcional: tu tercera API Key
     ],
+    // Define el orden de preferencia de los modelos de IA a utilizar.
+    // La aplicación intentará usar los modelos en este orden hasta encontrar uno disponible o exitoso.
     modelFallbackOrder: [
         "gemini-2.5-pro",
         "gemini-2.5-flash",
         "gemini-2.5-flash-lite"
     ],
+    // Lista de razas disponibles para los mobs en el juego.
+    // Utilizada para poblar los selectores de raza en la interfaz de usuario.
     races: [
         'aguila',
         'aranya',
@@ -75,6 +81,8 @@ export const gameData = {
         'zombie',
         'zorro'
     ],
+    // Tipos de daño que pueden infligir los mobs o las armas.
+    // Cada entrada tiene un 'value' (para uso interno) y una 'description' (para mostrar en la UI).
     damageTypes: [
         { value: 'slice', description: 'tajo' },
         { value: 'stab', description: 'pinchazo' },
@@ -116,6 +124,8 @@ export const gameData = {
         { value: 'flame', description: 'llamarazo' },
         { value: 'chill', description: 'pinchazo frío' }
     ],
+    // Recomendaciones de 'hitroll' para mobs, basadas en rangos de nivel.
+    // Utilizado para el auto-rellenado de estadísticas de mobs.
     hitrollRecommendations: [
         { levelStart: 1, levelEnd: 20, hitrollMin: 0, hitrollMax: 5 },
         { levelStart: 21, levelEnd: 40, hitrollMin: 7, hitrollMax: 20 },
@@ -124,6 +134,8 @@ export const gameData = {
         { levelStart: 81, levelEnd: 100, hitrollMin: 80, hitrollMax: 100 },
         { levelStart: 101, levelEnd: 120, hitrollMin: 115, hitrollMax: 150 }
     ],
+    // Recomendaciones de estadísticas (HP, Mana, Armadura, Daño) para mobs por nivel.
+    // Utilizado para el auto-rellenado de estadísticas de mobs.
     mobStatsRecommendations: [
         { level: 1, hpManaDice: { num: 2, sides: 6, bonus: 10 }, armor: 9, damageDice: { num: 1, sides: 4, bonus: 0 } },
         { level: 2, hpManaDice: { num: 2, sides: 7, bonus: 21 }, armor: 8, damageDice: { num: 1, sides: 5, bonus: 0 } },
@@ -246,6 +258,8 @@ export const gameData = {
         { level: 119, hpManaDice: { num: 115, sides: 20, bonus: 17000 }, armor: -75, damageDice: { num: 20, sides: 10, bonus: 35 } },
         { level: 120, hpManaDice: { num: 120, sides: 24, bonus: 17000 }, armor: -75, damageDice: { num: 20, sides: 10, bonus: 37 } }
     ],
+    // Prompts detallados para la generación de descripciones de IA.
+    // Cada clave representa un tipo de entidad (mob, object, room) y contiene sub-prompts específicos.
     aiPrompts: {
         mob: {
             shortLongLook: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con tres descripciones para un PNJ (mob) de un juego MUD, no puede haber más de UN ÚNICO objeto JSON. Las descripciones deben seguir estas reglas:\n\n\"short_desc\": Descripción super breve (máximo 20 caracteres). Si es un mob genérico (barrendero, perro, guardia), usa el artículo: \"El barrendero\", \"El perro\", \"El guardia\", \"La tendera\". Si el mob tiene un nombre propio, no uses artículo: \"Arturo\", \"Cleopatra\", \"Thor\".\n\n\"long_desc\": No muy extensa. Nombra al mob y describe lo que está haciendo o una característica clave. Ejemplos: \"Un troll de piedra con una sonrisa pétrea.\", \"Arturo está sentado en el suelo afilando la espada.\", \"El asesino acecha en las sombras.\"\n\n\"look_desc\": Extensa y muy descriptiva. Describe profundamente el mob, sus detalles, apariencia, etc.\n\nResponde solo con el objeto JSON, sin texto adicional ni markdown."
