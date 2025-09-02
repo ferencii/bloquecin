@@ -1,5 +1,14 @@
 export const gameData = {
-    apiKey: "AIzaSyB5raGlKb5kw9Rlag0CNJQeVcF17XBrdk8", // Pega aquí tu API Key de Google AI Studio
+    apiKeys: [
+        "AIzaSyB5raGlKb5kw9Rlag0CNJQeVcF17XBrdk8", // Pega aquí tu primera API Key
+        "AIzaSyA7byKbrGETHW7Vn_IA7ACUeJJ3H0NU-8c", // Opcional: tu segunda API Key
+        "AIzaSyBb3Fx3KTxL2KHtijQHpGMUQfLrXyJT9_k"  // Opcional: tu tercera API Key
+    ],
+    modelFallbackOrder: [
+        "gemini-2.5-pro",
+        "gemini-2.5-flash",
+        "gemini-2.5-flash-lite"
+    ],
     races: [
         'aguila',
         'aranya',
