@@ -3,7 +3,6 @@ import { gameData } from './config.js';
 
 export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
     const mobContainer = document.getElementById('mobiles-container');
-    const addMobBtn = document.getElementById('add-mob-btn');
 
     // Function to attach event listeners to a single mob card
     const attachMobCardListeners = (cardElement) => {
@@ -40,16 +39,8 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
         updateHitroll();
     };
 
-    // Override the default add button behavior from setupDynamicSection
-    // to attach our specific listeners after the card is added.
-    addMobBtn.removeEventListener('click', setupDynamicSection); // Remove previous listener if any
-
-    addMobBtn.addEventListener('click', () => {
-        const newCardElement = setupDynamicSection('add-mob-btn', 'mobiles-container', 'mob-template', '.mob-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
-        if (newCardElement) {
-            attachMobCardListeners(newCardElement);
-        }
-    });
+    // Call setupDynamicSection and pass the callback for new cards
+    setupDynamicSection('add-mob-btn', 'mobiles-container', 'mob-template', '.mob-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, attachMobCardListeners);
 
     // Attach event listeners for existing cards if they are loaded (e.g., from file)
     mobContainer.querySelectorAll('.mob-card').forEach(card => {
@@ -67,7 +58,7 @@ export function generateMobilesSection() {
         section += `${mob.querySelector('.mob-keywords').value}~\n`;
         section += `${mob.querySelector('.mob-short-desc').value}~\n`;
         section += `${mob.querySelector('.mob-long-desc').value.replace(/\n/g, ' ')}~\n`;
-        section += `${mob.querySelector('.mob-look-desc').value}~\n`;
+        section += `${mob.querySelector('.mob-long-desc').value}~\n`;
         section += `${mob.querySelector('.mob-race').value}~\n`;
 
         const actFlags = getFlagString(mob, 'fieldset[legend="Act Flags"] input[type="checkbox"]');
