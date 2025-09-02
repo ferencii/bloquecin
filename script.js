@@ -19,6 +19,8 @@ function populateMaterialsDatalist() {
             option.value = material;
             datalist.appendChild(option);
         });
+    } else {
+        console.error('Datalist element with ID "materials-list" not found!');
     }
 }
 
