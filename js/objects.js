@@ -68,6 +68,11 @@ export function generateObjectsSection() {
         const isDrinkContainer = obj.querySelector('.obj-is-drink-container').checked ? 'G' : 'P';
         section += `${obj.querySelector('.obj-level').value} ${obj.querySelector('.obj-weight').value} ${obj.querySelector('.obj-price').value} ${isDrinkContainer}\n`;
 
+        const setIdInput = obj.querySelector('.obj-set-id');
+        if (setIdInput && setIdInput.value.trim() !== '') {
+            section += `S ${setIdInput.value.trim()}\n`;
+        }
+
         obj.querySelectorAll('.applies-container .sub-item-row').forEach(row => {
             const location = row.querySelector('.apply-location').value;
             const modifier = row.querySelector('.apply-modifier').value;
@@ -85,11 +90,6 @@ export function generateObjectsSection() {
             const desc = row.querySelector('.extra-desc').value;
             if (keyword && desc) section += `E\n${keyword}~\n${desc}~\n`;
         });
-
-        const setIdInput = obj.querySelector('.obj-set-id');
-        if (setIdInput && setIdInput.value.trim() !== '') {
-            section += `S ${setIdInput.value.trim()}\n`;
-        }
 
         section += '\n';
     });
