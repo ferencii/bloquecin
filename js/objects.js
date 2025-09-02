@@ -60,8 +60,10 @@ export function generateObjectsSection() {
         section += `${obj.querySelector('.obj-material').value}~\n`;
         
         const type = obj.querySelector('.obj-type').value;
-        const extraFlags = getFlagString(obj, 'fieldset[legend="Flags"] input[type="checkbox"]');
-        const wearFlags = getFlagString(obj, 'fieldset[legend="Lugar de Vestir"] input[type="checkbox"]');
+        const extraFlags = getFlagString(obj, 'Flags');
+        const wearFlags = getFlagString(obj, 'Lugar de Vestir');
+        console.log('Generated extraFlags:', extraFlags);
+        console.log('Generated wearFlags:', wearFlags);
         section += `${type} ${extraFlags} ${wearFlags}\n`;
 
         section += `${obj.querySelector('.obj-v0').value} ${obj.querySelector('.obj-v1').value} ${obj.querySelector('.obj-v2').value} ${obj.querySelector('.obj-v3').value} ${obj.querySelector('.obj-v4').value}\n`;

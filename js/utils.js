@@ -367,8 +367,30 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
     });
 }
 
-export function getFlagString(container, selector) {
-    const flags = Array.from(container.querySelectorAll(selector)).filter(cb => cb.checked).map(cb => cb.value).join('');
+export function getFlagString(container, legendText) { // Changed selector to legendText
+    console.log('getFlagString called with container:', container);
+    console.log('getFlagString called with legendText:', legendText);
+
+    let targetFieldset = null;
+    const fieldsets = container.querySelectorAll('fieldset'); // Get all fieldsets within the container
+    for (const fieldset of fieldsets) {
+        const legend = fieldset.querySelector('legend');
+        if (legend && legend.textContent.trim() === legendText) {
+            targetFieldset = fieldset;
+            break;
+        }
+    }
+
+    if (!targetFieldset) {
+        console.error(`Fieldset with legend "${legendText}" not found in container.`);
+        return '0'; // Return default if fieldset not found
+    }
+    console.log('Found targetFieldset:', targetFieldset);
+
+    const checkboxes = Array.from(targetFieldset.querySelectorAll('input[type="checkbox"]'));
+    console.log('Found checkboxes within targetFieldset:', checkboxes);
+    const flags = checkboxes.filter(cb => cb.checked).map(cb => cb.value).join('');
+    console.log('Collected flags:', flags);
     return flags || '0';
 }
 
