@@ -1,4 +1,4 @@
-# Resumen de la Conversación y Trabajo Realizado (01/09/2025)
+# Resumen de la Conversación y Trabajo Realizado (01/09/2025 - Actual)
 
 Esta conversación se centró en la depuración y mejora de la aplicación web "Editor de Áreas Petria (.are)".
 
@@ -34,7 +34,7 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
         *   Las funciones `setupXSection` en `js/mobiles.js`, `js/objects.js`, `js/rooms.js`, `js/shops.js`, `js/specials.js`, y `js/progs.js` fueron actualizadas para aceptar y pasar este `vnumRangeCheckFunction` a `setupDynamicSection`.
 *   **Auto-selección del Primer VNUM Libre (Respetando el Rango del Área)**:
     *   **Problema**: La auto-sugerencia inicial no consideraba el `Vnum Inicial` del área, sugiriendo `1` en su lugar.
-    *   **Detalles de la Solución**: 
+    *   **Detalles de la Solución**:
         *   Se modificó `js/utils.js` (`setupDynamicSection` function) para aceptar un nuevo parámetro `vnumSelector` (CSS selector para el campo VNUM, e.g., `'.mob-vnum'`) y `vnumDisplaySelector` (CSS selector para el `span` donde se muestra el VNUM en el encabezado, e.g., `'.mob-vnum-display'`).
         *   Dentro de `setupDynamicSection`, la lógica de auto-sugerencia fue actualizada: si `maxVnum` es `0` (no hay elementos previos), el VNUM sugerido es el `Vnum Inicial` del área (obtenido de `document.getElementById('area-vnum-start').value`), de lo contrario, es `maxVnum + 1`.
         *   Se añadió lógica para actualizar el `textContent` del `vnumDisplaySelector` en el encabezado de la tarjeta cuando el VNUM se auto-sugiere o cuando el usuario lo modifica manualmente.
@@ -47,14 +47,62 @@ Una vez que la aplicación volvió a funcionar, se abordaron los problemas origi
         *   **JavaScript (`js/utils.js`)**: Se modificó `setupDynamicSection` para adjuntar un `click` event listener al `.collapsible-header` de cada nueva tarjeta. Este listener alterna la clase `collapsed` en el `.collapsible-content` para mostrar u ocultar el contenido. Las nuevas tarjetas se muestran expandidas por defecto.
         *   **Corrección de `js/progs.js`**: Se identificó y corrigió un error donde `setupProgsSection` construía incorrectamente el `buttonId` para los progs (usando la forma plural `mobprogs` en lugar de `mobprog` para el ID del botón). Se ajustó para usar `type.replace('s', '')` para obtener el nombre singular del botón.
 
-## Estado Actual de la Aplicación:
+### Fase 3: Refinamiento de la Validación de VNUMs y Mejoras de UI/UX
 
-*   Los botones "añadir" para todas las secciones (mobs, objetos, habitaciones, progs, etc.) funcionan correctamente.
-*   La validación del rango de VNUM del área se realiza al hacer clic en "añadir", mostrando una alerta si el rango es inválido.
-*   La auto-sugerencia de VNUMs funciona, respetando el `Vnum Inicial` del área para el primer elemento y actualizando el VNUM visible en el encabezado de la tarjeta.
-*   La funcionalidad de colapsar/expandir está implementada para las tarjetas de elementos, mejorando la UI/UX.
+*   **Refinamiento de la Validación de VNUMs**:
+    *   **Objetivo**: Asegurar que los VNUMs generados no excedan el `Vnum Final` del área y que no haya duplicados.
+    *   **Detalles de la Solución**: Se modificó `js/utils.js` (`setupDynamicSection`) para:
+        *   Verificar que el `proposedVnum` no sea mayor que `areaVnumEnd`. Si lo es, se muestra una alerta y se elimina la tarjeta parcialmente añadida.
+        *   Verificar si el `proposedVnum` ya existe en la sección actual (`existingVnums`). Si lo es, se muestra una alerta y se elimina la tarjeta parcialmente añadida.
+*   **Mejora de la Visualización de Formularios (Ancho)**:
+    *   **Problema**: Los formularios dinámicos se cortaban horizontalmente.
+    *   **Detalles de la Solución**:
+        *   Se añadió `box-sizing: border-box;` a un selector universal (`*`, `*::before`, `*::after`) en `style.css`.
+        *   Se añadió `max-width: 100%;` a los campos de entrada (`input[type="text"]`, `input[type="number"]`, `textarea`, `select`) en `style.css`.
+        *   Se redujo el `padding` del elemento `main` (de `2rem` a `1rem`) y de `.collapsible-content` (de `1.5rem` a `1rem`) en `style.css` para proporcionar más espacio horizontal.
+        *   Se modificó la regla `grid-template-columns` de `.form-grid` a `repeat(2, minmax(0, 1fr))` en `style.css` para hacer las columnas más flexibles.
+        *   Se añadió `overflow-x: auto;` y `word-break: break-word;` a `.collapsible-content` en `style.css` como solución temporal para el desbordamiento horizontal y para manejar palabras largas.
 
-## Próximos Pasos (Pendientes):
+### Fase 4: Implementación de la Carga de Archivos .are
 
-*   Revisar y refinar la validación de VNUMs para asegurar que los VNUMs generados no excedan el `Vnum Final` del área y que no haya duplicados dentro de una misma sección o globalmente.
-*   Considerar la implementación de la carga de archivos `.are` para edición.
+*   **Funcionalidad de Carga de Archivos**:
+    *   **Objetivo**: Permitir al usuario cargar un archivo `.are` existente para su edición.
+    *   **Detalles de la Implementación**:
+        *   Se añadió un `input type="file"` oculto (`load-file-input`) y un botón (`load-file-btn`) a `index.html`.
+        *   Se añadió lógica en `script.js` para que el botón `load-file-btn` dispare el clic del `input type="file"`, y para que el evento `change` del `input` lea el contenido del archivo usando `FileReader`.
+        *   Se creó un nuevo archivo `js/parser.js` para contener la lógica de análisis y población.
+        *   La función `parseAreFile(content)` se movió a `js/parser.js` y se importó en `script.js`.
+        *   Se implementó `clearAllForms()` en `js/parser.js` para limpiar todos los formularios antes de cargar nuevos datos.
+*   **Análisis y Población de Secciones**:
+    *   **Objetivo**: Parsear el contenido del archivo `.are` y rellenar los formularios HTML correspondientes.
+    *   **Detalles de la Implementación**:
+        *   **`parseAreFile`**: Implementado para dividir el contenido del archivo en secciones (`#AREA`, `#MOBILES`, etc.).
+        *   **`parseAreaSection` y `populateAreaForm`**: Implementados para la sección `#AREA`.
+        *   **`parseMobilesSection` y `populateMobilesSection`**: Implementados para la sección `#MOBILES`.
+        *   **`parseObjectsSection` y `populateObjectsSection`**: Implementados para la sección `#OBJECTS`.
+        *   **`parseRoomsSection` y `populateRoomsSection`**: Implementados para la sección `#ROOMS`.
+        *   **`parseResetsSection` y `populateResetsSection`**: Implementados para la sección `#RESETS`.
+        *   **`parseSetSection` y `populateSetSection`**: Implementados para la sección `#SET`.
+        *   **`parseShopsSection` y `populateShopsSection`**: Implementados para la sección `#SHOPS`.
+        *   **`parseSpecialsSection` y `populateSpecialsSection`**: Implementados para la sección `#SPECIALS`.
+        *   **`parseProgsSection` y `populateProgsSection`**: Implementados para las secciones de programas (`#MOBPROGS`, `#OBJPROGS`, `#ROOMPROGS`).
+        *   **Población de Flags**: Se implementó la función `populateCheckboxesFromFlags` y se integró en `populateMobilesSection`, `populateObjectsSection` y `populateRoomsSection` para manejar la población de checkboxes.
+        *   **Población de Sub-formularios Complejos**: Se implementaron `populateApplies`, `populateAffects`, `populateExtraDescriptions`, `populateExits`, `populateTiers` y se integraron en sus respectivas funciones `populateXSection` para manejar la creación dinámica y población de sub-elementos.
+
+### Fase 5: Depuración de la Visualización Dinámica del Nombre y Colapsado (Problemas Recurrentes)
+
+*   **Visualización Dinámica del Nombre en Encabezados Colapsables**:
+    *   **Problema Inicial**: El texto "Nuevo Mob" (o similar) no desaparecía y el nombre escrito por el usuario no aparecía.
+    *   **Intentos de Solución**:
+        *   Se modificó `js/utils.js` (`setupDynamicSection`) para pasar `nameInputSelector` y `nameDisplaySelector` y actualizar el `textContent` del `nameDisplay`.
+        *   Se modificó `index.html` para mover el texto "Nuevo Mob" *dentro* del `<span>` (`mob-name-display`) para que pudiera ser sobrescrito por JavaScript.
+        *   Se modificó `js/utils.js` para eliminar el fallback `|| 'Nuevo Elemento'` en el evento `input`, asegurando que el `<span>` se vaciara si el campo de entrada estaba vacío.
+        *   Se añadió `dispatchEvent(new Event('input'))` en las funciones `populateXSection` de `js/parser.js` para forzar la actualización del nombre al cargar un archivo.
+        *   **Estado Actual del Problema**: El usuario reporta que el problema persiste. El texto "Mob: " (o similar) se mantiene estático y el nombre escrito no aparece. El usuario desea que el texto sea "Mob: [nombre escrito]".
+*   **Formularios No Colapsables**:
+    *   **Problema**: La funcionalidad de colapsar/expandir dejó de funcionar.
+    *   **Intentos de Solución**:
+        *   Se añadió `console.warn` en `js/utils.js` para diagnosticar si `collapsibleHeader` o `collapsibleContent` no se encontraban.
+        *   Se eliminó una regla CSS duplicada para `.collapsible-header .vnum-display` en `style.css`.
+        *   Se añadió `!important` a `max-height: 0;` y `padding: 0;` para `.collapsible-content.collapsed` en `style.css` para asegurar que las reglas de colapsado no fueran sobrescritas.
+        *   **Estado Actual del Problema**: El usuario reporta que el problema persiste.
