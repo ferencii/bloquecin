@@ -20,7 +20,6 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
         const acPierceInput = cardElement.querySelector('.mob-ac-pierce');
         const acBashInput = cardElement.querySelector('.mob-ac-bash');
         const acSlashInput = cardElement.querySelector('.mob-ac-slash');
-        const acExoticInput = cardElement.querySelector('.mob-ac-exotic');
         const acMagicInput = cardElement.querySelector('.mob-ac-magic');
 
         const updateMobStats = () => {
@@ -39,7 +38,6 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
                 acPierceInput.value = '';
                 acBashInput.value = '';
                 acSlashInput.value = '';
-                acExoticInput.value = '';
                 acMagicInput.value = '';
                 return;
             }
@@ -88,7 +86,6 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
                 acPierceInput.value = mobStats.armor;
                 acBashInput.value = mobStats.armor;
                 acSlashInput.value = mobStats.armor;
-                acExoticInput.value = mobStats.armor;
 
                 // Calculate AC Magic
                 const ac = parseInt(mobStats.armor);
@@ -112,7 +109,6 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
                 acPierceInput.value = firstStats.armor;
                 acBashInput.value = firstStats.armor;
                 acSlashInput.value = firstStats.armor;
-                acExoticInput.value = firstStats.armor;
 
                 const ac = parseInt(firstStats.armor);
                 if (!isNaN(ac)) {
@@ -145,7 +141,7 @@ export function generateMobilesSection() {
         section += `${mob.querySelector('.mob-keywords').value}~\n`;
         section += `${mob.querySelector('.mob-short-desc').value}~\n`;
         section += `${mob.querySelector('.mob-long-desc').value.replace(/\n/g, ' ')}\n~\n`;
-        section += `${mob.querySelector('.mob-look-desc').value}~\n`;
+        section += `${mob.querySelector('.mob-look-desc').value.replace(/\n/g, ' ')}\n~\n`;
         section += `${mob.querySelector('.mob-race').value}~\n`;
 
         //const actFlags = getFlagString(mob, 'fieldset[legend="Act Flags"] input[type="checkbox"]');
@@ -160,7 +156,7 @@ export function generateMobilesSection() {
         section += `${mob.querySelector('.mob-dam-dice-num').value}d${mob.querySelector('.mob-dam-dice-sides').value}+${mob.querySelector('.mob-dam-dice-bonus').value} `;
         section += `${mob.querySelector('.mob-dam-type').value}\n`;
 
-        section += `${mob.querySelector('.mob-ac-pierce').value} ${mob.querySelector('.mob-ac-bash').value} ${mob.querySelector('.mob-ac-slash').value} ${mob.querySelector('.mob-ac-exotic').value} ${mob.querySelector('.mob-ac-magic').value}\n`;
+        section += `${mob.querySelector('.mob-ac-pierce').value} ${mob.querySelector('.mob-ac-bash').value} ${mob.querySelector('.mob-ac-slash').value} ${mob.querySelector('.mob-ac-magic').value}\n`;
 
         //const offFlags = getFlagString(mob, 'fieldset[legend="Ofensivo Flags"] input[type="checkbox"]');
         //const immFlags = getFlagString(mob, 'fieldset[legend="Inmunidades"] input[type="checkbox"]');

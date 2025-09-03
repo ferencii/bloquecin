@@ -37,10 +37,10 @@ export function generateAreaSection() {
     const region = document.getElementById('area-region').value.trim();
 
     let section = '#AREA\n';
-    section += `${filename || 'default.are'}~\n`;
+    section += `${filename || 'default'}.are~\n`;
     section += `${areaName}~\n`;
     section += `{ ${minLevel || 0} ${maxLevel || 0} } ${creator}~\n`;
-    section += `VNUMs ${vnumStart || 0} ${vnumEnd || 0}\n`;
+    section += `${vnumStart || 0} ${vnumEnd || 0}\n`;
     if (region) {
         section += `Region ${region}~\n`;
     }

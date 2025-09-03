@@ -163,8 +163,7 @@ function parseMobilesSection(sectionContent) {
             mob.acPierce = parseInt(line9[0]);
             mob.acBash = parseInt(line9[1]);
             mob.acSlash = parseInt(line9[2]);
-            mob.acExotic = parseInt(line9[3]);
-            mob.acMagic = parseInt(line9[4]);
+            mob.acMagic = parseInt(line9[3]);
 
             mob.offensiveFlags = lines[i++].trim();
 
@@ -238,7 +237,6 @@ function populateMobilesSection(mobilesData) {
         addedCardElement.querySelector('.mob-ac-pierce').value = mob.acPierce;
         addedCardElement.querySelector('.mob-ac-bash').value = mob.acBash;
         addedCardElement.querySelector('.mob-ac-slash').value = mob.acSlash;
-        addedCardElement.querySelector('.mob-ac-exotic').value = mob.acExotic;
         addedCardElement.querySelector('.mob-ac-magic').value = mob.acMagic;
 
         // Positions
@@ -439,8 +437,8 @@ function parseRoomsSection(sectionContent) {
                     const parts = line.substring(1).trim().split(' ').filter(s => s !== '');
                     const exit = {
                         direction: parseInt(parts[0]),
-                        description: lines[i+1].replace(/~$/, '').trim(),
-                        keywords: lines[i+2].replace(/~$/, '').trim(),
+                        description: lines[i + 1].replace(/~$/, '').trim(),
+                        keywords: lines[i + 2].replace(/~$/, '').trim(),
                         doorState: parseInt(parts[3]),
                         keyVnum: parseInt(parts[4]),
                         destinationVnum: parseInt(parts[5])
