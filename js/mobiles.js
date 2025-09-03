@@ -145,7 +145,7 @@ export function generateMobilesSection() {
         section += `${mob.querySelector('.mob-keywords').value}~\n`;
         section += `${mob.querySelector('.mob-short-desc').value}~\n`;
         section += `${mob.querySelector('.mob-long-desc').value.replace(/\n/g, ' ')}~\n`;
-        section += `${mob.querySelector('.mob-long-desc').value}~\n`;
+        section += `${mob.querySelector('.mob-look-desc').value}~\n`;
         section += `${mob.querySelector('.mob-race').value}~\n`;
 
         const actFlags = getFlagString(mob, 'fieldset[legend="Act Flags"] input[type="checkbox"]');
