@@ -510,6 +510,33 @@ export const gameData = {
                 { value: 'I', label: 'Sangriento' },
                 { value: 'J', label: 'Hemorragia' }
             ]
+        },
+
+        light: {
+            v0: [
+                { value: '0', label: 'Siempre es 0' }
+            ],
+            v1: [
+                { value: '0', label: 'Siempre es 0' }
+            ],
+            v3: [
+                { value: '0', label: 'Siempre es 0' }
+            ],
+            v4: [
+                { value: '0', label: 'Siempre es 0' }
+            ]
+        },
+
+        money: {
+            v2: [
+                { value: '0', label: 'Siempre es 0' }
+            ],
+            v3: [
+                { value: '0', label: 'Siempre es 0' }
+            ],
+            v4: [
+                { value: '0', label: 'Siempre es 0' }
+            ]
         }
     },
 
