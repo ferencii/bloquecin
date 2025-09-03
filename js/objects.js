@@ -63,12 +63,17 @@ export function updateObjectValuesUI(objectCard) {
 export function populateObjectTypeSelect(objectCard) {
     const selectElement = objectCard.querySelector('.obj-type');
     if (selectElement) {
-        // Clear existing options (if any)
+        // Clear existing options (if any) y poblar con etiquetas en español.
         selectElement.innerHTML = '';
         gameData.objectTypes.forEach(type => {
             const option = document.createElement('option');
-            option.value = type;
-            option.textContent = type;
+            if (typeof type === 'object') {
+                option.value = type.value;
+                option.textContent = type.label;
+            } else {
+                option.value = type;
+                option.textContent = type;
+            }
             selectElement.appendChild(option);
         });
 

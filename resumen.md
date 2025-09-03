@@ -24,6 +24,9 @@
         *   **Población Dinámica**: Se modificó `js/objects.js` para importar `gameData` y para que la función `populateObjectTypeSelect` (pasada como `postAddCallback` a `setupDynamicSection`) rellene el `<select>` de "Tipo" con las opciones de `objectTypes`.
         *   **Actualización de Etiquetas**: La función `updateObjectValuesUI` en `js/objects.js` fue modificada para usar `gameData.objectValueLabels` y así cambiar las etiquetas de V0-V4 según el tipo seleccionado.
         *   **Depuración**: Se depuró un problema inicial donde el desplegable de "Tipo" aparecía vacío, lo que llevó a la confirmación de que las listas `objectTypes` y `objectValueLabels` no se habían añadido correctamente en una iteración anterior.
+    *   **Tipos de objeto con etiquetas en español**:
+        *   **Configuración**: `gameData.objectTypes` ahora almacena objetos con `value` (inglés) y `label` (español) para cada tipo de objeto.
+        *   **Interfaz**: `populateObjectTypeSelect` en `js/objects.js` utiliza estas etiquetas, mostrando los nombres en español mientras mantiene los valores en inglés en el archivo generado.
     *   **Desplegables de V0-V4 por Tipo**:
         *   **Funcionalidad**: Dependiendo del tipo de objeto, los campos V0-V4 ahora pueden mostrarse como `<select>` con opciones predefinidas.
         *   **Configuración**: Se añadió la estructura `objectValueOptions` a `gameData` en `js/config.js`, permitiendo definir listas como tipos de armas, daños o flags para cada V.
