@@ -392,39 +392,40 @@ export const gameData = {
     // Lista de tipos de objetos disponibles.
     // "label" se muestra en la UI (español) y "value" se escribe en el archivo .are (inglés).
     objectTypes: [
+        { value: 'weapon', label: 'arma' },
+        { value: 'basura', label: 'basura' },
         { value: 'boat', label: 'barco' },
+        { value: 'bebida', label: 'bebida' },
+        { value: 'cadáver NPC', label: 'cadáver NPC' },
+        { value: 'cadáver PJ', label: 'cadáver PJ' },
         { value: 'clothing', label: 'ropa' },
+        { value: 'comida', label: 'comida' },
+        { value: 'food_buff', label: 'comida con buff' },
         { value: 'container', label: 'contenedor' },
         { value: 'disfraz', label: 'disfraz' },
-        { value: 'drink', label: 'bebida' },
+        { value: 'dinero', label: 'dinero' },
         { value: 'emblema', label: 'emblema' },
-        { value: 'food', label: 'comida' },
-        { value: 'food_buff', label: 'comida con buff' },
         { value: 'fountain', label: 'fuente' },
-        { value: 'furniture', label: 'mueble' },
         { value: 'gem', label: 'gema' },
-        { value: 'jewelry', label: 'joyería' },
         { value: 'jukebox', label: 'gramola' },
+        { value: 'jewelry', label: 'joyería' },
         { value: 'key', label: 'llave' },
+        { value: 'room_key', label: 'llave de habitación' },
         { value: 'light', label: 'luz' },
         { value: 'map', label: 'mapa' },
         { value: 'money', label: 'dinero' },
-        { value: 'npc_corpse', label: 'cadáver NPC' },
-        { value: 'pc_corpse', label: 'cadáver PJ' },
         { value: 'pill', label: 'píldora' },
         { value: 'portal', label: 'portal' },
         { value: 'potion', label: 'poción' },
         { value: 'protect', label: 'proteger' },
         { value: 'proteccion', label: 'protección' },
-        { value: 'room_key', label: 'llave de habitación' },
         { value: 'scroll', label: 'pergamino' },
         { value: 'staff', label: 'bastón' },
         { value: 'treasure', label: 'tesoro' },
-        { value: 'trash', label: 'basura' },
         { value: 'wand', label: 'varita' },
-        { value: 'warp_stone', label: 'piedra de portal y nexus' },
-        { value: 'weapon', label: 'arma' }
+        { value: 'warp_stone', label: 'piedra de portal y nexus' }
     ],
+
 
     // Etiquetas para los valores V0-V4 de objetos, según su tipo.
     objectValueLabels: {
