@@ -21,6 +21,13 @@ function populateObjectTypeSelect(objectCard) {
             option.textContent = type;
             selectElement.appendChild(option);
         });
+
+        // Set default values for V0-V4 to 0
+        for (let i = 0; i < 5; i++) {
+            const vInput = objectCard.querySelector(`.obj-v${i}`);
+            if (vInput) vInput.value = '0';
+        }
+
         // Trigger UI update for V0-V4 labels after populating
         updateObjectValuesUI(objectCard);
     }
