@@ -422,7 +422,7 @@ export const gameData = {
         { value: 'treasure', label: 'tesoro' },
         { value: 'trash', label: 'basura' },
         { value: 'wand', label: 'varita' },
-        { value: 'warp_stone', label: 'piedra warp' },
+        { value: 'warp_stone', label: 'piedra de portal y nexus' },
         { value: 'weapon', label: 'arma' }
     ],
 
