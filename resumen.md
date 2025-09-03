@@ -24,6 +24,10 @@
         *   **Población Dinámica**: Se modificó `js/objects.js` para importar `gameData` y para que la función `populateObjectTypeSelect` (pasada como `postAddCallback` a `setupDynamicSection`) rellene el `<select>` de "Tipo" con las opciones de `objectTypes`.
         *   **Actualización de Etiquetas**: La función `updateObjectValuesUI` en `js/objects.js` fue modificada para usar `gameData.objectValueLabels` y así cambiar las etiquetas de V0-V4 según el tipo seleccionado.
         *   **Depuración**: Se depuró un problema inicial donde el desplegable de "Tipo" aparecía vacío, lo que llevó a la confirmación de que las listas `objectTypes` y `objectValueLabels` no se habían añadido correctamente en una iteración anterior.
+    *   **Desplegables de V0-V4 por Tipo**:
+        *   **Funcionalidad**: Dependiendo del tipo de objeto, los campos V0-V4 ahora pueden mostrarse como `<select>` con opciones predefinidas.
+        *   **Configuración**: Se añadió la estructura `objectValueOptions` a `gameData` en `js/config.js`, permitiendo definir listas como tipos de armas, daños o flags para cada V.
+        *   **Integración**: `js/objects.js` actualiza dinámicamente estos campos y `js/parser.js` fue adaptado para soportar los nuevos desplegables.
     *   **Eliminación de Campos Redundantes**:
         *   **V0-V4**: Se eliminó un grupo redundante de campos de entrada V0-V4 (`<input type="number">`) del `object-template` en `index.html`, asegurando que solo el `fieldset` con las etiquetas dinámicas sea el utilizado.
         *   **Flags y Lugar de Vestir**: Se eliminaron los campos de entrada de texto redundantes para "Flags" y "Lugar de vestir" del `object-template` en `index.html`, manteniendo solo los `fieldset`s con checkboxes.

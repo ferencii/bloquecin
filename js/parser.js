@@ -1,4 +1,4 @@
-import { populateAffectBitSelect } from './objects.js';
+import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI } from './objects.js';
 
 export function parseAreFile(content) {
     console.log('Parsing .are file...');
@@ -269,12 +269,12 @@ function parseObjectsSection(sectionContent) {
             obj.wearLocation = lines[i++].trim();
 
             // V0-V4
-            const vValues = lines[i++].split(' ').filter(s => s !== '').map(Number);
-            obj.v0 = vValues[0];
-            obj.v1 = vValues[1];
-            obj.v2 = vValues[2];
-            obj.v3 = vValues[3];
-            obj.v4 = vValues[4];
+            const vValues = lines[i++].split(' ').filter(s => s !== '');
+            obj.v0 = vValues[0] ?? '0';
+            obj.v1 = vValues[1] ?? '0';
+            obj.v2 = vValues[2] ?? '0';
+            obj.v3 = vValues[3] ?? '0';
+            obj.v4 = vValues[4] ?? '0';
 
             obj.level = parseInt(lines[i++]);
             obj.weight = parseInt(lines[i++]);
@@ -323,12 +323,15 @@ function populateObjectsSection(objectsData) {
         const newCard = template.content.cloneNode(true);
         const addedCardElement = newCard.querySelector('.object-card');
 
+        populateObjectTypeSelect(addedCardElement);
+        addedCardElement.querySelector('.obj-type').value = obj.type;
+        updateObjectValuesUI(addedCardElement);
+
         addedCardElement.querySelector('.obj-vnum').value = obj.vnum;
         addedCardElement.querySelector('.obj-keywords').value = obj.keywords;
         addedCardElement.querySelector('.obj-short-desc').value = obj.shortDesc;
         addedCardElement.querySelector('.obj-long-desc').value = obj.longDesc;
         addedCardElement.querySelector('.obj-material').value = obj.material;
-        addedCardElement.querySelector('.obj-type').value = obj.type;
         populateCheckboxesFromFlags(addedCardElement, '.obj-flags-checkbox-group', obj.flags);
         addedCardElement.querySelector('.obj-wear-location').value = obj.wearLocation;
 
