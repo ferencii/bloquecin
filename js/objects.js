@@ -1,16 +1,66 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 import { gameData } from './config.js';
 
-function updateObjectValuesUI(objectCard) {
+export function updateObjectValuesUI(objectCard) {
     const type = objectCard.querySelector('.obj-type').value;
     const labels = gameData.objectValueLabels[type] || gameData.objectValueLabels['default'];
+    const optionsConfig = (gameData.objectValueOptions && gameData.objectValueOptions[type]) || {};
+
     for (let i = 0; i < 5; i++) {
         const labelElement = objectCard.querySelector(`label[data-label-for="v${i}"]`);
         if (labelElement) labelElement.textContent = labels[i] + ':';
+
+        const fieldSelector = `.obj-v${i}`;
+        let field = objectCard.querySelector(fieldSelector);
+        const currentValue = field ? field.value : '0';
+        const vOptions = optionsConfig[`v${i}`];
+
+        if (vOptions && vOptions.length > 0) {
+            let select;
+            if (!field || field.tagName.toLowerCase() !== 'select') {
+                select = document.createElement('select');
+                select.className = fieldSelector.slice(1);
+                if (field) field.replaceWith(select);
+                field = select;
+            } else {
+                select = field;
+            }
+
+            select.innerHTML = '';
+            vOptions.forEach((opt, idx) => {
+                const optionEl = document.createElement('option');
+                if (typeof opt === 'object') {
+                    optionEl.value = opt.value;
+                    optionEl.textContent = opt.label;
+                } else {
+                    optionEl.value = opt;
+                    optionEl.textContent = opt;
+                }
+                optionEl.dataset.index = idx;
+                select.appendChild(optionEl);
+            });
+
+            const values = vOptions.map(opt => typeof opt === 'object' ? opt.value : opt);
+            if (values.includes(currentValue)) {
+                select.value = currentValue;
+            } else {
+                select.selectedIndex = 0;
+            }
+        } else {
+            if (!field || field.tagName.toLowerCase() !== 'input') {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = fieldSelector.slice(1);
+                input.value = '0';
+                if (field) field.replaceWith(input);
+                field = input;
+            }
+            if (field.value === '' || field.value === undefined) field.value = '0';
+        }
     }
 }
 
-function populateObjectTypeSelect(objectCard) {
+export function populateObjectTypeSelect(objectCard) {
     const selectElement = objectCard.querySelector('.obj-type');
     if (selectElement) {
         // Clear existing options (if any)

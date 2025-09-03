@@ -447,6 +447,38 @@ export const gameData = {
         'default': ['Valor 0', 'Valor 1', 'Valor 2', 'Valor 3', 'Valor 4'] // Default for types not explicitly listed
     },
 
+    // Opciones desplegables para los valores V0-V4 según el tipo de objeto.
+    // Si un V específico no está definido para un tipo, se usará "0" por defecto.
+    objectValueOptions: {
+        weapon: {
+            v0: [
+                'espada', 'daga', 'boleadoras', 'maza',
+                'hacha', 'mayal', 'latigo', 'lanza'
+            ],
+            v3: [
+                'slice', 'stab', 'slash', 'latigo', 'claw', 'blast', 'pound',
+                'crush', 'grep', 'bite', 'pierce', 'suction', 'beating',
+                'digestion', 'charge', 'slap', 'punch', 'wrath', 'magic',
+                'divine', 'cleave', 'scratch', 'peck', 'peckb', 'chop',
+                'sting', 'smash', 'shbite', 'flbite', 'frbite', 'acbite',
+                'chomp', 'drain', 'thrust', 'slime', 'shock', 'thwack',
+                'flame', 'chill'
+            ],
+            v4: [
+                { value: 'A', label: 'flaming' },
+                { value: 'B', label: 'frost' },
+                { value: 'C', label: 'vampiric' },
+                { value: 'D', label: 'sharp' },
+                { value: 'E', label: 'vorpal' },
+                { value: 'F', label: 'two-handed' },
+                { value: 'G', label: 'shocking' },
+                { value: 'H', label: 'poisoned' },
+                { value: 'I', label: 'Sangriento' },
+                { value: 'J', label: 'Hemorragia' }
+            ]
+        }
+    },
+
     affectBitOptions: {
         A: [
             { value: 'A', label: 'Blind' },
