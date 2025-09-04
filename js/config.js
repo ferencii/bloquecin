@@ -393,17 +393,17 @@ export const gameData = {
     // "label" se muestra en la UI (español) y "value" se escribe en el archivo .are (inglés).
     objectTypes: [
         { value: 'weapon', label: 'arma' },
-        { value: 'basura', label: 'basura' },
         { value: 'boat', label: 'barco' },
-        { value: 'bebida', label: 'bebida' },
-        { value: 'cadáver NPC', label: 'cadáver NPC' },
-        { value: 'cadáver PJ', label: 'cadáver PJ' },
-        { value: 'clothing', label: 'ropa' },
-        { value: 'comida', label: 'comida' },
+        { value: 'staff', label: 'bastón' },
+        { value: 'trash', label: 'basura' },
+        { value: 'npc_corpse', label: 'cadáver NPC' },
+        { value: 'pc_corpse', label: 'cadáver PJ' },
+        { value: 'food', label: 'comida' },
         { value: 'food_buff', label: 'comida con buff' },
         { value: 'container', label: 'contenedor' },
+        { value: 'drink', label: 'contenedor de bebida' },
+        { value: 'money', label: 'dinero' },
         { value: 'disfraz', label: 'disfraz' },
-        { value: 'dinero', label: 'dinero' },
         { value: 'emblema', label: 'emblema' },
         { value: 'fountain', label: 'fuente' },
         { value: 'gem', label: 'gema' },
@@ -413,39 +413,54 @@ export const gameData = {
         { value: 'room_key', label: 'llave de habitación' },
         { value: 'light', label: 'luz' },
         { value: 'map', label: 'mapa' },
-        { value: 'money', label: 'dinero' },
-        { value: 'pill', label: 'píldora' },
-        { value: 'portal', label: 'portal' },
-        { value: 'potion', label: 'poción' },
-        { value: 'protect', label: 'proteger' },
-        { value: 'proteccion', label: 'protección' },
+        { value: 'furniture', label: 'mueble' },
         { value: 'scroll', label: 'pergamino' },
-        { value: 'staff', label: 'bastón' },
+        { value: 'warp_stone', label: 'piedra de portal y nexus' },
+        { value: 'pill', label: 'píldora' },
+        { value: 'potion', label: 'poción' },
+        { value: 'portal', label: 'portal' },
+        { value: 'proteccion', label: 'protección' },
+        { value: 'protect', label: 'proteger' },
+        { value: 'clothing', label: 'ropa' },
         { value: 'treasure', label: 'tesoro' },
-        { value: 'wand', label: 'varita' },
-        { value: 'warp_stone', label: 'piedra de portal y nexus' }
+        { value: 'wand', label: 'varita' }
     ],
 
 
     // Etiquetas para los valores V0-V4 de objetos, según su tipo.
     objectValueLabels: {
         'weapon': ['Tipo de arma', 'Número de dados', 'Cara de dados', 'Tipo de daño', 'Flags de arma'],
-        'proteccion': ['perforar', 'golpear', 'cortar', 'exótico', 'volumen'],
-        'light': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'duración de luz', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
-        'money': ['plata', 'oro', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
-        'drink': ['capacidad máxima', 'capacidad actual', 'líquido', '0/A=veneno', 'CONFIGURAR A 0'], // Assuming 'drink' is 'drink containers'
-        'fountain': ['CONFIGURAR A -1', 'CONFIGURAR A -1', 'líquido', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
-        'wand': ['nivel de hechizo', 'cargas máximas', 'cargas actuales', 'hechizo', 'CONFIGURAR A 0'],
+        'boat': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'staff': ['nivel de hechizo', 'cargas máximas', 'cargas actuales', 'hechizo', 'CONFIGURAR A 0'],
-        'potion': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
-        'scroll': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
-        'pill': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
-        'container': ['Maximo peso', 'Flags', 'Vnum de la llave', 'Objetos maximos dentro', 'Multiplicador de peso'], // Assuming 'containers'
+        'trash': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'npc_corpse': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'pc_corpse': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'food': ['hours full', 'hour hung', 'CONFIGURAR A 0', '0/A=pois', 'CONFIGURAR A 0'],
         'food_buff': ['duracion', 'Cantidad', 'apply', 'A/I/R/V', 'flags/A=veneno'],
-        'portal': ['cargas', 'exit flags', 'gate flags', 'Vnum Room', 'CONFIGURAR A 0'], // Assuming 'portals'
-        'furniture': ['gente', 'total wei', 'fur flags', 'heal bon', 'mana bon'],
+        'container': ['Maximo peso', 'Flags', 'Vnum de la llave', 'Objetos maximos dentro', 'Multiplicador de peso'], // Assuming 'containers'
+        'drink': ['capacidad máxima', 'capacidad actual', 'líquido', 'veneno', 'CONFIGURAR A 0'], // Assuming 'drink' is 'drink containers'
+        'money': ['plata', 'oro', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'disfraz': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'emblema': ['id_clan', 'rango', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'], // Adjusted for 5 values, empty for unused
+        'fountain': ['CONFIGURAR A -1', 'CONFIGURAR A -1', 'líquido', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'gem': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'jukebox': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'jewelry': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'key': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'room_key': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'light': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'duración de luz', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'map': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'furniture': ['gente', 'total wei', 'fur flags', 'heal bon', 'mana bon'],
+        'scroll': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
+        'warp_stone': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'pill': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
+        'potion': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
+        'portal': ['cargas', 'exit flags', 'gate flags', 'Vnum Room', 'CONFIGURAR A 0'], // Assuming 'portals'
+        'proteccion': ['perforar', 'golpear', 'cortar', 'exótico', 'volumen'],
+        'protect': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'clothing': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'treasure': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'wand': ['nivel de hechizo', 'cargas máximas', 'cargas actuales', 'hechizo', 'CONFIGURAR A 0'],
         'default': ['Valor 0', 'Valor 1', 'Valor 2', 'Valor 3', 'Valor 4'] // Default for types not explicitly listed
     },
 
@@ -512,32 +527,371 @@ export const gameData = {
             ]
         },
 
-        light: {
-            v0: [
-                { value: '0', label: 'Siempre es 0' }
+
+        boat: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        staff: {
+            v3: [
+                '\'abrasar\'', '\'acelerar\'', '\'alineacion\'', '\'aliento acido\'',
+                '\'aliento fogoso\'', '\'aliento gaseoso\'', '\'aliento helado\'', '\'aliento tormentoso\'',
+                '\'antifuego\'', '\'bendecir\'', '\'bendita niebla\'', '\'buen aura\'',
+                '\'calma\'', '\'cancelacion\'', '\'causar critico\'', '\'causar leve\'',
+                '\'causar serio\'', '\'chupar energia\'', '\'clarividencia\'', '\'compuerta\'',
+                '\'control tiempo\'', '\'crear agua\'', '\'crear comida\'', '\'crear fuente\'',
+                '\'crear rosa\'', '\'curar critico\'', '\'curar deslumbrar\'', '\'curar enfermo\'',
+                '\'curar leve\'', '\'curar serio\'', '\'curar veneno\'', '\'demonfuego\'',
+                '\'detectar bondad\'', '\'detectar magia\'', '\'detectar mal\'', '\'detectar oculto\'',
+                '\'detectar veneno\'', '\'detectar invisibilidad\'', '\'delirar\'', '\'disco volador\'',
+                '\'divina palabra\'', '\'dormir\'', '\'eliminar maldecir\'', '\'encantar arma\'',
+                '\'encantar equipo\'', '\'encantar gente\'', '\'escudo\'', '\'fuerza colosal\'',
+                '\'gatovision\'', '\'golpear acido\'', '\'golpe de agarre\'', '\'identificar\'',
+                '\'invisibilidad\'', '\'lanzar rayo\'', '\'luz continua\'', '\'maldecir\'',
+                '\'metal rojo\'', '\'meteorito\'', '\'misil magico\'', '\'nexus\'',
+                '\'operacion sexual\'', '\'palabras de regresar\'', '\'piel de piedra\'', '\'plaga\'',
+                '\'porrazo\'', '\'portal\'', '\'proteccion\'', '\'proteccion divina\'',
+                '\'proteccion infernal\'', '\'rayo de sinceridad\'', '\'rayo letal\'', '\'rayo poderoso\'',
+                '\'recargar\'', '\'refrescar\'', '\'relenti\'', '\'reserved\'',
+                '\'sanar\'', '\'santuario\'', '\'spray\'', '\'summon\'',
+                '\'teleportar\'', '\'terremoto\'', '\'todo curacion\'', '\'todo invisibilidad\'',
+                '\'toque ardiente\'', '\'toque frio\'', '\'traspasar\'', '\'ventrilocuo\'',
+                '\'veneno\'', '\'volar\''
             ],
-            v1: [
-                { value: '0', label: 'Siempre es 0' }
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        trash: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        npc_corpse: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        pc_corpse: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        food: {
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [
+                { value: '0', label: 'No venenoso' },
+                { value: 'A', label: 'Envenenado' }
+            ],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        food_buff: {
+            v2: [
+                { value: '0', label: 'Ninguno' },
+                { value: '1', label: 'Fuerza' },
+                { value: '2', label: 'Destreza' },
+                { value: '3', label: 'Inteligencia' },
+                { value: '4', label: 'Sabiduría' },
+                { value: '5', label: 'Constitución' },
+                { value: '6', label: 'Sexo' },
+                { value: '7', label: 'Clase' },
+                { value: '8', label: 'Nivel' },
+                { value: '9', label: 'Edad' },
+                { value: '10', label: 'Altura' },
+                { value: '11', label: 'Peso' },
+                { value: '12', label: 'Maná' },
+                { value: '13', label: 'Puntos de golpe' },
+                { value: '14', label: 'Movimiento' },
+                { value: '15', label: 'Oro' },
+                { value: '16', label: 'Experiencia' },
+                { value: '17', label: 'Clase de armadura (CA)' },
+                { value: '18', label: 'Hitroll' },
+                { value: '19', label: 'Damroll' },
+                { value: '20', label: 'Hechizo (incluye varas y báculos)' },
+                { value: '21', label: 'Salvación vs Vara' },
+                { value: '22', label: 'Salvación vs Petrificar' },
+                { value: '23', label: 'Salvación vs Aliento' },
+                { value: '24', label: 'Salvación vs Hechizo' },
+                { value: '25', label: 'Afecto de hechizo' },
+                { value: '26', label: 'Poder de hechizo' },
+                { value: '27', label: 'Poder de curación' }
             ],
             v3: [
-                { value: '0', label: 'Siempre es 0' }
+                { value: '0', label: 'NADA' },
+                { value: 'A', label: 'Afecta' },
+                { value: 'I', label: 'Inmune' },
+                { value: 'R', label: 'Resistencia' },
+                { value: 'V', label: 'Vulnerabilidad' }
             ],
             v4: [
-                { value: '0', label: 'Siempre es 0' }
+                { value: '0', label: 'NADA' },
+                { value: 'A', label: 'Blind' },
+                { value: 'B', label: 'Invisible' },
+                { value: 'C', label: 'Detect_evil' },
+                { value: 'D', label: 'Detect_invis' },
+                { value: 'E', label: 'Detect_magic' },
+                { value: 'F', label: 'Detect_hidden' },
+                { value: 'G', label: 'Detect_good' },
+                { value: 'H', label: 'Sanctuary' },
+                { value: 'I', label: 'Faerie_fire' },
+                { value: 'J', label: 'Infrared' },
+                { value: 'K', label: 'Curse' },
+                { value: 'L', label: 'Flaming (No implementado)' },
+                { value: 'M', label: 'Poisoned' },
+                { value: 'N', label: 'Prot_evil' },
+                { value: 'O', label: 'Prot_good' },
+                { value: 'P', label: 'Sneak' },
+                { value: 'Q', label: 'Hide' },
+                { value: 'R', label: 'Sleep' },
+                { value: 'S', label: 'Charm' },
+                { value: 'T', label: 'Flying' },
+                { value: 'U', label: 'Pass_door' },
+                { value: 'V', label: 'Haste' },
+                { value: 'W', label: 'Calm' },
+                { value: 'X', label: 'Plague' },
+                { value: 'Y', label: 'Weaken' },
+                { value: 'Z', label: 'Dark_vis' },
+                { value: 'a', label: 'Berserk (No implementado)' },
+                { value: 'b', label: 'Swim (No implementado)' },
+                { value: 'c', label: 'Regen' },
+                { value: 'd', label: 'Slow' }
             ]
         },
 
-        money: {
+        container: {
+
+        },
+
+        drink: {
+            v0: [{ value: '__MANUAL__', label: 'Capacidad máxima' }],
+            v1: [{ value: '__MANUAL__', label: 'Capacidad actual' }],
             v2: [
-                { value: '0', label: 'Siempre es 0' }
+                { value: 'water', label: 'Agua' },
+                { value: 'beer', label: 'Cerveza' },
+                { value: 'wine', label: 'Vino' },
+                { value: 'ale', label: 'Ale' },
+                { value: 'whisky', label: 'Whisky' },
+                { value: 'lemonade', label: 'Limonada' },
+                { value: 'milk', label: 'Leche' },
+                { value: 'tea', label: 'Té' },
+                { value: 'coffee', label: 'Café' },
+                { value: 'blood', label: 'Sangre' },
+                { value: 'salt_water', label: 'Agua salada' },
+                { value: 'cola', label: 'Cola' }
             ],
             v3: [
-                { value: '0', label: 'Siempre es 0' }
+                { value: '0', label: 'No venenoso' },
+                { value: '1', label: 'Venenoso' }
             ],
-            v4: [
-                { value: '0', label: 'Siempre es 0' }
-            ]
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        money: {
+            v0: [{ value: '__MANUAL__', label: 'Plata' }],
+            v1: [{ value: '__MANUAL__', label: 'Oro' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        disfraz: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        emblema: {
+            v0: [{ value: '__MANUAL__', label: 'ID de clan' }],
+            v1: [{ value: '__MANUAL__', label: 'Rango' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        fountain: {
+            v0: [{ value: '-1', label: 'Siempre es -1' }],
+            v1: [{ value: '-1', label: 'Siempre es -1' }],
+            v2: [
+                { value: 'water', label: 'Agua' },
+                { value: 'beer', label: 'Cerveza' },
+                { value: 'wine', label: 'Vino' },
+                { value: 'ale', label: 'Ale' },
+                { value: 'whisky', label: 'Whisky' },
+                { value: 'lemonade', label: 'Limonada' },
+                { value: 'milk', label: 'Leche' },
+                { value: 'tea', label: 'Té' },
+                { value: 'coffee', label: 'Café' },
+                { value: 'blood', label: 'Sangre' },
+                { value: 'salt_water', label: 'Agua salada' },
+                { value: 'cola', label: 'Cola' }
+            ],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        gem: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        jukebox: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        jewelry: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        key: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        room_key: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        light: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '__MANUAL__', label: 'Duración de luz' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        map: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        furniture: {
+            v0: [{ value: '__MANUAL__', label: 'Capacidad de gente' }],
+            v1: [{ value: '__MANUAL__', label: 'Peso total' }],
+            v2: [{ value: '__MANUAL__', label: 'Flags de mueble' }],
+            v3: [{ value: '__MANUAL__', label: 'Bonif. de curación' }],
+            v4: [{ value: '__MANUAL__', label: 'Bonif. de maná' }]
+        },
+
+        scroll: {
+            v0: [{ value: '__MANUAL__', label: 'Nivel de hechizo' }],
+            v1: [{ value: '__MANUAL__', label: 'Hechizo 1' }],
+            v2: [{ value: '__MANUAL__', label: 'Hechizo 2' }],
+            v3: [{ value: '__MANUAL__', label: 'Hechizo 3' }],
+            v4: [{ value: '__MANUAL__', label: 'Hechizo 4' }]
+        },
+
+        warp_stone: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        pill: {
+            v0: [{ value: '__MANUAL__', label: 'Nivel de hechizo' }],
+            v1: [{ value: '__MANUAL__', label: 'Hechizo 1' }],
+            v2: [{ value: '__MANUAL__', label: 'Hechizo 2' }],
+            v3: [{ value: '__MANUAL__', label: 'Hechizo 3' }],
+            v4: [{ value: '__MANUAL__', label: 'Hechizo 4' }]
+        },
+
+        potion: {
+            v0: [{ value: '__MANUAL__', label: 'Nivel de hechizo' }],
+            v1: [{ value: '__MANUAL__', label: 'Hechizo 1' }],
+            v2: [{ value: '__MANUAL__', label: 'Hechizo 2' }],
+            v3: [{ value: '__MANUAL__', label: 'Hechizo 3' }],
+            v4: [{ value: '__MANUAL__', label: 'Hechizo 4' }]
+        },
+
+        portal: {
+            v0: [{ value: '__MANUAL__', label: 'Cargas' }],
+            v1: [{ value: '__MANUAL__', label: 'Exit flags' }],
+            v2: [{ value: '__MANUAL__', label: 'Gate flags' }],
+            v3: [{ value: '__MANUAL__', label: 'VNUM de la sala' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        proteccion: {
+            v0: [{ value: '__MANUAL__', label: 'Perforar' }],
+            v1: [{ value: '__MANUAL__', label: 'Golpear' }],
+            v2: [{ value: '__MANUAL__', label: 'Cortar' }],
+            v3: [{ value: '__MANUAL__', label: 'Exótico' }],
+            v4: [{ value: '__MANUAL__', label: 'Volumen' }]
+        },
+
+        protect: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        clothing: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        treasure: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+
+        wand: {
+            v0: [{ value: '__MANUAL__', label: 'Nivel de hechizo' }],
+            v1: [{ value: '__MANUAL__', label: 'Cargas máximas' }],
+            v2: [{ value: '__MANUAL__', label: 'Cargas actuales' }],
+            v3: [{ value: '__MANUAL__', label: 'Hechizo' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
         }
+
+
+
+
+
     },
 
     affectBitOptions: {
