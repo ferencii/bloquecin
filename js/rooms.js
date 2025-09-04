@@ -23,7 +23,7 @@ export function generateRoomsSection() {
         section += `${room.querySelector('.room-name').value}~\n`;
         section += `${room.querySelector('.room-desc').value.replace(/\n/g, ' ')}~\n`;
 
-        const roomFlags = getFlagString(room, 'fieldset[legend="Flags de Habitación"] input[type="checkbox"]');
+        const roomFlags = getFlagString(room, 'Flags de Habitación');
         section += `0 ${roomFlags} ${room.querySelector('.room-sector').value}\n`;
 
         room.querySelectorAll('.exits-container .sub-item-row-grid').forEach(row => {
