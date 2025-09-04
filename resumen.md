@@ -48,3 +48,5 @@
         *   **Funcionalidad**: Los Affects ahora utilizan un `<select>` para elegir los bits disponibles en lugar de un campo de texto libre.
         *   **Opciones Dinámicas**: Las opciones se cargan según el tipo de affect seleccionado (`A`, `I`, `R`, `V`), utilizando la nueva estructura `affectBitOptions` en `js/config.js`.
         *   **Integración**: La lógica se añadió en `js/objects.js`, `js/sets.js` y `js/parser.js` para poblar y mantener sincronizados estos desplegables.
+*   **Mejoras en la Sección Rooms**:
+    *   **Flags de Habitación**: Se corrigió la llamada a `getFlagString` en `js/rooms.js`, permitiendo que los flags seleccionados se escriban correctamente en el archivo `.are`.
