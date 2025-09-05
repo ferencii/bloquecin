@@ -389,6 +389,41 @@ export const gameData = {
         'denso'
     ],
 
+    // Lista de especiales disponibles para la sección #SPECIALS.
+    // Cada objeto incluye su nombre y una breve descripción usada en los tooltips.
+    specials: [
+        { value: 'spec_troll_member', descripcion: 'Troll que ataca a los ogros cercanos.' },
+        { value: 'spec_ogre_member', descripcion: 'Ogro que ataca a los trolls cercanos.' },
+        { value: 'spec_patrolman', descripcion: 'Patrullero que interrumpe peleas y sopla un silbato.' },
+        { value: 'spec_nasty', descripcion: 'Ladrón agresivo que roba oro y huye.' },
+        { value: 'spec_breath_any', descripcion: 'Dragón con aliento elemental aleatorio.' },
+        { value: 'spec_cast_adepto', descripcion: 'NPC que lanza hechizos beneficiosos a novatos.' },
+        { value: 'spec_cast_clerigo', descripcion: 'Clérigo que lanza hechizos ofensivos.' },
+        { value: 'spec_cast_mago', descripcion: 'Mago que lanza hechizos ofensivos.' },
+        { value: 'spec_fido', descripcion: 'Carroñero que devora cadáveres de NPCs.' },
+        { value: 'spec_guard', descripcion: 'Guardia que ataca criminales y defiende inocentes.' },
+        { value: 'spec_janitor', descripcion: 'Conserje que recoge basura y objetos baratos.' },
+        { value: 'spec_alcalde', descripcion: 'NPC que sigue una rutina diaria de alcalde.' },
+        { value: 'spec_veneno', descripcion: 'Envenenador que lanza el hechizo veneno.' },
+        { value: 'spec_ladron', descripcion: 'Ladrón que roba dinero a los jugadores.' },
+        { value: 'spec_cast_runk', descripcion: 'Hechicero con conjuros propios de Runk.' },
+        { value: 'spec_cast_oteren', descripcion: 'Hechicero con conjuros propios de Oteren.' },
+        { value: 'spec_guardia_malo', descripcion: 'Guardia que protege a personajes malvados.' },
+        { value: 'spec_guardia_bueno', descripcion: 'Guardia que protege a personajes buenos.' },
+        { value: 'spec_teleporter', descripcion: 'NPC que se teletransporta periódicamente.' },
+        { value: 'spec_barco', descripcion: 'NPC que simula ser un barco entre áreas.' },
+        { value: 'spec_esfinge', descripcion: 'Guardiana mística que controla el acceso por clan.' },
+        { value: 'spec_guardia_clan', descripcion: 'Guardia que defiende un clan y ataca intrusos.' },
+        { value: 'spec_entrenador_especial', descripcion: 'Entrenador que inicia cadenas de misiones.' },
+        { value: 'spec_quest_especial_1', descripcion: 'NPC guía de un quest con recompensas.' },
+        { value: 'spec_quest_especial_2', descripcion: 'NPC complementario del quest narrativo.' },
+        { value: 'spec_secretario', descripcion: 'Controla acceso al señor según ranking PK.' },
+        { value: 'spec_mordisco', descripcion: 'Criatura que muerde y asesina a jugadores débiles.' },
+        { value: 'spec_entrenador_samurai', descripcion: 'Entrenador de samuráis con misiones especiales.' },
+        { value: 'spec_samu_experto_1', descripcion: 'Experto samurái que entrega misiones iniciales.' },
+        { value: 'spec_samu_experto_2', descripcion: 'Experto samurái avanzado con combates duros.' }
+    ],
+
     // Lista de tipos de objetos disponibles.
     // "label" se muestra en la UI (español) y "value" se escribe en el archivo .are (inglés).
     objectTypes: [
@@ -1338,6 +1373,17 @@ export const gameData = {
 
     shopHours: Array.from({ length: 24 }, (_, i) => ({ value: String(i), label: String(i) })),
 
+    // Variables disponibles para los bloques de Blockly en los PROGs
+    progVariables: [
+        { value: '$i', label: 'el personaje/objeto/sala actual' },
+        { value: '$n', label: 'el jugador que activó el evento' },
+        { value: '$r', label: 'un jugador al azar en la sala' },
+        { value: '$o', label: 'el objeto principal' },
+        { value: '$a', label: 'el primer texto capturado' },
+        { value: '$b', label: 'el segundo texto capturado' },
+        { value: '$u', label: 'el primer argumento de "usar"' },
+        { value: '$v', label: 'el segundo argumento de "usar"' }
+    ],
     // Prompts detallados para la generación de descripciones de IA.
     // Cada clave representa un tipo de entidad (mob, object, room) y contiene sub-prompts específicos.
     aiPrompts: {

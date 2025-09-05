@@ -1,0 +1,2794 @@
+#AREA
+questf.are~
+Program Quest~
+{ -- } Ferenci      Program Quest~
+13200 13499
+QUEST~
+
+
+#MOBILES
+
+#13200
+gorrion gorrión pichirri~
+El gorrión Pichirri~
+El gorrión Pichirri esta revoloteando por el suelo.
+~
+Pichirri es un pequeño gorrión de plumas doradas y ojos vivaces que parecen observarlo todo con curiosidad.
+Su diminuto pico se mueve de vez en cuando, como si estuviera murmurando secretos que solo él entiende.
+A pesar de su tamaño, se nota que es un ave ágil e inteligente, con un brillo astuto en la mirada.
+Si lo observas con atención, notarás que una de sus patas lleva un diminuto {Canillo{x dorado, probablemente un regalo de la secretaria.
+Pichirri parece estar siempre alerta, inclinando la cabeza de un lado a otro, como si esperara que algo importante sucediera en cualquier momento.
+~
+pajarito~
+GHU 0 1000 0
+0 0 2d6+0 1d1+99 1d3+0 peck
+10 10 10 10
+R 0 0 C
+stand stand either 0
+0 0 tiny 0
+M regex 13205 Pichirri(.*)~
+M death 13206 100~
+#13201
+Bola Tela araña~
+{CUna bola de tela de araña{x~
+{CUna bola envuelta en tela de araña {cestá aquí{x
+~
+{coyes miau desde el interior
+~
+seda de araña~
+ABNUfg 0 0 0
+1 1 1d1+450 1d1+1 1d1+1 none
+0 0 0 0
+a B 0 0
+stand stand either 0
+0 0 gigante capsula
+M speech 13211 currupipi~
+M death 13212 100~
+#13202
+Currupipi gato~
+{CU{Wn {CG{Wato {CE{Wencapsulado {CE{Wn {CT{Wela {CD{We {CA{Wraña{x~
+{CU{Wn {CG{Wato {CE{Wencapsulado {CE{Wn {CT{Wela {CD{We {CA{Wraña {cestá aquí{x
+~
+un precioso gatito si dices su nombre saltará a tus brazos
+~
+seda de araña~
+ABNUfg 0 0 0
+1 1 1d1+600 1d1+1 1d1+1 arañazo
+0 0 0 0
+a B 0 0
+stand stand either 0
+0 0 gigante capsula
+M speech 13213 currupipi~
+M death 13214 100~
+#13203
+ANN Dujar~
+ANN Dujar~
+ANN Dujar está aquí
+~
+
+~
+humanoide~
+ABMN DEFJZ 0 0
+0 0 0d0+0 0d0+0 0d0+0 none
+0 0 0 0
+0 0 A J
+stand stand either 0
+AHMV ABCDEFGHIJK large desconocido
+M exall 13215 2~
+M exall 13216 4~
+M exall 13217 5~
+M speech 13218 estaba muerto~
+M speech 13219 lo mate yo~
+#13204
+xguard~
+~
+
+~
+
+~
+unique~
+ABNV 0 0 0
+150 111 0d0+10000 0d0+10000 0d0+100 none
+0 0 0 0
+Y 0 0 0
+stand stand either 0
+0 0 tiny desconocido
+M grall 13209 100~
+#13205
+barcus wroot~
+barcus wroot~
+Barcus Wroot el gnomo contrabandista
+~
+Barcus Wroot es un gnomo de piel oscura, conocido por vender mercancia ilegal a precios muy elevados
+~
+gnomo~
+ABMN EJ 0 0
+125 555 0d0+20000 0d0+20000 0d0+122 none
+0 0 0 0
+0 0 A J
+stand stand either 0
+AHMV ABCDEFGHIJK tiny desconocido
+M grall 13210 100~
+M randomall 13220 16~
+M exall 13221 1~
+#13206
+Tarane~
+~
+
+~
+Está apresada en un zulo dentro de la pared, no puedes verla muy bien
+~
+unique~
+ABN 0 0 0
+150 111 0d0+10000 0d0+10000 0d0+100 none
+0 0 0 0
+Y 0 0 0
+stand stand either 0
+0 0 tiny desconocido
+M speech 13222 me pillaron~
+M speech 13223 no habia nada~
+M give 13224 13210~
+M give 13225 13208~
+#0
+
+#OBJECTS
+#13200
+gorrion gorrión pichirrini~
+el Gorrión Pichirri~
+El gorrión pichirri~
+gorrion~
+tesoro 0 AQ
+0 0 0 0 0
+3 10 620 G
+E
+gorrion pichirri~
+Pichirri es un pequeño gorrión de plumas doradas y ojos vivaces que parecen observarlo todo con curiosidad.
+Su diminuto pico se mueve de vez en cuando, como si estuviera murmurando secretos que solo él entiende.
+A pesar de su tamaño, se nota que es un ave ágil e inteligente, con un brillo astuto en la mirada.
+Si lo observas con atención, notarás que una de sus patas lleva un diminuto {Canillo{x dorado, probablemente un regalo de la secretaria.
+Pichirri parece estar siempre alerta, inclinando la cabeza de un lado a otro, como si esperara que algo importante sucediera en cualquier momento.
+~
+
+E
+anillo~
+Al parecer es un anillo mágico, o esa es la impresión que da, parece el típico anillo de {Cregreso a casa{x, de esos que si lo llevas vestido o en el bolsillo y lo "{CUSAS{x" pues te lleva a casa.
+Intuyes que la secreataria se lo puso al difunto Pichirri para que si se pierde pueda regresar a casa, pero, claro, los gorriones no saben usar anillos.
+
+¿Sería buena idea quedartelo?
+
+Intentas quitar el anillo del gorrión, pero, paras al entender que solo podrías quitarselo matando al gorrión.
+~
+O DROP 13200 100~
+O usar 13200~
+
+#13201
+anillo regreso casa~
+Un anillo de regreso a casa~
+Un anillo de regreso a casa~
+gold~
+jewelry 0 AB
+0 0 0 0 0 
+1 0 20 P
+E
+anillo~
+Al parecer es un anillo mágico, o esa es la impresión que da, parece el típico anillo de {Cregreso a casa{x, de esos que si lo llevas vestido o en el bolsillo y lo "{CUSAS{x" pues te lleva a casa.
+Examinandolo un poco mejor, parece que está un poco dañado.
+Intuyes que la secreataria se lo puso al difunto Pichirri para que si se pierde pueda regresar a casa, pero, claro, los gorriones no saben usar anillos.
+~
+O usar 13201~
+#13202
+xcurru~
+un lindo gatito~
+un lindo gatito llamado currupipi se lame las patitas~
+denso~
+tesoro 0 A
+0 0 0 0 0 
+0 0 0 P
+E
+gato gatito currupipi~
+{OUN LINDO GATITO ESTA MUY FELIZ{x
+~
+#13203
+alma felina~
+{malma {Ofelina{x~
+{Mel alma {Ofelina{x de currupipi vuela alrededor~
+etereo~
+warp_stone G AQ
+10 0 0 0 0 
+0 1 9150 P
+A
+5 1
+A
+4 1
+A
+3 1
+A
+2 1
+A
+1 1
+A
+0 0
+E
+alma felina~
+El alma de un presioso gatito que ahora no esta vivo
+~
+#13204
+rendijas pared~
+{mUnas rendijas en las pared{x~
+{Wen la pared hay {munas rendijas {gy alguien dentro{x~
+acero~
+furniture 0 P
+0 0 0 0 0 
+0 0 0 P
+#13205
+nota caja fuerte~
+una nota con olor a {GM{ga{GR{gi{GS{gm{GA{gs{x~
+una nota húmeda con cierto olor a marismas~
+paper~
+trash 0 A
+0 0 0 0 0 
+0 0 0 P
+E
+nota~
+Tiene un olor fuerte a {GM{ga{GR{gi{GS{gm{GA{gs{x
+hay algo escrito
+{R8{x
+{B5{x
+{G1{x
+{cesta es la combinación secreta de la caja fuerte,{x
+{x8 rojo, 5 azul y 1 verde{x
+{cHay un pasadizo secreto en la oficina dal alcalde{x
+{csi el alcalde está no se puede acceder, hay q "deshacerse" de el{x
+{cdentro de la cámara hay que ser veloz ya que saltarán las alarmas{x
+{cy los guardias tardan unos 30 segundos en llegar{x
+{cla combinación la tenemos, pero los números se mueven de la siguiente forma{x
+{cusar rojo derecha o usar rojo izquierda (para mover los números rojos){x
+{cusar azul derecha o usar azul izquierda (para mover los números azules){x
+{cusar verde derecha o usar verde izquierda (para mover los números verdes){x
+~ 
+#13206
+pasadizo secreto~
+{yun pasadizo secreto{x~
+un pasadizo secreto entre los muebles de la oficina~
+secreto~
+furniture 0 P
+0 0 0 0 0 
+0 0 0 P
+O usar 13202~
+#13207
+monedas~
+un montonazo de monedas~
+nunca has visto tantas monedas juntas~
+nothingness~
+money 0 A
+1500000 0 0 0 0 
+0 0 0 P
+#13208
+abalorio~
+El abalorio de la abuela~
+Un antiguo abalorio que parece tener poderes mágicos~
+denso~
+potion AGY AO
+0 '' '' '' '' 
+20 0 300 P
+E
+abalorio~
+abalorio con "usos" mágicos
+ojo, ni beber ni tragar del abalorio
+~
+O usar 13208~
+#13209
+palanca~
+{cuna palanca~
+{chay {Cuna palanca{c tirada en el suelo~
+nothingness~
+furniture 0 P
+0 0 0 0 0 
+0 0 0 P
+O usar 13209~
+#13210
+baratija ~
+una baratija de dudosa calidad~
+esta baratija no tiene valor alguno~
+nothingness~
+trash B A
+0 0 0 0 0 
+1 0 0 P
+#13211
+barrotes~
+{Dunos barrotes de acero{x~
+{wunos {Dbarrotes {wte impiden {Dsalir de {wla celda~
+acero~
+furniture 0 P
+0 0 0 0 0 
+0 0 0 P
+#13212
+xscontador~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13213
+huellas gato~
+{Dunas huellas de gato{x~
+{Dunas huellas de gato{x~
+pisadas~
+furniture 0 0
+0 0 0 0 0 
+130 0 15 P
+E
+huellas~
+{DUNAS HUELLAS DE GATO SE DIRIGEN HACIA EL NORTE{x
+~
+#13214
+nota adoradora~
+una nota llena de {Dpolvo{x~
+una nota empolvada con un mensaje está aquí~
+paper~
+trash 0 A
+0 0 0 0 0 
+0 0 0 P
+E
+nota~
+Hola Dora, por fin encontré a quien tiene el abalorio de mi familia.
+Muchas gracias por tu información, fue de muchísima ayuda.
+Parto en breve, no dejaré cabeza unida a cuellos te lo prometo.
+Un abrazo, te querré siempre.
+{MTARANE{x
+~
+#13308
+cerorojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13309
+unorojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13310
+dosrojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13311
+tresrojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13312
+cuatrorojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13313
+cincorojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13314
+seisrojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13315
+sieterojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13316
+ochorojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13317
+nueverojo~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13318
+ceroazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13319
+unoazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13320
+dosazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13321
+tresazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13322
+cuatroazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13323
+cincoazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13324
+seisazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13325
+sieteazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13326
+ochoazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13327
+nueveazul~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13328
+ceroverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13329
+unoverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13330
+dosverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13331
+tresverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13332
+cuatroverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13333
+cincoverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13334
+seisverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13335
+sieteverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13336
+ochoverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13337
+nueveverde~
+~
+~
+nothingness~
+trash 0 0
+0 0 0 0 0 
+0 0 0 P
+#13338
+manivela caja fuerte~
+manivela~
+una manivela para abrir la caja fuerte~
+nothingness~
+trash O 0
+0 0 0 0 0 
+0 0 0 P
+O usar 13210~
+#13339
+rojo boton~
+~
+~
+nothingness~
+trash O 0
+0 0 0 0 0 
+0 0 0 P
+O usar 13211~
+#13340
+azul boton~
+~
+~
+nothingness~
+trash O 0
+0 0 0 0 0 
+0 0 0 P
+O usar 13212~
+#13341
+verde boton~
+~
+~
+nothingness~
+trash O 0
+0 0 0 0 0 
+0 0 0 P
+O usar 13213~
+
+#0
+
+#ROOMS
+#13200
+Caida al vacio~
+Estás pisando una tela de araña que se extiende por toda la zona.
+~
+0 NTUX 0
+D2
+Al sur parece que hay algo que se mueve
+~
+~
+0 -1 13201
+S
+#13201
+En la trampa de la araña~
+En la tela de araña hay numerosas victimas encapsuladas
+~
+0 NTUX 0
+D0
+~
+~
+0 -1 13200
+D2
+Al sur parece que llegas a las raíces de Yggdrasil
+~
+~
+0 -1 2907
+R grall 13203 100~
+R exall 13204 2~
+S
+#13202
+{DDentro del pasadizo secreto{x~
+Este pasadizo es un estrecho túnel, un poco mas adelante al este hay mas luz
+~
+0 NTUX 0
+D1
+Al este hay algo de luz, parece que es la cámara acorazada
+~
+~
+0 -1 13203
+D3
+Al oeste vuelves a la oficina del alcalde
+~
+~
+0 -1 13706
+S
+#13203
+{YLA CAMARA ACORAZADA{x~
+Una gran sala luminosa, con una lujosa caja fuerte, tiene unos numeros y botones de colores y una manivela.
+~
+0 NTUX 0
+D3
+Al oeste sales al pasadizo secreto
+~
+~
+0 -1 13202
+R grall 13210 100~
+R comlook 13211 100~
+R exall 13212 3~
+S
+#13204
+La litera de arriba~
+Te encuentras en una incómoda y estrecha litera llena de piojos
+~
+0 JNTUX 0
+D5
+~
+~
+0 -1 13205
+S
+#13205
+La celda de los que van a morir~
+En esta celda solo entran aquellos condenados a la muerte
+~
+0 JNTUX 0
+D1
+~
+~
+0 -1 13724
+D4
+~
+~
+0 -1 13204
+S
+#0
+
+#MOBPROGS
+
+#13200 *Inicia el quest en cualquier maestro de Cofradía en Midgaard, activa la quest 'El Alcalde de Midgaard'
+
+if pquestfin $n 'El Alcalde de Midgaard'
+or pquestfase $n 'El Alcalde de Midgaard' > 1
+break
+endif
+
+if pquestactiva $n 'El Alcalde de Midgaard'
+sleep 1
+mob echo $I asiente lentamente al ver que $n ha tomado la decisión de investigar.
+sleep 1
+mob echoaround $n $I observa a $n con una mezcla de preocupación y expectativa.
+decir Habla con el posadero, $n. Él podrá decirte más sobre lo que está ocurriendo con el alcalde.
+sleep 2
+mob echoat $n $I baja la voz una última vez antes de que te vayas y te dice en susurros: No te confíes... algo me dice que esto es más grande de lo que parece.
+break
+
+else
+mob pquestinicio $n 'El Alcalde de Midgaard'
+mob echo $I detiene lo que está haciendo y dirige su mirada hacia $n, con una expresión de cautela.
+sleep 2
+mob echo $I se cruza de brazos y deja escapar un suspiro.
+sleep 1
+mob echoat $n $I te observa con detenimiento, como si midiera si puede confiar en ti.
+decir Últimamente he escuchado rumores inquietantes, $n. Dicen que el alcalde de Midgaard está actuando de manera... inusual.
+sleep 2
+decir Si de verdad quieres saber más, te sugiero que vayas a la posada del {CAventurero Despistado{x y hables con el posadero. Él siempre está al tanto de lo que ocurre en la ciudad.
+sleep 2
+mob echo $I se inclina ligeramente hacia $n, bajando la voz.
+sleep 1
+mob echoat $n $I susurra solo para ti: Algunos dicen que se trata de su esposa... y algo sobre una foca.
+sleep 2
+decir No sé si serán habladurías o si hay algo más profundo en ello. Pero algo en mi instinto me dice que esto no es normal.
+sleep 1
+decir Averígualo por ti mismo, $n.
+mob echo {x
+mob echo {x
+mob echo {x {CQUEST INICIADA, REVISA TU REGISTRO DE QUEST CON EL COMANDO {c--> {OPQUEST{x
+break
+
+endif
+
+~
+
+#13201 *el posadero pone 'El Alcalde de Midgaard' en fase 1
+
+mob regexdelete $A
+mob regexcopy $a $A
+
+if pquestfin $n 'El Alcalde de Midgaard'
+or pquestfase $n 'El Alcalde de Midgaard' > 1
+break
+endif
+
+
+if pquestfase $n 'El Alcalde de Midgaard' 1
+sleep 1
+
+if contiene $A "rumor"
+or contiene $A "rumores"
+or contiene $A "alcalde"
+or contiene $A "mujer"
+or contiene $A "foca"
+
+mob echo $I frunce el ceño y sacude la cabeza con molestia.
+sleep 1
+decir Te dije que no quiero meterme en esto, $n. Ya te he contado lo que sé, si quieres saber mas investiga al Alcalde o habla con su Secretaria.
+decir ahora depende de ti.
+sleep 2
+mob echo $I vuelve a su trabajo, ignorando cualquier otra pregunta sobre el tema.
+break
+endif
+
+endif
+
+
+if pquestactiva $n 'El Alcalde de Midgaard'
+
+	sleep 1
+
+		if contiene $A "rumor"
+		or contiene $A "rumores"
+
+			if contiene $A "Alcalde"
+
+				mob pquestfase $n 'El Alcalde de Midgaard' 1
+				mob echo $I limpia un vaso con un trapo viejo y lo deja sobre la barra con aire pensativo.
+				sleep 2
+				mob echoaround $n $I observa a $n de reojo antes de suspirar y apoyarse en la barra.
+				decir Ah… así que también has escuchado los rumores, ¿eh, $n?
+				sleep 2
+				mob echo $I baja la voz y se inclina un poco más cerca de $n.
+				mob echoat $n $I murmura solo para ti: El alcalde está más raro de lo normal... Se pasea por las calles preguntando por la foca de su mujer.
+				sleep 2
+				decir No quiero meterme en problemas, ya tengo suficientes líos en esta posada como para preocuparme por los delirios de ese hombre.
+				mob echo $I mira a su alrededor, asegurándose de que nadie más lo esté escuchando.
+				sleep 2
+				mob echoat $n $I susurra: Pero te diré algo... Hace mucho tiempo que no veo a su mujer. Y eso no es normal.
+				sleep 3
+				decir Si alguien con agallas quisiera averiguar qué está pasando, tal vez debería revisar la oficina del alcalde. 
+				mob echo $I te observa detenidamente, como si estuviera midiendo tu reacción.
+				sleep 2
+				decir Pero claro, yo no he dicho nada... y no quiero saber nada de esto, ¿entendido, $n?
+				mob echo $I coge otra vez el vaso y lo sigue limpiando con el trapo viejo ignorando tu presencia.
+
+			break
+			endif
+		
+
+			mob echo $I eleva un poco la mirada y vuelve a bajarla hacía el vaso.
+			decir $n siempre hay rumores por aquí, tendrías que ser mas concreto.
+		break
+		endif
+
+
+
+
+
+	if contiene $A "alcalde"
+	or contiene $A "mujer"
+	or contiene $A "foca"
+	or contiene $A "esposa"
+
+	mob pquestfase $n 'El Alcalde de Midgaard' 1
+	mob echo $I limpia un vaso con un trapo viejo y lo deja sobre la barra con aire pensativo.
+	sleep 2
+	mob echoaround $n $I observa a $n de reojo antes de suspirar y apoyarse en la barra.
+	decir Ah… así que también has escuchado los rumores, ¿eh, $n?
+	sleep 2
+	mob echo $I baja la voz y se inclina un poco más cerca de $n.
+	mob echoat $n $I murmura solo para ti: El alcalde está más raro de lo normal... Se pasea por las calles preguntando por la foca de su mujer.
+	sleep 2
+	decir No quiero meterme en problemas, ya tengo suficientes líos en esta posada como para preocuparme por los delirios de ese hombre.
+	mob echo $I mira a su alrededor, asegurándose de que nadie más lo esté escuchando.
+	sleep 2
+	mob echoat $n $I susurra: Pero te diré algo... Hace mucho tiempo que no veo a su mujer. Y eso no es normal.
+	sleep 3
+	decir Si alguien con agallas quisiera averiguar qué está pasando, tal vez debería revisar la oficina del alcalde. 
+	mob echo $I te observa detenidamente, como si estuviera midiendo tu reacción.
+	sleep 2
+	decir Pero claro, yo no he dicho nada... y no quiero saber nada de esto, ¿entendido, $n?
+	mob echo $I coge otra vez el vaso y lo sigue limpiando con el trapo viejo ignorando tu presencia.
+
+	break
+	endif
+
+
+endif
+
+
+if pquestactiva $n 'El Alcalde de Midgaard'
+
+mob echoat $n $I se percata de tu presencia pero intenta ignorarte.
+mob echoaround $n $I se percata de la presencia de $n pero intenta ignorarle.
+
+randomblock
+mob echo $I levanta el vaso y lo mira contra la luz de una de las lamparas de aceite como buscando manchas ocultas.
+mob echo $I sigue trabajando en limpiar un vaso que asomborsamente ya está todo lo limpio que puede llegar a estar un vaso.
+---
+mob echo $I levanta un vaso y lo examina minuciosamente contra la luz de una lámpara de aceite. 
+mob echo Tras girarlo un par de veces, resopla con resignación y vuelve a frotarlo con su trapo, como si nunca estuviera lo suficientemente limpio.
+---
+mob echo $I apoya ambos codos en la barra y observa la posada con el ceño fruncido. 
+mob echo Su mirada se detiene en un rincón oscuro, donde dos clientes están empezando una pequeña pelea. Finalmente, chasquea la lengua y se vuelve hacia su trabajo.
+---
+mob echo $I saca una vieja botella de licor de debajo del mostrador y la observa con nostalgia. 
+mob echo Golpea suavemente el vidrio con los nudillos antes de devolverla a su lugar con un suspiro. *"No hoy..."*, murmura.
+---
+mob echo $I se inclina sobre la barra y observa fijamente una de las lámparas de aceite que parpadea ligeramente. 
+mob echo Tras unos segundos de contemplación, murmura para sí mismo. *"Odio cuando parpadean... siempre pasa antes de que algo malo ocurra."*
+---
+mob echo $I revisa un pergamino con notas escritas en tinta desvaída. 
+mob echo Al leer una de las líneas, su rostro se sonroja y dobla el papel con rapidez, guardándolo fuera de la vista.
+---
+mob echo $I limpia un vaso con esmero, pero se detiene de repente, frunciendo el ceño. 
+mob echo Se lleva el vaso a la nariz, lo huele con suspicacia y sacude la cabeza antes de seguir limpiando con más fuerza.
+---
+mob echo $I mira la puerta de la posada con el ceño fruncido, como si esperara a alguien. 
+mob echo Tras un momento, resopla y murmura. *"Siempre dicen que vendrán... y nunca lo hacen."*
+---
+mob echo $I deja caer una moneda sobre la barra y la observa girar lentamente. 
+mob echo Cuando finalmente cae de lado, la recoge con un gesto ausente y la guarda en su bolsillo con un susurro. *"Una más..."*
+---
+mob echo $I se inclina sobre el mostrador y observa a los clientes con expresión neutra. 
+mob echo Su mirada se endurece por un momento al detenerse en un grupo de aventureros ruidosos, pero finalmente sacude la cabeza y sigue con su trabajo.
+---
+mob echo $I pasa un trapo húmedo sobre la barra, deteniéndose un momento al ver una vieja mancha de vino. 
+mob echo Frota con más fuerza, pero la mancha persiste, como un recordatorio de algo que prefiere olvidar.
+---
+mob echo $I entrecierra los ojos y observa a $n con aire calculador. 
+mob echo Finalmente, se encoge de hombros y murmura para sí mismo. *"Todos preguntan... pero pocos realmente escuchan."*
+---
+mob echo $I se inclina detrás del mostrador y saca un pequeño paquete envuelto en tela. 
+mob echo Lo observa en silencio durante un momento antes de volver a guardarlo con expresión sombría.
+---
+mob echo $I se apoya en la barra y mira hacia el techo con aire pensativo. 
+mob echo *"¿Cuántos años llevo aquí?*" murmura para sí mismo antes de soltar una risa breve y amarga.
+---
+mob echo $I tamborilea los dedos sobre la barra en un ritmo repetitivo. 
+mob echo *"Siempre lo mismo, siempre lo mismo..."*, susurra sin mirar a nadie en particular.
+---
+mob echo $I se gira y mira una vieja espada colgada en la pared detrás del mostrador. 
+mob echo Su expresión se endurece por un instante antes de volver a su tarea con un suspiro.
+---
+mob echo $I frota un vaso con obsesión, sus ojos siguiendo cada imperfección imaginaria en el cristal.  
+---
+mob echo $I sacude un trapo sobre la barra levantando un remolino de migajas y polvo brillante.  
+---
+mob echo $I murmura algo sobre "cerveza de raíz de pantano" mientras revisa botellas bajo la barra.  
+---
+mob echo $I golpea una barrica con los nudillos y asiente, como si entendiera su contenido por el sonido.  
+---
+mob echo $I lanza una mirada sospechosa a un rincón oscuro donde algo cruje entre las sombras.  
+---
+mob echo $I ajusta el retrato torcido de un anciano con corona que cuelga tras la barra.  
+---
+mob echo $I frota un extraño símbolo grabado en la madera de la barra, sus labios moviéndose en silencio.  
+---
+mob echo $I sopla sobre una moneda de cobre y la desliza bajo un montón de servilletas mugrientas.  
+---
+mob echo $I observa el fuego de la chimenea y murmura: "El hielo nunca duerme...".  
+---
+mob echo $I saca una llave oxidada de su bolsillo y la gira entre sus dedos como si recordara algo.  
+---
+mob echo $I frota un paño sobre una mancha en forma de garra que brilla débilmente al rozarla.  
+---
+mob echo $I golpea tres veces una tabla del suelo con el pie, haciendo eco un gemido lejano bajo tierra.  
+---
+mob echo $I susurra algo a una rata que asoma la nariz por un agujero, y esta huye despavorida.  
+---
+mob echo $I limpia un cuchillo con miel mientras tararea una melodía que te suena a marcha fúnebre.  
+---
+mob echo $I coloca sal en cruz sobre la barra y escupe al fuego, haciendo crepitar las llamas en verde.  
+randomblockend
+
+break
+endif
+
+~
+
+#13202 *La secreataria, si se habla con ella inicia la quest secundaria no obligatoria para salvar a su gorrión pichirri, inica la quest 'Buscar el gorrión de la secretaria'
+
+if pquestfin $n 'El Alcalde de Midgaard'
+or pquestfase $n 'El Alcalde de Midgaard' > 3
+break
+endif
+
+mob regexdelete $A
+mob regexcopy $a $A
+
+sleep 1
+
+if contiene $A "gorrion"
+or contiene $A "gorrión"
+or contiene $A "pichirri"
+
+	if pquestactiva $n 'Buscar el gorrión de la secretaria'
+
+		mob echo $I tamborilea los dedos en el escritorio con impaciencia.
+		decir ¿Lo has encontrado ya, $n? ¡{CPichirri{x debe estar asustado y solo por ahí!
+		decir Si lo ves llámale y seguro irá contigo.
+		break
+	endif
+
+endif
+
+
+if contiene $A "alcalde"
+or contiene $A "mujer"
+or contiene $A "foca"
+or contiene $A "esposa"
+
+	if pquestactiva $n 'Buscar el gorrión de la secretaria'
+
+		mob echo $I tamborilea los dedos en el escritorio con impaciencia.
+		decir ¿Lo has encontrado ya, $n? ¡{CPichirri{x debe estar asustado y solo por ahí!
+		decir Si lo ves llámale y seguro irá contigo.
+		sleep 1
+		decir No puedo pensar con claridad en los asuntos del Alcalde si no tengo a Pichirri conmigo.
+		break
+	endif
+
+	if pquestfin $n 'Has asesinado brutalmente a Pichirri'
+		mob echoat $n {x
+		mob echoat $n $I está llorando, tiene en sus manos ensangrentadas el cadaver de Pichirri, no sabes como ha llegado tenerlo.
+		mob echoat $n {x
+		break
+	endif
+
+	if pquestfin $n 'Has devuelto sano y salvo a Pichirri'
+
+		break
+	endif
+
+	if pquestfase $n 'El Alcalde de Midgaard' >= 1
+	or pquestfase $n 'El Alcalde de Midgaard' <= 3
+
+		mob pquestinicio $n 'Buscar el gorrión de la secretaria'
+		mob echo $I hojea unos documentos sin mucho interés hasta que escucha a $n mencionar al alcalde.
+		sleep 2
+		mob echo $I parpadea rápidamente y acomoda unos papeles con una sonrisa algo tensa.
+		decir ¿El alcalde? Oh, seguro que está muy ocupado con sus asuntos… asuntos importantes, claro.
+		sleep 1
+		mob echo $I deja escapar una risa nerviosa y sacude la cabeza.
+		decir Pero hablando de cosas realmente importantes... ¡he perdido a mi querido gorrión, Pichirri!
+		sleep 1
+		decir No puedo concentrarme sabiendo que mi pobre Pichirri está perdido por ahí.
+		sleep 2
+		decir Oh, $n, ¿serías tan amable de buscarlo por mí? Estoy segura de que está en algún lugar de la ciudad.
+		sleep 1
+		mob echoat $n $I te observa fijamente y murmura en voz baja para que solo tú la escuches.
+		decir Tal vez, mientras buscas, descubras algo *interesante*... nunca se sabe.
+
+		sleep 1
+		decir Se me olvidadba, si le llamas por su nombre irá contigo.
+		decir Tráemelo por favor.
+		break
+	endif
+
+
+break
+endif
+
+if pquestactiva $n 'Buscar el gorrión de la secretaria'
+	mob echoat $n $I se percata de tu presencia pero intenta ignorarte.
+	mob echoaround $n $I se percata de la presencia de $n pero intenta ignorarle.
+	randomblock
+	mob echo $I hojea una pila de documentos con desgana, sus ojos escaneando distraídamente la ventana.  
+	mob echoat $n Entre sus papeles, ves un dibujo infantil de un gorrión con la leyenda "¡Vuelve, Pichirri!".  
+	---
+	mob echo $I ajusta bruscamente un retrato del alcalde en la pared, como si le molestara su sonrisa de mármol.  
+	mob echoat $n La secretaria murmura: "Los pájaros... siempre tan desagradecidos...".  
+	---
+	mob echo $I escribe una nota con pluma de ave, pero tacha cada palabra apenas la termina.  
+	mob echoat $n Al fondo del papel, alcanzas a leer: "*Si encuentras a Pichirri...*". El resto está emborronado.  
+	---
+	mob echo $I frota una jaula vacía con un trapo, dejando brillar los barrotes ya pulidos.  
+	mob echoat $n Un crujido en el techo hace que $I levante la cabeza con esperanza... pero solo ha sido el viento.  
+	---
+	mob echo $I cuenta monedas de un cofre marcado "Fondos Municipales", deteniéndose cada tres segundos para suspirar.  
+	mob echoat $n Oyes un leve *"¿Dónde te escondes, picarón?"* entre el tintineo del oro.  
+	---
+	mob echo $I reorganiza obsesivamente tinteros en su escritorio, alineándolos con milímetros de precisión.  
+	mob echoat $n "El orden atrae a lo perdido", dice $I a nadie en particular, clavando una mirada en $n.  
+	---
+	mob echo $I saca un mapa de la ciudad y traza círculos rojos alrededor de las plazas con un dedo tembloroso.  
+	mob echoat $n Uno de los círculos rodea el callejón donde un mendigo la advirtió sobre "plumas ensangrentadas".  
+	---
+	mob echo $I canta en voz baja una tonada que recuerdas haber oído a los niños jugar cerca de la fuente.  
+	mob echoat $n La melodía se quiebra cuando $I golpea el escritorio: "¡Nadie escucha a los que esperan!".  
+	---
+	mob echo $I examina una pluma azul bajo la luz, comparándola con un retrato de Pichirri en su diario.  
+	mob echoat $n La pluma no es de gorrión... parece más bien de cuervo, o algo más grande.  
+	---
+	mob echo $I abre un cajón lleno de semillas y migajas, pero lo cierra de golpe al notar tu mirada.  
+	mob echoat $n "No, no es comida... es... ¡evidencia fiscal!", balbucea $I con nerviosismo.  
+	---
+	mob echo $I susurra a un geranio en maceta: "Tú sí me entiendes, ¿verdad? Los pájaros son ingratos...".  
+	mob echoat $n La planta tiene una placa: *"Geranio del Presupuesto Anual. No regar después del anochecer."*  
+	---
+	mob echo $I lanza migajas al alfeizar de la ventana, mirando el cielo con expresión de madre abandonada.  
+	mob echoat $n Un grupo de palomas revolotea cerca, pero $I las ahuyenta con un grito desgarrado.  
+	---
+	mob echo $I frota un medallón con forma de garra que lleva bajo el cuello, murmurando algo en una lengua gutural.  
+	mob echoat $n El medallón brilla brevemente con un destello ámbar cuando un rayo de sol impacta directamente contra el.  
+	---
+	mob echo $I esconde una bolsa de cuero llena de semillas extrañas bajo un informe sobre "Reuniones del Concejo".  
+	mob echoat $n "No es nada... ¡solo basura!", dice $I demasiado rápido, sonrojándose.  
+	---
+	mob echo $I clava una mirada en la puerta, como si esperara que alguien (o algo) irrumpiera en cualquier momento.  
+	mob echoat $n Sus uñas martillean el escritorio en un ritmo que recuerda al aleteo de un pájaro atrapado.  
+	randomblockend
+	break
+endif
+
+if pquestfase $n 'El Alcalde de Midgaard' >= 1
+or pquestfase $n 'El Alcalde de Midgaard' <= 6
+
+mob echoat $n $I se percata de tu presencia pero intenta ignorarte.
+mob echoaround $n $I se percata de la presencia de $n pero intenta ignorarle.
+
+randomblock
+mob echo $I ajusta unos papeles sobre su escritorio y revisa una lista de tareas con aire distraído. 
+mob echo Tras unos segundos, deja escapar un suspiro y sacude la cabeza con resignación.
+---
+mob echo $I tamborilea los dedos sobre la mesa, hojeando un viejo pergamino. 
+mob echo Finalmente, lo dobla con cuidado y lo guarda en un cajón bajo llave.
+---
+mob echo $I toma una pluma y firma un documento con gesto mecánico. 
+mob echo Después, lo revisa de nuevo y borra su firma con un suspiro antes de volver a firmarlo.
+---
+mob echo $I revisa un pequeño espejo de mano y ajusta un mechón de cabello fuera de lugar. 
+mob echo Luego, vuelve a su expresión formal como si nada hubiera pasado.
+---
+mob echo $I cruza los brazos y se recuesta en su asiento, mirando el techo por un instante. 
+mob echo Murmura algo en voz baja antes de retomar su postura profesional.
+---
+mob echo $I abre un cajón y saca un pequeño frasco de tinta, agitándolo con cautela. 
+mob echo Lo observa con escepticismo antes de volver a guardarlo en su lugar.
+---
+mob echo $I hojea una pila de documentos y frunce el ceño al ver una de las hojas. 
+mob echo Toma un carboncillo y tacha varias líneas con decisión antes de seguir leyendo.
+---
+mob echo $I toma un viejo reloj de bolsillo de su escritorio y lo observa fijamente por unos segundos. 
+mob echo Luego, lo cierra con un chasquido y lo deja cuidadosamente sobre la mesa.
+---
+mob echo $I lee una nota con expresión neutra, pero sus labios se curvan levemente en una sonrisa. 
+mob echo Tras un momento, la guarda en su bolsillo sin decir nada.
+---
+mob echo $I saca un pequeño pañuelo bordado y lo pasa entre sus dedos con aire pensativo. 
+mob echo Finalmente, lo dobla con precisión y lo guarda en su escritorio.
+---
+mob echo $I se ajusta los guantes con movimientos medidos antes de colocar una pila de documentos en un estante. 
+mob echo Se sacude el polvo de las manos y vuelve a sentarse.
+---
+mob echo $I revisa una caja de madera con cerradura, pasando la yema de los dedos sobre la tapa. 
+mob echo Suspira, la deja en su sitio y regresa a su trabajo.
+---
+mob echo $I inclina la cabeza hacia un lado y observa a $n por un instante. 
+mob echo Finalmente, sacude la cabeza y vuelve a concentrarse en sus escritos.
+---
+mob echo $I se frota la sien con la punta de los dedos antes de enderezarse en su asiento. 
+mob echo *"No... todavía no es el momento."* murmura para sí misma antes de continuar con su labor.
+---
+mob echo $I ajusta unos anillos en sus dedos y se estira sutilmente. 
+mob echo Su mirada se pierde por un instante antes de recuperar su expresión neutra.
+mob echo Logras ver la marca en uno de los dedos como si faltara un anillo.
+randomblockend
+break
+endif
+~
+
+#13203 *El alcalde de Middgaard pone 'El Alcalde de Midgaard' en fase 2
+
+mob regexdelete $A
+mob regexcopy $a $A
+
+sleep 1
+
+if pquestfase $n 'El Alcalde de Midgaard' 2
+
+	if contiene $A "alcalde"
+	or contiene $A "mujer"
+	or contiene $A "foca"
+	or contiene $A "esposa"
+
+	mob addaffec $i raices 3
+	lev
+	sleep 1
+	mob echoaround $n $I juguetea nerviosamente con una pluma y evita mirar a $n.
+	mob echoat $n $I juega con una pluma entre sus dedos, sin atreverse a mirarte directamente.
+	sleep 1
+	decir ¿Sigues aquí, $n? No tenemos nada más que hablar hasta que *hagas lo que te pedí*.
+	decir Mata a una {CAdoradora de Gominola{x y traeme una prueba.
+	mob removeaffec $i raices
+
+	break
+	endif
+
+break
+endif
+
+if pquestfase $n 'El Alcalde de Midgaard' 1
+
+	if contiene $A "mujer"
+	or contiene $A "foca"
+	or contiene $A "esposa"
+
+	mob pquestfase $n 'El Alcalde de Midgaard'  2
+	mob addaffec $i raices 3
+	lev
+	sleep 1
+	mob echo $I deja caer la pluma con la que escribía al escuchar la mención de su mujer.
+	sleep 2
+	mob echoaround $n $I esquiva la mirada de $n y parece súbitamente incómodo.
+	mob echoat $n $I esquiva tu mirada y parece súbitamente incómodo.
+	decir ¿Eh? ¿mi mujer? Ah… sí, sí, claro… yo soy *el alcalde*… Todo está bien, ¡perfectamente bien!
+	sleep 3
+	mob echo $I se seca la frente con un pañuelo, aunque el clima no parece justificarlo.
+	mob echoaround $n $I fuerza una sonrisa tensa y empieza a organizar papeles sin ningún sentido.
+	mob echoat $n $I sonríe de manera forzada y empieza a reorganizar papeles sin lógica alguna.
+	decir Pero si te preocupa tanto… tal vez deberías revisar las **Catacumbas del Templo**.
+	sleep 2
+	mob echoaround $n $I se inclina ligeramente hacia $n y susurra algo en voz baja.
+	mob echoat $n $I se inclina hacia ti y te susurra, como si temiera que alguien más lo escuche.
+	decir Las… Adoradoras de Gominola… sí, sí… son un problema.
+	sleep 3
+	mob echoaround $n $I se endereza de golpe y recupera una postura rígida.
+	mob echoat $n $I se endereza rápidamente, como si hubiera dicho más de la cuenta.
+	decir ¡Exacto! *Las Adoradoras de Gominola*… deberías hacer algo al respecto, $n.
+	sleep 2
+	decir Mata a una y tráeme una prueba. Eso demostraría tu… lealtad, sí, eso.
+	sleep 3
+	mob echoaround $n $I se ríe de manera forzada y vuelve a su escritorio rápidamente, fingiendo estar ocupado.
+	mob echoat $n $I suelta una risa forzada y regresa a su escritorio con rapidez, evitando más contacto visual.
+	mob removeaffec $i raices
+
+	break
+	endif
+
+break
+endif
+
+~
+
+#13204 *El gorrión genérico de Midgaard pone 'Buscar el gorrión de la secretaria' en fase 2 y si se vuelve a usar el mobprog pone 'Buscar el gorrión de la secretaria' en fase 3
+
+if pquestfase $n 'Buscar el gorrión de la secretaria' >=3
+break
+endif
+
+if pquestfase $n 'Buscar el gorrión de la secretaria' 2
+mob pquestfase $n 'Buscar el gorrión de la secretaria' 3
+sleep 1
+mob echoat $n Pichirri pía emocionado y desciende con rapidez, posándose cerca de ti.
+sleep 1
+mob echoat $n El gorrión salta sobre tu hombro y se acomoda tranquilamente.
+mob echoaround $n El gorrión se posa en el hombro de $n.
+mob oload 13200 1 room 0
+mob doas $n coger gorrion
+mob echoat $n {OAhora tienes al gorrión en tu inventario{x
+mob purge $i
+
+break
+endif
+
+if pquestactiva $n 'Buscar el gorrión de la secretaria'
+
+mob pquestfase $n 'Buscar el gorrión de la secretaria' 2
+mob echo Un pequeño gorrión de plumas doradas está posado en el suelo picoteando algo.
+sleep 1
+mob echoaround $n $n se inclina levemente y llama al gorrión con suavidad.
+mob echoat $n El gorrión detiene su picoteo y alza la cabeza, observándote con ojos diminutos y brillantes.
+sleep 1
+mob echo El gorrión ladea la cabeza y te observa fijamente, sin moverse de inmediato.
+sleep 1
+mob echoat $n Pichirri bate las alas y da saltitos sobre suelo, pero parece dudar.
+mob echoaround $n El gorrión revolotea un poco, pero no parece muy convencido de acercarse a $n.
+sleep 1
+mob echoat $n Pichirri pía con insistencia, como si quisiera decir algo.
+mob echoaround $n El gorrión emite un par de chillidos y agita sus alas con energía.
+sleep 1
+mob echoat $n El gorrión inclina la cabeza y picotea el suelo como si esperara algo.
+sleep 1
+
+break
+endif
+
+~
+
+#13205 * El gorrión Pichirri, para que el PJ pueda cogerlo, esto va junto con el objprog '13200' que vuelve a convertir el objeto en mob
+
+if pquestfase $n 'Buscar el gorrión de la secretaria' 3
+sleep 1
+mob echoat $n Pichirri pía emocionado y desciende con rapidez, posándose cerca de ti.
+sleep 1
+mob echoat $n El gorrión salta sobre tu hombro y se acomoda tranquilamente.
+mob echoaround $n El gorrión se posa en el hombro de $n.
+mob oload 13200 1 room 0
+mob doas $n coger gorrion
+mob echoat $n {OAhora tienes al gorrión en tu inventario{x
+mob purge $i
+else
+mob echo $I se asusta y sale volando alejándose por el horizonte.
+mob purge $i
+break
+endif
+
+~
+
+#13206 *El gorrión pichirri muere, quita la quest activa 'Buscar el gorrión de la secretaria' y finaliza la quest con 'Has asesinado brutalmente a Pichirri', da el anillo
+
+if pquestfase $n 'Buscar el gorrión de la secretaria' 3
+
+mob pquestfin $n 'Buscar el gorrión de la secretaria'
+mob pquestfin $n 'Buscar el gorrión de la secretaria' quitar
+mob pquestinicio $n 'Has asesinado brutalmente a Pichirri'
+mob pquestfin $n 'Has asesinado brutalmente a Pichirri'
+mob echo $I explota a causa de tus golpes y deja caer de su cuerpecito inerte el {CAnillo de regreso a casa{x
+mob oload 13201 1 room 0
+endif
+~
+
+#13207 *Secretaria, si le das el objeto Gorrion Pichirri, quita la quest activa 'Buscar el gorrión de la secretaria' y finaliza la quest con 'Has devuelto sano y salvo a Pichirri', 
+
+if pquestfase $n 'Buscar el gorrión de la secretaria' 3
+
+mob pquestfin $n 'Buscar el gorrión de la secretaria'
+mob pquestfin $n 'Buscar el gorrión de la secretaria' quitar
+mob pquestinicio $n 'Has devuelto sano y salvo a Pichirri'
+mob pquestfin $n 'Has devuelto sano y salvo a Pichirri'
+mob echo $I hojea distraídamente unos documentos, pero al ver a $n entrar con Pichirri, sus ojos se iluminan.
+sleep 1
+mob echo $I deja caer los papeles y se pone de pie de inmediato, con una expresión de alegría desbordante.
+mob echo $I da unos pasos apresurados hacia ti, observando al pequeño gorrión en tu hombro.
+decir ¡Pichirri! ¡Mi querido Pichirri! 
+sleep 1
+mob echo $I extiende las manos y el gorrión revolotea hasta posarse en ellas, piando felizmente.
+sleep 1
+mob echo $I acaricia suavemente la cabeza del ave con un dedo y deja escapar un suspiro de alivio.
+decir $n, esto es maravilloso… No sé cómo agradecerte lo suficiente.
+sleep 1
+mob echoat $n $I te observa por un momento, como evaluando si debe o no decir algo más.
+mob echoaround $n $I mira a $n con una expresión que cambia del alivio a la preocupación.
+sleep 1
+decir Supongo que es justo que te dé algo a cambio… y creo que hay algo que debes saber.
+sleep 1
+mob echoaround $n $I baja la voz y se acerca ligeramente a $n.
+mob echoat $n $I susurra para que solo tú puedas escucharlo.
+mob echoat $n $I dice 'El alcalde… él no es el mismo desde hace semanas. Se comporta de manera errática, y su esposa… bueno…'
+sleep 1
+mob echoat $n $I titubea por un momento, como si elegir las palabras correctas fuera crucial.
+mob echoat $n $I dice 'Digamos que hace *demasiado* tiempo que nadie la ve.'
+sleep 1
+mob echoat $n $I dice 'La última vez que la vi, estaba nerviosa… me dijo algo sobre que temía por su vida.'
+sleep 1
+mob echoat $n $I se inclina un poco más y baja aún más la voz.
+mob echoat $n $I dice 'Sé que el alcalde a veces desaparece por las noches… y *siempre* regresa con la misma pregunta absurda sobre la foca de su mujer.'
+sleep 1
+mob echoat $n $I dice 'No sé qué significa, pero si alguien quiere descubrir la verdad, le aconsejaría que andara con cuidado.'
+mob echoat $n $I dice 'Yo te estaré eternamente agradecida y si alguna vez puedo devolverte el favor, así lo haré.'
+sleep 1
+mob echo $I se aleja de $n y vuelve a enderezarse, recuperando su postura profesional.
+decir Eso es todo lo que sé, $n. Y por favor… no digas que te lo dije yo.
+sleep 1
+mob echoat $n $I te mira fijamente y susurra: "Ten cuidado. Algo no está bien en esta ciudad."
+
+endif
+
+~
+
+#13208 *Adoradora de Gominola, al morir da la nota para entregar al alcalde y continuar, inicia el quest 'pq_dora_adoradora'.
+if pquestfase $n 'El alcalde de Midgaard' 2
+mob echo {rjusto al morir su cuerpo implosionó desintegrándose todo en el aire{x
+mob echo {x
+mob echo {rsolo una nota quedó en el suelo
+mob pquestinicio $n 'pq_dora_adoradora'
+mob oload 13214 1 room 0
+endif
+~
+
+#13227 *El alcalde de Midgaard, finaliza el quest 'pq_dora_adoradora'y pone 'El Alcalde de Midgaard' en fase 3
+if pquestfase $n 'El alcalde de Midgaard' 2
+and pquestactiva $n 'pq_dora_adoradora'
+mob echoat $n {YEl alcalde {gte grita en la cara:{G UN PAPEL?!?! TE MANDO A POR PRUEBAS{x
+mob echoat $n {G             Y ME TRAES UN TROZO DE PAPEL???? TU SABES QUE HAGO YO CON TROZOS DE PAPEL COMO ESTOS???{x
+mob echoat $n {x
+sleep 1
+mob echoat $n {GESPERA!!!!! ESPERA!!!! QUE HAY ALGO ESCRITO, ESTO LO CAMBIA TODO{x
+mob echoat $n {GME DISTES EL PAPEL DEL REVES !!!! BOBO!!!!{x
+mob echoat $n {x
+mob echoat $n {m.. el alcalde se pone sus gafas y empieza a leer..{x
+mob echoat $n {x
+mob echoat $n {YEl alcalde {gmurmura: Hola Dora... bla bla bla... abalorio ...bla bla bla{x
+mob echoat $n {g            muchas gracias ...bla bla bla... ayuda ... bla bla bla...{
+mob echoat $n {g            parto en breve... bla bla bla... los cuellos.. un abrazo...{x
+mob echoat $n {g            tarane{x
+sleep 1
+mob echoat $n {YEl alcalde {ggrita:{GTARANEEEE????? NO ME LO PUEDO CREER{x
+mob echoat $n {G                     PERO QUE TENDRÁ QUE VER ESTA .... MUJER CON TODO ESTO???
+mob echoat $n {G                     Y ESTA ERA MUY AMIGUITA DEL ALCALDE DE IX, QUE HABRAN TRAMADO!!!{x
+mob echoat $n {x
+mob echoat $n {YEl alcalde {gte dice:Hazme un gran favor y te prometo que serás recompensado{x
+mob echoat $n {g                     ve a Yggdrasil, allí vive {MTARANE{g vigilalá y luego vienes y me lo cuentas{x
+sleep 1
+mob echoat $n {gespera $n, te has portado muy bien, esto es para tí, te lo mereces{x
+mob echoat $n {x
+mob echoat $n {m el alcalde se saca del bolsillo 2 vales de prácticas y te los entrega{x
+mob echoat $n {ORecibes 2 Practicas{x
+mob echoat $n {m El alcalde se acerca a tu oído y te susurra..{x
+mob prac $n 2
+mob echoat $n {x
+mob echoat $n {g Sobre todo recuerda una cosa, diga lo que te diga esa mujer{x
+mob echoat $n {g tu vienes y me informas a mi primero, solo a mi! serás bien recompensado{x
+mob echoat $n {x
+mob pquestfase $n 'El Alcalde de Midgaard' 3
+mob pquestinicio $n 'pq_dora_adoradora' quitar
+endif
+~
+
+#13211 *Bola tela araña, simula un maullido cuando llaman a currupipi.
+mob echoat $n {YOYES UN MAULLIDO MUY CERCA TUYA{x
+~
+
+#13212 *Bola tela araña, crea a currupipi cuando muere.
+
+mob echoat $n {YDestruyes las telas de arañas y descubres que había{x
+mob echoat $n {Yun gato encapsulado!!!!{x
+mob mload 13202
+mob echoat $n {x
+mob echoat $n {x
+mob echoat $n {Yel gato está asustado y {R>>>>>>>>>>!!!TE MUERDE!!!<<<<<<<<<<{x
+mob echoat $n {x
+mob echoat $n {x
+mob echoat $n {M((...piensas.... en matarlo, el jodido gato te ha mordido)){x
+mob echoat $n {M((...total seguro que ANN cree que podría estar muerto...)){x
+mob echoat $n {x
+mob echoat $n {M((...también piensas en llamarlo por su nombre, salvarlo y entregarlo a ANN...)){x
+mob echoat $n {Y                tendrás que decidirte{x
+~
+
+#13213 *Gato Currupipi, si dices su nombre pone 'salva a currupipi' en fase 2
+mob echoat $n {GLOS OJOS DE CURRUPIPI SE LLENAN DE LAGRIMAS DE ALEGRIA{x
+mob echoat $n {GCURRUPIPI SALTA A TUS BRAZOS SINTIENDOSE SEGURO{x
+mob oload 13202 1 room 0
+mob doas $n coger xcurru
+mob pquestfase $n 
+mob purge $i
+~
+#13214 *Gato Currupipi, si lo matas quitas la quest 'salva a currupipi', 
+mob echoat $n {RLOS SESOS SE ESPARCEN EN TODAS DIRECCIONES IMPREGNANDOLO TODO DE SANGRE!!!!{x
+mob echoat $n {r((...pero cuanta sangre puede tener un gatito!!!!...)){x
+mob oload 13203 1 room 0
+mob echoat $n {YEL ALMA DE CURRUPIPI ESTA FLOTANDO EN EL AIRE!!!!{x
+mob pquestinicio $n 'salva a currupipi' quitar
+mob pquestinicio $n 'salva al gato currupipi: fallida'
+mob pquestfin $n 'salva al gato currupipi: fallida'
+mob pquestinicio $n 'pq_matagatos'
+~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#13209 *xguard, mob para gestionar la alarma para el robo de la caja fuerte, pone 'Ayuda a Tarane' en fase 4 o 5 dependiendo si estaba en fase 3 o no
+mob echoat $n  {YAL ENTRAR EN LA SALA HAS HECHO SALTAR TODAS LAS ALARMAS!!!!{x
+sleep 1
+mob oload 13212
+mob echoat $n  {x
+mob echoat $n  {RALARMA!!!!    ALARMA!!!!!     ALARMA!!!!!    ALARMA!!!!!{x
+mob asound {RSUENAN ALARMAS!!!!!!!!
+mob asound {m..aquí en el pasadizo estás seguro.. no te pueden detectar..{x
+mob echoat $n  {m..deberías darte prisa... suenan muchas alarmas... 30 segundos dijo Tarane!{x
+sleep 10
+mob echoat $n  {YLAS ALARMAS SIGUEN SONANDO, CADA VEZ SUENAN MAS FUERTE!!!{x
+mob asound {RSUENAN ALARMAS!!!!!!!!
+sleep 10
+mob echoat $n  {YADEMAS DE LAS ALARMAS EMPIEZAS A ESCUCHAR PASOS Y VOCES DE LOS GUARDIAS! ESTAN YA CERCA{x
+mob asound {RSUENAN ALARMAS Y SUENAN PASOS!!!!!!!!
+sleep 10
+mob echoat $n  {YESCUCHAS A LOS GUARDIAS MUY CERCA, ESTAN INTENTANDO ABRIR UN PORTON!!!{x
+mob echoat $n  {YSAL DE AQUI RAPIDO, LA IRRUPCION DE LOS GUARDIAS ES INMINENTE, TE VAN A PILLAR!!!!{x
+mob asound {RSUENAN ALARMAS Y VOCES LOS GUARDIAS ESTAN ENTRANDO EN LA CAMARA!!!!!!!!
+sleep 5
+mob echoat $n  {YLOS GUARDIAS ENTRAN EN LA SALA Y TE PILLAN CON LAS MANOS EN LA MASA!!!{x
+mob echoat $n  {YGuardia {gdice: Aquí no se permiten los robos!!! te hemos pillado{x
+mob echoat $n  {YGuardia {gdice: Vas a pasar mucho tiempo en prisión!! JAJAJAJA{x
+mob echoat $n  {x
+mob echoat $n  {M..te encuentran cosas que no son tuyas y te las quitan..{x
+mob echoat $n  {m..los guardias te amordazan, te apalizan, te violan y te llevan a prisión{x
+mob remove $n 13208
+mob doas $n dar 1500000 plata $i
+mob freeze $n 8
+mob purge xscontador
+
+if pquestfase $n 'Ayuda a Tarane' 3
+ mob pquestfase $n 'Ayuda a Tarane' 4
+else
+ mob pquestfase $n 'Ayuda a Tarane' 5
+endif
+ 
+if players == 1
+ mob transfer $n 13204
+endif
+
+~
+
+#13210
+if status $i == 0
+mob oload 13211
+mob oload 13209
+mob echoat $n {gpor fin se ha despertado..{x
+mob echoat $n {m..al bajar de la litera te encuentras con un pequeño gnomo dandote voces{x
+mob echoat $n {x
+mob echoat $n {YBarcus {gdice:Soy Barcus Wroot soy un simple contrab..emmm.. un comerciante{x
+mob echoat $n {YBarcus {gdice: eeem me pillaron... emm.. me tendieron una trampa y acabé aquí{x
+mob echoat $n {YBarcus {gdice: ahora me quieren muerto, pero se como escapar, corre ven ayúdame{x
+mob echoat $n {x
+mob echoat $n {YBarcus {gdice: un compañero me ha pasado una palanca pero yo solo no puedo con los barrotes{x
+mob echoat $n {YBarcus {gdice: {G"USA"{g la palanca y juntos saldremos de aquí te lo prometo{x
+mob status 1
+endif
+~
+
+#13215
+mob transfer $n 6346
+mob purge $i
+~
+#13216
+mob transfer $n 2901
+mob purge $i
+~
+#13217
+mob transfer $n 2907
+mob purge $i
+~
+#13218
+if pquestactiva $n 'pq_matagatos'
+mob echoat $n {YANN {Gdice: NOOOO!!!!, MI POBRE GATITO ESTA MUERTO!!!! TODO POR MI CULPA!!!{x
+llorar
+mob echoat $n {YANN {gdice: no tuve que haberle reñido, se escapó por mi culpa!!{x
+mob echoat $n {x
+mob pquestfin $n 'pq_matagatos'
+mob pquestinicio $n 'pq_mentiroso_gato'
+mob pquestfin $n 'pq_mentiroso_gato'
+mob echoat $n {YANN {Gdice: Bueno tu no has tenido la culpa, has cumplido, te contaré lo que quieres{x
+mob echoat $n {x
+mob echoat $n {YANN {gdice: Mi hermana es Dújar como yo, pero ya te digo que bruja no es...{x
+mob echoat $n {YANN {gdice: Hace tiempo robaron a mi familia una reliquia, era un collar mágico{x
+mob echoat $n {YANN {gdice: Ella se entero por... por "un cliente" que el alcalde de ix lo tenía{x
+mob echoat $n {YANN {gdice: Siento que algo le ha pasado, no se nada de ella desde hace semanas{x
+mob echoat $n {YANN {gdice: Ella fue a ix a buscar el collar, no se nada mas de ella{x
+mob pquestfase $n 'El Alcalde de Midgaard' 5
+mob echoat $n {x
+mob echoat $n {gANN se marcha llorando entre las ramas{x
+mob purge $i
+endif
+~
+#13219
+if pquestactiva $n 'pq_matagatos'
+mob echoat $n {YANN {Gdice: Mamarracho!!!! COMO TE HAS ATREVIDO A MATARLO!!!! QUE TE HIZO ESE POBRE GATO!!!{x
+mob echoat $n {YANN {Gdice: TE DIJE QUE SOY BRUJA!!!!! YO TE MALDIGO!!!!{x
+mob echoat $n {YANN {Gdice: {R  >>>>>MI IRA CAERÁ SOBRE TI<<<<< {x
+mob pquestfase $n 'El alcalde de Midgaard' 7
+mob pquestfin $n 'pq_matagatos'
+mob cast 'maldecir' $n
+mob cast 'deslumbrar' $n
+mob transfer $n 5689
+mob purge $i
+endif
+~
+#13220
+if objhere 13211
+
+randomblock
+mob echo {YBarcus {Gte grita: Vamos ayúdame ya de una vez!!!!{x
+---
+mob echo {YBarcus {Gte grita: Quieres mover ese culo apestoso!!!!{x
+---
+mob echo {YBarcus {Gte grita: Te has quedado inmóvil como una estatua, ayuda!!{x
+---
+mob echo {YBarcus {Gte grita: Hay tortugas ancianas mas rápidas que tu!!!!{x
+---
+mob echo {YBarcus {Gte grita: quieres usar la maldita palanca de una vez!!!!!{x
+---
+mob echo {YBarcus {Gte grita: o ayudas o no nos van a matar, ya nos morimos de viejos aquí{x
+---
+mob echo {YBarcus {Gte grita: Que te pasa tienes lag cerebral?!?{x
+---
+mob echo {YBarcus {Gte grita: vas a usar la palanca? o estas en modo ahorro de energía?{x
+---
+mob echo {YBarcus {Gte grita: Ayudas menos que un escudero sin brazos{x
+---
+mob echo {YBarcus {Gte grita: Eres mas inútil que un pergamino mojado{x
+---
+mob echo {YBarcus {Gte grita: Seguro que escupes y te cae en la barbilla, usa ya la palanca!!{x
+---
+mob echo {YBarcus {Gte grita: Seguro que meas y te cae en la rodilla, quieres usar la palanca ya??{x
+randomblockend
+endif
+~
+#13221
+if objhere 13211
+mob echoat $n {YBarcus {Gte grita: A dónde vas?? estos barrotes no los podrás pasar{x
+mob echoat $n {YBarcus {Gte grita: Usa esa palanca y ayúdame a tirarlos!!!{x
+else
+mob echoat $n {YBarcus {gdice: Espera un segundo antes de irte, se que estás aquí por culpa de Tarane{x
+mob echoat $n {YBarcus {gdice: te mandó a recuperar un abalorio familiar sabiendo que te iban a pillar{x
+mob echoat $n {YBarcus {gdice: siempre hace lo mismo... mira, ella nunca ha visto ese abalorio, no sabe como es{x
+mob echoat $n {YBarcus {gdice: te voy a dar una baratija y tu le dices a ella que es el abalorio que buscaba{x
+mob oload 13210 1 room 0
+mob doas $n coger baratija
+mob echoat $n {GB{garcus {GW{groot te entrega una baratija{x
+mob echoat $n {YBarcus {gdice: Suerte compañero, te debo una{x
+mob echoat $n {x
+mob pquestinicio $n 'pq_Barcus_Wroot'
+mob pquestfin $n 'pq_Barcus_Wroot'
+mob transfer $n 13724
+mob status 0
+endif
+~
+#13222
+if pquestfase $n 'Ayuda a Tarane' 4
+or pquestfase $n 'Ayuda a Tarane' 5
+mob echoat $n {YTarane {gdice: Te pillaron?? ooh nooo es mi culpa!!!!!{x
+mob echoat $n {YTarane {gdice: Seguro que te amordazaron, te pegaron y te violaron!!!{x
+mob echoat $n {YTarane {gdice: No me lo perdonaré en la vida!!!{x
+mob echoat $n {x
+mob echoat $n {YTarane {gdice: Creo que no podré escapar de aquí nunca!!!!!{x
+mob pquestinicio $n 'Ayuda a Tarane' quitar
+mob pquestinicio $n 'Ayuda a Tarane:fallida'
+mob pquestfin $n 'Ayuda a Tarane:fallida'
+mob echoat $n {x
+sleep 1
+mob echoat $n {YTarane {gdice: Bueno tu has puesto de tu parte, te contaré lo que se{x
+mob echoat $n {YTarane {gdice: Hay un cocinero muy famoso, Riki, pronto irá a Midgaard{x
+mob echoat $n {YTarane {gdice: el hace banquetes para los alcaldes, y tienen mucha amistad{x
+mob echoat $n {YTarane {gdice: seguro que sabe que le pasó a la foca de la mujer del alcalde{x
+mob echoat $n {x
+mob pquestfase $n 'El Alcalde de Midgaard' 6
+mob echoat $n {m..Tarane llora y llora, llora tanto que se deshidrata y muere{x
+mob purge $i
+
+~
+#13223
+if pquestfase $n 'Ayuda a Tarane' 3
+or pquestfase $n 'Ayuda a Tarane' 4
+mob echoat $n {YTarane {gdice: Cómo que no había nada????
+mob echoat $n {x
+mob echoat $n {YTarane {gdice: Eres un mentiroso, te han visto salir con el abalorio!!!{x
+mob echoat $n {YTarane {gdice:Yo te maldigo $n, YO TE MALDIGO!!!!!{x
+mob echoat $n {g..el dolor de una traición es muy grande, Tarane empieza a inslutarte{x
+mob echoat $n {g..escuchas gritos y mas gritos, Tarane no para de agitarse violentamente{x
+mob echoat $n {g..Tarane accidentalmente corta sus venas con las cadenas y muere{x
+mob pquestfase $n 'El Alcalde de Midgaard' 7
+mob pquestinicio $n 'Ayuda a Tarane' quitar
+mob pquestinicio $n 'Ayuda a Tarane:fallida'
+mob pquestfin $n 'Ayuda a Tarane:fallida'
+mob pquestinicio $n 'pq_mentiroso_abalorio'
+mob pquestfin $n 'pq_mentiroso_abalorio'
+mob purge $i
+endif
+~
+#13224
+if pquestactiva $n 'Ayuda a Tarane' 4
+or pquestactiva $n 'Ayuda a Tarane' 5
+mob echoat $n {YTarane {gdice: OOOh no me lo puedo creer!!! mi abalorio!! Que alegría!!{x
+mob echoat $n {YTarane {gdice: Que felicidad por fin podré salir de esta cárcel!!{x
+mob echoat $n {x
+mob echoat $n {YTarane {gdice: Pero antes de todo te contaré lo que te prometí{x
+mob echoat $n {YTarane {gdice: Hay un cocinero muy famoso, Riki, pronto irá a Midgaard{x
+mob echoat $n {YTarane {gdice: el hace banquetes para los alcaldes, y tienen mucha amistad{x
+mob echoat $n {YTarane {gdice: seguro que sabe que le pasó a la foca de la mujer del alcalde{x
+mob echoat $n {x
+mob pquestfase $n 'El Alcalde de Midgaard' 6
+mob echoat $n {YTarane {gdice: Espera!! este no es mi abalorio!! este es falso!! me has estafado!!!{x
+mob echoat $n {YTarane {gdice: Estafador!!!! Estafador!!!! Ahora estaré condenada a morir aquí!{x
+mob echoat $n {m..Tarane llora y llora, llora tanto que se deshidrata y muere{x
+mob pquestinicio $n 'Ayuda a Tarane' quitar
+mob pquestinicio $n 'Ayuda a Tarane:fallida'
+mob pquestfin $n 'Ayuda a Tarane:fallida'
+mob pquestinicio $n 'pq_mentiroso_abalorio'
+mob pquestfin $n 'pq_mentiroso_abalorio'
+mob purge $i
+endif
+
+~
+#13225
+if pquestactiva $n 'Ayuda a Tarane' 3
+or pquestactiva $n 'Ayuda a Tarane' 4
+mob echoat $n {YTarane {gdice: OOOh no me lo puedo creer!!! mi abalorio!! Que alegría!!{x
+mob echoat $n {YTarane {gdice: Que felicidad por fin podré salir de esta cárcel!!{x
+mob echoat $n {x
+mob echoat $n {YTarane {gdice: Pero antes de todo te contaré lo que te prometí{x
+mob echoat $n {YTarane {gdice: Hay un cocinero muy famoso, Riki, pronto irá a Midgaard{x
+mob echoat $n {YTarane {gdice: el hace banquetes para los alcaldes, y tienen mucha amistad{x
+mob echoat $n {YTarane {gdice: seguro que sabe que le pasó a la foca de la mujer del alcalde{x
+mob echoat $n {x
+mob pquestfase $n 'El Alcalde de Midgaard' 6
+mob pquestinicio $n 'Ayuda a Tarane' quitar
+mob pquestinicio $n 'Has salvado a Tarane' poner
+mob pquestfin $n 'Has salvado a Tarane'
+mob echoat $n {gTarane usa el abalorio{x
+mob echoat $n {gTarane se hace invisible y nadie la puede ver{x
+mob echoat $n {gTarane se hace translucida y puede atravesar paredes{x
+mob echoat $n {gTarane ahora ve mejor que nunca!!{x
+mob echoat $n {x
+mob echoat $n {gTarane atraviesa la parede de la celda y se dirige a ti{x
+mob echoat $n {YTarane {gdice: Muchas gracias por todo has sido muy valiente!!{x
+mob echoat $n {YTarane {gdice: Creía que me ibas a dejar vendida o me traicionarías{x
+mob echoat $n {x
+mob prac $n 10
+mob echoat $n {YTarane {gdice: Toma unas prácticas como regalo por haberlo hecho tan bien{x
+mob echoat $n {ORecibes 10 Practicas{x
+mob echoat $n {m..Tarane desaparece entre las paredes del burdel..{x
+mob purge $i
+endif
+~
+
+#13226
+~
+
+#13228 *PASAR ESTO AL TRIGGER M regex 13203 mujer(.*) Y MOVERLO AL MOBPROG 13203 PARA QUE SE TENGA QUE HABLAR CON EL ALCALDE Y NO AL LLEGAR.
+if pquestfase $n 'El Alcalde de Midgaard' 7
+mob echoat $n {YEl alcalde {gte cuenta: Me has decepcionado, ya se que has fracasado en lo que te pedí{x
+mob echoat $n {YEl alcalde {x
+mob echoat $n {YEl alcalde {gte cuenta: Bueno, te podré dar otra oportunidad por si sigues interesado en ayudar{x
+mob echoat $n {YEl alcalde {x
+mob echoat $n {YEl alcalde {gte cuenta: Me han informado que pronto llegará a Midgard Riki, un famoso cocinero {x
+mob echoat $n {YEl alcalde {gte cuenta: quiero que te acerques a el para que le saques información, se que tiene algo que ver{x
+mob echoat $n {YEl alcalde {gte cuenta: hazlo bien esta vez y te aseguro que te recompesaré como es debido{x
+mob pquestfase $n 'El Alcalde de Midgaard' 8
+mob echoat $n {YEl alcalde {x
+mob echoat $n {YEl alcalde {gte cuenta: Confío en ti a pesar de todo, solo espera a su llegada{x
+break
+endif
+
+if pquestfase $n 'El Alcalde de Midgaard' 6
+mob echoat $n {YEl alcalde {gte cuenta: Hola {Y$n{g gracias por tu labor, ya se que le ha sacado la información a Tarane{x
+mob echoat $n {YEl alcalde {g           Has hecho un formidable trabajo, he mandado un vigía para saber cuando llega{x
+mob echoat $n {YEl alcalde {g           ese maldito Riki, lo publicaré en las noticias, tendrá que decirnos todo lo que sabe{x
+mob echoat $n {YEl alcalde {x
+mob echoat $n {YEl alcalde {g           Mientras tanto tómate un merecido descanso{x
+mob pquestfase $n 'El Alcalde de Midgaard' 8
+break
+endif
+~
+#0
+
+#OBJPROGS
+
+#13200 * El gorrión Pichirri, para que el PJ pueda volver a convertir el gorrion en mob, esto va junto con el mobprog '13205' que vuelve a convertir el mob en objeto
+obj echo El gorrión Pichirri aterriza en el suelo moviendo sus alas.
+obj mload 13200
+obj purge pichirrini
+~
+
+#13201
+if carries $n 13201
+or wears $n 13201
+else
+break
+endif
+
+if pquestfin $n pq_anillo_cabooom
+obj freeze $n 10
+sleep 1
+obj echoat $n {RTU CUERPO NO SOPORTA OTRO VIAJE CON UN ANILLO ROTO.{x
+obj echoat $n {RTU CUERPO EMPIEZA A RESTORCERSE EN FORMAS INDESCRIPTIBLES Y EXPLOTA VIOLENTAMENTE.{x
+obj echoaround $n {RVES EL CUERPO DE $n EMPIEZA A RESTORCERSE EN FORMAS INDESCRIPTIBLES Y EXPLOTA VIOLENTAMENTE.{x
+obj goto $n
+obj damage $n 300000 300000 lethal
+obj goto 4
+obj purge anillo
+break
+endif
+
+obj pquestinicio $n 'pq_anillo_cabooom'
+obj pquestfin $n 'pq_anillo_cabooom'
+
+sleep 1
+
+obj echoat $n {REl anillo se calienta muchísimo y un dolor horrible recorre tu cuerpo mientras vas desapareciendo. {x
+obj echoaround $n {RVES EL CUERPO DE $n EMPIEZA A RESTORCERSE EN FORMAS INDESCRIPTIBLES Y DESAPARECER.{x
+obj echoat $n {RNO PUEDES MOVERTE DEL DOLOR!!!{x
+obj freeze $n 10
+
+sleep 1
+
+obj transfer $n 3137
+obj echo {REl anillo se derrite entre tus dedos, el viaje te ha dejado agotado y casi muerto.{x
+obj damage $n 3000000 3000000
+obj remove $n 13201
+~
+
+#13202
+if objexists xscontador
+obj echoat $n {RES MEJOR NO ENTRAR EN ESA SALA AHORA, ESTAN SONANDO LAS ALARMAS!!!{x
+obj echoat $n {RESPERA MEJOR A QUE SE VAYAN LOS GUARDIAS{x
+break
+endif
+
+if pquestfase $n 'Ayuda a Tarane' 2
+obj echoat $n {yte adentras por un estrecho pasadizo{x
+sleep 1
+obj transfer $n 13202
+obj purge $i
+else
+obj echoat $n {RPASO RESTRINGIDO PARA PQUEST {x
+obj transfer $n 3001
+endif
+
+~
+
+#13203
+
+~
+
+#13204
+
+~
+
+#13205
+
+~
+
+#13206
+
+~
+
+#13207
+
+~
+
+#13208
+if tiene $n 1 == 13208
+else
+	obj echo un abalorio explota al usarse sin estar vestido
+	obj purge $i
+	break
+endif
+
+if room $n == 13600
+or room $n == 13601
+or room $n == 13602
+or room $n == 13603
+or room $n == 13604
+or room $n == 13605
+or room $n == 13606
+or room $n == 13607
+or room $n == 13608
+or room $n == 13609
+or room $n == 501
+or room $n == 502
+or room $n == 503
+or room $n == 504
+or room $n == 505
+or room $n == 506
+or room $n == 507
+or room $n == 508
+or room $n == 509
+
+
+	obj echoat $n {RESTE OBJETO NO SE PUEDE USAR EN SALAS DE ESTAS CARACTERISTICAS{x
+break
+endif
+
+if status $i == 1
+	obj echoat $n {CEL ABALORIO SE HA QUEDADO SIN PODER EN ESTOS MOMENTOS{x
+endif
+
+if status $i == 0
+	 if wears $n 13208
+		 obj cast 'traspasar' $n
+		 obj echoat $n {cTe vuelves traslucido
+		 obj echoaround $n {C$n{c se vuelve traslucido.
+		 obj cast 'invisibilidad' $n
+		 obj echoat $n {cDesapareces lentamente
+		 obj echoaround $n {C$n{c desaparece léntamente
+		 obj cast 'gatovision' $n
+		 obj echoat $n {cTus ojos se vuelven sanguinolentos y también ves mucho mejor!!!{x
+		 obj echoaround $n {cLos ojos de {C$n {cse vuelven sanguinolentos y también mejora su visión!!{x
+		 obj removeaffec $n deslumbrado
+		 obj status 1
+	 else
+		obj echoat $n {CDEBES VESTIR EL OBJETO PARA USARLO{x
+	 endif
+endif
+
+
+~
+
+#13209
+obj echoat $n {m..usas la palanca para ayudar a Barcus Wroot con los barrotes{x
+obj echoat $n {x
+obj echoat $n {m..esto está mas duro que la cabeza de un enano con resaca..{x
+sleep 1
+obj echoat $n {m..con mucha fuerza y paciencia empiezan a ceder los barrotes{x
+sleep 1
+obj echoat $n {YCLINK CLOOONK {m.con un último esfuerzo los barrotes ceden..{x
+obj echoat $n {m..lo habéis conseguido, ahora podréis salir de aquí{x
+obj echoat $n {YBarcus {gdice: YUUJUUU, venga vámonos corre!!! {x
+obj purge barrotes
+obj purge $i
+
+~
+
+#13210
+if objhere 13316 and 13323 and 13329
+obj echoat $n {YLAS PUERTAS DE LA CAMARA ACORAZADA SE ABREN Y VES UN INMENSO TESORO!!{x
+obj oload 13207
+obj oload 13208
+obj echoat $n {Yno puedes evitar coger rápidamente el interior de la caja fuerte{x
+obj force $n coger abalorio
+obj force $n coger monedas
+obj pquestfase $n 'Ayuda a Tarane' 3
+else
+obj echoat $n {Oparece que has puesto la combinación mal!!{x
+endif
+~
+#13211
+if contiene $u "izquierda"
+
+if objhere 13308
+obj purge cerorojo
+obj oload 13317
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13317
+obj purge nueverojo
+obj oload 13316
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13316
+obj purge ochorojo
+obj oload 13315
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13315
+obj purge sieterojo
+obj oload 13314
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13314
+obj purge seisrojo
+obj oload 13313
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13313
+obj purge cincorojo
+obj oload 13312
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13312
+obj purge cuatrorojo
+obj oload 13311
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13311
+obj purge tresrojo
+obj oload 13310
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13310
+obj purge dosrojo
+obj oload 13309
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13309
+obj purge unorojo
+obj oload 13308
+obj echoat $n Mueves el{R botón rojo {xuno a la izquierda
+obj echoaround $n $n mueve el {Rbotón rojo {xuno a la izquierda
+obj force all look
+break
+endif
+endif
+
+if contiene $u "derecha"
+if objhere 13308
+obj purge cerorojo
+obj oload 13309
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13317
+obj purge nueverojo
+obj oload 13308
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13316
+obj purge ochorojo
+obj oload 13317
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13315
+obj purge sieterojo
+obj oload 13316
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13314
+obj purge seisrojo
+obj oload 13315
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13313
+obj purge cincorojo
+obj oload 13314
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13312
+obj purge cuatrorojo
+obj oload 13313
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13311
+obj purge tresrojo
+obj oload 13312
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13310
+obj purge dosrojo
+obj oload 13311
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13309
+obj purge unorojo
+obj oload 13310
+obj echoat $n Mueves el{R botón rojo{x uno a la derecha
+obj echoaround $n $n mueve el {Rbotón rojo{x uno a la derecha
+obj force all look
+break
+endif
+endif
+
+~
+#13212
+if contiene $u "izquierda"
+if objhere 13318
+obj purge ceroazul
+obj oload 13327
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13327
+obj purge nueveazul
+obj oload 13326
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13326
+obj purge ochoazul
+obj oload 13325
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13325
+obj purge sieteazul
+obj oload 13324
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13324
+obj purge seisazul
+obj oload 13323
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13323
+obj purge cincoazul
+obj oload 13322
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13322
+obj purge cuatroazul
+obj oload 13321
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13321
+obj purge tresazul
+obj oload 13320
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13320
+obj purge dosazul
+obj oload 13319
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13319
+obj purge unoazul
+obj oload 13318
+obj echoat $n Mueves el {Bbotón azul{x uno a la izquierda
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la izquierda
+obj force all look
+break
+endif
+endif
+
+if contiene $u "derecha"
+if objhere 13318
+obj purge ceroazul
+obj oload 13319
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13327
+obj purge nueveazul
+obj oload 13318
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13326
+obj purge ochoazul
+obj oload 13327
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13325
+obj purge sieteazul
+obj oload 13326
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13324
+obj purge seisazul
+obj oload 13325
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13323
+obj purge cincoazul
+obj oload 13324
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13322
+obj purge cuatroazul
+obj oload 13323
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13321
+obj purge tresazul
+obj oload 13322
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13320
+obj purge dosazul
+obj oload 13321
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+if objhere 13319
+obj purge unoazul
+obj oload 13320
+obj echoat $n Mueves el {Bbotón azul {xuno a la derecha
+obj echoaround $n $n mueve el {Bbotón azul{x uno a la derecha
+obj force all look
+break
+endif
+endif
+
+~
+#13213
+if contiene $u "derecha"
+
+if objhere 13328
+obj purge ceroverde
+obj oload 13329
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13337
+obj purge nueveverde
+obj oload 13328
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13336
+obj purge ochoverde
+obj oload 13337
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la derecha{x
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13335
+obj purge sieteverde
+obj oload 13336
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13334
+obj purge seisverde
+obj oload 13335
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13333
+obj purge cincoverde
+obj oload 13334
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13332
+obj purge cuatroverde
+obj oload 13333
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13331
+obj purge tresverde
+obj oload 13332
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13330
+obj purge dosverde
+obj oload 13331
+obj force all look
+obj echoat $n Mueves el {Gbotón verde{x uno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la derecha
+obj force all look
+break
+endif
+
+if objhere 13329
+obj purge unoverde
+obj oload 13330
+obj force all look
+obj echoat $n Mueves el {Gbotón verde{x uno a la derecha
+obj echoaround $n $n mueve el {Gbotón verde{x uno a la derecha
+obj force all look
+break
+endif
+endif
+
+if contiene $u "izquierda"
+if objhere 13328
+obj purge ceroverde
+obj oload 13337
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13337
+obj purge nueveverde
+obj oload 13336
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13336
+obj purge ochoverde
+obj oload 13335
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13335
+obj purge sieteverde
+obj oload 13334
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde{x uno a la izquierda
+obj force all look
+break
+endif
+if objhere 13334
+obj purge seisverde
+obj oload 13333
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13333
+obj purge cincoverde
+obj oload 13332
+obj force all look
+obj echoat $n Mueves el {Gbotón verde{x uno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13332
+obj purge cuatroverde
+obj oload 13331
+obj force all look
+obj echoat $n Mueves el {Gbotón verde{x uno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13331
+obj purge tresverde
+obj oload 13330
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13330
+obj purge dosverde
+obj oload 13329
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde {xuno a la izquierda
+obj force all look
+break
+endif
+if objhere 13329
+obj purge unoverde
+obj oload 13328
+obj force all look
+obj echoat $n Mueves el {Gbotón verde {xuno a la izquierda
+obj echoaround $n $n mueve el {Gbotón verde{x uno a la izquierda
+obj force all look
+break
+endif
+endif
+~
+#0
+
+#ROOMPROGS
+
+#13200 *Esta Room Rolea por Ann Dujar, pone 'El Alcalde de Midgaard' en fase 4 y empieza el quest 'salva a currupipi' y lo pone en fase 1, si entregas vivo a Currupipi pone 'El Alcalde de Midgaard' en fase 5
+
+if pquestfase $n 'El Alcalde de Midgaard' 3
+room freeze $n 4
+sleep 1
+room echoat $n {gUna muchacha sale de entre la vegetación{x
+room echoat $n {YANN {gdice: Hola $n, noté tu presencia hace rato {x
+room echoat $n {YANN {gdice: Vienes a buscar a {YTARANE{g verdad?{x
+sleep 1
+room echoat $n {YANN {gdice: Soy su hermana ANN DUJAR{x
+room echoat $n {YANN {gdice: Sabes lo que dicen de nuestra familia no?{x
+room echoat $n {YANN {gdice: Dicen que las Dújar...la que no es puta es bruja...{x
+sleep 1
+room echoat $n {YANN {gdice: Pues resulta que {YTARANE{g no esta aquí{x
+room echoat $n {YANN {gdice: Te puedo decir donde está esa zorrita{x
+room echoat $n {YANN {gdice: Pero antes me tienes que hacer un favor{x
+sleep 1
+room echoat $n {YANN {gdice: Es algo sencillo, encuentra a {YCURRUPIPI{x
+room echoat $n {YANN {gdice: Es mi gatito, subió a lo mas alto de este árbol gigante{x
+room echoat $n {YANN {gdice: No lo he vuelto a ver desde ayer, tráemelo y te diré donde está mi hermana{x
+sleep 1
+room echoat $n {YANN {gdice: Si dices su nombre seguro que se acerca a ti{x
+room echoat $n {YANN {gdice: Recuerda, se llama {YCURRUPIPI{x
+room echoat $n {YANN {gdice: Tengo que irme a hacer algo, volveré cuando regreses{x
+room pquestinicio $n 'salva a currupipi'
+room pquestfase $n 'salva a currupipi' 1
+room pquestfase $n 'El Alcalde de Midgaard' 4
+break
+endif
+
+if pquestactiva $n 'salva a currupipi'
+ if carries $n 13202
+ room echoat $n {gANN sale a tu encuentro desde unas ramas
+ room echoat $n {gY el gato {YCURRUPIPI {gsalta disparado hacia su dueña {YANN{x
+ room echoat $n {YANN{g SALTA DE ALEGRIA CON SU GATO SANO Y SALVO!!!!{x
+ room pquestinicio $n 'salva a currupipi' quitar
+ room pquestinicio $n 'has devuelto sano y salvo a currupipi'
+ room pquestfin $n 'has devuelto sano y salvo a currupipi'
+ room remove $n 13202
+ room echoat $n {x
+ room echoat $n {x
+ room echoat $n {CHAS COMPLETADO LA PQUEST SALVA A CURRUPIPI CORRECTAMENTE{x
+ room echoat $n {x
+ room echoat $n {x
+ room echoat $n {YANN {gdice: Muchas gracias {Y$n{g de verdad, ahora cumplire con mi promesa{x
+ room echoat $n {YANN {gdice: Mi hermana es Dújar como yo, pero ya te digo que bruja no es...{x
+ room echoat $n {YANN {gdice: Hace tiempo robaron a mi familia una reliquia, era un abalorio mágico{x
+ room echoat $n {YANN {gdice: Ella se entero por... por "un cliente" que el alcalde de ix lo tenía{x
+ room echoat $n {YANN {gdice: Siento que algo le ha pasado, no se nada de ella desde hace semanas{x
+ room echoat $n {YANN {gdice: Ella fue a ix a buscar el abalorio, no se nada mas de ella{x
+ room pquestfase $n 'El Alcalde de Midgaard' 5
+ room echoat $n {x
+ room echoat $n {M..POR HABERLO HECHO TAN BIEN SE TE HA RECOMPENSADO CON UNAS PRACTICAS..{x
+ room prac $n 3
+ room echoat $n {ORecibes 3 Practicas{x
+ room echoat $n {gANN se marcha corriendo entre las ramas de los árboles junto a currupipi
+ break
+ endif
+room echoat $n {YANN {gsale a tu encuentro desde unas ramas
+room echoat $n {YANN {gdice: Aun no has encontrado a mi gatito!!!! Siento que algo malo le ha pasado{x
+room echoat $n {YANN {gdice: Por favor date prisa{x
+room echoat $n {YANN {gse marcha corriendo entre las ramas de los árboles preocupada
+endif
+
+if pquestactiva $n 'pq_matagatos'
+room mload 13203
+room echoat $n {YANN {gsale a tu encuentro desde unas ramas{x
+room echoat $n {YANN {gdice: Siento que algo malo le ha pasado al gato{x
+room echoat $n {x
+room echoat $n {M((...PIENSAS QUE PUEDES... MENTIR Y DECIR ESTABA MUERTO)){x
+room echoat $n {M((...O TAMBIEN PUEDES SINCERARTE Y DECIR LO MATE YO)){x
+room echoat $n {x
+room echoat $n {YANN {gdice: Dime que ha pasado, DIMELO!!!{x
+endif
+~
+
+#13201 *esta room rolea una caida desde altura y hace daño al caer.
+if pquestactiva $n 'salva a currupipi'
+room removeaffec $n volar
+room echoat $n {GTE ACERCAS AL BORDE NORTE DE LAS RAMAS Y NOTAS UN VIENTO REPENTINO{x
+room echoat $n {GPIERDES EL EQUILIBRIO.......
+room echoat $n {cCAEEEES
+room echoat $n {c          CAEEEES
+room echoat $n {c                     CAEEEES
+room echoat $n {c                               CAEEEES          
+room echoat $n {c                                         CAEEEES
+room echoat $n {c                                                   CAEEEES
+room echoat $n {c                                              CAEEEES
+room echoat $n {c                                      CAEEEES
+room echoat $n {c                             CAEEEES
+room echoat $n {c                   CAEEEES
+room echoat $n {c         CAEEEES
+room echoat $n {cCAEEEES
+room echoat $n {c         CAEEEES
+room echoat $n {c                   CAEEEES
+room echoat $n {c                             CAEEEES
+room echoat $n {c                                       CAEEEES
+room echoat $n {c                                                CAEEEES
+room echoat $n {cCAES AL VACIO RECIBIENDO MUCHO DAÑO, GRACIAS A QUE EL SUELO ESTABA
+room echoat $n {cCUBIERTO DE TELA DE ARAÑA HAS SALVADO TU VIDA
+room damage $n 1000 1000
+room transfer $n 13200
+room purge huellas
+endif
+~
+
+#13202 *esta room rolea que hay unas huellas de gato en el suelo para dar pistas de que tiene que ir al norte.
+if pquestactiva $n 'salva a currupipi'
+room echoat $n {GVES UNAS HUELLAS DE GATO QUE SE DIRIGEN DIRECCION AL NORTE...{x
+room oload 13213
+endif
+~
+
+#13203
+if pquestfase $n 'salva a currupipi' 2
+or pquestactiva $n 'pq_matagatos'
+break
+endif
+
+if mobhere 13201 
+or mobhere 13202
+else
+room mload 13201
+room echoat $n {G............PARECE QUE HAS ESCUCHADO UN MAULLIDO MUY CERCA.............{x
+room force $n mirar
+endif
+~
+
+#13204
+if mobhere 13202
+room echoat $n {YANTES DE IRTE DECIDE QUE HACER CON EL GATO CURRUPIPI{x
+room echoat $n {YPARA SALVARLO, DECIR CURRUPIPI{x
+room echoat $n {YPARA MATARLO, MATAR CURRUPIPI{x
+else
+room transfer $n 2907
+endif
+~
+
+#13205
+
+~
+
+#13206
+
+~
+
+#13207
+
+~
+
+#13208
+
+~
+
+#13209
+~
+
+#13210
+if players <= 1
+room purge
+else
+break
+endif
+
+randomblock
+room oload 13308
+---
+room oload 13309
+---
+room oload 13310
+---
+room oload 13311
+---
+room oload 13312
+---
+room oload 13313
+---
+room oload 13314
+---
+room oload 13315
+---
+room oload 13316
+---
+room oload 13317
+randomblockend
+
+randomblock
+room oload 13318
+---
+room oload 13319
+---
+room oload 13320
+---
+room oload 13321
+---
+room oload 13322
+---
+room oload 13323
+---
+room oload 13324
+---
+room oload 13325
+---
+room oload 13326
+---
+room oload 13327
+randomblockend
+
+randomblock
+room oload 13328
+---
+room oload 13329
+---
+room oload 13330
+---
+room oload 13331
+---
+room oload 13332
+---
+room oload 13333
+---
+room oload 13334
+---
+room oload 13335
+---
+room oload 13336
+---
+room oload 13337
+randomblockend
+room force $n look
+~
+#13211
+
+room echoat $n {C***********************************{x
+room echoat $n {C***********************************{x
+room echoat $n {C**                               {C**{x
+if objhere 13308
+room echoat $n {C**  {r({R0{r)        {R< * >             {C**{x
+endif
+if objhere 13309
+room echoat $n {C**  {r({R1{r)        {R< * >             {C**{x
+endif
+if objhere 13310
+room echoat $n {C**  {r({R2{r)        {R< * >             {C**{x
+endif
+if objhere 13311
+room echoat $n {C**  {r({R3{r)        {R< * >             {C**{x
+endif
+if objhere 13312
+room echoat $n {C**  {r({R4{r)        {R< * >             {C**{x
+endif
+if objhere 13313
+room echoat $n {C**  {r({R5{r)        {R< * >             {C**{x
+endif
+if objhere 13314
+room echoat $n {C**  {r({R6{r)        {R< * >             {C**{x
+endif
+if objhere 13315
+room echoat $n {C**  {r({R7{r)        {R< * >             {C**{x
+endif
+if objhere 13316
+room echoat $n {C**  {r({R8{r)        {R< * >             {C**{x
+endif
+if objhere 13317
+room echoat $n {C**  {r({R9{r)        {R< * >             {C**{x
+endif
+room echoat $n {C**                               **{x
+room echoat $n {C**                               {C**{x
+if objhere 13318
+room echoat $n {C**  {b({B0{b)        {B< * >             {C**{x
+endif
+if objhere 13319
+room echoat $n {C**  {b({B1{b)        {B< * >             {C**{x
+endif
+if objhere 13320
+room echoat $n {C**  {b({B2{b)        {B< * >             {C**{x
+endif
+if objhere 13321
+room echoat $n {C**  {b({B3{b)        {B< * >             {C**{x
+endif
+if objhere 13322
+room echoat $n {C**  {b({B4{b)        {B< * >             {C**{x
+endif
+if objhere 13323
+room echoat $n {C**  {b({B5{b)        {B< * >             {C**{x
+endif
+if objhere 13324
+room echoat $n {C**  {b({B6{b)        {B< * >             {C**{x
+endif
+if objhere 13325
+room echoat $n {C**  {b({B7{b)        {B< * >             {C**{x
+endif
+if objhere 13326
+room echoat $n {C**  {b({B8{b)        {B< * >             {C**{x
+endif
+if objhere 13327
+room echoat $n {C**  {b({B9{b)        {B< * >             {C**{x
+endif
+room echoat $n {C**                               **{x
+room echoat $n {C**                               {C**{x
+if objhere 13328
+room echoat $n {C**  {g({G0{g)        {G< * >             {C**{x
+endif
+if objhere 13329
+room echoat $n {C**  {g({G1{g)        {G< * >             {C**{x
+endif
+if objhere 13330
+room echoat $n {C**  {g({G2{g)        {G< * >             {C**{x
+endif
+if objhere 13331
+room echoat $n {C**  {g({G3{g)        {G< * >             {C**{x
+endif
+if objhere 13332
+room echoat $n {C**  {g({G4{g)        {G< * >             {C**{x
+endif
+if objhere 13333
+room echoat $n {C**  {g({G5{g)        {G< * >             {C**{x
+endif
+if objhere 13334
+room echoat $n {C**  {g({G6{g)        {G< * >             {C**{x
+endif
+if objhere 13335
+room echoat $n {C**  {g({G7{g)        {G< * >             {C**{x
+endif
+if objhere 13336
+room echoat $n {C**  {g({G8{g)        {G< * >             {C**{x
+endif
+if objhere 13337
+room echoat $n {C**  {g({G9{g)        {G< * >             {C**{x
+endif
+room echoat $n {C**                               **{x
+room echoat $n {C***********************************{x
+room echoat $n {C***********************************{x
+~
+#13212
+if pquestfase $n 'Ayuda a Tarane' 2
+room transfer $n 13202
+else
+room echoat $n {RSALES CORRIENDO DE LA SALA TAN RAPIDO QUE NO TE DAS CUENTA NI QUE TE HAS SALTADO EL PASADIZO{x
+room echoat $n {RY SALES A LA OFICINA DEL ALCALDE CON EL PULMON EN LA BOCA DE LO RAPIDO QUE HAS IDO{x
+room transfer $n 13706
+endif
+~
+
+
+
+
+
+#0
+
+#RESETS
+M 0 13205 1 13205 1
+M 0 13204 1 13203 1
+O 0 13338 0 13203
+O 0 13339 0 13203
+O 0 13340 0 13203
+O 0 13341 0 13203
+S 
+
+#$

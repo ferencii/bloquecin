@@ -203,6 +203,7 @@ La aplicación debe permitir definir múltiples especiales. Cada especial tendr�
 
 *   **Vnum del Mob**: VNUM del mob al que se asigna el especial (ej. `12110`).
 *   **Tipo de Especial**: Nombre del especial (ej. `spec_ladron`).
+    *   Se elige desde un menú desplegable alimentado por `js/config.js`, donde cada opción muestra un *tooltip* con su descripción.
     *   Lista de especiales: `spec_troll_member`, `spec_ogre_member`, `spec_patrolman`, `spec_nasty`, `spec_breath_any` (y específicos por elemento como `_acid`, `_fire`, etc.), `spec_cast_adepto`, `spec_cast_clerigo`, `spec_cast_mago`, `spec_fido`, `spec_guard`, `spec_janitor`, `spec_alcalde`, `spec_veneno`, `spec_ladron`, `spec_cast_runk`, `spec_cast_oteren`, `spec_guardia_malo`, `spec_guardia_bueno`, `spec_teleporter`, `spec_barco`, `spec_esfinge`, `spec_guardia_clan`, `spec_entrenador_especial`, `spec_quest_especial_1`, `spec_quest_especial_2`, `spec_secretario`, `spec_mordisco`, `spec_entrenador_samurai`, `spec_samu_experto_1`, `spec_samu_experto_2`.
 *   **Comentario** (Opcional): Texto libre para identificar el especial; al generar el archivo se antepone `*` automáticamente (ej. `Los lagartos`).
 *   **Regla**: Un mob solo puede tener un especial asignado.
@@ -213,7 +214,7 @@ La aplicación debe permitir definir múltiples especiales. Cada especial tendr�
 La aplicación debe permitir definir múltiples programas. Cada programa tendrá:
 
 *   **Vnum**: Número identificador único (ej. `12100`).
-*   **Bloque de código**: Un editor de texto para el código del programa.
+*   **Bloque de código**: Un editor visual basado en Blockly que se abre en una ventana modal de pantalla completa, genera el código del programa y lo almacena en un `<textarea>` oculto mostrando además un resumen en la tarjeta.
     *   **Sintaxis de Control de Flujo**: `if {if_check} {argument} {operator} {value} [or/and ...] else endif`.
     *   **Comandos MUD y de control de flujo**: `mob echo`, `mob oload`, `mob junk`, `mob force`, `mob damage`, `mob kill`, `mob remove`, `break`, `sleep` (¡sin `mob`!).
     *   **Variables**: `$i, $I, $n, $d, $N, $t, $T, $r, $R, $w, $q, $Q, $j, $e, $E, $J, $k, $m, $M, $K, $l, $s, $S, $L, $o, $O, $p, $P, $a, $b, $c, $A, $B, $C, $u, $v`.
