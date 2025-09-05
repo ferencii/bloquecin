@@ -205,7 +205,7 @@ La aplicación debe permitir definir múltiples especiales. Cada especial tendr�
 *   **Tipo de Especial**: Nombre del especial (ej. `spec_ladron`).
     *   Se elige desde un menú desplegable alimentado por `js/config.js`, donde cada opción muestra un *tooltip* con su descripción.
     *   Lista de especiales: `spec_troll_member`, `spec_ogre_member`, `spec_patrolman`, `spec_nasty`, `spec_breath_any` (y específicos por elemento como `_acid`, `_fire`, etc.), `spec_cast_adepto`, `spec_cast_clerigo`, `spec_cast_mago`, `spec_fido`, `spec_guard`, `spec_janitor`, `spec_alcalde`, `spec_veneno`, `spec_ladron`, `spec_cast_runk`, `spec_cast_oteren`, `spec_guardia_malo`, `spec_guardia_bueno`, `spec_teleporter`, `spec_barco`, `spec_esfinge`, `spec_guardia_clan`, `spec_entrenador_especial`, `spec_quest_especial_1`, `spec_quest_especial_2`, `spec_secretario`, `spec_mordisco`, `spec_entrenador_samurai`, `spec_samu_experto_1`, `spec_samu_experto_2`.
-*   **Comentario** (Opcional): Empieza con `*` (ej. `* Los lagartos`).
+*   **Comentario** (Opcional): Texto libre para identificar el especial; al generar el archivo se antepone `*` automáticamente (ej. `Los lagartos`).
 *   **Regla**: Un mob solo puede tener un especial asignado.
 *   Finaliza con `S` para la sección completa.
 

@@ -1384,7 +1384,6 @@ export const gameData = {
         { value: '$u', label: 'el primer argumento de "usar"' },
         { value: '$v', label: 'el segundo argumento de "usar"' }
     ],
-
     // Prompts detallados para la generación de descripciones de IA.
     // Cada clave representa un tipo de entidad (mob, object, room) y contiene sub-prompts específicos.
     aiPrompts: {
