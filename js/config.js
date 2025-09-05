@@ -1310,6 +1310,34 @@ export const gameData = {
         { value: '10', label: 'Cardinales + arriba/abajo + diagonales' }
     ],
 
+    shopObjectTypes: [
+        { value: '1', label: 'Luz' },
+        { value: '2', label: 'Pergamino' },
+        { value: '3', label: 'Varita' },
+        { value: '4', label: 'Bastón' },
+        { value: '5', label: 'Arma' },
+        { value: '8', label: 'Tesoro' },
+        { value: '9', label: 'Armadura' },
+        { value: '10', label: 'Poción' },
+        { value: '12', label: 'Muebles' },
+        { value: '13', label: 'Basura' },
+        { value: '15', label: 'Contenedor' },
+        { value: '17', label: 'Contenedor de bebida' },
+        { value: '18', label: 'Llave' },
+        { value: '19', label: 'Comida' },
+        { value: '22', label: 'Barco' },
+        { value: '26', label: 'Píldora' },
+        { value: '28', label: 'Mapa' },
+        { value: '29', label: 'Portal' },
+        { value: '30', label: 'Piedra de teletransporte' },
+        { value: '32', label: 'Gema' },
+        { value: '33', label: 'Joyería' }
+    ],
+
+    shopProfitOptions: Array.from({ length: 201 }, (_, i) => ({ value: String(i), label: String(i) })),
+
+    shopHours: Array.from({ length: 24 }, (_, i) => ({ value: String(i), label: String(i) })),
+
     // Prompts detallados para la generación de descripciones de IA.
     // Cada clave representa un tipo de entidad (mob, object, room) y contiene sub-prompts específicos.
     aiPrompts: {
