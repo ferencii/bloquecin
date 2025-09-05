@@ -601,7 +601,10 @@ function populateAffects(containerElement, affectsData) {
 }
 
 function populateExtraDescriptions(containerElement, extraDescriptionsData) {
-    const extraDescsContainer = containerElement.querySelector('.extra-descs-container');
+    const extraDescsContainer =
+        containerElement.querySelector('.extras-container') ||
+        containerElement.querySelector('.room-extras-container') ||
+        containerElement.querySelector('.extra-descs-container');
     const extraDescTemplate = document.getElementById('extra-desc-template');
 
     extraDescriptionsData.forEach(extraDesc => {
