@@ -1338,6 +1338,18 @@ export const gameData = {
 
     shopHours: Array.from({ length: 24 }, (_, i) => ({ value: String(i), label: String(i) })),
 
+    // Variables disponibles para los bloques de Blockly en los PROGs
+    progVariables: [
+        { value: '$i', label: 'el personaje/objeto/sala actual' },
+        { value: '$n', label: 'el jugador que activó el evento' },
+        { value: '$r', label: 'un jugador al azar en la sala' },
+        { value: '$o', label: 'el objeto principal' },
+        { value: '$a', label: 'el primer texto capturado' },
+        { value: '$b', label: 'el segundo texto capturado' },
+        { value: '$u', label: 'el primer argumento de "usar"' },
+        { value: '$v', label: 'el segundo argumento de "usar"' }
+    ],
+
     // Prompts detallados para la generación de descripciones de IA.
     // Cada clave representa un tipo de entidad (mob, object, room) y contiene sub-prompts específicos.
     aiPrompts: {

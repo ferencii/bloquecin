@@ -282,8 +282,8 @@
             </section>
         </main>
     </div>
-    <script src="script.js" type="module">
-    </script>
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="script.js" type="module"></script>
     <!-- ALL TEMPLATES -->
     <template id="mob-template">
         <div class="mob-card">
@@ -2205,9 +2205,10 @@
                 </div>
                 <div class="form-group full-width">
                     <label>
-                        Código:
+                        Programa:
                     </label>
-                    <textarea class="prog-code" placeholder="if rand 50..." rows="10"></textarea>
+                    <div class="prog-blockly" style="height:300px;"></div>
+                    <textarea class="prog-code" hidden></textarea>
                 </div>
             </div>
         </div>
