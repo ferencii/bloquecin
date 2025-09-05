@@ -1,5 +1,6 @@
 import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI } from './objects.js';
 import { refrescarOpcionesResets } from './resets.js';
+import { poblarSelectsTienda } from './shops.js';
 
 export function parseAreFile(content) {
     console.log('Parsing .are file...');
@@ -752,37 +753,29 @@ function populateTiers(containerElement, tiersData) {
 
 function parseShopsSection(sectionContent) {
     const shops = [];
-    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
-    let i = 0;
-    while (i < lines.length) {
-        if (lines[i].trim() === '0') { // End of shops section
-            i++;
-            continue;
+    const lines = sectionContent.split('\n').map(l => l.trim()).filter(l => l !== '');
+    lines.forEach(line => {
+        if (line === '0') return;
+        let comment = '';
+        let data = line;
+        const idx = line.indexOf('*');
+        if (idx !== -1) {
+            comment = line.substring(idx + 1).trim();
+            data = line.substring(0, idx).trim();
         }
-        const shop = {};
-        shop.vnumSeller = parseInt(lines[i++]);
-
-        const buyTypes = lines[i++].split(' ').filter(s => s !== '').map(Number);
-        shop.buyType1 = buyTypes[0] || 0;
-        shop.buyType2 = buyTypes[1] || 0;
-        shop.buyType3 = buyTypes[2] || 0;
-        shop.buyType4 = buyTypes[3] || 0;
-        shop.buyType5 = buyTypes[4] || 0;
-
-        shop.buyProfit = parseInt(lines[i++]);
-        shop.sellProfit = parseInt(lines[i++]);
-
-        const hours = lines[i++].split(' ').filter(s => s !== '').map(Number);
-        shop.openHour = hours[0];
-        shop.closeHour = hours[1];
-
-        if (lines[i] && lines[i].startsWith('*')) {
-            shop.comment = lines[i++].substring(1).trim();
-        } else {
-            shop.comment = '';
-        }
-        shops.push(shop);
-    }
+        const parts = data.split(/\s+/).map(Number);
+        if (parts.length < 10) return;
+        const [vnum, v0, v1, v2, v3, v4, buyProfit, sellProfit, open, close] = parts;
+        shops.push({
+            vnumSeller: vnum,
+            buyTypes: [v0, v1, v2, v3, v4],
+            buyProfit,
+            sellProfit,
+            openHour: open,
+            closeHour: close,
+            comment
+        });
+    });
     return shops;
 }
 
@@ -791,26 +784,23 @@ function populateShopsSection(shopsData) {
     const template = document.getElementById('shop-template');
 
     shopsData.forEach(shop => {
-        const newCard = template.content.cloneNode(true);
-        const addedCardElement = newCard.querySelector('.shop-card');
+        const fragment = template.content.cloneNode(true);
+        const card = fragment.querySelector('.shop-card');
+        poblarSelectsTienda(card);
 
-        addedCardElement.querySelector('.shop-vnum').value = shop.vnumSeller;
-        addedCardElement.querySelector('.shop-buy-type:nth-child(1)').value = shop.buyType1;
-        addedCardElement.querySelector('.shop-buy-type:nth-child(2)').value = shop.buyType2;
-        addedCardElement.querySelector('.shop-buy-type:nth-child(3)').value = shop.buyType3;
-        addedCardElement.querySelector('.shop-buy-type:nth-child(4)').value = shop.buyType4;
-        addedCardElement.querySelector('.shop-buy-type:nth-child(5)').value = shop.buyType5;
-        addedCardElement.querySelector('.shop-buy-profit').value = shop.buyProfit;
-        addedCardElement.querySelector('.shop-sell-profit').value = shop.sellProfit;
-        addedCardElement.querySelector('.shop-open-hour').value = shop.openHour;
-        addedCardElement.querySelector('.shop-close-hour').value = shop.closeHour;
-        // Shop comment is not directly in the template, so just log for now
-        if (shop.comment) console.log(`Shop ${shop.vnumSeller} Comment: ${shop.comment}`);
+        card.querySelector('.shop-vnum').value = shop.vnumSeller;
+        const typeSelects = card.querySelectorAll('.shop-buy-type');
+        shop.buyTypes.forEach((val, idx) => {
+            if (typeSelects[idx]) typeSelects[idx].value = String(val);
+        });
+        card.querySelector('.shop-buy-profit').value = String(shop.buyProfit);
+        card.querySelector('.shop-sell-profit').value = String(shop.sellProfit);
+        card.querySelector('.shop-open-hour').value = String(shop.openHour);
+        card.querySelector('.shop-close-hour').value = String(shop.closeHour);
+        if (shop.comment) card.querySelector('.shop-comment').value = shop.comment;
+        card.querySelector('.shop-vnum-display').textContent = shop.vnumSeller;
 
-        // Update Vnum display in header (no name for shops)
-        addedCardElement.querySelector('.shop-vnum-display').textContent = shop.vnumSeller;
-
-        container.appendChild(addedCardElement);
+        container.appendChild(fragment);
     });
 }
 
