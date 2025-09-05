@@ -138,7 +138,7 @@ function parseAreaSection(sectionContent) {
     const areaData = {};
 
     // Formato esperado: filename, nombre, linea de niveles + creador + región, vnums
-    areaData.filename = lines[0] ? lines[0].trim() : '';
+    areaData.filename = lines[0] ? lines[0].replace(/~$/, '').trim() : '';
     areaData.name = lines[1] ? lines[1].replace(/~$/, '').trim() : '';
 
     const lineaNivel = lines[2] || '';

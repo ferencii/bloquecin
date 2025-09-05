@@ -37,7 +37,11 @@ export function generateAreaSection() {
     const region = document.getElementById('area-region').value.trim();
 
     let section = '#AREA\n';
-    section += `${filename || 'default'}.are~\n`;
+    let cleanFilename = filename.replace(/~$/, '').trim();
+    if (cleanFilename && !cleanFilename.endsWith('.are')) {
+        cleanFilename += '.are';
+    }
+    section += `${cleanFilename || 'default.are'}~\n`;
     section += `${areaName}~\n`;
     section += `{ ${minLevel || 0} ${maxLevel || 0} } ${creator}~\n`;
     section += `${vnumStart || 0} ${vnumEnd || 0}\n`;
