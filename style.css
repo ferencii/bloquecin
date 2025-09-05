@@ -415,6 +415,7 @@ select:focus {
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    color: initial; /* Evita el verde global en la interfaz de Blockly */
 }
 
 #blockly-modal[hidden] {
@@ -447,4 +448,10 @@ select:focus {
     background: var(--secondary-color);
     padding: 5px;
     white-space: pre-wrap;
+}
+
+/* Las etiquetas del árbol de categorías heredan el color asignado por Blockly */
+#blockly-modal .blocklyTreeRow,
+#blockly-modal .blocklyTreeLabel {
+    color: inherit !important;
 }
