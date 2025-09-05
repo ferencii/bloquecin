@@ -1,7 +1,6 @@
 import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI } from './objects.js';
 import { refrescarOpcionesResets } from './resets.js';
 import { poblarSelectsTienda } from './shops.js';
-import { inicializarTarjetaEspecial } from './specials.js';
 import { initProgBlockly } from './blockly-progs.js';
 import { poblarSelectEspecial } from './specials.js';
 
@@ -811,22 +810,24 @@ function populateShopsSection(shopsData) {
 
 function parseSpecialsSection(sectionContent) {
     const specials = [];
-    const lines = sectionContent.split('\n').map(l => l.trim()).filter(l => l !== '');
-    lines.forEach(line => {
-        if (line === 'S') return;
-        let comentario = '';
-        let datos = line;
-        const idx = line.indexOf('*');
-        if (idx !== -1) {
-            comentario = line.substring(idx + 1).trim();
-            datos = line.substring(0, idx).trim();
+    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
+    let i = 0;
+    while (i < lines.length) {
+        if (lines[i].trim() === 'S') { // End of specials section
+            i++;
+            continue;
         }
-        const partes = datos.split(/\s+/);
-        if (partes.length < 3) return;
-        const [indicador, vnumStr, tipo] = partes;
-        if (indicador !== 'M') return;
-        specials.push({ vnumMob: parseInt(vnumStr, 10), type: tipo, comment: comentario });
-    });
+        const special = {};
+        special.vnumMob = parseInt(lines[i++]);
+        special.type = lines[i++].trim();
+
+        if (lines[i] && lines[i].startsWith('*')) {
+            special.comment = lines[i++].substring(1).trim();
+        } else {
+            special.comment = '';
+        }
+        specials.push(special);
+    }
     return specials;
 }
 
@@ -835,17 +836,22 @@ function populateSpecialsSection(specialsData) {
     const template = document.getElementById('special-template');
 
     specialsData.forEach(special => {
-        const fragment = template.content.cloneNode(true);
-        const card = fragment.querySelector('.special-card');
+        const newCard = template.content.cloneNode(true);
+        const addedCardElement = newCard.querySelector('.special-card');
+        poblarSelectEspecial(addedCardElement);
 
-        card.querySelector('.special-vnum').value = special.vnumMob;
-        card.querySelector('.special-name').value = special.type;
-        const comentarioInput = card.querySelector('.special-comment');
-        if (special.comment) comentarioInput.value = special.comment;
-        card.querySelector('.special-vnum-display').textContent = special.vnumMob;
+        addedCardElement.querySelector('.special-vnum').value = special.vnumMob;
+        const select = addedCardElement.querySelector('.special-name');
+        select.value = special.type;
+        select.dispatchEvent(new Event('change'));
+        select.dispatchEvent(new Event('input'));
+        if (special.comment) {
+            addedCardElement.querySelector('.special-comment').value = special.comment;
+        }
+        addedCardElement.querySelector('.special-vnum-display').textContent = special.vnumMob;
+        addedCardElement.querySelector('.special-name-display').textContent = special.type;
 
-        container.appendChild(fragment);
-        inicializarTarjetaEspecial(container.lastElementChild);
+        container.appendChild(addedCardElement);
     });
 }
 
