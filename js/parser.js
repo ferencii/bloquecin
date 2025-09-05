@@ -5,9 +5,24 @@ import { poblarSelectEspecial } from './specials.js';
 import { gameData } from './config.js';
 import { inicializarTarjetaMob } from './mobiles.js';
 
+function limpiarAdvertencias() {
+    const lista = document.getElementById('lista-advertencias');
+    if (lista) lista.innerHTML = '';
+}
+
+function agregarAdvertencias(mensajes) {
+    const lista = document.getElementById('lista-advertencias');
+    if (!lista) return;
+    mensajes.forEach(msj => {
+        const item = document.createElement('li');
+        item.textContent = msj;
+        lista.appendChild(item);
+    });
+}
+
 export function parseAreFile(content) {
     console.log('Parsing .are file...');
-
+    limpiarAdvertencias();
     clearAllForms(); // Clear existing forms before parsing and populating
 
     const sections = {};
@@ -301,7 +316,7 @@ function populateMobilesSection(mobilesData) {
             select.value = valor;
             const opciones = valoresPermitidos || Array.from(select.options).map(o => o.value);
             if (!opciones.includes(valor)) {
-                advertencias.push(`${nombreCampo} desconocido en mob ${mob.vnum}: ${valor}`);
+                advertencias.push(`${nombreCampo} desconocido en mob ${mob.vnum} (${mob.shortDesc}): ${valor}`);
             }
         };
 
@@ -323,7 +338,7 @@ function populateMobilesSection(mobilesData) {
                 restante = restante.split(val).join('');
             });
             if (restante.trim() !== '') {
-                advertencias.push(`${nombreCampo} desconocidos en mob ${mob.vnum}: ${restante}`);
+                advertencias.push(`${nombreCampo} desconocidos en mob ${mob.vnum} (${mob.shortDesc}): ${restante}`);
             }
         };
 
@@ -385,6 +400,7 @@ function populateMobilesSection(mobilesData) {
 
     if (advertencias.length > 0) {
         alert('Advertencias al importar mobs:\n' + advertencias.join('\n'));
+        agregarAdvertencias(advertencias);
     }
 }
 
