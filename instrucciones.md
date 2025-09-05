@@ -309,4 +309,3 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se reactivó la capacidad de colapsar las tarjetas de mobs importados y el autoajuste de estadísticas al modificar el nivel.
 - Se ampliaron las advertencias al importar mobs para revisar todas las listas y flags, notificando valores desconocidos en raza, tipo de daño, posiciones, sexo, tamaño y flags.
 - Al importar un área se actualiza el aviso del rango de VNUMs, ocultando la advertencia cuando el rango es válido.
-
