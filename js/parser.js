@@ -120,17 +120,24 @@ function parseAreaSection(sectionContent) {
     const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
     const areaData = {};
 
-    // Expected order: filename, name, min/max level, creator, start/end vnum, region
+    // Formato esperado: filename, nombre, linea de niveles + creador + región, vnums
     areaData.filename = lines[0] ? lines[0].trim() : '';
     areaData.name = lines[1] ? lines[1].replace(/~$/, '').trim() : '';
-    const levelMatch = lines[2] ? lines[2].match(/\{ (\d+) (\d+)\}/) : null;
+
+    const lineaNivel = lines[2] || '';
+    const levelMatch = lineaNivel.match(/\{\s*(\d+)\s*[-\s]*\s*(\d+)\s*\}/);
     areaData.minLevel = levelMatch ? parseInt(levelMatch[1]) : '';
     areaData.maxLevel = levelMatch ? parseInt(levelMatch[2]) : '';
-    areaData.creator = lines[3] ? lines[3].replace(/~$/, '').trim() : '';
-    const vnumMatch = lines[4] ? lines[4].match(/(\d+) (\d+)/) : null;
+
+    // Extraer creador y región del resto de la línea
+    let resto = lineaNivel.replace(/\{.*?\}/, '').replace(/~$/, '').trim();
+    const partes = resto.split(/\s+/);
+    areaData.creator = partes.shift() || '';
+    areaData.region = partes.join(' ') || '';
+
+    const vnumMatch = lines[3] ? lines[3].match(/(\d+)\s+(\d+)/) : null;
     areaData.vnumStart = vnumMatch ? parseInt(vnumMatch[1]) : '';
     areaData.vnumEnd = vnumMatch ? parseInt(vnumMatch[2]) : '';
-    areaData.region = lines[5] ? lines[5].replace(/~$/, '').trim() : '';
 
     return areaData;
 }
