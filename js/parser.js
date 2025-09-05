@@ -395,7 +395,8 @@ function populateMobilesSection(mobilesData) {
         addedCardElement.querySelector('.mob-name-display').textContent = mob.shortDesc;
 
         container.appendChild(addedCardElement);
-        inicializarTarjetaMob(addedCardElement);
+        // No ajusta estadísticas al importar para preservar valores originales
+        inicializarTarjetaMob(addedCardElement, false);
     });
 
     if (advertencias.length > 0) {

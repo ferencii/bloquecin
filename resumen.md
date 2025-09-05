@@ -16,6 +16,7 @@
     *   **Listas de Raza y Tipo de Daño al Importar**: Al cargar un archivo `.are`, los desplegables de raza y tipo de daño se rellenan con `gameData` y se seleccionan los valores correspondientes de cada mob.
     *   **Reinicialización tras importar**: Los mobs cargados desde archivos recuperan la opción de colapsar y el autoajuste de estadísticas al cambiar el nivel.
     *   **Advertencias de datos desconocidos**: Durante la importación se revisan todas las listas y flags, avisando cuando cualquier valor (raza, tipo de daño, posiciones, sexo, tamaño o flags) no existe en las opciones de la aplicación.
+    *   **Autonivel desactivado al importar**: Los mobs importados mantienen sus estadísticas originales y solo se ajustan al modificar manualmente el nivel.
 *   **Mejoras en la Sección Objects**:
     *   **Campo Material (Datalist)**:
         *   **Funcionalidad**: Se implementó un campo de entrada para "Material" que permite seleccionar de una lista de sugerencias o escribir un valor personalizado. Esto se logró utilizando un elemento `<datalist>` en `index.html` vinculado al campo de entrada.
