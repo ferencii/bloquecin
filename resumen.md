@@ -71,3 +71,5 @@
 
 *   **Progs**:
     *   Se eliminó la integración con Blockly y se volvió al editor de texto para MOBPROGS, OBJPROGS y ROOMPROGS.
+*   **Carga de archivos .are**:
+    *   Se corrigió el parser para reconocer solo las secciones principales y respetar los delimitadores internos `#0` y `~`, permitiendo importar áreas completas.

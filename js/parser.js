@@ -11,28 +11,43 @@ export function parseAreFile(content) {
     const sections = {};
     let currentSection = '';
     let sectionContent = [];
+    // Lista de secciones principales del formato .are
+    const seccionesPrincipales = [
+        '#AREA',
+        '#MOBILES',
+        '#OBJECTS',
+        '#ROOMS',
+        '#RESETS',
+        '#SET',
+        '#SHOPS',
+        '#SPECIALS',
+        '#MOBPROGS',
+        '#OBJPROGS',
+        '#ROOMPROGS',
+        '#HELPS'
+    ];
 
-    const lines = content.split(/\r?\n/);
+    const lineas = content.split(/\r?\n/);
 
-    for (const line of lines) {
-        if (line.startsWith('#') && line.length > 1 && line !== '#$') {
+    for (const linea of lineas) {
+        const limpia = linea.trim();
+        if (seccionesPrincipales.includes(limpia)) {
             if (currentSection) {
                 sections[currentSection] = sectionContent.join('\n');
             }
-            currentSection = line;
+            currentSection = limpia;
             sectionContent = [];
-        } else if (line === '#$') {
+        } else if (limpia === '#$') {
             if (currentSection) {
                 sections[currentSection] = sectionContent.join('\n');
             }
-            currentSection = ''; // Reset current section
+            currentSection = '';
             sectionContent = [];
         } else {
-            sectionContent.push(line);
+            sectionContent.push(linea);
         }
     }
 
-    // Handle the last section if the file doesn't end with #$
     if (currentSection) {
         sections[currentSection] = sectionContent.join('\n');
     }
@@ -133,68 +148,70 @@ function populateAreaForm(areaData) {
 
 function parseMobilesSection(sectionContent) {
     const mobiles = [];
-    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
+    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
     let i = 0;
-    while (i < lines.length) {
-        if (lines[i].startsWith('#')) {
+    while (i < lineas.length) {
+        const linea = lineas[i].trim();
+        if (linea === '#0') break; // Fin de la sección
+        if (linea.startsWith('#')) {
             const mob = {};
-            mob.vnum = parseInt(lines[i].substring(1));
+            mob.vnum = parseInt(linea.substring(1));
             i++;
-            mob.keywords = lines[i++].replace(/~$/, '').trim();
-            mob.shortDesc = lines[i++].replace(/~$/, '').trim();
-            mob.longDesc = lines[i++].replace(/~$/, '').trim();
-            mob.lookDesc = lines[i++].replace(/~$/, '').trim();
-            mob.race = lines[i++].replace(/~$/, '').trim();
+            mob.keywords = lineas[i++].replace(/~$/, '').trim();
+            mob.shortDesc = lineas[i++].replace(/~$/, '').trim();
+            mob.longDesc = lineas[i++].replace(/~$/, '').trim();
+            mob.lookDesc = lineas[i++].replace(/~$/, '').trim();
+            mob.race = lineas[i++].replace(/~$/, '').trim();
 
-            // Act Flags, Affect Flags, Alignment, Group, Level, Hitroll
-            const line6 = lines[i++].split(' ').filter(s => s !== '');
-            mob.actFlags = line6[0];
-            mob.affectFlags = line6[1];
-            mob.alignment = parseInt(line6[2]);
-            mob.group = parseInt(line6[3]);
-            mob.level = parseInt(line6[4]);
-            mob.hitroll = parseInt(line6[5]);
+            // Act Flags, Affect Flags, Alineamiento, Grupo, Nivel, Hitroll
+            const linea6 = lineas[i++].split(' ').filter(s => s !== '');
+            mob.actFlags = linea6[0];
+            mob.affectFlags = linea6[1];
+            mob.alignment = parseInt(linea6[2]);
+            mob.group = parseInt(linea6[3]);
+            mob.level = parseInt(linea6[4]);
+            mob.hitroll = parseInt(linea6[5]);
 
-            // HP, Mana, Damage
-            const line7 = lines[i++].split(' ').filter(s => s !== '');
-            mob.hpDice = line7[0];
-            mob.manaDice = line7[1];
-            mob.damageDice = line7[2];
+            // HP, Mana, Daño
+            const linea7 = lineas[i++].split(' ').filter(s => s !== '');
+            mob.hpDice = linea7[0];
+            mob.manaDice = linea7[1];
+            mob.damageDice = linea7[2];
 
-            mob.damageType = lines[i++].trim();
+            mob.damageType = lineas[i++].trim();
 
-            // ACs
-            const line9 = lines[i++].split(' ').filter(s => s !== '');
-            mob.acPierce = parseInt(line9[0]);
-            mob.acBash = parseInt(line9[1]);
-            mob.acSlash = parseInt(line9[2]);
-            mob.acMagic = parseInt(line9[3]);
+            // Armaduras
+            const linea9 = lineas[i++].split(' ').filter(s => s !== '');
+            mob.acPierce = parseInt(linea9[0]);
+            mob.acBash = parseInt(linea9[1]);
+            mob.acSlash = parseInt(linea9[2]);
+            mob.acMagic = parseInt(linea9[3]);
 
-            mob.offensiveFlags = lines[i++].trim();
+            mob.offensiveFlags = lineas[i++].trim();
 
-            // Imm/Res/Vul
-            const line11 = lines[i++].split(' ').filter(s => s !== '');
-            mob.immFlags = line11[0];
-            mob.resFlags = line11[1];
-            mob.vulFlags = line11[2];
+            // Inmunidades/Resistencias/Vulnerabilidades
+            const linea11 = lineas[i++].split(' ').filter(s => s !== '');
+            mob.immFlags = linea11[0];
+            mob.resFlags = linea11[1];
+            mob.vulFlags = linea11[2];
 
-            // Positions, Sex, Gold
-            const line12 = lines[i++].split(' ').filter(s => s !== '');
-            mob.position = line12[0];
-            mob.defaultPosition = line12[1];
-            mob.sex = line12[2];
-            mob.gold = parseInt(line12[3]);
+            // Posiciones, Sexo, Oro
+            const linea12 = lineas[i++].split(' ').filter(s => s !== '');
+            mob.position = linea12[0];
+            mob.defaultPosition = linea12[1];
+            mob.sex = linea12[2];
+            mob.gold = parseInt(linea12[3]);
 
-            // Form/Parts, Size, Material
-            const line13 = lines[i++].split(' ').filter(s => s !== '');
-            mob.form = line13[0];
-            mob.parts = line13[1];
-            mob.size = line13[2];
-            mob.material = line13[3].replace(/~$/, '').trim();
+            // Forma/Partes, Tamaño, Material
+            const linea13 = lineas[i++].split(' ').filter(s => s !== '');
+            mob.form = linea13[0];
+            mob.parts = linea13[1];
+            mob.size = linea13[2];
+            mob.material = linea13[3].replace(/~$/, '').trim();
 
             mobiles.push(mob);
         }
-        i++; // Move to the next line, skipping #0 or S
+        i++;
     }
     return mobiles;
 }
@@ -257,67 +274,69 @@ function populateMobilesSection(mobilesData) {
 }
 
 function parseObjectsSection(sectionContent) {
-    const objects = [];
-    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
+    const objetos = [];
+    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
     let i = 0;
-    while (i < lines.length) {
-        if (lines[i].startsWith('#')) {
+    while (i < lineas.length) {
+        const linea = lineas[i].trim();
+        if (linea === '#0') break; // Fin de la sección
+        if (linea.startsWith('#')) {
             const obj = {};
-            obj.vnum = parseInt(lines[i].substring(1));
+            obj.vnum = parseInt(linea.substring(1));
             i++;
-            obj.keywords = lines[i++].replace(/~$/, '').trim();
-            obj.shortDesc = lines[i++].replace(/~$/, '').trim();
-            obj.longDesc = lines[i++].replace(/~$/, '').trim();
-            obj.material = lines[i++].trim();
-            obj.type = lines[i++].trim();
-            obj.flags = lines[i++].trim();
-            obj.wearLocation = lines[i++].trim();
+            obj.keywords = lineas[i++].replace(/~$/, '').trim();
+            obj.shortDesc = lineas[i++].replace(/~$/, '').trim();
+            obj.longDesc = lineas[i++].replace(/~$/, '').trim();
+            obj.material = lineas[i++].trim();
+            obj.type = lineas[i++].trim();
+            obj.flags = lineas[i++].trim();
+            obj.wearLocation = lineas[i++].trim();
 
             // V0-V4
-            const vValues = lines[i++].split(' ').filter(s => s !== '');
-            obj.v0 = vValues[0] ?? '0';
-            obj.v1 = vValues[1] ?? '0';
-            obj.v2 = vValues[2] ?? '0';
-            obj.v3 = vValues[3] ?? '0';
-            obj.v4 = vValues[4] ?? '0';
+            const vValores = lineas[i++].split(' ').filter(s => s !== '');
+            obj.v0 = vValores[0] ?? '0';
+            obj.v1 = vValores[1] ?? '0';
+            obj.v2 = vValores[2] ?? '0';
+            obj.v3 = vValores[3] ?? '0';
+            obj.v4 = vValores[4] ?? '0';
 
-            obj.level = parseInt(lines[i++]);
-            obj.weight = parseInt(lines[i++]);
-            obj.price = parseInt(lines[i++]);
+            obj.level = parseInt(lineas[i++]);
+            obj.weight = parseInt(lineas[i++]);
+            obj.price = parseInt(lineas[i++]);
 
-            // Optional S, A, F, E sections
+            // Secciones opcionales S, A, F, E
             obj.set = null;
             obj.applies = [];
             obj.affects = [];
             obj.extraDescriptions = [];
 
-            while (i < lines.length && !lines[i].startsWith('#') && lines[i].trim() !== '0') {
-                const line = lines[i].trim();
-                if (line.startsWith('S ')) {
-                    obj.set = line.substring(2).trim();
-                } else if (line.startsWith('A ')) {
-                    const parts = line.substring(2).trim().split(' ').map(Number);
-                    obj.applies.push({ location: parts[0], modifier: parts[1] });
-                } else if (line.startsWith('F ')) {
-                    const parts = line.substring(2).trim().split(' ');
-                    obj.affects.push({ type: parts[0], bits: parts.slice(3).join('') });
-                } else if (line.startsWith('E ')) {
-                    const keywordLine = line.substring(2).trim();
-                    const keywordMatch = keywordLine.match(/^(.*?~)\s*(.*)/);
-                    if (keywordMatch) {
+            while (i < lineas.length && !lineas[i].startsWith('#') && lineas[i].trim() !== '0') {
+                const lineaOpt = lineas[i].trim();
+                if (lineaOpt.startsWith('S ')) {
+                    obj.set = lineaOpt.substring(2).trim();
+                } else if (lineaOpt.startsWith('A ')) {
+                    const partes = lineaOpt.substring(2).trim().split(' ').map(Number);
+                    obj.applies.push({ location: partes[0], modifier: partes[1] });
+                } else if (lineaOpt.startsWith('F ')) {
+                    const partes = lineaOpt.substring(2).trim().split(' ');
+                    obj.affects.push({ type: partes[0], bits: partes.slice(3).join('') });
+                } else if (lineaOpt.startsWith('E ')) {
+                    const lineaClave = lineaOpt.substring(2).trim();
+                    const coincidencia = lineaClave.match(/^(.*?~)\s*(.*)/);
+                    if (coincidencia) {
                         obj.extraDescriptions.push({
-                            keywords: keywordMatch[1].trim(),
-                            description: keywordMatch[2].replace(/~$/, '').trim()
+                            keywords: coincidencia[1].trim(),
+                            description: coincidencia[2].replace(/~$/, '').trim()
                         });
                     }
                 }
                 i++;
             }
-            objects.push(obj);
+            objetos.push(obj);
         }
-        i++; // Move to the next line, skipping #0 or S
+        i++;
     }
-    return objects;
+    return objetos;
 }
 
 function populateObjectsSection(objectsData) {
@@ -418,20 +437,22 @@ function populateExtraDescriptions(containerElement, extraDescriptionsData) {
 }
 
 function parseRoomsSection(sectionContent) {
-    const rooms = [];
-    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
+    const habitaciones = [];
+    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
     let i = 0;
-    while (i < lines.length) {
-        if (lines[i].startsWith('#')) {
+    while (i < lineas.length) {
+        const linea = lineas[i].trim();
+        if (linea === '#0') break; // Fin de la sección
+        if (linea.startsWith('#')) {
             const room = {};
-            room.vnum = parseInt(lines[i].substring(1));
+            room.vnum = parseInt(linea.substring(1));
             i++;
-            room.name = lines[i++].replace(/~$/, '').trim();
-            room.description = lines[i++].replace(/~$/, '').trim();
+            room.name = lineas[i++].replace(/~$/, '').trim();
+            room.description = lineas[i++].replace(/~$/, '').trim();
 
-            const line4 = lines[i++].split(' ').filter(s => s !== '');
-            room.flags = line4[0];
-            room.sectorType = parseInt(line4[1]);
+            const linea4 = lineas[i++].split(' ').filter(s => s !== '');
+            room.flags = linea4[0];
+            room.sectorType = parseInt(linea4[1]);
 
             room.exits = [];
             room.extraDescriptions = [];
@@ -439,43 +460,43 @@ function parseRoomsSection(sectionContent) {
             room.healthRegen = '';
             room.clan = '';
 
-            while (i < lines.length && !lines[i].startsWith('S')) {
-                const line = lines[i].trim();
-                if (line.startsWith('D')) {
-                    const parts = line.substring(1).trim().split(' ').filter(s => s !== '');
-                    const exit = {
-                        direction: parseInt(parts[0]),
-                        description: lines[i + 1].replace(/~$/, '').trim(),
-                        keywords: lines[i + 2].replace(/~$/, '').trim(),
-                        doorState: parseInt(parts[3]),
-                        keyVnum: parseInt(parts[4]),
-                        destinationVnum: parseInt(parts[5])
+            while (i < lineas.length && !lineas[i].startsWith('S')) {
+                const lineaInterna = lineas[i].trim();
+                if (lineaInterna.startsWith('D')) {
+                    const partes = lineaInterna.substring(1).trim().split(' ').filter(s => s !== '');
+                    const salida = {
+                        direction: parseInt(partes[0]),
+                        description: lineas[i + 1].replace(/~$/, '').trim(),
+                        keywords: lineas[i + 2].replace(/~$/, '').trim(),
+                        doorState: parseInt(partes[3]),
+                        keyVnum: parseInt(partes[4]),
+                        destinationVnum: parseInt(partes[5])
                     };
-                    room.exits.push(exit);
-                    i += 5; // Advance past exit lines
-                } else if (line.startsWith('E')) {
-                    const keywordLine = line.substring(1).trim();
-                    const keywordMatch = keywordLine.match(/^(.*?~)\s*(.*)/);
-                    if (keywordMatch) {
+                    room.exits.push(salida);
+                    i += 5;
+                } else if (lineaInterna.startsWith('E')) {
+                    const lineaClave = lineaInterna.substring(1).trim();
+                    const coincidencia = lineaClave.match(/^(.*?~)\s*(.*)/);
+                    if (coincidencia) {
                         room.extraDescriptions.push({
-                            keywords: keywordMatch[1].trim(),
-                            description: keywordMatch[2].replace(/~$/, '').trim()
+                            keywords: coincidencia[1].trim(),
+                            description: coincidencia[2].replace(/~$/, '').trim()
                         });
                     }
-                } else if (line.startsWith('M')) {
-                    room.manaRegen = parseInt(line.substring(1).trim());
-                } else if (line.startsWith('H')) {
-                    room.healthRegen = parseInt(line.substring(1).trim());
-                } else if (line.startsWith('C')) {
-                    room.clan = line.substring(1).replace(/~$/, '').trim();
+                } else if (lineaInterna.startsWith('M')) {
+                    room.manaRegen = parseInt(lineaInterna.substring(1).trim());
+                } else if (lineaInterna.startsWith('H')) {
+                    room.healthRegen = parseInt(lineaInterna.substring(1).trim());
+                } else if (lineaInterna.startsWith('C')) {
+                    room.clan = lineaInterna.substring(1).replace(/~$/, '').trim();
                 }
                 i++;
             }
-            rooms.push(room);
+            habitaciones.push(room);
         }
-        i++; // Move to the next line, skipping #0 or S
+        i++;
     }
-    return rooms;
+    return habitaciones;
 }
 
 function populateRoomsSection(roomsData) {
@@ -671,40 +692,42 @@ function populateResetsSection(resetsData) {
 }
 
 function parseSetSection(sectionContent) {
-    const sets = [];
-    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
+    const conjuntos = [];
+    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
     let i = 0;
-    while (i < lines.length) {
-        if (lines[i].startsWith('#')) { // Should be #<ID>
+    while (i < lineas.length) {
+        const linea = lineas[i].trim();
+        if (linea === '#0') break; // Fin de la sección
+        if (linea.startsWith('#')) {
             const set = {};
-            set.id = parseInt(lines[i].substring(1));
+            set.id = parseInt(linea.substring(1));
             i++;
-            set.name = lines[i++].replace(/~$/, '').trim();
+            set.name = lineas[i++].replace(/~$/, '').trim();
             set.tiers = [];
 
-            while (i < lines.length && lines[i].trim() !== 'End') {
-                const line = lines[i].trim();
-                if (line.startsWith('T ')) {
-                    const tier = { pieces: parseInt(line.substring(2).trim()), applies: [], affects: [] };
+            while (i < lineas.length && lineas[i].trim() !== 'End') {
+                const lineaTier = lineas[i].trim();
+                if (lineaTier.startsWith('T ')) {
+                    const tier = { pieces: parseInt(lineaTier.substring(2).trim()), applies: [], affects: [] };
                     set.tiers.push(tier);
-                } else if (line.startsWith('A ')) {
-                    const parts = line.substring(2).trim().split(' ').map(Number);
+                } else if (lineaTier.startsWith('A ')) {
+                    const partes = lineaTier.substring(2).trim().split(' ').map(Number);
                     if (set.tiers.length > 0) {
-                        set.tiers[set.tiers.length - 1].applies.push({ location: parts[0], modifier: parts[1] });
+                        set.tiers[set.tiers.length - 1].applies.push({ location: partes[0], modifier: partes[1] });
                     }
-                } else if (line.startsWith('F ')) {
-                    const parts = line.substring(2).trim().split(' ');
+                } else if (lineaTier.startsWith('F ')) {
+                    const partes = lineaTier.substring(2).trim().split(' ');
                     if (set.tiers.length > 0) {
-                        set.tiers[set.tiers.length - 1].affects.push({ type: parts[0], bits: parts.slice(1).join(' ') });
+                        set.tiers[set.tiers.length - 1].affects.push({ type: partes[0], bits: partes.slice(1).join(' ') });
                     }
                 }
                 i++;
             }
-            sets.push(set);
+            conjuntos.push(set);
         }
-        i++; // Move to the next line, skipping End or #0
+        i++;
     }
-    return sets;
+    return conjuntos;
 }
 
 function populateSetSection(setsData) {
@@ -856,23 +879,26 @@ function populateSpecialsSection(specialsData) {
 
 function parseProgsSection(sectionContent) {
     const progs = [];
-    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
+    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
     let i = 0;
-    while (i < lines.length) {
-        if (lines[i].startsWith('#')) {
+    while (i < lineas.length) {
+        const linea = lineas[i].trim();
+        if (linea === '#0') break; // Fin de la sección
+        if (linea.startsWith('#')) {
             const prog = {};
-            prog.vnum = parseInt(lines[i].substring(1));
+            prog.vnum = parseInt(linea.substring(1));
             i++;
-            // Read code block until next # or end of section
-            let codeBlock = [];
-            while (i < lines.length && !lines[i].startsWith('#') && lines[i].trim() !== '0') {
-                codeBlock.push(lines[i]);
+            let bloque = [];
+            while (i < lineas.length && lineas[i].trim() !== '~') {
+                bloque.push(lineas[i]);
                 i++;
             }
-            prog.code = codeBlock.join('\n');
+            prog.code = bloque.join('\n');
             progs.push(prog);
+            if (i < lineas.length && lineas[i].trim() === '~') i++;
+        } else {
+            i++;
         }
-        i++; // Move to the next line, skipping #0 or S
     }
     return progs;
 }
