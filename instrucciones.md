@@ -298,3 +298,11 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 
 **Nota Adicional para la IA:** El foco principal es la **generación precisa del formato del archivo `.are`**. La lógica interna de los `MOBPROGS` es compleja y su validación completa no es el objetivo inicial, sino permitir su entrada como texto. Las tablas y flags deben estar presentes para que el usuario pueda seleccionarlos o introducirlos, y la salida generada debe ser conforme a estas definiciones.
 
+---
+
+### Cambios recientes
+
+- Se conectaron los controles de la ventana Blockly para que los botones **Guardar** y **Cerrar** funcionen correctamente.
+- Las categorías del editor (Eventos, Condiciones, Acciones, Lógica y Variables) ahora muestran colores diferenciados y legibles.
+- La generación de secciones `#MOBPROGS`, `#OBJPROGS` y `#ROOMPROGS` añade un salto de línea antes del `~` final, evitando la pérdida del último comando.
+

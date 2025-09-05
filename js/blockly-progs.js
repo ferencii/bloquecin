@@ -1,11 +1,13 @@
 import { gameData } from './config.js';
 
+// Blockly espera colores en formato de matiz (0-360). Usar números
+// evita que todas las categorías se vean del mismo verde por defecto.
 const COLORES = {
-    eventos: '#5C81A6',
-    condiciones: '#5CA65C',
-    acciones: '#A65C81',
-    logica: '#9A5CA6',
-    variables: '#A6745C'
+    eventos: 210,        // Azul
+    condiciones: 120,    // Verde
+    acciones: 330,       // Rosa/morado
+    logica: 290,         // Violeta
+    variables: 20        // Naranja
 };
 
 let espacioTrabajo = null;
@@ -106,8 +108,15 @@ function guardarModal() {
     cerrarModal();
 }
 
-document.getElementById('blockly-close').addEventListener('click', cerrarModal);
-document.getElementById('blockly-save').addEventListener('click', guardarModal);
+// Se exporta una función para enlazar los controles del modal una vez que
+// el DOM está cargado. Antes se realizaba en la carga del módulo y fallaba
+// porque los botones aún no existían.
+export function initBlocklyModalControls() {
+    const btnCerrar = document.getElementById('blockly-close');
+    const btnGuardar = document.getElementById('blockly-save');
+    if (btnCerrar) btnCerrar.addEventListener('click', cerrarModal);
+    if (btnGuardar) btnGuardar.addEventListener('click', guardarModal);
+}
 
 export function initProgBlockly(tarjeta, tipoSeccion) {
     const btnEditar = tarjeta.querySelector('.edit-prog-btn');

@@ -25,7 +25,8 @@ export function generateProgsSection(containerId, sectionName) {
         const vnum = card.querySelector('.prog-vnum').value;
         const code = card.querySelector('.prog-code').value;
         if (vnum && code) {
-            section += `#${vnum}\n${code}~\n`;
+            const codeBlock = code.endsWith('\n') ? code : `${code}\n`;
+            section += `#${vnum}\n${codeBlock}~\n`;
         }
     });
     return section + '#0\n\n';
