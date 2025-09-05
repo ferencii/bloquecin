@@ -1,5 +1,6 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 import { gameData } from './config.js';
+import { refrescarOpcionesResets } from './resets.js';
 
 export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
     const mobContainer = document.getElementById('mobiles-container');
@@ -123,7 +124,10 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
     };
 
     // Call setupDynamicSection and pass the callback for new cards
-    setupDynamicSection('add-mob-btn', 'mobiles-container', 'mob-template', '.mob-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, attachMobCardListeners);
+    setupDynamicSection('add-mob-btn', 'mobiles-container', 'mob-template', '.mob-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, (cardElement) => {
+        attachMobCardListeners(cardElement);
+        refrescarOpcionesResets();
+    });
 
     // Attach event listeners for existing cards if they are loaded (e.g., from file)
     mobContainer.querySelectorAll('.mob-card').forEach(card => {

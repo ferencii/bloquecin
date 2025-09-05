@@ -1,5 +1,6 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 import { gameData } from './config.js';
+import { refrescarOpcionesResets } from './resets.js';
 
 export function updateObjectValuesUI(objectCard) {
     const type = objectCard.querySelector('.obj-type').value;
@@ -103,7 +104,10 @@ export function populateAffectBitSelect(row) {
 }
 
 export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
-    setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, populateObjectTypeSelect);
+    setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, (card) => {
+        populateObjectTypeSelect(card);
+        refrescarOpcionesResets();
+    });
 
     // Add event listener for type change on newly added cards
     const container = document.getElementById('objects-container');
