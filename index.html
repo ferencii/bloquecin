@@ -178,26 +178,26 @@
                     <span>
                         Añadir comando:
                     </span>
-                    <button class="add-reset-btn" data-type="M">
-                        M
+                    <button class="add-reset-btn" data-type="M" title="Carga mobs en habitaciones">
+                        M Mob
                     </button>
-                    <button class="add-reset-btn" data-type="O">
-                        O
+                    <button class="add-reset-btn" data-type="O" title="Carga objetos en habitaciones">
+                        O Objeto
                     </button>
-                    <button class="add-reset-btn" data-type="P">
-                        P
+                    <button class="add-reset-btn" data-type="P" title="Coloca objetos dentro de otros">
+                        P Dentro
                     </button>
-                    <button class="add-reset-btn" data-type="G">
-                        G
+                    <button class="add-reset-btn" data-type="G" title="Da un objeto al último mob">
+                        G Dar
                     </button>
-                    <button class="add-reset-btn" data-type="E">
-                        E
+                    <button class="add-reset-btn" data-type="E" title="Equipa un objeto al último mob">
+                        E Equipar
                     </button>
-                    <button class="add-reset-btn" data-type="D">
-                        D
+                    <button class="add-reset-btn" data-type="D" title="Configura el estado de una puerta">
+                        D Puerta
                     </button>
-                    <button class="add-reset-btn" data-type="R">
-                        R
+                    <button class="add-reset-btn" data-type="R" title="Define un maze en una habitación">
+                        R Maze
                     </button>
                 </div>
                 <div id="resets-list-container">
@@ -2410,7 +2410,7 @@
             <label>
                 Mob Vnum:
             </label>
-            <input class="reset-mob-vnum" type="number" />
+            <select class="reset-mob-vnum"></select>
             <label>
                 Límite Total:
             </label>
@@ -2418,7 +2418,7 @@
             <label>
                 Habitación Vnum:
             </label>
-            <input class="reset-room-vnum" type="number" />
+            <select class="reset-room-vnum"></select>
             <label>
                 Límite Local:
             </label>
@@ -2430,7 +2430,7 @@
             <label>
                 Objeto Vnum:
             </label>
-            <input class="reset-obj-vnum" type="number" />
+            <select class="reset-obj-vnum"></select>
             <label>
                 Límite:
             </label>
@@ -2438,7 +2438,7 @@
             <label>
                 Habitación Vnum:
             </label>
-            <input class="reset-room-vnum" type="number" />
+            <select class="reset-room-vnum"></select>
         </div>
     </template>
     <template id="reset-p-template">
@@ -2446,7 +2446,7 @@
             <label>
                 Contenido Vnum:
             </label>
-            <input class="reset-content-vnum" type="number" />
+            <select class="reset-content-vnum"></select>
             <label>
                 Límite:
             </label>
@@ -2454,7 +2454,7 @@
             <label>
                 Contenedor Vnum:
             </label>
-            <input class="reset-container-vnum" type="number" />
+            <select class="reset-container-vnum"></select>
             <label>
                 Límite Local:
             </label>
@@ -2466,7 +2466,7 @@
             <label>
                 Objeto Vnum:
             </label>
-            <input class="reset-obj-vnum" type="number" />
+            <select class="reset-obj-vnum"></select>
             <label>
                 Límite:
             </label>
@@ -2478,7 +2478,7 @@
             <label>
                 Objeto Vnum:
             </label>
-            <input class="reset-obj-vnum" type="number" />
+            <select class="reset-obj-vnum"></select>
             <label>
                 Límite:
             </label>
@@ -2486,7 +2486,7 @@
             <label>
                 Lugar de Vestir:
             </label>
-            <input class="reset-wear-location" type="number" />
+            <select class="reset-wear-location"></select>
         </div>
     </template>
     <template id="reset-d-template">
@@ -2494,15 +2494,15 @@
             <label>
                 Habitación Vnum:
             </label>
-            <input class="reset-room-vnum" type="number" />
+            <select class="reset-room-vnum"></select>
             <label>
                 Dirección:
             </label>
-            <input class="reset-direction" type="number" />
+            <select class="reset-direction"></select>
             <label>
                 Estado:
             </label>
-            <input class="reset-state" type="number" />
+            <select class="reset-state"></select>
         </div>
     </template>
     <template id="reset-r-template">
@@ -2510,11 +2510,11 @@
             <label>
                 Habitación Vnum:
             </label>
-            <input class="reset-room-vnum" type="number" />
+            <select class="reset-room-vnum"></select>
             <label>
                 Clase de Maze:
             </label>
-            <input class="reset-maze-class" type="number" />
+            <select class="reset-maze-class"></select>
         </div>
     </template>
     <template id="tier-template">

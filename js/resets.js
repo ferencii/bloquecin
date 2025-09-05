@@ -1,3 +1,41 @@
+import { gameData } from './config.js';
+
+function obtenerOpcionesDesdeTarjetas(selectorTarjeta, selectorVnum, selectorNombre) {
+    return Array.from(document.querySelectorAll(selectorTarjeta)).map(card => {
+        const vnum = card.querySelector(selectorVnum)?.value || '';
+        const nombre = card.querySelector(selectorNombre)?.textContent || '';
+        return { value: vnum, label: `${vnum} - ${nombre}` };
+    });
+}
+
+function poblarSelect(select, opciones) {
+    const valorPrevio = select.value;
+    select.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '-- selecciona --';
+    select.appendChild(placeholder);
+    opciones.forEach(opt => {
+        const optionEl = document.createElement('option');
+        optionEl.value = opt.value;
+        optionEl.textContent = opt.label;
+        select.appendChild(optionEl);
+    });
+    if (valorPrevio) select.value = valorPrevio;
+}
+
+export function refrescarOpcionesResets() {
+    const opcionesMobs = obtenerOpcionesDesdeTarjetas('.mob-card', '.mob-vnum', '.mob-name-display');
+    const opcionesObjs = obtenerOpcionesDesdeTarjetas('.object-card', '.obj-vnum', '.obj-name-display');
+    const opcionesRooms = obtenerOpcionesDesdeTarjetas('.room-card', '.room-vnum', '.room-name-display');
+
+    document.querySelectorAll('.reset-mob-vnum').forEach(select => poblarSelect(select, opcionesMobs));
+    document.querySelectorAll('.reset-obj-vnum').forEach(select => poblarSelect(select, opcionesObjs));
+    document.querySelectorAll('.reset-content-vnum').forEach(select => poblarSelect(select, opcionesObjs));
+    document.querySelectorAll('.reset-container-vnum').forEach(select => poblarSelect(select, opcionesObjs));
+    document.querySelectorAll('.reset-room-vnum').forEach(select => poblarSelect(select, opcionesRooms));
+}
+
 function getDragAfterElement(container, y) {
     const draggableElements = [...container.querySelectorAll('.reset-row:not(.dragging)')];
     return draggableElements.reduce((closest, child) => {
@@ -15,17 +53,24 @@ function addResetRow(type) {
     row.querySelector('.reset-type-indicator').textContent = type;
     row.dataset.type = type;
 
-    const inputs = {
-        'M': `<span>Mob Vnum:</span><input type="number" data-id="vnum"> <span>Límite Total:</span><input type="number" data-id="total_limit"> <span>Room Vnum:</span><input type="number" data-id="room_vnum"> <span>Límite Local:</span><input type="number" data-id="local_limit">`,
-        'O': `<span>Obj Vnum:</span><input type="number" data-id="vnum"> <span>Límite:</span><input type="number" data-id="limit"> <span>Room Vnum:</span><input type="number" data-id="room_vnum">`,
-        'P': `<span>Obj Contenido Vnum:</span><input type="number" data-id="vnum"> <span>Límite:</span><input type="number" data-id="limit"> <span>Contenedor Vnum:</span><input type="number" data-id="container_vnum"> <span>Límite Local:</span><input type="number" data-id="local_limit">`,
-        'G': `<span>Obj Vnum:</span><input type="number" data-id="vnum"> <span>Límite:</span><input type="number" data-id="limit">`,
-        'E': `<span>Obj Vnum:</span><input type="number" data-id="vnum"> <span>Límite:</span><input type="number" data-id="limit"> <span>Lugar (código):</span><input type="number" data-id="wear_loc">`,
-        'D': `<span>Room Vnum:</span><input type="number" data-id="room_vnum"> <span>Dirección:</span><input type="number" data-id="direction"> <span>Estado:</span><input type="number" data-id="state">`,
-        'R': `<span>Room Vnum:</span><input type="number" data-id="room_vnum"> <span>Clase Maze:</span><input type="number" data-id="maze_class">`
-    };
-    row.querySelector('.reset-inputs').innerHTML = inputs[type];
+    const specificTemplate = document.getElementById(`reset-${type.toLowerCase()}-template`).content.cloneNode(true);
+    row.querySelector('.reset-inputs').replaceWith(specificTemplate);
+
+    switch (type) {
+        case 'E':
+            poblarSelect(row.querySelector('.reset-wear-location'), gameData.resetWearLocations);
+            break;
+        case 'D':
+            poblarSelect(row.querySelector('.reset-direction'), gameData.resetDirections);
+            poblarSelect(row.querySelector('.reset-state'), gameData.resetDoorStates);
+            break;
+        case 'R':
+            poblarSelect(row.querySelector('.reset-maze-class'), gameData.resetMazeClasses);
+            break;
+    }
+
     list.appendChild(rowClone);
+    refrescarOpcionesResets();
 }
 
 export function setupResetsSection() {
@@ -38,7 +83,10 @@ export function setupResetsSection() {
     });
 
     list.addEventListener('click', (e) => {
-        if (e.target.classList.contains('remove-sub-btn')) e.target.closest('.reset-row').remove();
+        if (e.target.classList.contains('remove-sub-btn')) {
+            e.target.closest('.reset-row').remove();
+            refrescarOpcionesResets();
+        }
     });
 
     let draggedItem = null;
@@ -63,17 +111,31 @@ export function generateResetsSection() {
     let section = '#RESETS\n';
     resetRows.forEach(row => {
         const type = row.dataset.type;
-        const getVal = (id) => row.querySelector(`input[data-id="${id}"]`).value || 0;
         switch (type) {
-            case 'M': section += `M 0 ${getVal('vnum')} ${getVal('total_limit')} ${getVal('room_vnum')} ${getVal('local_limit')} * Mob ${getVal('vnum')}\n`; break;
-            case 'O': section += `O 0 ${getVal('vnum')} ${getVal('limit')} ${getVal('room_vnum')} * Obj ${getVal('vnum')}\n`; break;
-            case 'P': section += `P 1 ${getVal('vnum')} ${getVal('limit')} ${getVal('container_vnum')} ${getVal('local_limit')} * Obj in Obj\n`; break;
-            case 'G': section += `G 1 ${getVal('vnum')} ${getVal('limit')} * Give Obj\n`; break;
-            case 'E': section += `E 1 ${getVal('vnum')} ${getVal('limit')} ${getVal('wear_loc')} * Equip Obj\n`; break;
-            case 'D': section += `D 0 ${getVal('room_vnum')} ${getVal('direction')} ${getVal('state')} * Door\n`; break;
-            case 'R': section += `R 0 ${getVal('room_vnum')} ${getVal('maze_class')} * Random Exits\n`; break;
+            case 'M':
+                section += `M 0 ${row.querySelector('.reset-mob-vnum').value || 0} ${row.querySelector('.reset-limit-total').value || 0} ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-limit-local').value || 0} * Mob ${row.querySelector('.reset-mob-vnum').value || 0}\n`;
+                break;
+            case 'O':
+                section += `O 0 ${row.querySelector('.reset-obj-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-room-vnum').value || 0} * Obj ${row.querySelector('.reset-obj-vnum').value || 0}\n`;
+                break;
+            case 'P':
+                section += `P 1 ${row.querySelector('.reset-content-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-container-vnum').value || 0} ${row.querySelector('.reset-limit-local').value || 0} * Obj in Obj\n`;
+                break;
+            case 'G':
+                section += `G 1 ${row.querySelector('.reset-obj-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} * Give Obj\n`;
+                break;
+            case 'E':
+                section += `E 1 ${row.querySelector('.reset-obj-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-wear-location').value || 0} * Equip Obj\n`;
+                break;
+            case 'D':
+                section += `D 0 ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-direction').value || 0} ${row.querySelector('.reset-state').value || 0} * Door\n`;
+                break;
+            case 'R':
+                section += `R 0 ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-maze-class').value || 0} * Random Exits\n`;
+                break;
         }
     });
     section += 'S\n\n';
     return section;
 }
+
