@@ -2,7 +2,8 @@ import { setupDynamicSection, getFlagString } from './utils.js';
 import { gameData } from './config.js';
 import { refrescarOpcionesResets } from './resets.js';
 
-export function inicializarTarjetaMob(cardElement) {
+// autoAjustar indica si se deben calcular estadísticas al inicializar
+export function inicializarTarjetaMob(cardElement, autoAjustar = true) {
     const levelInput = cardElement.querySelector('.mob-level');
     const hitrollInput = cardElement.querySelector('.mob-hitroll');
     const hpDiceNumInput = cardElement.querySelector('.mob-hp-dice-num');
@@ -111,7 +112,9 @@ export function inicializarTarjetaMob(cardElement) {
 
     if (levelInput) {
         levelInput.addEventListener('input', updateMobStats);
-        updateMobStats();
+        if (autoAjustar) {
+            updateMobStats();
+        }
     }
 
     const header = cardElement.querySelector('.collapsible-header');
