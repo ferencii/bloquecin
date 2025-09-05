@@ -305,4 +305,5 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se conectaron los controles de la ventana Blockly para que los botones **Guardar** y **Cerrar** funcionen correctamente.
 - Las categorías del editor (Eventos, Condiciones, Acciones, Lógica y Variables) ahora muestran colores diferenciados y legibles.
 - La generación de secciones `#MOBPROGS`, `#OBJPROGS` y `#ROOMPROGS` añade un salto de línea antes del `~` final, evitando la pérdida del último comando.
+- Se corrigió la categoría **Eventos** del editor visual, reemplazando el método obsoleto `setHat` por la propiedad `hat` para que los bloques se muestren correctamente.
 
