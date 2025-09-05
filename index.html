@@ -282,8 +282,8 @@
             </section>
         </main>
     </div>
-    <script src="script.js" type="module">
-    </script>
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="script.js" type="module"></script>
     <!-- ALL TEMPLATES -->
     <template id="mob-template">
         <div class="mob-card">
@@ -2204,10 +2204,12 @@
                     <input class="prog-vnum" placeholder="12100" type="number" />
                 </div>
                 <div class="form-group full-width">
-                    <label>
-                        Código:
-                    </label>
-                    <textarea class="prog-code" placeholder="if rand 50..." rows="10"></textarea>
+                    <div class="prog-summary">(sin acciones)</div>
+                    <button class="edit-prog-btn">Editar bloques</button>
+                    <button class="show-code-btn">Ver código</button>
+                    <pre class="prog-code-display" hidden></pre>
+                    <textarea class="prog-code" hidden></textarea>
+                    <textarea class="prog-xml" hidden></textarea>
                 </div>
             </div>
         </div>
@@ -2573,6 +2575,15 @@
             </fieldset>
         </div>
     </template>
+    <div id="blockly-modal" hidden>
+        <div class="modal-contenido">
+            <div id="blockly-workspace"></div>
+            <div class="modal-controles">
+                <button id="blockly-save">Guardar</button>
+                <button id="blockly-close">Cerrar</button>
+            </div>
+        </div>
+    </div>
     <datalist id="materials-list">
     </datalist>
     <datalist id="specials-list">
