@@ -1,4 +1,5 @@
 import { gameData } from './config.js';
+
 function obtenerOpcionesDesdeTarjetas(selectorTarjeta, selectorVnum, selectorNombre) {
     return Array.from(document.querySelectorAll(selectorTarjeta)).map(card => {
         const vnum = card.querySelector(selectorVnum)?.value || '';

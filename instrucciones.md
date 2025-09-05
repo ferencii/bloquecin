@@ -164,7 +164,7 @@ La aplicación debe permitir añadir múltiples comandos de reseteo. Cada comand
 *   **E (Da un Objeto Equipado a un Mob)**: `E 1 <vnum objeto> <límite> <lugar de vestir>` (ej. `E 1 12177 1 16`). **Debe ir después de un `M` que cargue el mob.**.
     *   Lugares de Vestir (códigos numéricos): `0` (Luz), `1` (Dedo izq.), `2` (Dedo der.), `3` (Cuello 1), `4` (Cuello 2), `5` (Torso), `6` (Cabeza), `7` (Piernas), `8` (Pies), `9` (Manos), `10` (Brazos), `11` (Escudo), `12` (Espalda), `13` (Cintura), `14` (Muñeca izq.), `15` (Muñeca der.), `16` (Blandido), `17` (Sujeto), `18` (Flotando), `19` (Arma secundaria), `20` (Rodela), `21` (Piernas traseras), `22` (Pies traseros), `23` (Emblema de clan).
 *   **D (Define el Estado de Puertas)**: `D 0 <vnum habitación> <dirección> <estado>` (ej. `D 0 12102 5 1`).
-    *   Direcciones: `0` (Norte), `1` (Este), `2` (Sur), `3` (Oeste), `4` (Arriba), `5` (Abajo).
+    *   Direcciones: `0` (Norte), `1` (Este), `2` (Sur), `3` (Oeste), `4` (Arriba), `5` (Abajo), `6` (Noreste), `7` (Noroeste), `8` (Sureste), `9` (Suroeste).
     *   Estado: `0` (Abierta), `1` (Cerrada), `2` (Con llave).
 *   **R (Define un Maze en una Habitación)**: `R 0 <vnum habitación> <clase de maze>` (ej. `R 0 12129 4`).
     *   Clase de Maze: `4` (salidas cardinales), `6` (incluye arriba/abajo).

@@ -1263,7 +1263,11 @@ export const gameData = {
         { value: '2', label: 'Sur' },
         { value: '3', label: 'Oeste' },
         { value: '4', label: 'Arriba' },
-        { value: '5', label: 'Abajo' }
+        { value: '5', label: 'Abajo' },
+        { value: '6', label: 'Noreste' },
+        { value: '7', label: 'Noroeste' },
+        { value: '8', label: 'Sureste' },
+        { value: '9', label: 'Suroeste' }
     ],
 
     resetDoorStates: [
