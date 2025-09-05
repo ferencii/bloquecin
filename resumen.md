@@ -13,6 +13,7 @@
     *   **Auto-rellenado de Hitroll**: Se implementó la funcionalidad de auto-rellenado para el campo '+Hitroll' de los mobs. Se añadió una tabla de recomendaciones (`hitrollRecommendations`) a `js/config.js` y se desarrolló la lógica en `js/mobiles.js` para calcular el hitroll sugerido basándose en el nivel del mob, utilizando interpolación lineal para los rangos.
     *   **Auto-rellenado de HP, Mana, Armaduras y Daño**: Se añadió una tabla de recomendaciones (`mobStatsRecommendations`) a `js/config.js` para los valores de HP, Mana, Armaduras y Daño por nivel. Se modificó `js/mobiles.js` para auto-rellenar estos campos basándose en el nivel del mob. El cálculo de Mana se ajustó para seguir la fórmula `1d10 + 100 * Nivel`, y la Armadura Mágica se calcula con la fórmula `((ac - 10) / 3) + 10`.
     *   **Importación completa de mobs**: Se corrigió el parser para cargar la sección `#MOBILES`, soportando descripciones multilínea, separación de dados y flags en una sola línea.
+    *   **Listas de Raza y Tipo de Daño al Importar**: Al cargar un archivo `.are`, los desplegables de raza y tipo de daño se rellenan con `gameData` y se seleccionan los valores correspondientes de cada mob.
 *   **Mejoras en la Sección Objects**:
     *   **Campo Material (Datalist)**:
         *   **Funcionalidad**: Se implementó un campo de entrada para "Material" que permite seleccionar de una lista de sugerencias o escribir un valor personalizado. Esto se logró utilizando un elemento `<datalist>` en `index.html` vinculado al campo de entrada.
