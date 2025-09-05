@@ -81,3 +81,4 @@
     *   Se ajustó la lectura de la cabecera `#AREA` para separar correctamente el rango de niveles, el creador, los VNUMs y la región, admitiendo variaciones de formato.
     *   Tras importar un área se actualiza el mensaje de rango de VNUMs, eliminando la advertencia si el rango es válido.
     *   Las advertencias de mobs importados incluyen VNUM y nombre y se registran en la sección ADVERTENCIAS.
+    *   Se corrigió el nombre de archivo importado en `#AREA`, quitando la tilde final y evitando que al guardar se duplique la extensión `.are`.

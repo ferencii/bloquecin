@@ -311,3 +311,4 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Al importar un área se actualiza el aviso del rango de VNUMs, ocultando la advertencia cuando el rango es válido.
 - Las advertencias al importar mobs muestran ahora VNUM y nombre, y se conservan en la sección ADVERTENCIAS.
 - Se desactivó el autoajuste de estadísticas al importar mobs para preservar sus valores originales.
+- Se corrigió la importación del nombre de archivo en la sección `#AREA`, eliminando la tilde final y evitando que al guardar se duplique la extensión `.are`.
