@@ -1,6 +1,7 @@
 import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI } from './objects.js';
 import { refrescarOpcionesResets } from './resets.js';
 import { poblarSelectsTienda } from './shops.js';
+import { poblarSelectEspecial } from './specials.js';
 
 export function parseAreFile(content) {
     console.log('Parsing .are file...');
@@ -836,13 +837,16 @@ function populateSpecialsSection(specialsData) {
     specialsData.forEach(special => {
         const newCard = template.content.cloneNode(true);
         const addedCardElement = newCard.querySelector('.special-card');
+        poblarSelectEspecial(addedCardElement);
 
         addedCardElement.querySelector('.special-vnum').value = special.vnumMob;
-        addedCardElement.querySelector('.special-name').value = special.type;
-        // Special comment is not directly in the template, so just log for now
-        if (special.comment) console.log(`Special ${special.vnumMob} Comment: ${special.comment}`);
-
-        // Update Vnum and Name display in header
+        const select = addedCardElement.querySelector('.special-name');
+        select.value = special.type;
+        select.dispatchEvent(new Event('change'));
+        select.dispatchEvent(new Event('input'));
+        if (special.comment) {
+            addedCardElement.querySelector('.special-comment').value = special.comment;
+        }
         addedCardElement.querySelector('.special-vnum-display').textContent = special.vnumMob;
         addedCardElement.querySelector('.special-name-display').textContent = special.type;
 
