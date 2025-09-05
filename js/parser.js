@@ -1,7 +1,6 @@
 import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI } from './objects.js';
 import { refrescarOpcionesResets } from './resets.js';
 import { poblarSelectsTienda } from './shops.js';
-import { initProgBlockly } from './blockly-progs.js';
 import { poblarSelectEspecial } from './specials.js';
 
 export function parseAreFile(content) {
@@ -893,8 +892,6 @@ function populateProgsSection(progsData, containerId, templateId) {
         addedCardElement.querySelector('.prog-vnum-display').textContent = prog.vnum;
 
         container.appendChild(addedCardElement);
-        const type = containerId.replace('-container', '');
-        initProgBlockly(addedCardElement, type);
     });
 }
 

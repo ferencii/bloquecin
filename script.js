@@ -7,7 +7,6 @@ import { setupSetSection, generateSetSection } from './js/sets.js';
 import { setupShopsSection, generateShopsSection } from './js/shops.js';
 import { setupSpecialsSection, generateSpecialsSection } from './js/specials.js';
 import { setupProgsSection, generateProgsSection } from './js/progs.js';
-import { initBlocklyModalControls } from './js/blockly-progs.js';
 import { gameData } from './js/config.js';
 import { parseAreFile } from './js/parser.js';
 
@@ -51,9 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupProgsSection('roomprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
 
     populateMaterialsDatalist(); // Call the new function here
-
-    // Enlazar controles del editor de bloques
-    initBlocklyModalControls();
 
     // Setup main generate button
     document.getElementById('generate-btn').addEventListener('click', generateAreFile);

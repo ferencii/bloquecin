@@ -1,20 +1,8 @@
 import { setupDynamicSection } from './utils.js';
-import { initProgBlockly } from './blockly-progs.js';
 
 export function setupProgsSection(type, vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
     const buttonType = type.replace('s', '');
-    setupDynamicSection(
-        `add-${buttonType}-btn`,
-        `${type}-container`,
-        'prog-template',
-        '.prog-card',
-        vnumRangeCheckFunction,
-        vnumSelector,
-        vnumDisplaySelector,
-        nameInputSelector,
-        nameDisplaySelector,
-        card => initProgBlockly(card, type)
-    );
+    setupDynamicSection(`add-${buttonType}-btn`, `${type}-container`, 'prog-template', '.prog-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
 }
 
 export function generateProgsSection(containerId, sectionName) {
@@ -25,8 +13,7 @@ export function generateProgsSection(containerId, sectionName) {
         const vnum = card.querySelector('.prog-vnum').value;
         const code = card.querySelector('.prog-code').value;
         if (vnum && code) {
-            const codeBlock = code.endsWith('\n') ? code : `${code}\n`;
-            section += `#${vnum}\n${codeBlock}~\n`;
+            section += `#${vnum}\n${code}~\n`;
         }
     });
     return section + '#0\n\n';

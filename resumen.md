@@ -68,12 +68,6 @@
     *   **Desplegable de Especiales con Tooltips**: El tipo de especial ahora se elige desde un `<select>` poblado dinámicamente con `js/config.js`, mostrando un tooltip explicativo para cada opción.
     *   **Lista Centralizada de Especiales**: Se añadió `gameData.specials` con todos los nombres y descripciones, eliminando el `<datalist>` embebido en `index.html`.
     *   **Comentario en Encabezado**: El comentario opcional se muestra junto al nombre del especial en el título de la tarjeta para reconocerlo cuando está contraída.
-*   **Editor Visual para Progs**:
-    *   Se integró Blockly para construir MOBPROGS, OBJPROGS y ROOMPROGS mediante bloques visuales.
-    *   Se añadió el módulo `js/blockly-progs.js` y se adaptaron `index.html`, `js/progs.js` y `js/parser.js` para actualizar el código de los progs desde un área de trabajo gráfico.
-    *   El editor se muestra ahora en una ventana modal de pantalla completa con bloques coloreados por categoría y ofrece una vista del código generado.
-*   **Correcciones en Progs**:
-    *   Los botones **Guardar** y **Cerrar** del editor visual ahora se enlazan tras la carga del DOM y funcionan correctamente.
-    *   Cada categoría de bloques (Eventos, Condiciones, Acciones, Lógica y Variables) usa un color propio para facilitar su identificación.
-    *   Al generar el archivo `.are`, el código de los progs incluye un salto de línea antes del delimitador `~`, preservando el último comando.
-    *   La categoría **Eventos** del editor visual vuelve a mostrar sus bloques al sustituir el método `setHat` por la propiedad `hat`.
+
+*   **Progs**:
+    *   Se eliminó la integración con Blockly y se volvió al editor de texto para MOBPROGS, OBJPROGS y ROOMPROGS.
