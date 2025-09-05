@@ -1,3 +1,6 @@
+*   **Controles de Sección Fijos**:
+    *   Se añadieron botones para contraer y expandir todas las tarjetas de cada sección.
+    *   Los encabezados de sección permanecen fijos al desplazarse, manteniendo visibles los botones de añadir y los nuevos controles.
 *   **Configuración y Seguridad**:
     *   **Soporte para Múltiples API Keys y Fallback de Modelos**: Se modificó `js/config.js` para permitir un array de `apiKeys`. La función `generateDescriptions` ahora itera a través de estas claves y, para cada una, prueba los modelos en un orden de preferencia (`gemini-2.5-pro`, `gemini-2.5-flash`, `gemini-2.5-flash-lite`), conmutando automáticamente si se alcanza una cuota.
     *   **Corrección de Error de Sintaxis y Fallback de API Keys**: Se resolvió un `Uncaught SyntaxError: Unexpected token 'finally'` en `js/utils.js` moviendo el bloque `finally` para que envolviera toda la función `generateDescriptions`. Además, se implementó la lógica de fallback para las API keys y los modelos de IA, permitiendo que la aplicación intente con múltiples configuraciones hasta encontrar una exitosa.

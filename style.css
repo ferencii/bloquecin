@@ -176,6 +176,16 @@ select:focus {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-color);
+    z-index: 5;
+    padding-top: 1rem;
+}
+
+.section-controls {
+    display: flex;
+    gap: 0.5rem;
 }
 
 .add-btn {
@@ -301,7 +311,18 @@ select:focus {
 }
 
 /* Resets */
-#resets-toolbar { background-color: var(--primary-color); padding: 1rem; margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+#resets-toolbar {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    position: sticky;
+    top: 3.5rem;
+    z-index: 4;
+}
 .add-reset-btn { background-color: var(--secondary-color); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.5rem 1rem; cursor: pointer; }
 #resets-list { background-color: var(--primary-color); padding: 1rem; min-height: 100px; }
 .reset-row { display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--border-color); background-color: var(--input-bg); margin-bottom: 0.5rem; cursor: grab; }
