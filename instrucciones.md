@@ -316,3 +316,4 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se añadió la importación de la sección `#OBJECTS`, interpretando las líneas de tipo, flags y lugar de vestir en una sola línea, el indicador P/G y las secciones opcionales (S, A, F, E), poblando la interfaz y avisando sobre valores desconocidos.
 - Se corrigió la importación de la sección `#OBJECTS` que omitía objetos consecutivos por un incremento extra del índice.
 - Se corrigió la importación de objetos con descripciones extra al ajustar el selector del contenedor correspondiente.
+
