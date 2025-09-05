@@ -71,6 +71,7 @@
 *   **Mejoras en la Sección Specials**:
     *   **Desplegable de Especiales con Tooltips**: El tipo de especial ahora se elige desde un `<select>` poblado dinámicamente con `js/config.js`, mostrando un tooltip explicativo para cada opción.
     *   **Lista Centralizada de Especiales**: Se añadió `gameData.specials` con todos los nombres y descripciones, eliminando el `<datalist>` embebido en `index.html`.
+    *   **Comentario en Encabezado**: El comentario opcional se muestra junto al nombre del especial en el título de la tarjeta para reconocerlo cuando está contraída.
 *   **Editor Visual para Progs**:
     *   Se integró Blockly para construir MOBPROGS, OBJPROGS y ROOMPROGS mediante bloques visuales.
     *   Se añadió el módulo `js/blockly-progs.js` y se adaptaron `index.html`, `js/progs.js` y `js/parser.js` para actualizar el código de los progs desde un área de trabajo gráfico.
