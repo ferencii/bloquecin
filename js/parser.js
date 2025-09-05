@@ -797,7 +797,9 @@ function populateShopsSection(shopsData) {
         card.querySelector('.shop-sell-profit').value = String(shop.sellProfit);
         card.querySelector('.shop-open-hour').value = String(shop.openHour);
         card.querySelector('.shop-close-hour').value = String(shop.closeHour);
-        if (shop.comment) card.querySelector('.shop-comment').value = shop.comment;
+        const commentInput = card.querySelector('.shop-comment');
+        if (shop.comment) commentInput.value = shop.comment;
+        card.querySelector('.shop-comment-display').textContent = shop.comment || '';
         card.querySelector('.shop-vnum-display').textContent = shop.vnumSeller;
 
         container.appendChild(fragment);
