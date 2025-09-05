@@ -214,7 +214,7 @@ La aplicación debe permitir definir múltiples especiales. Cada especial tendr�
 La aplicación debe permitir definir múltiples programas. Cada programa tendrá:
 
 *   **Vnum**: Número identificador único (ej. `12100`).
-*   **Bloque de código**: Un editor de texto para el código del programa.
+*   **Bloque de código**: Un editor visual basado en Blockly que genera el código del programa y lo almacena en un `<textarea>` oculto.
     *   **Sintaxis de Control de Flujo**: `if {if_check} {argument} {operator} {value} [or/and ...] else endif`.
     *   **Comandos MUD y de control de flujo**: `mob echo`, `mob oload`, `mob junk`, `mob force`, `mob damage`, `mob kill`, `mob remove`, `break`, `sleep` (¡sin `mob`!).
     *   **Variables**: `$i, $I, $n, $d, $N, $t, $T, $r, $R, $w, $q, $Q, $j, $e, $E, $J, $k, $m, $M, $K, $l, $s, $S, $L, $o, $O, $p, $P, $a, $b, $c, $A, $B, $C, $u, $v`.
