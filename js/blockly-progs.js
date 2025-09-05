@@ -145,7 +145,7 @@ Blockly.Blocks['event_speech'] = {
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
         this.setColour(COLORES.eventos);
         this.setTooltip('Se activa cuando un jugador dice la palabra o frase especificada en la misma habitación.');
-        this.setHat('cap');
+        this.hat = 'cap';
     }
 };
 
@@ -163,7 +163,7 @@ Blockly.Blocks['event_act'] = {
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
         this.setColour(COLORES.eventos);
         this.setTooltip('Se activa cuando en la habitación ocurre una acción que contiene el texto indicado.');
-        this.setHat('cap');
+        this.hat = 'cap';
     }
 };
 
@@ -181,7 +181,7 @@ Blockly.Blocks['event_random'] = {
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
         this.setColour(COLORES.eventos);
         this.setTooltip('Se activa al azar según el porcentaje indicado.');
-        this.setHat('cap');
+        this.hat = 'cap';
     }
 };
 
@@ -204,7 +204,7 @@ Blockly.Blocks['event_greet'] = {
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
         this.setColour(COLORES.eventos);
         this.setTooltip('Se activa cuando cualquier personaje entra en la habitación.');
-        this.setHat('cap');
+        this.hat = 'cap';
     }
 };
 
@@ -223,7 +223,7 @@ Blockly.Blocks['event_give'] = {
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
         this.setColour(COLORES.eventos);
         this.setTooltip('Se activa cuando un jugador da un objeto específico.');
-        this.setHat('cap');
+        this.hat = 'cap';
     }
 };
 

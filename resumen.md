@@ -76,3 +76,4 @@
     *   Los botones **Guardar** y **Cerrar** del editor visual ahora se enlazan tras la carga del DOM y funcionan correctamente.
     *   Cada categoría de bloques (Eventos, Condiciones, Acciones, Lógica y Variables) usa un color propio para facilitar su identificación.
     *   Al generar el archivo `.are`, el código de los progs incluye un salto de línea antes del delimitador `~`, preservando el último comando.
+    *   La categoría **Eventos** del editor visual vuelve a mostrar sus bloques al sustituir el método `setHat` por la propiedad `hat`.
