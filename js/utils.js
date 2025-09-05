@@ -1,5 +1,56 @@
 import { gameData } from './config.js';
 
+function extractFirstJsonBlock(text) {
+    const firstBrace = text.indexOf('{');
+    const firstBracket = text.indexOf('[');
+
+    if (firstBrace === -1 && firstBracket === -1) {
+        return null;
+    }
+
+    let start = firstBrace;
+    let openChar = '{';
+    let closeChar = '}';
+
+    if (firstBracket !== -1 && (firstBrace === -1 || firstBracket < firstBrace)) {
+        start = firstBracket;
+        openChar = '[';
+        closeChar = ']';
+    }
+
+    let depth = 0;
+    let inString = false;
+    let escape = false;
+
+    for (let i = start; i < text.length; i++) {
+        const ch = text[i];
+
+        if (inString) {
+            if (escape) {
+                escape = false;
+            } else if (ch === '\\') {
+                escape = true;
+            } else if (ch === '"') {
+                inString = false;
+            }
+            continue;
+        }
+
+        if (ch === '"') {
+            inString = true;
+        } else if (ch === openChar) {
+            depth++;
+        } else if (ch === closeChar) {
+            depth--;
+            if (depth === 0) {
+                return text.slice(start, i + 1);
+            }
+        }
+    }
+
+    return null;
+}
+
 // Generic function to handle AI description generation
 async function generateDescriptions(generateBtn, promptText, promptInstructions, targetFields) {
     if (!promptText) {
@@ -70,35 +121,37 @@ async function generateDescriptions(generateBtn, promptText, promptInstructions,
                     try {
                         const jsonString = textResponse.replace(/```json/g, '').replace(/```/g, '').trim();
 
-                        const allDescriptions = JSON.parse(jsonString);
-
-
-                        if (!Array.isArray(allDescriptions) || allDescriptions.length === 0) {
-                            // If it's not an array, assume it's a single object (AI might return directly)
-                            if (typeof allDescriptions === 'object' && allDescriptions !== null) {
-                                // If it's an object, use it directly
-                                const descriptions = allDescriptions;
-                                // Assign values to target fields
-                                for (const key in targetFields) {
-                                    if (targetFields.hasOwnProperty(key) && descriptions.hasOwnProperty(key)) {
-                                        targetFields[key].value = descriptions[key] || '';
-                                    }
-                                }
-
-                                return; // Exit successfully
+                        let parsedData;
+                        try {
+                            parsedData = JSON.parse(jsonString);
+                        } catch (initialError) {
+                            const extracted = extractFirstJsonBlock(jsonString);
+                            if (extracted) {
+                                parsedData = JSON.parse(extracted);
+                            } else {
+                                throw initialError;
                             }
-                            lastError = new Error('La IA no devolvió un array de descripciones válido ni un objeto JSON directo.');
+                        }
+
+                        let descriptions;
+                        if (Array.isArray(parsedData)) {
+                            if (parsedData.length === 0) {
+                                lastError = new Error('La IA devolvió un array vacío de descripciones.');
+                                console.warn(lastError.message);
+                                continue; // Try next model/API key
+                            }
+                            descriptions = parsedData[0];
+                        } else if (typeof parsedData === 'object' && parsedData !== null) {
+                            descriptions = parsedData;
+                        } else {
+                            lastError = new Error('La IA no devolvió un objeto JSON válido.');
                             console.warn(lastError.message);
                             continue; // Try next model/API key
                         }
 
-                        const descriptions = allDescriptions[0]; // Take the first set of descriptions
-
-                        // Assign values to target fields
                         for (const key in targetFields) {
-                            if (targetFields.hasOwnProperty(key) && descriptions.hasOwnProperty(key)) { // Changed finalDescriptions to descriptions
+                            if (targetFields.hasOwnProperty(key) && descriptions.hasOwnProperty(key)) {
                                 targetFields[key].value = descriptions[key] || '';
-
                             }
                         }
 
@@ -175,16 +228,23 @@ async function handleObjectShortLongAiGeneration(e) {
     await generateDescriptions(generateBtn, promptText, promptInstructions, targetFields);
 }
 
-// Object Extra Description AI generation handler
+// Extra Description AI generation handler for objects and rooms
 async function handleExtraDescAiGeneration(e) {
     const generateBtn = e.target;
-    const card = generateBtn.closest('.sub-item-row'); // Note: closest sub-item-row
+    const card = generateBtn.closest('.sub-item-row');
     if (!card) return;
 
     const promptText = card.querySelector('.ai-prompt').value;
-    const extraDescInput = card.querySelector('.extra-desc'); // Note: extra-desc
+    const extraDescInput = card.querySelector('.extra-desc');
 
-    const promptInstructions = gameData.aiPrompts.object.extra;;
+    let promptInstructions;
+    if (generateBtn.closest('.object-card')) {
+        promptInstructions = gameData.aiPrompts.object.extra;
+    } else if (generateBtn.closest('.room-card')) {
+        promptInstructions = gameData.aiPrompts.room.extra;
+    } else {
+        promptInstructions = gameData.aiPrompts.object.extra;
+    }
 
     const targetFields = {
         extra_desc: extraDescInput
