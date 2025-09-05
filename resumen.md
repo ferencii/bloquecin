@@ -64,8 +64,13 @@
     *   **Comentarios de Tienda**: Cada tienda puede incluir un comentario opcional; si se especifica, se añade tras un `*` en la línea generada.
     *   **Encabezado con comentario**: El comentario de cada tienda se refleja en el título de la tarjeta para reconocerla cuando está contraída.
     *   **Parser y Generación Corregidos**: Se actualizó el formato de lectura y escritura para que cada tienda se procese en una sola línea conforme a la documentación.
-
 *   **Editor Visual para Progs**:
     *   Se integró Blockly para construir MOBPROGS, OBJPROGS y ROOMPROGS mediante bloques visuales.
     *   Se añadió el módulo `js/blockly-progs.js` y se adaptaron `index.html`, `js/progs.js` y `js/parser.js` para actualizar el código de los progs desde un área de trabajo gráfico.
     *   El editor se muestra ahora en una ventana modal de pantalla completa con bloques coloreados por categoría y ofrece una vista del código generado.
+*   **Mejoras en la Sección Specials**:
+    *   **Desplegable de Especiales con Tooltips**: El tipo de especial ahora se elige desde un `<select>` poblado dinámicamente con `js/config.js`, mostrando un tooltip explicativo para cada opción.
+    *   **Lista Centralizada de Especiales**: Se añadió `gameData.specials` con todos los nombres y descripciones, eliminando el `<datalist>` embebido en `index.html`.
+*   **Editor Visual para Progs**:
+    *   Se integró Blockly para construir MOBPROGS, OBJPROGS y ROOMPROGS mediante bloques visuales.
+    *   Se añadió el módulo `js/blockly-progs.js` y se adaptaron `index.html`, `js/progs.js` y `js/parser.js` para actualizar el código de los progs desde un área de trabajo gráfico.

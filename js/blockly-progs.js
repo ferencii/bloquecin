@@ -19,7 +19,6 @@ let preCodigoActual = null;
  * Se guarda tanto el código generado como el XML del espacio de trabajo para
  * permitir futuras ediciones.
  */
-
 function opcionesVariables() {
     return gameData.progVariables.map(v => [v.label, v.value]);
 }
@@ -29,6 +28,7 @@ function crearToolbox() {
         .map(v => `<block type="var_${v.value.replace('$', '')}"></block>`)
         .join('');
     return `<xml xmlns="https://developers.google.com/blockly/xml">
+
   <category name="Eventos" colour="${COLORES.eventos}">
     <block type="event_speech"></block>
     <block type="event_act"></block>
@@ -36,6 +36,7 @@ function crearToolbox() {
     <block type="event_greet"></block>
     <block type="event_give"></block>
   </category>
+
   <category name="Condiciones" colour="${COLORES.condiciones}">
     <block type="cond_ispc"></block>
     <block type="cond_level"></block>
@@ -491,6 +492,7 @@ Blockly.Blocks['action_transfer'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(COLORES.acciones);
+
         this.setTooltip('Transfiere al personaje a otra habitación.');
     }
 };

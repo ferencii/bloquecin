@@ -1,7 +1,29 @@
 import { setupDynamicSection } from './utils.js';
+import { gameData } from './config.js';
+
+export function poblarSelectEspecial(card) {
+    const select = card.querySelector('.special-name');
+    if (!select) return;
+    select.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '-- selecciona --';
+    select.appendChild(placeholder);
+    gameData.specials.forEach(esp => {
+        const option = document.createElement('option');
+        option.value = esp.value;
+        option.textContent = esp.value;
+        option.title = esp.descripcion;
+        select.appendChild(option);
+    });
+    select.addEventListener('change', () => {
+        const seleccionado = gameData.specials.find(s => s.value === select.value);
+        select.title = seleccionado ? seleccionado.descripcion : '';
+    });
+}
 
 export function setupSpecialsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
-    setupDynamicSection('add-special-btn', 'specials-container', 'special-template', '.special-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
+    setupDynamicSection('add-special-btn', 'specials-container', 'special-template', '.special-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, poblarSelectEspecial);
 }
 
 export function generateSpecialsSection() {
