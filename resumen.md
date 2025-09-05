@@ -60,6 +60,8 @@
     *   **Importación de Objetos**:
         *   Se añadió el análisis de la sección `#OBJECTS` al cargar áreas, interpretando los campos de tipo, flags, lugar de vestir, valores V0-V4 y el indicador P/G, además de las secciones opcionales `S`, `A`, `F` y `E`.
         *   Los formularios se rellenan con los datos importados y se muestran advertencias cuando se detectan tipos o flags no reconocidos.
+        *   Se corrigió un incremento extra del índice que provocaba que algunos objetos consecutivos no se importaran.
+        *   Se ajustó el selector del contenedor de descripciones extra para evitar errores al importar objetos con `E`.
 *   **Mejoras en la Sección Rooms**:
     *   **Flags de Habitación**: Se corrigió la llamada a `getFlagString` en `js/rooms.js`, permitiendo que los flags seleccionados se escriban correctamente en el archivo `.are`.
     *   **Descripciones Adicionales con IA**: Se agregó un prompt específico para habitaciones y la lógica necesaria para que las descripciones extra utilicen instrucciones diferentes según si pertenecen a un objeto o a una habitación.
