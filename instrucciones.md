@@ -215,7 +215,7 @@ La aplicación debe permitir definir múltiples especiales. Cada especial tendr�
 La aplicación debe permitir definir múltiples programas. Cada programa tendrá:
 
 *   **Vnum**: Número identificador único (ej. `12100`).
-*   **Bloque de código**: Un editor visual basado en Blockly que se abre en una ventana modal de pantalla completa, genera el código del programa y lo almacena en un `<textarea>` oculto mostrando además un resumen en la tarjeta.
+*   **Bloque de código**: Un editor de texto para el código del programa.
     *   **Sintaxis de Control de Flujo**: `if {if_check} {argument} {operator} {value} [or/and ...] else endif`.
     *   **Comandos MUD y de control de flujo**: `mob echo`, `mob oload`, `mob junk`, `mob force`, `mob damage`, `mob kill`, `mob remove`, `break`, `sleep` (¡sin `mob`!).
     *   **Variables**: `$i, $I, $n, $d, $N, $t, $T, $r, $R, $w, $q, $Q, $j, $e, $E, $J, $k, $m, $M, $K, $l, $s, $S, $L, $o, $O, $p, $P, $a, $b, $c, $A, $B, $C, $u, $v`.
@@ -298,12 +298,7 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 
 **Nota Adicional para la IA:** El foco principal es la **generación precisa del formato del archivo `.are`**. La lógica interna de los `MOBPROGS` es compleja y su validación completa no es el objetivo inicial, sino permitir su entrada como texto. Las tablas y flags deben estar presentes para que el usuario pueda seleccionarlos o introducirlos, y la salida generada debe ser conforme a estas definiciones.
 
----
 
 ### Cambios recientes
 
-- Se conectaron los controles de la ventana Blockly para que los botones **Guardar** y **Cerrar** funcionen correctamente.
-- Las categorías del editor (Eventos, Condiciones, Acciones, Lógica y Variables) ahora muestran colores diferenciados y legibles.
-- La generación de secciones `#MOBPROGS`, `#OBJPROGS` y `#ROOMPROGS` añade un salto de línea antes del `~` final, evitando la pérdida del último comando.
-- Se corrigió la categoría **Eventos** del editor visual, reemplazando el método obsoleto `setHat` por la propiedad `hat` para que los bloques se muestren correctamente.
-
+- Se eliminó la integración con Blockly para los mobprogs, objprogs y roomprogs, volviendo al editor de texto tradicional.
