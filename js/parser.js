@@ -844,12 +844,12 @@ function populateSpecialsSection(specialsData) {
         const select = addedCardElement.querySelector('.special-name');
         select.value = special.type;
         select.dispatchEvent(new Event('change'));
-        select.dispatchEvent(new Event('input'));
+        const commentInput = addedCardElement.querySelector('.special-comment');
         if (special.comment) {
-            addedCardElement.querySelector('.special-comment').value = special.comment;
+            commentInput.value = special.comment;
         }
+        commentInput.dispatchEvent(new Event('input'));
         addedCardElement.querySelector('.special-vnum-display').textContent = special.vnumMob;
-        addedCardElement.querySelector('.special-name-display').textContent = special.type;
 
         container.appendChild(addedCardElement);
     });
