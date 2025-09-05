@@ -52,3 +52,6 @@
 *   **Mejoras en la Sección Rooms**:
     *   **Flags de Habitación**: Se corrigió la llamada a `getFlagString` en `js/rooms.js`, permitiendo que los flags seleccionados se escriban correctamente en el archivo `.are`.
     *   **Descripciones Adicionales con IA**: Se agregó un prompt específico para habitaciones y la lógica necesaria para que las descripciones extra utilicen instrucciones diferentes según si pertenecen a un objeto o a una habitación.
+*   **Mejoras en la Sección Resets**:
+    *   **Selección Desplegable de VNUMs**: Los campos para mobs, objetos y habitaciones fueron reemplazados por menús desplegables que muestran las entidades ya creadas, reduciendo errores al escribir VNUMs manualmente.
+    *   **Actualización Automática de Opciones**: Al añadir o eliminar mobs, objetos o habitaciones, las opciones de los reseteos se refrescan automáticamente para reflejar los cambios.

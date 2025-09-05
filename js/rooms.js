@@ -1,7 +1,10 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
+import { refrescarOpcionesResets } from './resets.js';
 
 export function setupRoomsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
-    setupDynamicSection('add-room-btn', 'rooms-container', 'room-template', '.room-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
+    setupDynamicSection('add-room-btn', 'rooms-container', 'room-template', '.room-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, () => {
+        refrescarOpcionesResets();
+    });
 
     const container = document.getElementById('rooms-container');
     container.addEventListener('click', (e) => {

@@ -278,6 +278,7 @@ La aplicación actual proporciona las siguientes características para facilitar
 *   **Interfaz de Usuario Detallada por Sección**:
     *   Cada sección presenta formularios específicos con campos de entrada para todas las propiedades relevantes de Mobs, Objetos, Habitaciones, Resets, Sets, Tiendas, Especiales y Progs, según la estructura del archivo `.are`.
     *   Se incluyen campos para flags, tipos, materiales, y valores especiales, con opciones de selección donde aplica.
+*   **Selección Guiada en Resets**: La sección de reseteos permite escoger mobs, objetos y habitaciones existentes mediante menús desplegables que se actualizan de forma automática para evitar errores de VNUM.
 *   **Generación de Archivo .are**: Un botón "Generar Archivo .are" compila toda la información introducida en el formato de texto exacto requerido por el MUD "Petria" y permite la descarga del archivo resultante.
 *   **Mejora de Navegación y Edición (Colapsar/Expandir Secciones)**: Se ha implementado la funcionalidad de colapsar/expandir para cada tarjeta individual de elemento (Mob, Objeto, Habitación, Prog, Set, Tienda, Especial). Esto permite ocultar los detalles de las tarjetas no activas, mejorando la visibilidad y reduciendo el desplazamiento vertical. Las nuevas tarjetas se muestran expandidas por defecto.
 

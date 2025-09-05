@@ -2,7 +2,7 @@ import { setupAreaSection, generateAreaSection } from './js/area.js';
 import { setupMobilesSection, generateMobilesSection } from './js/mobiles.js';
 import { setupObjectsSection, generateObjectsSection } from './js/objects.js';
 import { setupRoomsSection, generateRoomsSection } from './js/rooms.js';
-import { setupResetsSection, generateResetsSection } from './js/resets.js';
+import { setupResetsSection, generateResetsSection, refrescarOpcionesResets } from './js/resets.js';
 import { setupSetSection, generateSetSection } from './js/sets.js';
 import { setupShopsSection, generateShopsSection } from './js/shops.js';
 import { setupSpecialsSection, generateSpecialsSection } from './js/specials.js';
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMobilesSection(isValidVnumRange, '.mob-vnum', '.mob-vnum-display', '.mob-keywords', '.mob-name-display');
     setupRoomsSection(isValidVnumRange, '.room-vnum', '.room-vnum-display', '.room-name', '.room-name-display');
     setupResetsSection();
+    refrescarOpcionesResets();
     setupSetSection(null, '.set-id', '.set-id-display', '.set-name', '.set-name-display');
     setupShopsSection(isValidVnumRange, '.shop-vnum', '.shop-vnum-display', null, null);
     setupSpecialsSection(isValidVnumRange, '.special-vnum', '.special-vnum-display', '.special-comment', '.special-name-display');

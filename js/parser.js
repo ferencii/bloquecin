@@ -1,4 +1,5 @@
 import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI } from './objects.js';
+import { refrescarOpcionesResets } from './resets.js';
 
 export function parseAreFile(content) {
     console.log('Parsing .are file...');
@@ -62,6 +63,8 @@ export function parseAreFile(content) {
         parsedData.resets = parseResetsSection(sections['#RESETS']);
         populateResetsSection(parsedData.resets);
     }
+
+    refrescarOpcionesResets();
 
     if (sections['#SET']) {
         parsedData.sets = parseSetSection(sections['#SET']);
