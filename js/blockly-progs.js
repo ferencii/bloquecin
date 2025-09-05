@@ -1,5 +1,24 @@
 import { gameData } from './config.js';
 
+const COLORES = {
+    eventos: '#5C81A6',
+    condiciones: '#5CA65C',
+    acciones: '#A65C81',
+    logica: '#9A5CA6',
+    variables: '#A6745C'
+};
+
+let espacioTrabajo = null;
+let areaCodigoActual = null;
+let areaXmlActual = null;
+let resumenActual = null;
+let preCodigoActual = null;
+
+/*
+ * El editor se abre en una ventana modal para disponer de todo el espacio.
+ * Se guarda tanto el código generado como el XML del espacio de trabajo para
+ * permitir futuras ediciones.
+ */
 function opcionesVariables() {
     return gameData.progVariables.map(v => [v.label, v.value]);
 }
@@ -9,14 +28,16 @@ function crearToolbox() {
         .map(v => `<block type="var_${v.value.replace('$', '')}"></block>`)
         .join('');
     return `<xml xmlns="https://developers.google.com/blockly/xml">
-  <category name="Eventos" colour="#5C81A6">
+
+  <category name="Eventos" colour="${COLORES.eventos}">
     <block type="event_speech"></block>
     <block type="event_act"></block>
     <block type="event_random"></block>
     <block type="event_greet"></block>
     <block type="event_give"></block>
   </category>
-  <category name="Condiciones" colour="#5CA65C">
+
+  <category name="Condiciones" colour="${COLORES.condiciones}">
     <block type="cond_ispc"></block>
     <block type="cond_level"></block>
     <block type="cond_alineacion"></block>
@@ -25,7 +46,7 @@ function crearToolbox() {
     <block type="cond_pquestfase"></block>
     <block type="cond_pquestfin"></block>
   </category>
-  <category name="Acciones" colour="#A65C81">
+  <category name="Acciones" colour="${COLORES.acciones}">
     <block type="action_echo"></block>
     <block type="action_echoat"></block>
     <block type="action_mload"></block>
@@ -38,33 +59,72 @@ function crearToolbox() {
     <block type="action_sleep"></block>
     <block type="action_break"></block>
   </category>
-  <category name="Lógica" colour="#9A5CA6">
+  <category name="Lógica" colour="${COLORES.logica}">
     <block type="mprog_if"></block>
   </category>
-  <category name="Variables" colour="#A6745C">
+  <category name="Variables" colour="${COLORES.variables}">
     ${bloquesVariables}
   </category>
 </xml>`;
 }
 
-export function initProgBlockly(cardElement, sectionType) {
-    const bloqueDiv = cardElement.querySelector('.prog-blockly');
-    const textarea = cardElement.querySelector('.prog-code');
-    if (!bloqueDiv || !textarea) return;
+function abrirModal(tipoSeccion, areaCodigo, areaXml, resumen, preCodigo) {
+    const modal = document.getElementById('blockly-modal');
+    modal.removeAttribute('hidden');
 
-    const workspace = Blockly.inject(bloqueDiv, {
-        toolbox: crearToolbox(),
-    });
-    workspace.programType = sectionType === 'mobprogs' ? 'mob' : sectionType === 'objprogs' ? 'obj' : 'room';
+    areaCodigoActual = areaCodigo;
+    areaXmlActual = areaXml;
+    resumenActual = resumen;
+    preCodigoActual = preCodigo;
 
-    let inicializando = true;
-    workspace.addChangeListener(() => {
-        if (inicializando) {
-            inicializando = false;
-            return;
-        }
-        textarea.value = Blockly.JavaScript.workspaceToCode(workspace).trim();
+    if (!espacioTrabajo) {
+        espacioTrabajo = Blockly.inject('blockly-workspace', { toolbox: crearToolbox() });
+    }
+
+    espacioTrabajo.programType = tipoSeccion === 'mobprogs' ? 'mob' : tipoSeccion === 'objprogs' ? 'obj' : 'room';
+    espacioTrabajo.clear();
+    if (areaXml.value) {
+        const dom = Blockly.Xml.textToDom(areaXml.value);
+        Blockly.Xml.domToWorkspace(dom, espacioTrabajo);
+    }
+}
+
+function cerrarModal() {
+    document.getElementById('blockly-modal').setAttribute('hidden', true);
+}
+
+function guardarModal() {
+    if (!espacioTrabajo) return;
+    const codigo = Blockly.JavaScript.workspaceToCode(espacioTrabajo).trim();
+    areaCodigoActual.value = codigo;
+    const dom = Blockly.Xml.workspaceToDom(espacioTrabajo);
+    areaXmlActual.value = Blockly.Xml.domToText(dom);
+    resumenActual.textContent = codigo ? codigo.split('\n')[0] : '(sin acciones)';
+    if (!preCodigoActual.hasAttribute('hidden')) {
+        preCodigoActual.textContent = codigo;
+    }
+    cerrarModal();
+}
+
+document.getElementById('blockly-close').addEventListener('click', cerrarModal);
+document.getElementById('blockly-save').addEventListener('click', guardarModal);
+
+export function initProgBlockly(tarjeta, tipoSeccion) {
+    const btnEditar = tarjeta.querySelector('.edit-prog-btn');
+    const btnCodigo = tarjeta.querySelector('.show-code-btn');
+    const areaCodigo = tarjeta.querySelector('.prog-code');
+    const areaXml = tarjeta.querySelector('.prog-xml');
+    const resumen = tarjeta.querySelector('.prog-summary');
+    const preCodigo = tarjeta.querySelector('.prog-code-display');
+
+    btnEditar.addEventListener('click', () => abrirModal(tipoSeccion, areaCodigo, areaXml, resumen, preCodigo));
+
+    btnCodigo.addEventListener('click', () => {
+        preCodigo.textContent = areaCodigo.value;
+        preCodigo.toggleAttribute('hidden');
     });
+
+    resumen.textContent = areaCodigo.value ? areaCodigo.value.split('\n')[0] : '(sin acciones)';
 }
 
 // Bloques de Eventos
@@ -74,7 +134,7 @@ Blockly.Blocks['event_speech'] = {
             .appendField('Cuando un jugador diga')
             .appendField(new Blockly.FieldTextInput('hola'), 'TEXTO');
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
-        this.setColour(200);
+        this.setColour(COLORES.eventos);
         this.setTooltip('Se activa cuando un jugador dice la palabra o frase especificada en la misma habitación.');
         this.setHat('cap');
     }
@@ -92,7 +152,7 @@ Blockly.Blocks['event_act'] = {
             .appendField('Cuando ocurra una acción que contenga')
             .appendField(new Blockly.FieldTextInput('texto'), 'TEXTO');
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
-        this.setColour(200);
+        this.setColour(COLORES.eventos);
         this.setTooltip('Se activa cuando en la habitación ocurre una acción que contiene el texto indicado.');
         this.setHat('cap');
     }
@@ -110,7 +170,7 @@ Blockly.Blocks['event_random'] = {
             .appendField('De forma aleatoria (probabilidad % )')
             .appendField(new Blockly.FieldNumber(50, 0, 100), 'NUM');
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
-        this.setColour(200);
+        this.setColour(COLORES.eventos);
         this.setTooltip('Se activa al azar según el porcentaje indicado.');
         this.setHat('cap');
     }
@@ -133,7 +193,7 @@ Blockly.Blocks['event_greet'] = {
             .appendField('con probabilidad %')
             .appendField(new Blockly.FieldNumber(100, 0, 100), 'NUM');
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
-        this.setColour(200);
+        this.setColour(COLORES.eventos);
         this.setTooltip('Se activa cuando cualquier personaje entra en la habitación.');
         this.setHat('cap');
     }
@@ -152,7 +212,7 @@ Blockly.Blocks['event_give'] = {
             .appendField('Cuando se le entregue el objeto')
             .appendField(new Blockly.FieldTextInput('objeto'), 'OBJ');
         this.appendStatementInput('CUERPO').setCheck(null).appendField('hacer');
-        this.setColour(200);
+        this.setColour(COLORES.eventos);
         this.setTooltip('Se activa cuando un jugador da un objeto específico.');
         this.setHat('cap');
     }
@@ -172,7 +232,7 @@ Blockly.Blocks['mprog_if'] = {
         this.appendStatementInput('SINO').setCheck(null).appendField('si no');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(210);
+        this.setColour(COLORES.logica);
         this.setTooltip('Si... hacer... si no...');
     }
 };
@@ -200,7 +260,7 @@ Blockly.Blocks['cond_ispc'] = {
                 ['un NPC', 'isnpc']
             ]), 'TIPO');
         this.setOutput(true, 'Boolean');
-        this.setColour(120);
+        this.setColour(COLORES.condiciones);
         this.setTooltip('Comprueba si el objetivo es jugador o NPC.');
     }
 };
@@ -226,7 +286,7 @@ Blockly.Blocks['cond_level'] = {
             ]), 'OP')
             .appendField(new Blockly.FieldNumber(0, 0, 200), 'NUM');
         this.setOutput(true, 'Boolean');
-        this.setColour(120);
+        this.setColour(COLORES.condiciones);
         this.setTooltip('Compara el nivel del personaje indicado.');
     }
 };
@@ -250,7 +310,7 @@ Blockly.Blocks['cond_alineacion'] = {
                 ['mala', 'isevil']
             ]), 'AL');
         this.setOutput(true, 'Boolean');
-        this.setColour(120);
+        this.setColour(COLORES.condiciones);
         this.setTooltip('Verifica la alineación del personaje.');
     }
 };
@@ -268,7 +328,7 @@ Blockly.Blocks['cond_carries'] = {
             .appendField('lleva el objeto')
             .appendField(new Blockly.FieldTextInput('vnum'), 'OBJ');
         this.setOutput(true, 'Boolean');
-        this.setColour(120);
+        this.setColour(COLORES.condiciones);
         this.setTooltip('Comprueba si el personaje lleva un objeto.');
     }
 };
@@ -287,7 +347,7 @@ Blockly.Blocks['cond_pquestactiva'] = {
             .appendField('está activa para')
             .appendField(new Blockly.FieldDropdown(opcionesVariables()), 'VAR');
         this.setOutput(true, 'Boolean');
-        this.setColour(120);
+        this.setColour(COLORES.condiciones);
         this.setTooltip('Verifica si una quest está activa.');
     }
 };
@@ -308,7 +368,7 @@ Blockly.Blocks['cond_pquestfase'] = {
             .appendField('para')
             .appendField(new Blockly.FieldDropdown(opcionesVariables()), 'VAR');
         this.setOutput(true, 'Boolean');
-        this.setColour(120);
+        this.setColour(COLORES.condiciones);
         this.setTooltip('Comprueba la fase de una quest.');
     }
 };
@@ -328,7 +388,7 @@ Blockly.Blocks['cond_pquestfin'] = {
             .appendField('está finalizada para')
             .appendField(new Blockly.FieldDropdown(opcionesVariables()), 'VAR');
         this.setOutput(true, 'Boolean');
-        this.setColour(120);
+        this.setColour(COLORES.condiciones);
         this.setTooltip('Comprueba si una quest ha finalizado.');
     }
 };
@@ -347,7 +407,7 @@ Blockly.Blocks['action_echo'] = {
             .appendField(new Blockly.FieldTextInput('texto'), 'TEXTO');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Muestra un mensaje a todos en la sala.');
     }
 };
@@ -367,7 +427,7 @@ Blockly.Blocks['action_echoat'] = {
             .appendField(new Blockly.FieldTextInput('texto'), 'TEXTO');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Envía un mensaje solo al personaje indicado.');
     }
 };
@@ -386,7 +446,7 @@ Blockly.Blocks['action_mload'] = {
             .appendField(new Blockly.FieldNumber(0, 0), 'VNUM');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Crea un mob con el VNUM dado.');
     }
 };
@@ -410,7 +470,7 @@ Blockly.Blocks['action_oload'] = {
             ]), 'LUGAR');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Crea un objeto y lo coloca en el lugar indicado.');
     }
 };
@@ -431,7 +491,8 @@ Blockly.Blocks['action_transfer'] = {
             .appendField(new Blockly.FieldNumber(0, 0), 'VNUM');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
+
         this.setTooltip('Transfiere al personaje a otra habitación.');
     }
 };
@@ -452,7 +513,7 @@ Blockly.Blocks['action_force'] = {
             .appendField(new Blockly.FieldTextInput('comando'), 'CMD');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Hace que el personaje ejecute un comando.');
     }
 };
@@ -473,7 +534,7 @@ Blockly.Blocks['action_pquestinicio'] = {
             .appendField(new Blockly.FieldDropdown(opcionesVariables()), 'VAR');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Inicia una quest para el personaje.');
     }
 };
@@ -496,7 +557,7 @@ Blockly.Blocks['action_pquestfase'] = {
             .appendField(new Blockly.FieldDropdown(opcionesVariables()), 'VAR');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Cambia la fase de una quest.');
     }
 };
@@ -518,7 +579,7 @@ Blockly.Blocks['action_pquestfin'] = {
             .appendField(new Blockly.FieldDropdown(opcionesVariables()), 'VAR');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Finaliza una quest para el personaje.');
     }
 };
@@ -538,7 +599,7 @@ Blockly.Blocks['action_sleep'] = {
             .appendField('segundos');
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Detiene el programa durante el número de segundos indicado.');
     }
 };
@@ -552,7 +613,7 @@ Blockly.Blocks['action_break'] = {
     init: function () {
         this.appendDummyInput().appendField('detener este programa');
         this.setPreviousStatement(true, null);
-        this.setColour(0);
+        this.setColour(COLORES.acciones);
         this.setTooltip('Detiene el programa de inmediato.');
     }
 };
@@ -568,7 +629,7 @@ gameData.progVariables.forEach(v => {
         init: function () {
             this.appendDummyInput().appendField(v.label);
             this.setOutput(true, null);
-            this.setColour(60);
+            this.setColour(COLORES.variables);
             this.setTooltip(v.label);
         }
     };

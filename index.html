@@ -2204,11 +2204,12 @@
                     <input class="prog-vnum" placeholder="12100" type="number" />
                 </div>
                 <div class="form-group full-width">
-                    <label>
-                        Programa:
-                    </label>
-                    <div class="prog-blockly" style="height:300px;"></div>
+                    <div class="prog-summary">(sin acciones)</div>
+                    <button class="edit-prog-btn">Editar bloques</button>
+                    <button class="show-code-btn">Ver código</button>
+                    <pre class="prog-code-display" hidden></pre>
                     <textarea class="prog-code" hidden></textarea>
+                    <textarea class="prog-xml" hidden></textarea>
                 </div>
             </div>
         </div>
@@ -2574,6 +2575,15 @@
             </fieldset>
         </div>
     </template>
+    <div id="blockly-modal" hidden>
+        <div class="modal-contenido">
+            <div id="blockly-workspace"></div>
+            <div class="modal-controles">
+                <button id="blockly-save">Guardar</button>
+                <button id="blockly-close">Cerrar</button>
+            </div>
+        </div>
+    </div>
     <datalist id="materials-list">
     </datalist>
 </body>
