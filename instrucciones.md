@@ -164,7 +164,7 @@ La aplicación debe permitir añadir múltiples comandos de reseteo. Cada comand
 *   **E (Da un Objeto Equipado a un Mob)**: `E 1 <vnum objeto> <límite> <lugar de vestir>` (ej. `E 1 12177 1 16`). **Debe ir después de un `M` que cargue el mob.**.
     *   Lugares de Vestir (códigos numéricos): `0` (Luz), `1` (Dedo izq.), `2` (Dedo der.), `3` (Cuello 1), `4` (Cuello 2), `5` (Torso), `6` (Cabeza), `7` (Piernas), `8` (Pies), `9` (Manos), `10` (Brazos), `11` (Escudo), `12` (Espalda), `13` (Cintura), `14` (Muñeca izq.), `15` (Muñeca der.), `16` (Blandido), `17` (Sujeto), `18` (Flotando), `19` (Arma secundaria), `20` (Rodela), `21` (Piernas traseras), `22` (Pies traseros), `23` (Emblema de clan).
 *   **D (Define el Estado de Puertas)**: `D 0 <vnum habitación> <dirección> <estado>` (ej. `D 0 12102 5 1`).
-    *   Direcciones: `0` (Norte), `1` (Este), `2` (Sur), `3` (Oeste), `4` (Arriba), `5` (Abajo).
+    *   Direcciones: `0` (Norte), `1` (Este), `2` (Sur), `3` (Oeste), `4` (Arriba), `5` (Abajo), `6` (Noreste), `7` (Noroeste), `8` (Sureste), `9` (Suroeste).
     *   Estado: `0` (Abierta), `1` (Cerrada), `2` (Con llave).
 *   **R (Define un Maze en una Habitación)**: `R 0 <vnum habitación> <clase de maze>` (ej. `R 0 12129 4`).
     *   Clase de Maze: `4` (salidas cardinales), `6` (incluye arriba/abajo).
@@ -278,6 +278,9 @@ La aplicación actual proporciona las siguientes características para facilitar
 *   **Interfaz de Usuario Detallada por Sección**:
     *   Cada sección presenta formularios específicos con campos de entrada para todas las propiedades relevantes de Mobs, Objetos, Habitaciones, Resets, Sets, Tiendas, Especiales y Progs, según la estructura del archivo `.are`.
     *   Se incluyen campos para flags, tipos, materiales, y valores especiales, con opciones de selección donde aplica.
+*   **Selección Guiada en Resets**: La sección de reseteos permite escoger mobs, objetos y habitaciones existentes mediante menús desplegables que se actualizan de forma automática para evitar errores de VNUM.
+*   **Botones de Reseteo Etiquetados**: Los comandos M, O, P, G, E, D y R muestran su significado y ofrecen ayuda emergente para aclarar su uso.
+*   **Listas Predefinidas en Resets**: Dirección, estado de puerta, lugar de vestir y clase de maze se seleccionan desde desplegables alimentados por `js/config.js`.
 *   **Generación de Archivo .are**: Un botón "Generar Archivo .are" compila toda la información introducida en el formato de texto exacto requerido por el MUD "Petria" y permite la descarga del archivo resultante.
 *   **Mejora de Navegación y Edición (Colapsar/Expandir Secciones)**: Se ha implementado la funcionalidad de colapsar/expandir para cada tarjeta individual de elemento (Mob, Objeto, Habitación, Prog, Set, Tienda, Especial). Esto permite ocultar los detalles de las tarjetas no activas, mejorando la visibilidad y reduciendo el desplazamiento vertical. Las nuevas tarjetas se muestran expandidas por defecto.
 

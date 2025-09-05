@@ -1257,6 +1257,58 @@ export const gameData = {
         V: affectIRVBits
     },
 
+    resetDirections: [
+        { value: '0', label: 'Norte' },
+        { value: '1', label: 'Este' },
+        { value: '2', label: 'Sur' },
+        { value: '3', label: 'Oeste' },
+        { value: '4', label: 'Arriba' },
+        { value: '5', label: 'Abajo' },
+        { value: '6', label: 'Noreste' },
+        { value: '7', label: 'Noroeste' },
+        { value: '8', label: 'Sureste' },
+        { value: '9', label: 'Suroeste' }
+    ],
+
+    resetDoorStates: [
+        { value: '0', label: 'Abierta' },
+        { value: '1', label: 'Cerrada' },
+        { value: '2', label: 'Con llave' }
+    ],
+
+    resetWearLocations: [
+        { value: '-1', label: 'No vestir' },
+        { value: '0', label: 'Luz' },
+        { value: '1', label: 'Dedo izquierdo' },
+        { value: '2', label: 'Dedo derecho' },
+        { value: '3', label: 'Cuello (1)' },
+        { value: '4', label: 'Cuello (2)' },
+        { value: '5', label: 'En el torso' },
+        { value: '6', label: 'Cabeza' },
+        { value: '7', label: 'Piernas' },
+        { value: '8', label: 'Pies' },
+        { value: '9', label: 'Manos' },
+        { value: '10', label: 'Brazos' },
+        { value: '11', label: 'Escudo' },
+        { value: '12', label: 'En la espalda' },
+        { value: '13', label: 'Cintura' },
+        { value: '14', label: 'Muñeca izquierda' },
+        { value: '15', label: 'Muñeca derecha' },
+        { value: '16', label: 'Blandido' },
+        { value: '17', label: 'Sujeto' },
+        { value: '18', label: 'Flotando' },
+        { value: '19', label: 'Arma secundaria' },
+        { value: '20', label: 'Rodela' },
+        { value: '21', label: 'Piernas traseras (centauro)' },
+        { value: '22', label: 'Pies traseros (centauro)' },
+        { value: '23', label: 'Emblema de clan' }
+    ],
+
+    resetMazeClasses: [
+        { value: '4', label: 'Cardinales' },
+        { value: '6', label: 'Cardinales + arriba/abajo' }
+    ],
+
     // Prompts detallados para la generación de descripciones de IA.
     // Cada clave representa un tipo de entidad (mob, object, room) y contiene sub-prompts específicos.
     aiPrompts: {
