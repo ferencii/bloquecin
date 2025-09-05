@@ -12,6 +12,7 @@
     *   **Integración de Tipos de Daño en la UI**: Se modificó `index.html` para cambiar el campo 'Tipo de Daño' de un `input` de texto a un `select` en la plantilla del mob. Posteriormente, se actualizó `js/utils.js` para poblar dinámicamente este `select` con las opciones de `gameData.damageTypes`, permitiendo la selección de tipos de daño predefinidos y estableciendo 'none' como opción por defecto.
     *   **Auto-rellenado de Hitroll**: Se implementó la funcionalidad de auto-rellenado para el campo '+Hitroll' de los mobs. Se añadió una tabla de recomendaciones (`hitrollRecommendations`) a `js/config.js` y se desarrolló la lógica en `js/mobiles.js` para calcular el hitroll sugerido basándose en el nivel del mob, utilizando interpolación lineal para los rangos.
     *   **Auto-rellenado de HP, Mana, Armaduras y Daño**: Se añadió una tabla de recomendaciones (`mobStatsRecommendations`) a `js/config.js` para los valores de HP, Mana, Armaduras y Daño por nivel. Se modificó `js/mobiles.js` para auto-rellenar estos campos basándose en el nivel del mob. El cálculo de Mana se ajustó para seguir la fórmula `1d10 + 100 * Nivel`, y la Armadura Mágica se calcula con la fórmula `((ac - 10) / 3) + 10`.
+    *   **Importación completa de mobs**: Se corrigió el parser para cargar la sección `#MOBILES`, soportando descripciones multilínea, separación de dados y flags en una sola línea.
 *   **Mejoras en la Sección Objects**:
     *   **Campo Material (Datalist)**:
         *   **Funcionalidad**: Se implementó un campo de entrada para "Material" que permite seleccionar de una lista de sugerencias o escribir un valor personalizado. Esto se logró utilizando un elemento `<datalist>` en `index.html` vinculado al campo de entrada.
@@ -74,4 +75,3 @@
 *   **Carga de archivos .are**:
     *   Se corrigió el parser para reconocer solo las secciones principales y respetar los delimitadores internos `#0` y `~`, permitiendo importar áreas completas.
     *   Se ajustó la lectura de la cabecera `#AREA` para separar correctamente el rango de niveles, el creador, los VNUMs y la región, admitiendo variaciones de formato.
-

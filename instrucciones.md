@@ -304,4 +304,5 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se eliminó la integración con Blockly para los mobprogs, objprogs y roomprogs, volviendo al editor de texto tradicional.
 - Se corrigió la carga de archivos `.are` ajustando el parser para detectar solo las secciones principales y respetar los delimitadores internos como `#0` y `~`.
 - Se mejoró el análisis de la sección `#AREA` para extraer correctamente el rango de niveles, el creador, los VNUMs y la región aun con formatos variables.
+- Se corrigió la importación de la sección `#MOBILES` para reconocer descripciones multilínea, dados y flags en una sola línea.
 

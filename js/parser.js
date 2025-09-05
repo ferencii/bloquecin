@@ -155,72 +155,102 @@ function populateAreaForm(areaData) {
 
 function parseMobilesSection(sectionContent) {
     const mobiles = [];
-    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
+    const lineas = sectionContent.split('\n');
     let i = 0;
+
     while (i < lineas.length) {
         const linea = lineas[i].trim();
         if (linea === '#0') break; // Fin de la sección
-        if (linea.startsWith('#')) {
-            const mob = {};
-            mob.vnum = parseInt(linea.substring(1));
-            i++;
-            mob.keywords = lineas[i++].replace(/~$/, '').trim();
-            mob.shortDesc = lineas[i++].replace(/~$/, '').trim();
-            mob.longDesc = lineas[i++].replace(/~$/, '').trim();
-            mob.lookDesc = lineas[i++].replace(/~$/, '').trim();
-            mob.race = lineas[i++].replace(/~$/, '').trim();
+        if (!linea.startsWith('#')) { i++; continue; }
 
-            // Act Flags, Affect Flags, Alineamiento, Grupo, Nivel, Hitroll
-            const linea6 = lineas[i++].split(' ').filter(s => s !== '');
-            mob.actFlags = linea6[0];
-            mob.affectFlags = linea6[1];
-            mob.alignment = parseInt(linea6[2]);
-            mob.group = parseInt(linea6[3]);
-            mob.level = parseInt(linea6[4]);
-            mob.hitroll = parseInt(linea6[5]);
-
-            // HP, Mana, Daño
-            const linea7 = lineas[i++].split(' ').filter(s => s !== '');
-            mob.hpDice = linea7[0];
-            mob.manaDice = linea7[1];
-            mob.damageDice = linea7[2];
-
-            mob.damageType = lineas[i++].trim();
-
-            // Armaduras
-            const linea9 = lineas[i++].split(' ').filter(s => s !== '');
-            mob.acPierce = parseInt(linea9[0]);
-            mob.acBash = parseInt(linea9[1]);
-            mob.acSlash = parseInt(linea9[2]);
-            mob.acMagic = parseInt(linea9[3]);
-
-            mob.offensiveFlags = lineas[i++].trim();
-
-            // Inmunidades/Resistencias/Vulnerabilidades
-            const linea11 = lineas[i++].split(' ').filter(s => s !== '');
-            mob.immFlags = linea11[0];
-            mob.resFlags = linea11[1];
-            mob.vulFlags = linea11[2];
-
-            // Posiciones, Sexo, Oro
-            const linea12 = lineas[i++].split(' ').filter(s => s !== '');
-            mob.position = linea12[0];
-            mob.defaultPosition = linea12[1];
-            mob.sex = linea12[2];
-            mob.gold = parseInt(linea12[3]);
-
-            // Forma/Partes, Tamaño, Material
-            const linea13 = lineas[i++].split(' ').filter(s => s !== '');
-            mob.form = linea13[0];
-            mob.parts = linea13[1];
-            mob.size = linea13[2];
-            mob.material = linea13[3].replace(/~$/, '').trim();
-
-            mobiles.push(mob);
-        }
+        const mob = {};
+        mob.vnum = parseInt(linea.substring(1));
         i++;
+        mob.keywords = lineas[i++].replace(/~$/, '').trim();
+        mob.shortDesc = lineas[i++].replace(/~$/, '').trim();
+
+        // Descripciones multilínea
+        const longRes = extraerTextoHastaTilde(lineas, i);
+        mob.longDesc = longRes.texto.trim();
+        i = longRes.indice;
+
+        const lookRes = extraerTextoHastaTilde(lineas, i);
+        mob.lookDesc = lookRes.texto.trim();
+        i = lookRes.indice;
+
+        mob.race = lineas[i++].replace(/~$/, '').trim();
+
+        // Act Flags, Affect Flags, Alineamiento, Grupo
+        const lineaAct = lineas[i++].trim().split(/\s+/);
+        mob.actFlags = lineaAct[0] || '0';
+        mob.affectFlags = lineaAct[1] || '0';
+        mob.alignment = parseInt(lineaAct[2]) || 0;
+        mob.group = parseInt(lineaAct[3]) || 0;
+
+        // Nivel, Hitroll y dados
+        const lineaStats = lineas[i++].trim().split(/\s+/);
+        mob.level = parseInt(lineaStats[0]) || 0;
+        mob.hitroll = parseInt(lineaStats[1]) || 0;
+        mob.hpDice = parsearDados(lineaStats[2]);
+        mob.manaDice = parsearDados(lineaStats[3]);
+        mob.damageDice = parsearDados(lineaStats[4]);
+        mob.damageType = lineaStats[5] || '';
+
+        // Armaduras
+        const lineaAc = lineas[i++].trim().split(/\s+/);
+        mob.acPierce = parseInt(lineaAc[0]) || 0;
+        mob.acBash = parseInt(lineaAc[1]) || 0;
+        mob.acSlash = parseInt(lineaAc[2]) || 0;
+        mob.acMagic = parseInt(lineaAc[3]) || 0;
+
+        // Flags ofensivas e inmunidades
+        const lineaRes = lineas[i++].trim().split(/\s+/);
+        mob.offensiveFlags = lineaRes[0] || '0';
+        mob.immFlags = lineaRes[1] || '0';
+        mob.resFlags = lineaRes[2] || '0';
+        mob.vulFlags = lineaRes[3] || '0';
+
+        // Posiciones, sexo y oro
+        const lineaPos = lineas[i++].trim().split(/\s+/);
+        mob.startPos = lineaPos[0];
+        mob.defaultPos = lineaPos[1];
+        mob.sex = lineaPos[2];
+        mob.gold = parseInt(lineaPos[3]) || 0;
+
+        // Forma, partes, tamaño y material
+        const lineaForm = lineas[i++].trim().split(/\s+/);
+        mob.form = lineaForm[0] || '0';
+        mob.parts = lineaForm[1] || '0';
+        mob.size = lineaForm[2] || '';
+        mob.material = (lineaForm[3] || '').replace(/~$/, '').trim();
+
+        // Saltar líneas adicionales como mobprogs
+        while (i < lineas.length && !lineas[i].trim().startsWith('#') && lineas[i].trim() !== '') {
+            i++;
+        }
+
+        mobiles.push(mob);
     }
     return mobiles;
+}
+
+function extraerTextoHastaTilde(lineas, inicio) {
+    const texto = [];
+    let indice = inicio;
+    while (indice < lineas.length && lineas[indice].trim() !== '~') {
+        texto.push(lineas[indice]);
+        indice++;
+    }
+    indice++; // saltar la línea con '~'
+    return { texto: texto.join('\n'), indice };
+}
+
+function parsearDados(cadena) {
+    const match = cadena ? cadena.match(/(\d+)d(\d+)\+(\d+)/) : null;
+    if (match) {
+        return { num: parseInt(match[1]), lados: parseInt(match[2]), bono: parseInt(match[3]) };
+    }
+    return { num: 0, lados: 0, bono: 0 };
 }
 
 function populateMobilesSection(mobilesData) {
@@ -247,32 +277,38 @@ function populateMobilesSection(mobilesData) {
         addedCardElement.querySelector('.mob-material').value = mob.material;
 
         // Flags (Act, Affect, Offensive, Imm/Res/Vul, Form, Parts)
-        populateCheckboxesFromFlags(addedCardElement, '.mob-act-flags', mob.actFlags);
-        populateCheckboxesFromFlags(addedCardElement, '.mob-affect-flags', mob.affectFlags);
-        populateCheckboxesFromFlags(addedCardElement, '.mob-offensive-flags', mob.offensiveFlags);
-        populateCheckboxesFromFlags(addedCardElement, '.mob-imm-flags', mob.immFlags);
-        populateCheckboxesFromFlags(addedCardElement, '.mob-res-flags', mob.resFlags);
-        populateCheckboxesFromFlags(addedCardElement, '.mob-vul-flags', mob.vulFlags);
-        populateCheckboxesFromFlags(addedCardElement, '.mob-form-flags', mob.form);
-        populateCheckboxesFromFlags(addedCardElement, '.mob-parts-flags', mob.parts);
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Act Flags', mob.actFlags);
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Afect Flags', mob.affectFlags);
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Ofensivo Flags', mob.offensiveFlags);
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Inmunidades', mob.immFlags);
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Resistencias', mob.resFlags);
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Vulnerabilidades', mob.vulFlags);
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Forma', mob.form);
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Partes', mob.parts);
 
-        // Dice (HP, Mana, Damage)
-        addedCardElement.querySelector('.mob-hp-dice').value = mob.hpDice;
-        addedCardElement.querySelector('.mob-mana-dice').value = mob.manaDice;
-        addedCardElement.querySelector('.mob-damage-dice').value = mob.damageDice;
-        addedCardElement.querySelector('.mob-damage-type').value = mob.damageType;
+        // Dados (HP, Mana, Daño)
+        addedCardElement.querySelector('.mob-hp-dice-num').value = mob.hpDice.num;
+        addedCardElement.querySelector('.mob-hp-dice-sides').value = mob.hpDice.lados;
+        addedCardElement.querySelector('.mob-hp-dice-bonus').value = mob.hpDice.bono;
+        addedCardElement.querySelector('.mob-mana-dice-num').value = mob.manaDice.num;
+        addedCardElement.querySelector('.mob-mana-dice-sides').value = mob.manaDice.lados;
+        addedCardElement.querySelector('.mob-mana-dice-bonus').value = mob.manaDice.bono;
+        addedCardElement.querySelector('.mob-dam-dice-num').value = mob.damageDice.num;
+        addedCardElement.querySelector('.mob-dam-dice-sides').value = mob.damageDice.lados;
+        addedCardElement.querySelector('.mob-dam-dice-bonus').value = mob.damageDice.bono;
+        addedCardElement.querySelector('.mob-dam-type').value = mob.damageType;
 
-        // ACs
+        // Armaduras
         addedCardElement.querySelector('.mob-ac-pierce').value = mob.acPierce;
         addedCardElement.querySelector('.mob-ac-bash').value = mob.acBash;
         addedCardElement.querySelector('.mob-ac-slash').value = mob.acSlash;
         addedCardElement.querySelector('.mob-ac-magic').value = mob.acMagic;
 
-        // Positions
-        addedCardElement.querySelector('.mob-position').value = mob.position;
-        addedCardElement.querySelector('.mob-default-position').value = mob.defaultPosition;
+        // Posiciones
+        addedCardElement.querySelector('.mob-start-pos').value = mob.startPos;
+        addedCardElement.querySelector('.mob-default-pos').value = mob.defaultPos;
 
-        // Update Vnum and Name display in header
+        // Actualizar encabezado
         addedCardElement.querySelector('.mob-vnum-display').textContent = mob.vnum;
         addedCardElement.querySelector('.mob-name-display').textContent = mob.shortDesc;
 
@@ -936,6 +972,21 @@ function populateCheckboxesFromFlags(containerElement, checkboxGroupSelector, fl
             checkbox.checked = true;
         }
     });
+}
+
+function poblarCheckboxesPorLeyenda(container, leyenda, flags) {
+    if (!flags || flags === '0') return;
+    const fieldsets = container.querySelectorAll('fieldset');
+    for (const fieldset of fieldsets) {
+        const legend = fieldset.querySelector('legend');
+        if (legend && legend.textContent.trim() === leyenda) {
+            const checks = fieldset.querySelectorAll('input[type="checkbox"]');
+            checks.forEach(cb => {
+                cb.checked = flags.includes(cb.value);
+            });
+            break;
+        }
+    }
 }
 
 function clearAllForms() {
