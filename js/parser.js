@@ -412,65 +412,64 @@ function parseObjectsSection(sectionContent) {
     while (i < lineas.length) {
         const linea = lineas[i].trim();
         if (linea === '#0') break; // Fin de la sección
-        if (linea.startsWith('#')) {
-            const obj = {};
-            obj.vnum = parseInt(linea.substring(1));
-            i++;
-            obj.keywords = (lineas[i++] || '').replace(/~$/, '').trim();
-            obj.shortDesc = (lineas[i++] || '').replace(/~$/, '').trim();
-            obj.longDesc = (lineas[i++] || '').replace(/~$/, '').trim();
-            obj.material = (lineas[i++] || '').replace(/~$/, '').trim();
+        if (!linea.startsWith('#')) { i++; continue; }
 
-            const tipoLinea = (lineas[i++] || '').trim().split(/\s+/);
-            obj.type = tipoLinea[0] || '';
-            obj.flags = tipoLinea[1] || '0';
-            obj.wearLocation = tipoLinea[2] || '0';
-
-            const vValores = (lineas[i++] || '').trim().split(/\s+/);
-            obj.v0 = vValores[0] || '0';
-            obj.v1 = vValores[1] || '0';
-            obj.v2 = vValores[2] || '0';
-            obj.v3 = vValores[3] || '0';
-            obj.v4 = vValores[4] || '0';
-
-            const stats = (lineas[i++] || '').trim().split(/\s+/);
-            obj.level = parseInt(stats[0]) || 0;
-            obj.weight = parseInt(stats[1]) || 0;
-            obj.price = parseInt(stats[2]) || 0;
-            obj.isDrinkContainer = (stats[3] === 'G');
-
-            obj.set = null;
-            obj.applies = [];
-            obj.affects = [];
-            obj.extraDescriptions = [];
-
-            while (i < lineas.length) {
-                const opt = lineas[i].trim();
-                if (opt === '' || opt.startsWith('#')) break;
-                if (opt === 'S' || opt.startsWith('S ')) {
-                    const partes = opt.split(/\s+/);
-                    obj.set = partes[1] || '';
-                    i++;
-                } else if (opt === 'A' || opt.startsWith('A ')) {
-                    const partes = (opt === 'A' ? lineas[i + 1] : opt.substring(2)).trim().split(/\s+/).map(Number);
-                    obj.applies.push({ location: partes[0], modifier: partes[1] });
-                    i += (opt === 'A') ? 2 : 1;
-                } else if (opt.startsWith('F ')) {
-                    const partes = opt.substring(2).trim().split(/\s+/);
-                    obj.affects.push({ type: partes[0], bits: partes.slice(3).join('') });
-                    i++;
-                } else if (opt === 'E') {
-                    const keywords = (lineas[i + 1] || '').replace(/~$/, '').trim();
-                    const descRes = extraerTextoHastaTilde(lineas, i + 2);
-                    obj.extraDescriptions.push({ keywords, description: descRes.texto.trim() });
-                    i = descRes.indice;
-                } else {
-                    i++;
-                }
-            }
-            objetos.push(obj);
-        }
+        const obj = {};
+        obj.vnum = parseInt(linea.substring(1));
         i++;
+        obj.keywords = (lineas[i++] || '').replace(/~$/, '').trim();
+        obj.shortDesc = (lineas[i++] || '').replace(/~$/, '').trim();
+        obj.longDesc = (lineas[i++] || '').replace(/~$/, '').trim();
+        obj.material = (lineas[i++] || '').replace(/~$/, '').trim();
+
+        const tipoLinea = (lineas[i++] || '').trim().split(/\s+/);
+        obj.type = tipoLinea[0] || '';
+        obj.flags = tipoLinea[1] || '0';
+        obj.wearLocation = tipoLinea[2] || '0';
+
+        const vValores = (lineas[i++] || '').trim().split(/\s+/);
+        obj.v0 = vValores[0] || '0';
+        obj.v1 = vValores[1] || '0';
+        obj.v2 = vValores[2] || '0';
+        obj.v3 = vValores[3] || '0';
+        obj.v4 = vValores[4] || '0';
+
+        const stats = (lineas[i++] || '').trim().split(/\s+/);
+        obj.level = parseInt(stats[0]) || 0;
+        obj.weight = parseInt(stats[1]) || 0;
+        obj.price = parseInt(stats[2]) || 0;
+        obj.isDrinkContainer = (stats[3] === 'G');
+
+        obj.set = null;
+        obj.applies = [];
+        obj.affects = [];
+        obj.extraDescriptions = [];
+
+        while (i < lineas.length) {
+            const opt = lineas[i].trim();
+            if (opt === '' || opt.startsWith('#')) break;
+            if (opt === 'S' || opt.startsWith('S ')) {
+                const partes = opt.split(/\s+/);
+                obj.set = partes[1] || '';
+                i++;
+            } else if (opt === 'A' || opt.startsWith('A ')) {
+                const partes = (opt === 'A' ? lineas[i + 1] : opt.substring(2)).trim().split(/\s+/).map(Number);
+                obj.applies.push({ location: partes[0], modifier: partes[1] });
+                i += (opt === 'A') ? 2 : 1;
+            } else if (opt.startsWith('F ')) {
+                const partes = opt.substring(2).trim().split(/\s+/);
+                obj.affects.push({ type: partes[0], bits: partes.slice(3).join('') });
+                i++;
+            } else if (opt === 'E') {
+                const keywords = (lineas[i + 1] || '').replace(/~$/, '').trim();
+                const descRes = extraerTextoHastaTilde(lineas, i + 2);
+                obj.extraDescriptions.push({ keywords, description: descRes.texto.trim() });
+                i = descRes.indice;
+            } else {
+                i++;
+            }
+        }
+        objetos.push(obj);
     }
     return objetos;
 }
