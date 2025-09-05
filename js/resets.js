@@ -1,3 +1,4 @@
+import { gameData } from './config.js';
 function obtenerOpcionesDesdeTarjetas(selectorTarjeta, selectorVnum, selectorNombre) {
     return Array.from(document.querySelectorAll(selectorTarjeta)).map(card => {
         const vnum = card.querySelector(selectorVnum)?.value || '';
@@ -53,6 +54,19 @@ function addResetRow(type) {
 
     const specificTemplate = document.getElementById(`reset-${type.toLowerCase()}-template`).content.cloneNode(true);
     row.querySelector('.reset-inputs').replaceWith(specificTemplate);
+
+    switch (type) {
+        case 'E':
+            poblarSelect(row.querySelector('.reset-wear-location'), gameData.resetWearLocations);
+            break;
+        case 'D':
+            poblarSelect(row.querySelector('.reset-direction'), gameData.resetDirections);
+            poblarSelect(row.querySelector('.reset-state'), gameData.resetDoorStates);
+            break;
+        case 'R':
+            poblarSelect(row.querySelector('.reset-maze-class'), gameData.resetMazeClasses);
+            break;
+    }
 
     list.appendChild(rowClone);
     refrescarOpcionesResets();
