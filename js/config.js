@@ -1270,7 +1270,6 @@ export const gameData = {
         room: {
             description: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción para una habitación de un juego MUD. Esta descripción debe ser extensa y muy descriptiva aunque no mas de 200 palabras., detallando el ambiente, objetos, sonidos, olores, etc. Responde solo con el objeto JSON, usando la clave \"room_desc\".",
             extra: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción extra para una habitación de un juego MUD. Esta descripción debe ser muy descriptiva sin ser extremadamente larga no mas de 200 palabras., detallando el ambiente, su historia u otros elementos relevantes. Puede que la descripción extra sea la descripción de algo en la habitación ejemplos: \"una placa\" \"una columna\" etc. Responde solo con el objeto JSON, usando la clave \"extra_desc\"."
-
         }
     }
     // Aquí se pueden añadir futuras listas (materiales, tipos de armas, etc.)
