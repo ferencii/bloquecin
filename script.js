@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupResetsSection();
     refrescarOpcionesResets();
     setupSetSection(null, '.set-id', '.set-id-display', '.set-name', '.set-name-display');
-    setupShopsSection(isValidVnumRange, '.shop-vnum', '.shop-vnum-display', null, null);
-    setupSpecialsSection(isValidVnumRange, '.special-vnum', '.special-vnum-display', '.special-comment', '.special-name-display');
+    setupShopsSection(isValidVnumRange, '.shop-vnum', '.shop-vnum-display', '.shop-comment', '.shop-comment-display');
+    setupSpecialsSection(isValidVnumRange, '.special-vnum', '.special-vnum-display');
     setupProgsSection('mobprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
     setupProgsSection('objprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
     setupProgsSection('roomprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);

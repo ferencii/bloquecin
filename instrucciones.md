@@ -193,7 +193,9 @@ La aplicación debe permitir definir múltiples tiendas. Cada tienda tendrá:
 *   **Porcentaje de Venta**: (ej. `0`).
 *   **Horario de Operación**: `Hora de apertura` y `Hora de cierre` (ej. `0 23`).
 *   **Comentario** (Opcional): Empieza con `*` (ej. `* Tendero: el recepcionista`).
+*   **Identificación en encabezado**: El comentario se muestra en el título de la tarjeta para reconocer la tienda al contraerla.
 *   Finaliza con `0` para la sección completa.
+*   Todos los campos numéricos se seleccionan desde listas desplegables definidas en `js/config.js`.
 
 #### **2.8. Sección `#SPECIALS`**
 
@@ -202,7 +204,7 @@ La aplicación debe permitir definir múltiples especiales. Cada especial tendr�
 *   **Vnum del Mob**: VNUM del mob al que se asigna el especial (ej. `12110`).
 *   **Tipo de Especial**: Nombre del especial (ej. `spec_ladron`).
     *   Lista de especiales: `spec_troll_member`, `spec_ogre_member`, `spec_patrolman`, `spec_nasty`, `spec_breath_any` (y específicos por elemento como `_acid`, `_fire`, etc.), `spec_cast_adepto`, `spec_cast_clerigo`, `spec_cast_mago`, `spec_fido`, `spec_guard`, `spec_janitor`, `spec_alcalde`, `spec_veneno`, `spec_ladron`, `spec_cast_runk`, `spec_cast_oteren`, `spec_guardia_malo`, `spec_guardia_bueno`, `spec_teleporter`, `spec_barco`, `spec_esfinge`, `spec_guardia_clan`, `spec_entrenador_especial`, `spec_quest_especial_1`, `spec_quest_especial_2`, `spec_secretario`, `spec_mordisco`, `spec_entrenador_samurai`, `spec_samu_experto_1`, `spec_samu_experto_2`.
-*   **Comentario** (Opcional): Empieza con `*` (ej. `* Los lagartos`).
+*   **Comentario** (Opcional): Texto libre para identificar el especial; al generar el archivo se antepone `*` automáticamente (ej. `Los lagartos`).
 *   **Regla**: Un mob solo puede tener un especial asignado.
 *   Finaliza con `S` para la sección completa.
 
