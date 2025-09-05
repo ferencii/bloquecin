@@ -50,3 +50,4 @@
         *   **Integración**: La lógica se añadió en `js/objects.js`, `js/sets.js` y `js/parser.js` para poblar y mantener sincronizados estos desplegables.
 *   **Mejoras en la Sección Rooms**:
     *   **Flags de Habitación**: Se corrigió la llamada a `getFlagString` en `js/rooms.js`, permitiendo que los flags seleccionados se escriban correctamente en el archivo `.are`.
+    *   **Descripciones Adicionales con IA**: Se agregó un prompt específico para habitaciones y la lógica necesaria para que las descripciones extra utilicen instrucciones diferentes según si pertenecen a un objeto o a una habitación.
