@@ -8,6 +8,7 @@
 - No crees nuevas ramas; trabaja directamente sobre la rama actual.
 - Cada commit debe describir claramente los cambios realizados y la motivación, en español y en pasado.
 - Mantén los commits pequeños y enfocados.
+- todo el flujo de trabajo y los registros deben de ser en español.
 
 ## Organización del proyecto y Documentación
 - El archivo instrucciones.md y el archivo resumen.md sirven para saber que estoy haciendo.
