@@ -1265,11 +1265,12 @@ export const gameData = {
         },
         object: {
             shortLong: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con la descripción para un objeto de un juego MUD. Las descripciones deben seguir estas reglas:\n\n\"short_desc\": Descripción muy breve (máximo 10 palabras). Es la que se usa en el inventario. Ejemplos: \"un anillo de oro\", \"la espada excalibur\", \"un zurrón lleno de remaches\".\n\n\"long_desc\": No muy extensa. Es la que se ve cuando llegas a la sala. Nombra al objeto y describe lo que está haciendo o una característica clave. Ejemplos: \"Una llave con el anagrama del Hotel Renedo y una pequeña inscripción.\", \"Un cofre de madera reposa en el centro de la sala.\"\n\nResponde solo con el objeto JSON, sin texto adicional ni markdown.",
-            extra: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción extra para un objeto de un juego MUD. Esta descripción debe ser extensa y muy descriptiva, similar a la descripción al mirar de un mob, detallando el objeto, su apariencia, historia, etc. Responde solo con el objeto JSON, usando la clave \"extra_desc\"."
+            extra: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción extra para un objeto de un juego MUD. Esta descripción debe ser muy descriptiva sin ser extremadamente larga, similar a la descripción al mirar de un mob, detallando el objeto, su apariencia, historia, etc. Responde solo con el objeto JSON, usando la clave \"extra_desc\"."
         },
         room: {
             description: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción para una habitación de un juego MUD. Esta descripción debe ser extensa y muy descriptiva, detallando el ambiente, objetos, sonidos, olores, etc. Responde solo con el objeto JSON, usando la clave \"room_desc\".",
             extra: "Basado en la siguiente idea: ${promptText}, genera UN ÚNICO objeto JSON con una descripción extra para una habitación de un juego MUD. Esta descripción debe ser muy descriptiva sin ser extremadamente larga, detallando el ambiente, su historia u otros elementos relevantes. Responde solo con el objeto JSON, usando la clave \"extra_desc\"."
+
         }
     }
     // Aquí se pueden añadir futuras listas (materiales, tipos de armas, etc.)
