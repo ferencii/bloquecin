@@ -407,7 +407,7 @@ function populateMobilesSection(mobilesData) {
 
 function parseObjectsSection(sectionContent) {
     const objetos = [];
-    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
+    const lineas = sectionContent.split('\n');
     let i = 0;
     while (i < lineas.length) {
         const linea = lineas[i].trim();
@@ -416,53 +416,57 @@ function parseObjectsSection(sectionContent) {
             const obj = {};
             obj.vnum = parseInt(linea.substring(1));
             i++;
-            obj.keywords = lineas[i++].replace(/~$/, '').trim();
-            obj.shortDesc = lineas[i++].replace(/~$/, '').trim();
-            obj.longDesc = lineas[i++].replace(/~$/, '').trim();
-            obj.material = lineas[i++].trim();
-            obj.type = lineas[i++].trim();
-            obj.flags = lineas[i++].trim();
-            obj.wearLocation = lineas[i++].trim();
+            obj.keywords = (lineas[i++] || '').replace(/~$/, '').trim();
+            obj.shortDesc = (lineas[i++] || '').replace(/~$/, '').trim();
+            obj.longDesc = (lineas[i++] || '').replace(/~$/, '').trim();
+            obj.material = (lineas[i++] || '').replace(/~$/, '').trim();
 
-            // V0-V4
-            const vValores = lineas[i++].split(' ').filter(s => s !== '');
-            obj.v0 = vValores[0] ?? '0';
-            obj.v1 = vValores[1] ?? '0';
-            obj.v2 = vValores[2] ?? '0';
-            obj.v3 = vValores[3] ?? '0';
-            obj.v4 = vValores[4] ?? '0';
+            const tipoLinea = (lineas[i++] || '').trim().split(/\s+/);
+            obj.type = tipoLinea[0] || '';
+            obj.flags = tipoLinea[1] || '0';
+            obj.wearLocation = tipoLinea[2] || '0';
 
-            obj.level = parseInt(lineas[i++]);
-            obj.weight = parseInt(lineas[i++]);
-            obj.price = parseInt(lineas[i++]);
+            const vValores = (lineas[i++] || '').trim().split(/\s+/);
+            obj.v0 = vValores[0] || '0';
+            obj.v1 = vValores[1] || '0';
+            obj.v2 = vValores[2] || '0';
+            obj.v3 = vValores[3] || '0';
+            obj.v4 = vValores[4] || '0';
 
-            // Secciones opcionales S, A, F, E
+            const stats = (lineas[i++] || '').trim().split(/\s+/);
+            obj.level = parseInt(stats[0]) || 0;
+            obj.weight = parseInt(stats[1]) || 0;
+            obj.price = parseInt(stats[2]) || 0;
+            obj.isDrinkContainer = (stats[3] === 'G');
+
             obj.set = null;
             obj.applies = [];
             obj.affects = [];
             obj.extraDescriptions = [];
 
-            while (i < lineas.length && !lineas[i].startsWith('#') && lineas[i].trim() !== '0') {
-                const lineaOpt = lineas[i].trim();
-                if (lineaOpt.startsWith('S ')) {
-                    obj.set = lineaOpt.substring(2).trim();
-                } else if (lineaOpt.startsWith('A ')) {
-                    const partes = lineaOpt.substring(2).trim().split(' ').map(Number);
+            while (i < lineas.length) {
+                const opt = lineas[i].trim();
+                if (opt === '' || opt.startsWith('#')) break;
+                if (opt === 'S' || opt.startsWith('S ')) {
+                    const partes = opt.split(/\s+/);
+                    obj.set = partes[1] || '';
+                    i++;
+                } else if (opt === 'A' || opt.startsWith('A ')) {
+                    const partes = (opt === 'A' ? lineas[i + 1] : opt.substring(2)).trim().split(/\s+/).map(Number);
                     obj.applies.push({ location: partes[0], modifier: partes[1] });
-                } else if (lineaOpt.startsWith('F ')) {
-                    const partes = lineaOpt.substring(2).trim().split(' ');
+                    i += (opt === 'A') ? 2 : 1;
+                } else if (opt.startsWith('F ')) {
+                    const partes = opt.substring(2).trim().split(/\s+/);
                     obj.affects.push({ type: partes[0], bits: partes.slice(3).join('') });
-                } else if (lineaOpt.startsWith('E ')) {
-                    const lineaClave = lineaOpt.substring(2).trim();
-                    const coincidencia = lineaClave.match(/^(.*?~)\s*(.*)/);
-                    if (coincidencia) {
-                        obj.extraDescriptions.push({
-                            keywords: coincidencia[1].trim(),
-                            description: coincidencia[2].replace(/~$/, '').trim()
-                        });
-                    }
+                    i++;
+                } else if (opt === 'E') {
+                    const keywords = (lineas[i + 1] || '').replace(/~$/, '').trim();
+                    const descRes = extraerTextoHastaTilde(lineas, i + 2);
+                    obj.extraDescriptions.push({ keywords, description: descRes.texto.trim() });
+                    i = descRes.indice;
+                } else {
+                    i++;
                 }
-                i++;
             }
             objetos.push(obj);
         }
@@ -474,13 +478,48 @@ function parseObjectsSection(sectionContent) {
 function populateObjectsSection(objectsData) {
     const container = document.getElementById('objects-container');
     const template = document.getElementById('object-template');
+    const advertencias = [];
 
     objectsData.forEach(obj => {
         const newCard = template.content.cloneNode(true);
         const addedCardElement = newCard.querySelector('.object-card');
 
         populateObjectTypeSelect(addedCardElement);
-        addedCardElement.querySelector('.obj-type').value = obj.type;
+
+        const tiposPermitidos = gameData.objectTypes.map(t => typeof t === 'object' ? t.value : t);
+
+        const verificarValor = (selector, valor, nombreCampo, valoresPermitidos = null) => {
+            const select = addedCardElement.querySelector(selector);
+            if (!select) return;
+            select.value = valor;
+            const opciones = valoresPermitidos || Array.from(select.options).map(o => o.value);
+            if (!opciones.includes(valor)) {
+                advertencias.push(`${nombreCampo} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
+            }
+        };
+
+        const verificarFlags = (leyenda, flags, nombreCampo) => {
+            poblarCheckboxesPorLeyenda(addedCardElement, leyenda, flags);
+            if (!flags || flags === '0') return;
+            let valores = [];
+            const fieldsets = addedCardElement.querySelectorAll('fieldset');
+            for (const fieldset of fieldsets) {
+                const legend = fieldset.querySelector('legend');
+                if (legend && legend.textContent.trim() === leyenda) {
+                    valores = Array.from(fieldset.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value);
+                    break;
+                }
+            }
+            let restante = flags;
+            valores.sort((a, b) => b.length - a.length).forEach(val => {
+                restante = restante.split(val).join('');
+            });
+            if (restante.trim() !== '') {
+                advertencias.push(`${nombreCampo} desconocidos en objeto ${obj.vnum} (${obj.shortDesc}): ${restante}`);
+            }
+        };
+
+        verificarValor('.obj-type', obj.type, 'Tipo de objeto', tiposPermitidos);
         updateObjectValuesUI(addedCardElement);
 
         addedCardElement.querySelector('.obj-vnum').value = obj.vnum;
@@ -488,8 +527,9 @@ function populateObjectsSection(objectsData) {
         addedCardElement.querySelector('.obj-short-desc').value = obj.shortDesc;
         addedCardElement.querySelector('.obj-long-desc').value = obj.longDesc;
         addedCardElement.querySelector('.obj-material').value = obj.material;
-        populateCheckboxesFromFlags(addedCardElement, '.obj-flags-checkbox-group', obj.flags);
-        addedCardElement.querySelector('.obj-wear-location').value = obj.wearLocation;
+
+        verificarFlags('Flags', obj.flags, 'Flags');
+        verificarFlags('Lugar de Vestir', obj.wearLocation, 'Lugar de Vestir');
 
         // V0-V4
         addedCardElement.querySelector('.obj-v0').value = obj.v0;
@@ -501,9 +541,13 @@ function populateObjectsSection(objectsData) {
         addedCardElement.querySelector('.obj-level').value = obj.level;
         addedCardElement.querySelector('.obj-weight').value = obj.weight;
         addedCardElement.querySelector('.obj-price').value = obj.price;
+        addedCardElement.querySelector('.obj-is-drink-container').checked = obj.isDrinkContainer;
 
-        // Optional sections (S, A, F, E) - will require more complex population logic
-        if (obj.set) console.log(`Object ${obj.vnum} Set: ${obj.set}`);
+        if (obj.set) {
+            const setInput = addedCardElement.querySelector('.obj-set-id');
+            if (setInput) setInput.value = obj.set;
+        }
+
         if (obj.applies.length > 0) {
             populateApplies(addedCardElement, obj.applies);
         }
@@ -514,12 +558,16 @@ function populateObjectsSection(objectsData) {
             populateExtraDescriptions(addedCardElement, obj.extraDescriptions);
         }
 
-        // Update Vnum and Name display in header
         addedCardElement.querySelector('.obj-vnum-display').textContent = obj.vnum;
         addedCardElement.querySelector('.obj-name-display').textContent = obj.shortDesc;
 
         container.appendChild(addedCardElement);
     });
+
+    if (advertencias.length > 0) {
+        alert('Advertencias al importar objetos:\n' + advertencias.join('\n'));
+        agregarAdvertencias(advertencias);
+    }
 }
 
 function populateApplies(containerElement, appliesData) {

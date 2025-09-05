@@ -57,6 +57,9 @@
         *   **Funcionalidad**: Los Affects ahora utilizan un `<select>` para elegir los bits disponibles en lugar de un campo de texto libre.
         *   **Opciones Dinámicas**: Las opciones se cargan según el tipo de affect seleccionado (`A`, `I`, `R`, `V`), utilizando la nueva estructura `affectBitOptions` en `js/config.js`.
         *   **Integración**: La lógica se añadió en `js/objects.js`, `js/sets.js` y `js/parser.js` para poblar y mantener sincronizados estos desplegables.
+    *   **Importación de Objetos**:
+        *   Se añadió el análisis de la sección `#OBJECTS` al cargar áreas, interpretando los campos de tipo, flags, lugar de vestir, valores V0-V4 y el indicador P/G, además de las secciones opcionales `S`, `A`, `F` y `E`.
+        *   Los formularios se rellenan con los datos importados y se muestran advertencias cuando se detectan tipos o flags no reconocidos.
 *   **Mejoras en la Sección Rooms**:
     *   **Flags de Habitación**: Se corrigió la llamada a `getFlagString` en `js/rooms.js`, permitiendo que los flags seleccionados se escriban correctamente en el archivo `.are`.
     *   **Descripciones Adicionales con IA**: Se agregó un prompt específico para habitaciones y la lógica necesaria para que las descripciones extra utilicen instrucciones diferentes según si pertenecen a un objeto o a una habitación.
