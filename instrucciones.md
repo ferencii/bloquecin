@@ -313,3 +313,4 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se desactivó el autoajuste de estadísticas al importar mobs para preservar sus valores originales.
 - Se corrigió la importación del nombre de archivo en la sección `#AREA`, eliminando la tilde final y evitando que al guardar se duplique la extensión `.are`.
 - Se añadieron botones para contraer y expandir todas las tarjetas de cada sección y se fijaron los encabezados para mantener visibles los controles y el botón de añadir al desplazarse.
+- Se añadió la importación de la sección `#OBJECTS`, interpretando las líneas de tipo, flags y lugar de vestir en una sola línea, el indicador P/G y las secciones opcionales (S, A, F, E), poblando la interfaz y avisando sobre valores desconocidos.
