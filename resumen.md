@@ -78,3 +78,4 @@
 *   **Carga de archivos .are**:
     *   Se corrigió el parser para reconocer solo las secciones principales y respetar los delimitadores internos `#0` y `~`, permitiendo importar áreas completas.
     *   Se ajustó la lectura de la cabecera `#AREA` para separar correctamente el rango de niveles, el creador, los VNUMs y la región, admitiendo variaciones de formato.
+    *   Tras importar un área se actualiza el mensaje de rango de VNUMs, eliminando la advertencia si el rango es válido.

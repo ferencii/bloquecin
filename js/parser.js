@@ -150,8 +150,17 @@ function populateAreaForm(areaData) {
     document.getElementById('area-min-level').value = areaData.minLevel;
     document.getElementById('area-max-level').value = areaData.maxLevel;
     document.getElementById('area-creator').value = areaData.creator;
-    document.getElementById('area-vnum-start').value = areaData.vnumStart;
-    document.getElementById('area-vnum-end').value = areaData.vnumEnd;
+
+    const vnumStartInput = document.getElementById('area-vnum-start');
+    const vnumEndInput = document.getElementById('area-vnum-end');
+
+    vnumStartInput.value = areaData.vnumStart;
+    vnumEndInput.value = areaData.vnumEnd;
+
+    // Actualiza el aviso de rango de VNUMs tras importar un área
+    vnumStartInput.dispatchEvent(new Event('input'));
+    vnumEndInput.dispatchEvent(new Event('input'));
+
     document.getElementById('area-region').value = areaData.region;
 }
 
@@ -1059,8 +1068,17 @@ function clearAllForms() {
     document.getElementById('area-min-level').value = '';
     document.getElementById('area-max-level').value = '';
     document.getElementById('area-creator').value = '';
-    document.getElementById('area-vnum-start').value = '';
-    document.getElementById('area-vnum-end').value = '';
+
+    const vnumStartInput = document.getElementById('area-vnum-start');
+    const vnumEndInput = document.getElementById('area-vnum-end');
+
+    vnumStartInput.value = '';
+    vnumEndInput.value = '';
+
+    // Restablece el aviso de rango de VNUMs al limpiar el formulario
+    vnumStartInput.dispatchEvent(new Event('input'));
+    vnumEndInput.dispatchEvent(new Event('input'));
+
     document.getElementById('area-region').value = '';
 
     // Clear Dynamic Sections
