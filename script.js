@@ -51,6 +51,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     populateMaterialsDatalist(); // Call the new function here
 
+    // Controles para contraer y expandir todas las tarjetas de una sección
+    document.querySelectorAll('.collapse-all-btn').forEach(boton => {
+        boton.addEventListener('click', () => {
+            const seccion = boton.closest('.content-section');
+            seccion.querySelectorAll('.collapsible-content').forEach(contenido => contenido.classList.add('collapsed'));
+        });
+    });
+
+    document.querySelectorAll('.expand-all-btn').forEach(boton => {
+        boton.addEventListener('click', () => {
+            const seccion = boton.closest('.content-section');
+            seccion.querySelectorAll('.collapsible-content').forEach(contenido => contenido.classList.remove('collapsed'));
+        });
+    });
+
     // Setup main generate button
     document.getElementById('generate-btn').addEventListener('click', generateAreFile);
 

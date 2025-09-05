@@ -312,3 +312,4 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Las advertencias al importar mobs muestran ahora VNUM y nombre, y se conservan en la sección ADVERTENCIAS.
 - Se desactivó el autoajuste de estadísticas al importar mobs para preservar sus valores originales.
 - Se corrigió la importación del nombre de archivo en la sección `#AREA`, eliminando la tilde final y evitando que al guardar se duplique la extensión `.are`.
+- Se añadieron botones para contraer y expandir todas las tarjetas de cada sección y se fijaron los encabezados para mantener visibles los controles y el botón de añadir al desplazarse.
