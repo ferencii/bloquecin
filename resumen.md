@@ -59,3 +59,8 @@
     *   **Comandos Claros**: Los botones M, O, P, G, E, D y R muestran su significado y un `tooltip` explicativo.
     *   **Parámetros Seleccionables**: Dirección, estado de puerta, lugar de vestir y clase de maze ahora se eligen desde listas definidas en `js/config.js`, incluyendo las direcciones diagonales.
     *   **Clase de Maze Ampliada**: Se añadió la clase `10` para laberintos que también consideran las salidas diagonales.
+*   **Mejoras en la Sección Shops**:
+    *   **Listas Desplegables Centralizadas**: Los tipos de objetos que compra la tienda, los porcentajes de compra/venta y las horas de apertura/cierre se seleccionan ahora desde desplegables, alimentados por las nuevas listas `shopObjectTypes`, `shopProfitOptions` y `shopHours` en `js/config.js`.
+    *   **Comentarios de Tienda**: Cada tienda puede incluir un comentario opcional; si se especifica, se añade tras un `*` en la línea generada.
+    *   **Encabezado con comentario**: El comentario de cada tienda se refleja en el título de la tarjeta para reconocerla cuando está contraída.
+    *   **Parser y Generación Corregidos**: Se actualizó el formato de lectura y escritura para que cada tienda se procese en una sola línea conforme a la documentación.

@@ -193,7 +193,9 @@ La aplicación debe permitir definir múltiples tiendas. Cada tienda tendrá:
 *   **Porcentaje de Venta**: (ej. `0`).
 *   **Horario de Operación**: `Hora de apertura` y `Hora de cierre` (ej. `0 23`).
 *   **Comentario** (Opcional): Empieza con `*` (ej. `* Tendero: el recepcionista`).
+*   **Identificación en encabezado**: El comentario se muestra en el título de la tarjeta para reconocer la tienda al contraerla.
 *   Finaliza con `0` para la sección completa.
+*   Todos los campos numéricos se seleccionan desde listas desplegables definidas en `js/config.js`.
 
 #### **2.8. Sección `#SPECIALS`**
 
