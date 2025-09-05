@@ -1791,6 +1791,7 @@ Para finalizar la lista de resets, se utiliza el comando `S`.
 |-----------|-----------------|
 | 4 | Intercambia aleatoriamente las salidas cardinales (Norte, Sur, Este, Oeste) |
 | 6 | Incluye también salidas arriba y abajo (Up, Down) |
+| 10 | Incluye también salidas arriba y abajo, noroeste, suroeste, noreste, sureste |
 
 ---
 
