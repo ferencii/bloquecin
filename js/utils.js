@@ -175,16 +175,23 @@ async function handleObjectShortLongAiGeneration(e) {
     await generateDescriptions(generateBtn, promptText, promptInstructions, targetFields);
 }
 
-// Object Extra Description AI generation handler
+// Extra Description AI generation handler for objects and rooms
 async function handleExtraDescAiGeneration(e) {
     const generateBtn = e.target;
-    const card = generateBtn.closest('.sub-item-row'); // Note: closest sub-item-row
+    const card = generateBtn.closest('.sub-item-row');
     if (!card) return;
 
     const promptText = card.querySelector('.ai-prompt').value;
-    const extraDescInput = card.querySelector('.extra-desc'); // Note: extra-desc
+    const extraDescInput = card.querySelector('.extra-desc');
 
-    const promptInstructions = gameData.aiPrompts.object.extra;;
+    let promptInstructions;
+    if (generateBtn.closest('.object-card')) {
+        promptInstructions = gameData.aiPrompts.object.extra;
+    } else if (generateBtn.closest('.room-card')) {
+        promptInstructions = gameData.aiPrompts.room.extra;
+    } else {
+        promptInstructions = gameData.aiPrompts.object.extra;
+    }
 
     const targetFields = {
         extra_desc: extraDescInput
