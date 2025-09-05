@@ -58,3 +58,4 @@
     *   **Actualización Automática de Opciones**: Al añadir o eliminar mobs, objetos o habitaciones, las opciones de los reseteos se refrescan automáticamente para reflejar los cambios.
     *   **Comandos Claros**: Los botones M, O, P, G, E, D y R muestran su significado y un `tooltip` explicativo.
     *   **Parámetros Seleccionables**: Dirección, estado de puerta, lugar de vestir y clase de maze ahora se eligen desde listas definidas en `js/config.js`, incluyendo las direcciones diagonales.
+    *   **Clase de Maze Ampliada**: Se añadió la clase `10` para laberintos que también consideran las salidas diagonales.

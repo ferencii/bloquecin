@@ -1306,7 +1306,8 @@ export const gameData = {
 
     resetMazeClasses: [
         { value: '4', label: 'Cardinales' },
-        { value: '6', label: 'Cardinales + arriba/abajo' }
+        { value: '6', label: 'Cardinales + arriba/abajo' },
+        { value: '10', label: 'Cardinales + arriba/abajo + diagonales' }
     ],
 
     // Prompts detallados para la generación de descripciones de IA.

@@ -167,7 +167,7 @@ La aplicación debe permitir añadir múltiples comandos de reseteo. Cada comand
     *   Direcciones: `0` (Norte), `1` (Este), `2` (Sur), `3` (Oeste), `4` (Arriba), `5` (Abajo), `6` (Noreste), `7` (Noroeste), `8` (Sureste), `9` (Suroeste).
     *   Estado: `0` (Abierta), `1` (Cerrada), `2` (Con llave).
 *   **R (Define un Maze en una Habitación)**: `R 0 <vnum habitación> <clase de maze>` (ej. `R 0 12129 4`).
-    *   Clase de Maze: `4` (salidas cardinales), `6` (incluye arriba/abajo).
+*   Clase de Maze: `4` (salidas cardinales), `6` (incluye arriba/abajo), `10` (incluye arriba/abajo y diagonales).
 *   Finaliza con `S`.
 
 #### **2.6. Sección `#SET`**
