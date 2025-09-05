@@ -110,6 +110,7 @@ export const gameData = {
     // Tipos de daño que pueden infligir los mobs o las armas.
     // Cada entrada tiene un 'value' (para uso interno) y una 'description' (para mostrar en la UI).
     damageTypes: [
+        { value: 'none', description: 'nada' },
         { value: 'slice', description: 'tajo' },
         { value: 'stab', description: 'pinchazo' },
         { value: 'slash', description: 'golpe de espada' },
