@@ -2,6 +2,7 @@ import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI
 import { refrescarOpcionesResets } from './resets.js';
 import { poblarSelectsTienda } from './shops.js';
 import { poblarSelectEspecial } from './specials.js';
+import { gameData } from './config.js';
 
 export function parseAreFile(content) {
     console.log('Parsing .are file...');
@@ -260,6 +261,27 @@ function populateMobilesSection(mobilesData) {
     mobilesData.forEach(mob => {
         const newCard = template.content.cloneNode(true);
         const addedCardElement = newCard.querySelector('.mob-card');
+
+        // Poblar listas desplegables de raza y tipo de daño antes de asignar valores
+        const raceSelect = addedCardElement.querySelector('.mob-race');
+        if (raceSelect) {
+            gameData.races.forEach(race => {
+                const option = document.createElement('option');
+                option.value = race;
+                option.textContent = race;
+                raceSelect.appendChild(option);
+            });
+        }
+
+        const damageTypeSelect = addedCardElement.querySelector('.mob-dam-type');
+        if (damageTypeSelect) {
+            gameData.damageTypes.forEach(type => {
+                const option = document.createElement('option');
+                option.value = type.value;
+                option.textContent = type.description;
+                damageTypeSelect.appendChild(option);
+            });
+        }
 
         addedCardElement.querySelector('.mob-vnum').value = mob.vnum;
         addedCardElement.querySelector('.mob-keywords').value = mob.keywords;
