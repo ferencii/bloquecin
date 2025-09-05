@@ -3,10 +3,26 @@ import { refrescarOpcionesResets } from './resets.js';
 import { poblarSelectsTienda } from './shops.js';
 import { poblarSelectEspecial } from './specials.js';
 import { gameData } from './config.js';
+import { inicializarTarjetaMob } from './mobiles.js';
+
+function limpiarAdvertencias() {
+    const lista = document.getElementById('lista-advertencias');
+    if (lista) lista.innerHTML = '';
+}
+
+function agregarAdvertencias(mensajes) {
+    const lista = document.getElementById('lista-advertencias');
+    if (!lista) return;
+    mensajes.forEach(msj => {
+        const item = document.createElement('li');
+        item.textContent = msj;
+        lista.appendChild(item);
+    });
+}
 
 export function parseAreFile(content) {
     console.log('Parsing .are file...');
-
+    limpiarAdvertencias();
     clearAllForms(); // Clear existing forms before parsing and populating
 
     const sections = {};
@@ -149,8 +165,17 @@ function populateAreaForm(areaData) {
     document.getElementById('area-min-level').value = areaData.minLevel;
     document.getElementById('area-max-level').value = areaData.maxLevel;
     document.getElementById('area-creator').value = areaData.creator;
-    document.getElementById('area-vnum-start').value = areaData.vnumStart;
-    document.getElementById('area-vnum-end').value = areaData.vnumEnd;
+
+    const vnumStartInput = document.getElementById('area-vnum-start');
+    const vnumEndInput = document.getElementById('area-vnum-end');
+
+    vnumStartInput.value = areaData.vnumStart;
+    vnumEndInput.value = areaData.vnumEnd;
+
+    // Actualiza el aviso de rango de VNUMs tras importar un área
+    vnumStartInput.dispatchEvent(new Event('input'));
+    vnumEndInput.dispatchEvent(new Event('input'));
+
     document.getElementById('area-region').value = areaData.region;
 }
 
@@ -257,6 +282,7 @@ function parsearDados(cadena) {
 function populateMobilesSection(mobilesData) {
     const container = document.getElementById('mobiles-container');
     const template = document.getElementById('mob-template');
+    const advertencias = [];
 
     mobilesData.forEach(mob => {
         const newCard = template.content.cloneNode(true);
@@ -283,30 +309,64 @@ function populateMobilesSection(mobilesData) {
             });
         }
 
+        // Función auxiliar para verificar valores de <select>
+        const verificarValor = (selector, valor, nombreCampo, valoresPermitidos = null) => {
+            const select = addedCardElement.querySelector(selector);
+            if (!select) return;
+            select.value = valor;
+            const opciones = valoresPermitidos || Array.from(select.options).map(o => o.value);
+            if (!opciones.includes(valor)) {
+                advertencias.push(`${nombreCampo} desconocido en mob ${mob.vnum} (${mob.shortDesc}): ${valor}`);
+            }
+        };
+
+        // Función auxiliar para poblar y verificar flags por leyenda
+        const verificarFlags = (leyenda, flags, nombreCampo) => {
+            poblarCheckboxesPorLeyenda(addedCardElement, leyenda, flags);
+            if (!flags || flags === '0') return;
+            let valores = [];
+            const fieldsets = addedCardElement.querySelectorAll('fieldset');
+            for (const fieldset of fieldsets) {
+                const legend = fieldset.querySelector('legend');
+                if (legend && legend.textContent.trim() === leyenda) {
+                    valores = Array.from(fieldset.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value);
+                    break;
+                }
+            }
+            let restante = flags;
+            valores.sort((a, b) => b.length - a.length).forEach(val => {
+                restante = restante.split(val).join('');
+            });
+            if (restante.trim() !== '') {
+                advertencias.push(`${nombreCampo} desconocidos en mob ${mob.vnum} (${mob.shortDesc}): ${restante}`);
+            }
+        };
+
+        // Asignación de valores básicos
         addedCardElement.querySelector('.mob-vnum').value = mob.vnum;
         addedCardElement.querySelector('.mob-keywords').value = mob.keywords;
         addedCardElement.querySelector('.mob-short-desc').value = mob.shortDesc;
         addedCardElement.querySelector('.mob-long-desc').value = mob.longDesc;
         addedCardElement.querySelector('.mob-look-desc').value = mob.lookDesc;
-        addedCardElement.querySelector('.mob-race').value = mob.race;
+        verificarValor('.mob-race', mob.race, 'Raza', gameData.races);
         addedCardElement.querySelector('.mob-alignment').value = mob.alignment;
         addedCardElement.querySelector('.mob-group').value = mob.group;
         addedCardElement.querySelector('.mob-level').value = mob.level;
         addedCardElement.querySelector('.mob-hitroll').value = mob.hitroll;
-        addedCardElement.querySelector('.mob-sex').value = mob.sex;
+        verificarValor('.mob-sex', mob.sex, 'Sexo');
         addedCardElement.querySelector('.mob-gold').value = mob.gold;
-        addedCardElement.querySelector('.mob-size').value = mob.size;
+        verificarValor('.mob-size', mob.size, 'Tamaño');
         addedCardElement.querySelector('.mob-material').value = mob.material;
 
         // Flags (Act, Affect, Offensive, Imm/Res/Vul, Form, Parts)
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Act Flags', mob.actFlags);
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Afect Flags', mob.affectFlags);
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Ofensivo Flags', mob.offensiveFlags);
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Inmunidades', mob.immFlags);
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Resistencias', mob.resFlags);
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Vulnerabilidades', mob.vulFlags);
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Forma', mob.form);
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Partes', mob.parts);
+        verificarFlags('Act Flags', mob.actFlags, 'Act Flags');
+        verificarFlags('Afect Flags', mob.affectFlags, 'Afect Flags');
+        verificarFlags('Ofensivo Flags', mob.offensiveFlags, 'Ofensivo Flags');
+        verificarFlags('Inmunidades', mob.immFlags, 'Inmunidades');
+        verificarFlags('Resistencias', mob.resFlags, 'Resistencias');
+        verificarFlags('Vulnerabilidades', mob.vulFlags, 'Vulnerabilidades');
+        verificarFlags('Forma', mob.form, 'Forma');
+        verificarFlags('Partes', mob.parts, 'Partes');
 
         // Dados (HP, Mana, Daño)
         addedCardElement.querySelector('.mob-hp-dice-num').value = mob.hpDice.num;
@@ -318,7 +378,7 @@ function populateMobilesSection(mobilesData) {
         addedCardElement.querySelector('.mob-dam-dice-num').value = mob.damageDice.num;
         addedCardElement.querySelector('.mob-dam-dice-sides').value = mob.damageDice.lados;
         addedCardElement.querySelector('.mob-dam-dice-bonus').value = mob.damageDice.bono;
-        addedCardElement.querySelector('.mob-dam-type').value = mob.damageType;
+        verificarValor('.mob-dam-type', mob.damageType, 'Tipo de daño', gameData.damageTypes.map(dt => dt.value));
 
         // Armaduras
         addedCardElement.querySelector('.mob-ac-pierce').value = mob.acPierce;
@@ -327,15 +387,21 @@ function populateMobilesSection(mobilesData) {
         addedCardElement.querySelector('.mob-ac-magic').value = mob.acMagic;
 
         // Posiciones
-        addedCardElement.querySelector('.mob-start-pos').value = mob.startPos;
-        addedCardElement.querySelector('.mob-default-pos').value = mob.defaultPos;
+        verificarValor('.mob-start-pos', mob.startPos, 'Posición inicial');
+        verificarValor('.mob-default-pos', mob.defaultPos, 'Posición por defecto');
 
         // Actualizar encabezado
         addedCardElement.querySelector('.mob-vnum-display').textContent = mob.vnum;
         addedCardElement.querySelector('.mob-name-display').textContent = mob.shortDesc;
 
         container.appendChild(addedCardElement);
+        inicializarTarjetaMob(addedCardElement);
     });
+
+    if (advertencias.length > 0) {
+        alert('Advertencias al importar mobs:\n' + advertencias.join('\n'));
+        agregarAdvertencias(advertencias);
+    }
 }
 
 function parseObjectsSection(sectionContent) {
@@ -1018,8 +1084,17 @@ function clearAllForms() {
     document.getElementById('area-min-level').value = '';
     document.getElementById('area-max-level').value = '';
     document.getElementById('area-creator').value = '';
-    document.getElementById('area-vnum-start').value = '';
-    document.getElementById('area-vnum-end').value = '';
+
+    const vnumStartInput = document.getElementById('area-vnum-start');
+    const vnumEndInput = document.getElementById('area-vnum-end');
+
+    vnumStartInput.value = '';
+    vnumEndInput.value = '';
+
+    // Restablece el aviso de rango de VNUMs al limpiar el formulario
+    vnumStartInput.dispatchEvent(new Event('input'));
+    vnumEndInput.dispatchEvent(new Event('input'));
+
     document.getElementById('area-region').value = '';
 
     // Clear Dynamic Sections

@@ -14,6 +14,8 @@
     *   **Auto-rellenado de HP, Mana, Armaduras y Daño**: Se añadió una tabla de recomendaciones (`mobStatsRecommendations`) a `js/config.js` para los valores de HP, Mana, Armaduras y Daño por nivel. Se modificó `js/mobiles.js` para auto-rellenar estos campos basándose en el nivel del mob. El cálculo de Mana se ajustó para seguir la fórmula `1d10 + 100 * Nivel`, y la Armadura Mágica se calcula con la fórmula `((ac - 10) / 3) + 10`.
     *   **Importación completa de mobs**: Se corrigió el parser para cargar la sección `#MOBILES`, soportando descripciones multilínea, separación de dados y flags en una sola línea.
     *   **Listas de Raza y Tipo de Daño al Importar**: Al cargar un archivo `.are`, los desplegables de raza y tipo de daño se rellenan con `gameData` y se seleccionan los valores correspondientes de cada mob.
+    *   **Reinicialización tras importar**: Los mobs cargados desde archivos recuperan la opción de colapsar y el autoajuste de estadísticas al cambiar el nivel.
+    *   **Advertencias de datos desconocidos**: Durante la importación se revisan todas las listas y flags, avisando cuando cualquier valor (raza, tipo de daño, posiciones, sexo, tamaño o flags) no existe en las opciones de la aplicación.
 *   **Mejoras en la Sección Objects**:
     *   **Campo Material (Datalist)**:
         *   **Funcionalidad**: Se implementó un campo de entrada para "Material" que permite seleccionar de una lista de sugerencias o escribir un valor personalizado. Esto se logró utilizando un elemento `<datalist>` en `index.html` vinculado al campo de entrada.
@@ -76,3 +78,5 @@
 *   **Carga de archivos .are**:
     *   Se corrigió el parser para reconocer solo las secciones principales y respetar los delimitadores internos `#0` y `~`, permitiendo importar áreas completas.
     *   Se ajustó la lectura de la cabecera `#AREA` para separar correctamente el rango de niveles, el creador, los VNUMs y la región, admitiendo variaciones de formato.
+    *   Tras importar un área se actualiza el mensaje de rango de VNUMs, eliminando la advertencia si el rango es válido.
+    *   Las advertencias de mobs importados incluyen VNUM y nombre y se registran en la sección ADVERTENCIAS.
