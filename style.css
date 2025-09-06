@@ -160,6 +160,13 @@ select:focus {
     border-color: var(--header-color);
 }
 
+.mob-triggers,
+.obj-triggers,
+.room-triggers {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 .form-inline {
     flex-direction: row;
     align-items: center;

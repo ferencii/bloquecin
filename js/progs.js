@@ -25,43 +25,52 @@ export function actualizarPropietariosProgs() {
     const progCards = document.querySelectorAll('.prog-card');
     progCards.forEach(card => {
         const vnum = parseInt(card.querySelector('.prog-vnum').value);
-        let texto = '';
+        const owners = [];
         if (vnum) {
-            const mobs = Array.from(document.querySelectorAll('#mobiles-container .mob-card'));
-            const mob = mobs.find(m => {
-                const lineas = m.querySelector('.mob-triggers')?.value.split('\n') || [];
-                return lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum);
-            });
-            if (mob) {
-                const v = mob.querySelector('.mob-vnum').value;
-                const nombre = mob.querySelector('.mob-name-display').textContent;
-                texto = `| Mob ${v} ${nombre}`;
-            } else {
-                const objs = Array.from(document.querySelectorAll('#objects-container .object-card'));
-                const obj = objs.find(o => {
-                    const lineas = o.querySelector('.obj-triggers')?.value.split('\n') || [];
-                    return lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum);
-                });
-                if (obj) {
-                    const v = obj.querySelector('.obj-vnum').value;
-                    const nombre = obj.querySelector('.obj-name-display').textContent;
-                    texto = `| Objeto ${v} ${nombre}`;
-                } else {
-                    const rooms = Array.from(document.querySelectorAll('#rooms-container .room-card'));
-                    const room = rooms.find(r => {
-                        const lineas = r.querySelector('.room-triggers')?.value.split('\n') || [];
-                        return lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum);
-                    });
-                    if (room) {
-                        const v = room.querySelector('.room-vnum').value;
-                        const nombre = room.querySelector('.room-name-display').textContent;
-                        texto = `| Habitación ${v} ${nombre}`;
+            if (card.closest('#mobprogs-container')) {
+                document.querySelectorAll('#mobiles-container .mob-card').forEach(m => {
+                    const lineas = m.querySelector('.mob-triggers')?.value.split('\n') || [];
+                    if (lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum)) {
+                        const v = m.querySelector('.mob-vnum').value;
+                        const nombre = m.querySelector('.mob-name-display').textContent;
+                        owners.push(`Mob ${v} ${nombre}`);
                     }
-                }
+                });
+            } else if (card.closest('#objprogs-container')) {
+                document.querySelectorAll('#objects-container .object-card').forEach(o => {
+                    const lineas = o.querySelector('.obj-triggers')?.value.split('\n') || [];
+                    if (lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum)) {
+                        const v = o.querySelector('.obj-vnum').value;
+                        const nombre = o.querySelector('.obj-name-display').textContent;
+                        owners.push(`Objeto ${v} ${nombre}`);
+                    }
+                });
+            } else if (card.closest('#roomprogs-container')) {
+                document.querySelectorAll('#rooms-container .room-card').forEach(r => {
+                    const lineas = r.querySelector('.room-triggers')?.value.split('\n') || [];
+                    if (lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum)) {
+                        const v = r.querySelector('.room-vnum').value;
+                        const nombre = r.querySelector('.room-name-display').textContent;
+                        owners.push(`Habitación ${v} ${nombre}`);
+                    }
+                });
             }
         }
-        const ownerSpan = card.querySelector('.prog-owner-display');
-        if (ownerSpan) ownerSpan.textContent = texto;
+        const ownerSelect = card.querySelector('.prog-owner-display');
+        if (ownerSelect) {
+            ownerSelect.innerHTML = '';
+            if (owners.length === 0) {
+                const opt = document.createElement('option');
+                opt.textContent = 'Sin propietarios';
+                ownerSelect.appendChild(opt);
+            } else {
+                owners.forEach(t => {
+                    const opt = document.createElement('option');
+                    opt.textContent = t;
+                    ownerSelect.appendChild(opt);
+                });
+            }
+        }
     });
 }
 

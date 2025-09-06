@@ -339,4 +339,7 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se añadieron campos de **Disparadores** a mobs, objetos y habitaciones, permitiendo definir las líneas `M/O/R` asociadas a los programas y generándolas en el archivo `.are`.
 - Se detecta y muestra en las secciones `#MOBPROGS`, `#OBJPROGS` y `#ROOMPROGS` a qué entidad pertenece cada prog dentro del área.
 - Las tarjetas de progs pueden contraerse y expandirse individualmente incluso después de usar "Contraer Todo".
+- Se amplió el campo de disparadores de los mobs para que ocupe todo el ancho de su tarjeta.
+- Los progs listan en un desplegable todos los propietarios del tipo correspondiente, evitando mostrar mobs en `#OBJPROGS` y `#ROOMPROGS`.
+
 
