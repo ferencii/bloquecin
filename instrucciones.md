@@ -342,3 +342,4 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se amplió el campo de disparadores de los mobs para que ocupe todo el ancho de su tarjeta.
 - Los progs listan en un desplegable todos los propietarios del tipo correspondiente, evitando mostrar mobs en `#OBJPROGS` y `#ROOMPROGS`.
 
+

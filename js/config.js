@@ -30,7 +30,8 @@ export const gameData = {
     apiKeys: [
         "AIzaSyB5raGlKb5kw9Rlag0CNJQeVcF17XBrdk8", // Pega aquí tu primera API Key
         "AIzaSyA7byKbrGETHW7Vn_IA7ACUeJJ3H0NU-8c", // Opcional: tu segunda API Key
-        "AIzaSyBb3Fx3KTxL2KHtijQHpGMUQfLrXyJT9_k"  // Opcional: tu tercera API Key
+        "AIzaSyBb3Fx3KTxL2KHtijQHpGMUQfLrXyJT9_k",  // Opcional: tu tercera API Key
+        "AIzaSyATiMo7r3IQ5fe1kfDO3nsA0qHhs97K6Fo"  // Opcional: tu cuarta API Key
     ],
     // Define el orden de preferencia de los modelos de IA a utilizar.
     // La aplicación intentará usar los modelos en este orden hasta encontrar uno disponible o exitoso.
