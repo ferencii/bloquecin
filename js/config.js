@@ -560,6 +560,7 @@ export const gameData = {
                 { value: 'chill', label: 'pinchazo frío' }
             ],
             v4: [
+                { value: '0', label: 'Nada' },
                 { value: 'A', label: 'flaming' },
                 { value: 'B', label: 'frost' },
                 { value: 'C', label: 'vampiric' },
