@@ -1,6 +1,7 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 import { gameData } from './config.js';
 import { refrescarOpcionesResets } from './resets.js';
+import { actualizarPropietariosProgs } from './progs.js';
 
 export function updateObjectValuesUI(objectCard) {
     const type = objectCard.querySelector('.obj-type').value;
@@ -172,6 +173,12 @@ export function inicializarTarjetaObjeto(cardElement) {
         nameInput.dataset.nombreEscucha = 'true';
         nameInput.dispatchEvent(new Event('input'));
     }
+
+    const triggersInput = cardElement.querySelector('.obj-triggers');
+    if (triggersInput && !triggersInput.dataset.trigEscucha) {
+        triggersInput.addEventListener('input', actualizarPropietariosProgs);
+        triggersInput.dataset.trigEscucha = 'true';
+    }
 }
 
 export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
@@ -193,7 +200,10 @@ export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDi
 
     container.addEventListener('click', (e) => {
         const target = e.target;
-        if (target.classList.contains('remove-btn')) target.closest('.object-card').remove();
+        if (target.classList.contains('remove-btn')) {
+            target.closest('.object-card').remove();
+            actualizarPropietariosProgs();
+        }
         else if (target.classList.contains('add-apply-btn')) target.previousElementSibling.appendChild(document.getElementById('apply-template').content.cloneNode(true));
         else if (target.classList.contains('add-affect-btn')) {
             const container = target.previousElementSibling;
@@ -266,6 +276,13 @@ export function generateObjectsSection() {
             const desc = row.querySelector('.extra-desc').value;
             if (keyword && desc) section += `E\n${keyword}~\n${desc}~\n`;
         });
+
+        const triggersText = obj.querySelector('.obj-triggers').value.trim();
+        if (triggersText) {
+            triggersText.split('\n').forEach(linea => {
+                if (linea.trim() !== '') section += `O ${linea.trim()}~\n`;
+            });
+        }
 
         section += '\n';
     });

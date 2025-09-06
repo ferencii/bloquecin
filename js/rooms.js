@@ -1,5 +1,6 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 import { refrescarOpcionesResets } from './resets.js';
+import { actualizarPropietariosProgs } from './progs.js';
 
 export function inicializarTarjetaRoom(cardElement) {
     const header = cardElement.querySelector('.collapsible-header');
@@ -29,6 +30,12 @@ export function inicializarTarjetaRoom(cardElement) {
         nameInput.dataset.nombreEscucha = 'true';
         nameInput.dispatchEvent(new Event('input'));
     }
+
+    const triggersInput = cardElement.querySelector('.room-triggers');
+    if (triggersInput && !triggersInput.dataset.trigEscucha) {
+        triggersInput.addEventListener('input', actualizarPropietariosProgs);
+        triggersInput.dataset.trigEscucha = 'true';
+    }
 }
 
 export function setupRoomsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
@@ -40,7 +47,10 @@ export function setupRoomsSection(vnumRangeCheckFunction, vnumSelector, vnumDisp
     const container = document.getElementById('rooms-container');
     container.addEventListener('click', (e) => {
         const target = e.target;
-        if (target.classList.contains('remove-btn')) target.closest('.room-card').remove();
+        if (target.classList.contains('remove-btn')) {
+            target.closest('.room-card').remove();
+            actualizarPropietariosProgs();
+        }
         else if (target.classList.contains('add-exit-btn')) target.previousElementSibling.appendChild(document.getElementById('exit-template').content.cloneNode(true));
         else if (target.classList.contains('add-room-extra-btn')) target.previousElementSibling.appendChild(document.getElementById('extra-desc-template').content.cloneNode(true));
         else if (target.classList.contains('remove-sub-btn')) target.closest('.sub-item-row, .sub-item-row-grid').remove();
@@ -81,6 +91,13 @@ export function generateRoomsSection() {
 
         const clan = room.querySelector('.room-clan').value;
         if (clan) section += `C ${clan}~\n`;
+
+        const triggersText = room.querySelector('.room-triggers').value.trim();
+        if (triggersText) {
+            triggersText.split('\n').forEach(linea => {
+                if (linea.trim() !== '') section += `R ${linea.trim()}~\n`;
+            });
+        }
 
         section += 'S\n';
     });
