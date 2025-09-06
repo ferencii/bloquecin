@@ -327,4 +327,6 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se corrigió la importación de los flags de las habitaciones y se restauró la posibilidad de contraer sus tarjetas tras cargar un `.are`.
 - Se añadieron advertencias al importar habitaciones verificando nombre, descripción, tipo de sector, flags, salidas y descripciones extra.
 - Las advertencias se organizaron en listas separadas para MOBILES, OBJETOS y ROOMS dentro de la sección ADVERTENCIAS.
+- Se corrigió la importación de la sección `#RESETS` mostrando los VNUMs correctos y conservando los comentarios.
+- Se añadió un campo de comentario para cada reset y se generan advertencias cuando los VNUMs referenciados no existen o presentan valores desconocidos.
 

@@ -7,7 +7,7 @@ import { inicializarTarjetaMob } from './mobiles.js';
 import { inicializarTarjetaRoom } from './rooms.js';
 
 function limpiarAdvertencias() {
-    ['advertencias-mobiles', 'advertencias-objetos', 'advertencias-rooms'].forEach(id => {
+    ['advertencias-mobiles', 'advertencias-objetos', 'advertencias-rooms', 'advertencias-resets'].forEach(id => {
         const lista = document.getElementById(id);
         if (lista) lista.innerHTML = '';
     });
@@ -17,7 +17,8 @@ function agregarAdvertencias(mensajes, categoria) {
     const ids = {
         'MOBILES': 'advertencias-mobiles',
         'OBJETOS': 'advertencias-objetos',
-        'ROOMS': 'advertencias-rooms'
+        'ROOMS': 'advertencias-rooms',
+        'RESETS': 'advertencias-resets'
     };
     const lista = document.getElementById(ids[categoria]);
     if (!lista) return;
@@ -102,11 +103,9 @@ export function parseAreFile(content) {
     }
 
     if (sections['#RESETS']) {
-        parsedData.resets = parseResetsSection(sections['#RESETS']);
+        parsedData.resets = parseResetsSection(sections['#RESETS'], parsedData);
         populateResetsSection(parsedData.resets);
     }
-
-    refrescarOpcionesResets();
 
     if (sections['#SET']) {
         parsedData.sets = parseSetSection(sections['#SET']);
@@ -934,66 +933,93 @@ function populateExits(containerElement, exitsData, advertencias = [], room = nu
     });
 }
 
-function parseResetsSection(sectionContent) {
+function parseResetsSection(sectionContent, parsedData) {
     const resets = [];
-    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
-    for (const line of lines) {
-        const parts = line.trim().split(/\s+/);
-        const type = parts[0];
-        const reset = { type: type };
+    const advertencias = [];
+    const lines = sectionContent.split('\n').filter(line => line.trim() !== '' && line.trim() !== 'S');
+    const mobVnums = new Set(parsedData.mobiles?.map(m => m.vnum) || []);
+    const objVnums = new Set(parsedData.objects?.map(o => o.vnum) || []);
+    const roomVnums = new Set(parsedData.rooms?.map(r => r.vnum) || []);
 
+    for (const line of lines) {
+        let comentario = '';
+        let contenido = line;
+        const match = line.match(/[*#]/);
+        if (match) {
+            const idx = line.indexOf(match[0]);
+            comentario = line.slice(idx + 1).trim();
+            contenido = line.slice(0, idx).trim();
+        }
+        if (!contenido) continue;
+        const parts = contenido.split(/\s+/);
+        const type = parts[0];
+        const reset = { type, comment: comentario };
         switch (type) {
-            case 'M': // M 0 <vnum mob> <límite total> <vnum habitación> <límite local>
+            case 'M':
                 reset.vnumMob = parseInt(parts[2]);
                 reset.limitTotal = parseInt(parts[3]);
                 reset.vnumRoom = parseInt(parts[4]);
                 reset.limitLocal = parseInt(parts[5]);
+                if (!mobVnums.has(reset.vnumMob)) advertencias.push(`Mob desconocido en reset M: ${reset.vnumMob}`);
+                if (!roomVnums.has(reset.vnumRoom)) advertencias.push(`Habitación desconocida en reset M: ${reset.vnumRoom}`);
                 break;
-            case 'O': // O 0 <vnum objeto> <límite> <vnum habitación>
+            case 'O':
                 reset.vnumObject = parseInt(parts[2]);
                 reset.limit = parseInt(parts[3]);
                 reset.vnumRoom = parseInt(parts[4]);
+                if (!objVnums.has(reset.vnumObject)) advertencias.push(`Objeto desconocido en reset O: ${reset.vnumObject}`);
+                if (!roomVnums.has(reset.vnumRoom)) advertencias.push(`Habitación desconocida en reset O: ${reset.vnumRoom}`);
                 break;
-            case 'P': // P 1 <vnum objeto contenido> <límite> <vnum contenedor> <límite local>
+            case 'P':
                 reset.vnumContent = parseInt(parts[2]);
                 reset.limit = parseInt(parts[3]);
                 reset.vnumContainer = parseInt(parts[4]);
                 reset.limitLocal = parseInt(parts[5]);
+                if (!objVnums.has(reset.vnumContent)) advertencias.push(`Objeto contenido desconocido en reset P: ${reset.vnumContent}`);
+                if (!objVnums.has(reset.vnumContainer)) advertencias.push(`Contenedor desconocido en reset P: ${reset.vnumContainer}`);
                 break;
-            case 'G': // G 1 <vnum objeto> <límite>
+            case 'G':
                 reset.vnumObject = parseInt(parts[2]);
                 reset.limit = parseInt(parts[3]);
+                if (!objVnums.has(reset.vnumObject)) advertencias.push(`Objeto desconocido en reset G: ${reset.vnumObject}`);
                 break;
-            case 'E': // E 1 <vnum objeto> <límite> <lugar de vestir>
+            case 'E':
                 reset.vnumObject = parseInt(parts[2]);
                 reset.limit = parseInt(parts[3]);
                 reset.wearLocation = parseInt(parts[4]);
+                if (!objVnums.has(reset.vnumObject)) advertencias.push(`Objeto desconocido en reset E: ${reset.vnumObject}`);
+                if (!gameData.resetWearLocations.some(opt => opt.value == reset.wearLocation)) advertencias.push(`Lugar de vestir desconocido en reset E: ${reset.wearLocation}`);
                 break;
-            case 'D': // D 0 <vnum habitación> <dirección> <estado>
+            case 'D':
                 reset.vnumRoom = parseInt(parts[2]);
                 reset.direction = parseInt(parts[3]);
                 reset.state = parseInt(parts[4]);
+                if (!roomVnums.has(reset.vnumRoom)) advertencias.push(`Habitación desconocida en reset D: ${reset.vnumRoom}`);
+                if (!gameData.resetDirections.some(opt => opt.value == reset.direction)) advertencias.push(`Dirección desconocida en reset D: ${reset.direction}`);
+                if (!gameData.resetDoorStates.some(opt => opt.value == reset.state)) advertencias.push(`Estado de puerta desconocido en reset D: ${reset.state}`);
                 break;
-            case 'R': // R 0 <vnum habitación> <clase de maze>
+            case 'R':
                 reset.vnumRoom = parseInt(parts[2]);
                 reset.mazeClass = parseInt(parts[3]);
-                break;
-            case 'S': // End of resets section
-                // This 'S' is handled by the section splitting, but good to have here for completeness
+                if (!roomVnums.has(reset.vnumRoom)) advertencias.push(`Habitación desconocida en reset R: ${reset.vnumRoom}`);
+                if (!gameData.resetMazeClasses.some(opt => opt.value == reset.mazeClass)) advertencias.push(`Clase de maze desconocida en reset R: ${reset.mazeClass}`);
                 break;
             default:
-                console.warn('Unknown reset type:', line);
+                console.warn('Tipo de reset desconocido:', line);
+                advertencias.push(`Tipo de reset desconocido: ${line}`);
+                break;
         }
-        if (type !== 'S') { // Don't add the final 'S' as a reset object
-            resets.push(reset);
-        }
+        if (type && type !== 'S') resets.push(reset);
+    }
+    if (advertencias.length > 0) {
+        alert('Advertencias al importar resets:\n' + advertencias.join('\n'));
+        agregarAdvertencias(advertencias, 'RESETS');
     }
     return resets;
 }
 
 function populateResetsSection(resetsData) {
     const container = document.getElementById('resets-list');
-    // Clear existing resets first (already done by clearAllForms, but good to be explicit)
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
@@ -1004,6 +1030,7 @@ function populateResetsSection(resetsData) {
         const addedResetRowElement = newResetRow.querySelector('.reset-row');
 
         addedResetRowElement.querySelector('.reset-type-indicator').textContent = reset.type;
+        addedResetRowElement.querySelector('.reset-comment').value = reset.comment || '';
 
         const resetInputsContainer = addedResetRowElement.querySelector('.reset-inputs');
         let specificTemplate;
@@ -1012,57 +1039,57 @@ function populateResetsSection(resetsData) {
             case 'M':
                 specificTemplate = document.getElementById('reset-m-template');
                 const mInputs = specificTemplate.content.cloneNode(true);
-                mInputs.querySelector('.reset-mob-vnum').value = reset.vnumMob;
+                mInputs.querySelector('.reset-mob-vnum').dataset.value = reset.vnumMob;
                 mInputs.querySelector('.reset-limit-total').value = reset.limitTotal;
-                mInputs.querySelector('.reset-room-vnum').value = reset.vnumRoom;
+                mInputs.querySelector('.reset-room-vnum').dataset.value = reset.vnumRoom;
                 mInputs.querySelector('.reset-limit-local').value = reset.limitLocal;
                 resetInputsContainer.appendChild(mInputs);
                 break;
             case 'O':
                 specificTemplate = document.getElementById('reset-o-template');
                 const oInputs = specificTemplate.content.cloneNode(true);
-                oInputs.querySelector('.reset-obj-vnum').value = reset.vnumObject;
+                oInputs.querySelector('.reset-obj-vnum').dataset.value = reset.vnumObject;
                 oInputs.querySelector('.reset-limit').value = reset.limit;
-                oInputs.querySelector('.reset-room-vnum').value = reset.vnumRoom;
+                oInputs.querySelector('.reset-room-vnum').dataset.value = reset.vnumRoom;
                 resetInputsContainer.appendChild(oInputs);
                 break;
             case 'P':
                 specificTemplate = document.getElementById('reset-p-template');
                 const pInputs = specificTemplate.content.cloneNode(true);
-                pInputs.querySelector('.reset-content-vnum').value = reset.vnumContent;
+                pInputs.querySelector('.reset-content-vnum').dataset.value = reset.vnumContent;
                 pInputs.querySelector('.reset-limit').value = reset.limit;
-                pInputs.querySelector('.reset-container-vnum').value = reset.vnumContainer;
+                pInputs.querySelector('.reset-container-vnum').dataset.value = reset.vnumContainer;
                 pInputs.querySelector('.reset-limit-local').value = reset.limitLocal;
                 resetInputsContainer.appendChild(pInputs);
                 break;
             case 'G':
                 specificTemplate = document.getElementById('reset-g-template');
                 const gInputs = specificTemplate.content.cloneNode(true);
-                gInputs.querySelector('.reset-obj-vnum').value = reset.vnumObject;
+                gInputs.querySelector('.reset-obj-vnum').dataset.value = reset.vnumObject;
                 gInputs.querySelector('.reset-limit').value = reset.limit;
                 resetInputsContainer.appendChild(gInputs);
                 break;
             case 'E':
                 specificTemplate = document.getElementById('reset-e-template');
                 const eInputs = specificTemplate.content.cloneNode(true);
-                eInputs.querySelector('.reset-obj-vnum').value = reset.vnumObject;
+                eInputs.querySelector('.reset-obj-vnum').dataset.value = reset.vnumObject;
                 eInputs.querySelector('.reset-limit').value = reset.limit;
-                eInputs.querySelector('.reset-wear-location').value = reset.wearLocation;
+                eInputs.querySelector('.reset-wear-location').dataset.value = reset.wearLocation;
                 resetInputsContainer.appendChild(eInputs);
                 break;
             case 'D':
                 specificTemplate = document.getElementById('reset-d-template');
                 const dInputs = specificTemplate.content.cloneNode(true);
-                dInputs.querySelector('.reset-room-vnum').value = reset.vnumRoom;
-                dInputs.querySelector('.reset-direction').value = reset.direction;
-                dInputs.querySelector('.reset-state').value = reset.state;
+                dInputs.querySelector('.reset-room-vnum').dataset.value = reset.vnumRoom;
+                dInputs.querySelector('.reset-direction').dataset.value = reset.direction;
+                dInputs.querySelector('.reset-state').dataset.value = reset.state;
                 resetInputsContainer.appendChild(dInputs);
                 break;
             case 'R':
                 specificTemplate = document.getElementById('reset-r-template');
                 const rInputs = specificTemplate.content.cloneNode(true);
-                rInputs.querySelector('.reset-room-vnum').value = reset.vnumRoom;
-                rInputs.querySelector('.reset-maze-class').value = reset.mazeClass;
+                rInputs.querySelector('.reset-room-vnum').dataset.value = reset.vnumRoom;
+                rInputs.querySelector('.reset-maze-class').dataset.value = reset.mazeClass;
                 resetInputsContainer.appendChild(rInputs);
                 break;
             default:
@@ -1070,6 +1097,11 @@ function populateResetsSection(resetsData) {
         }
 
         container.appendChild(addedResetRowElement);
+    });
+
+    refrescarOpcionesResets();
+    container.querySelectorAll('select[data-value]').forEach(sel => {
+        sel.value = sel.dataset.value;
     });
 }
 

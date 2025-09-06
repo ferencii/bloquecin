@@ -111,28 +111,47 @@ export function generateResetsSection() {
     let section = '#RESETS\n';
     resetRows.forEach(row => {
         const type = row.dataset.type;
+        const userComment = row.querySelector('.reset-comment').value.trim();
         switch (type) {
-            case 'M':
-                section += `M 0 ${row.querySelector('.reset-mob-vnum').value || 0} ${row.querySelector('.reset-limit-total').value || 0} ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-limit-local').value || 0} * Mob ${row.querySelector('.reset-mob-vnum').value || 0}\n`;
+            case 'M': {
+                const vnumMob = row.querySelector('.reset-mob-vnum').value || 0;
+                const comment = userComment || `Mob ${vnumMob}`;
+                section += `M 0 ${vnumMob} ${row.querySelector('.reset-limit-total').value || 0} ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-limit-local').value || 0} * ${comment}\n`;
                 break;
-            case 'O':
-                section += `O 0 ${row.querySelector('.reset-obj-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-room-vnum').value || 0} * Obj ${row.querySelector('.reset-obj-vnum').value || 0}\n`;
+            }
+            case 'O': {
+                const vnumObj = row.querySelector('.reset-obj-vnum').value || 0;
+                const comment = userComment || `Obj ${vnumObj}`;
+                section += `O 0 ${vnumObj} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-room-vnum').value || 0} * ${comment}\n`;
                 break;
-            case 'P':
-                section += `P 1 ${row.querySelector('.reset-content-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-container-vnum').value || 0} ${row.querySelector('.reset-limit-local').value || 0} * Obj in Obj\n`;
+            }
+            case 'P': {
+                const comment = userComment || 'Obj in Obj';
+                section += `P 1 ${row.querySelector('.reset-content-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-container-vnum').value || 0} ${row.querySelector('.reset-limit-local').value || 0} * ${comment}\n`;
                 break;
-            case 'G':
-                section += `G 1 ${row.querySelector('.reset-obj-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} * Give Obj\n`;
+            }
+            case 'G': {
+                const vnumObj = row.querySelector('.reset-obj-vnum').value || 0;
+                const comment = userComment || `Dar ${vnumObj}`;
+                section += `G 1 ${vnumObj} ${row.querySelector('.reset-limit').value || 0} * ${comment}\n`;
                 break;
-            case 'E':
-                section += `E 1 ${row.querySelector('.reset-obj-vnum').value || 0} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-wear-location').value || 0} * Equip Obj\n`;
+            }
+            case 'E': {
+                const vnumObj = row.querySelector('.reset-obj-vnum').value || 0;
+                const comment = userComment || `Equipar ${vnumObj}`;
+                section += `E 1 ${vnumObj} ${row.querySelector('.reset-limit').value || 0} ${row.querySelector('.reset-wear-location').value || 0} * ${comment}\n`;
                 break;
-            case 'D':
-                section += `D 0 ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-direction').value || 0} ${row.querySelector('.reset-state').value || 0} * Door\n`;
+            }
+            case 'D': {
+                const comment = userComment || 'Puerta';
+                section += `D 0 ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-direction').value || 0} ${row.querySelector('.reset-state').value || 0} * ${comment}\n`;
                 break;
-            case 'R':
-                section += `R 0 ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-maze-class').value || 0} * Random Exits\n`;
+            }
+            case 'R': {
+                const comment = userComment || 'Random Exits';
+                section += `R 0 ${row.querySelector('.reset-room-vnum').value || 0} ${row.querySelector('.reset-maze-class').value || 0} * ${comment}\n`;
                 break;
+            }
         }
     });
     section += 'S\n\n';
