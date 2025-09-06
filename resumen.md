@@ -71,6 +71,7 @@
         *   Los valores V0-V4 entre comillas simples se reconocen y conservan, convirtiendo el campo a texto si es necesario.
         *   Se evitaron advertencias al importar pergaminos, píldoras, bastones y pociones cuando sus valores V1-V4 contienen hechizos entre comillas.
         *   Se normalizó la comparación de estos hechizos con la lista predefinida para respetar las comillas existentes.
+        *   Se corrigió la importación de objetos cuya descripción larga ocupaba varias líneas, garantizando que no se omitan.
 *   **Mejoras en la Sección Rooms**:
     *   **Flags de Habitación**: Se corrigió la llamada a `getFlagString` en `js/rooms.js`, permitiendo que los flags seleccionados se escriban correctamente en el archivo `.are`.
     *   **Descripciones Adicionales con IA**: Se agregó un prompt específico para habitaciones y la lógica necesaria para que las descripciones extra utilicen instrucciones diferentes según si pertenecen a un objeto o a una habitación.

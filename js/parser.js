@@ -444,7 +444,15 @@ function parseObjectsSection(sectionContent) {
         i++;
         obj.keywords = (lineas[i++] || '').replace(/~$/, '').trim();
         obj.shortDesc = (lineas[i++] || '').replace(/~$/, '').trim();
-        obj.longDesc = (lineas[i++] || '').replace(/~$/, '').trim();
+        // La descripción larga puede ocupar varias líneas hasta encontrar una que termine en "~"
+        const descLarga = [];
+        while (i < lineas.length) {
+            const lineaDesc = lineas[i];
+            descLarga.push(lineaDesc.replace(/~$/, ''));
+            i++;
+            if (lineaDesc.trim().endsWith('~')) break;
+        }
+        obj.longDesc = descLarga.join('\n').trim();
         obj.material = (lineas[i++] || '').replace(/~$/, '').trim();
 
         const tipoLinea = (lineas[i++] || '').trim().split(/\s+/);
