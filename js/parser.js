@@ -1,6 +1,6 @@
 import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI, inicializarTarjetaObjeto } from './objects.js';
 import { refrescarOpcionesResets } from './resets.js';
-import { poblarSelectsTienda } from './shops.js';
+import { poblarSelectsTienda, inicializarTarjetaShop } from './shops.js';
 import { poblarSelectEspecial } from './specials.js';
 import { gameData } from './config.js';
 import { inicializarTarjetaMob } from './mobiles.js';
@@ -1301,6 +1301,7 @@ function populateShopsSection(shopsData) {
         card.querySelector('.shop-vnum-display').textContent = shop.vnumSeller;
 
         container.appendChild(fragment);
+        inicializarTarjetaShop(container.lastElementChild);
     });
 }
 

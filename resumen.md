@@ -98,6 +98,7 @@
     *   **Comentarios de Tienda**: Cada tienda puede incluir un comentario opcional; si se especifica, se añade tras un `*` en la línea generada.
     *   **Encabezado con comentario**: El comentario de cada tienda se refleja en el título de la tarjeta para reconocerla cuando está contraída.
     *   **Parser y Generación Corregidos**: Se actualizó el formato de lectura y escritura para que cada tienda se procese en una sola línea conforme a la documentación.
+    *   **Colapsado Individual**: Las tarjetas de tiendas pueden contraerse y expandirse desde su encabezado incluso después de usar "Contraer Todo".
 *   **Mejoras en la Sección Specials**:
     *   **Desplegable de Especiales con Tooltips**: El tipo de especial ahora se elige desde un `<select>` poblado dinámicamente con `js/config.js`, mostrando un tooltip explicativo para cada opción.
     *   **Lista Centralizada de Especiales**: Se añadió `gameData.specials` con todos los nombres y descripciones, eliminando el `<datalist>` embebido en `index.html`.

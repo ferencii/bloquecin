@@ -334,4 +334,5 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se restauró la posibilidad de contraer y expandir individualmente las tarjetas de objetos importados incluso después de usar el botón "Contraer Todo".
 - Se corrigió la importación y generación de la sección `#SET`, reconociendo múltiples tiers y leyendo correctamente los affects.
 - Se añadió la inicialización de tarjetas de sets para mantener el colapsado individual incluso tras usar "Contraer Todo".
+- Se corrigió la sección `#SHOPS` para permitir contraer y expandir cada tarjeta desde su encabezado, incluso después de usar "Contraer Todo".
 
