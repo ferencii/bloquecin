@@ -128,131 +128,106 @@ function generateAreFile() {
 const resumenConfig = [
     {
         id: 'mobiles',
-        label: '#MOBILES',
-        container: '#mobiles-container',
-        cardSelector: '.mob-card',
-        headerId: 'mobiles-header',
-        stat: () => {
-            const niveles = Array.from(document.querySelectorAll('#mobiles-container .mob-level'))
-                .map(i => parseInt(i.value)).filter(n => !isNaN(n));
-            const promedio = niveles.length ? (niveles.reduce((a, b) => a + b, 0) / niveles.length).toFixed(1) : 0;
-            return `Nivel promedio: ${promedio}`;
-        }
+        etiqueta: '#MOBILES',
+        contenedor: '#mobiles-container',
+        selectorTarjeta: '.mob-card',
+        idEncabezado: 'mobiles-header',
+        selectorNombre: '.mob-name-display'
     },
     {
         id: 'objects',
-        label: '#OBJECTS',
-        container: '#objects-container',
-        cardSelector: '.object-card',
-        headerId: 'objects-header',
-        stat: () => {
-            const pesos = Array.from(document.querySelectorAll('#objects-container .object-card .obj-weight'))
-                .map(i => parseInt(i.value)).filter(n => !isNaN(n));
-            const total = pesos.reduce((a, b) => a + b, 0);
-            return `Peso total: ${total}`;
-        }
+        etiqueta: '#OBJECTS',
+        contenedor: '#objects-container',
+        selectorTarjeta: '.object-card',
+        idEncabezado: 'objects-header',
+        selectorNombre: '.obj-name-display'
     },
     {
         id: 'rooms',
-        label: '#ROOMS',
-        container: '#rooms-container',
-        cardSelector: '.room-card',
-        headerId: 'rooms-header',
-        stat: () => {
-            const sectores = new Set(Array.from(document.querySelectorAll('#rooms-container .room-sector')).map(s => s.value));
-            return `Sectores distintos: ${sectores.size}`;
-        }
+        etiqueta: '#ROOMS',
+        contenedor: '#rooms-container',
+        selectorTarjeta: '.room-card',
+        idEncabezado: 'rooms-header',
+        selectorNombre: '.room-name-display'
     },
     {
         id: 'resets',
-        label: '#RESETS',
-        container: '#resets-list',
-        cardSelector: '.reset-row',
-        headerId: 'resets-header',
-        stat: () => {
-            const tipos = {};
-            document.querySelectorAll('#resets-list .reset-row').forEach(r => {
-                const t = r.dataset.type;
-                tipos[t] = (tipos[t] || 0) + 1;
-            });
-            return Object.keys(tipos).length > 0 ?
-                'Tipos: ' + Object.entries(tipos).map(([k, v]) => `${k}:${v}`).join(', ') :
-                'Sin resets';
+        etiqueta: '#RESETS',
+        contenedor: '#resets-list',
+        selectorTarjeta: '.reset-row',
+        idEncabezado: 'resets-header',
+        obtenerNombre: fila => {
+            const tipo = fila.dataset.type || '';
+            const comentario = fila.querySelector('.reset-comment')?.value.trim();
+            return comentario ? `${tipo} - ${comentario}` : tipo;
         }
     },
     {
         id: 'set',
-        label: '#SET',
-        container: '#sets-container',
-        cardSelector: '.set-card',
-        headerId: 'set-header',
-        stat: () => {
-            const tiers = document.querySelectorAll('#sets-container .tier-card').length;
-            return `Tiers totales: ${tiers}`;
-        }
+        etiqueta: '#SET',
+        contenedor: '#sets-container',
+        selectorTarjeta: '.set-card',
+        idEncabezado: 'set-header',
+        selectorNombre: '.set-name-display'
     },
     {
         id: 'shops',
-        label: '#SHOPS',
-        container: '#shops-container',
-        cardSelector: '.shop-card',
-        headerId: 'shops-header',
-        stat: () => {
-            const compras = Array.from(document.querySelectorAll('#shops-container .shop-buy-profit'))
-                .map(s => parseInt(s.value)).filter(n => !isNaN(n));
-            const ventas = Array.from(document.querySelectorAll('#shops-container .shop-sell-profit'))
-                .map(s => parseInt(s.value)).filter(n => !isNaN(n));
-            const promCompra = compras.length ? (compras.reduce((a,b)=>a+b,0)/compras.length).toFixed(1) : 0;
-            const promVenta = ventas.length ? (ventas.reduce((a,b)=>a+b,0)/ventas.length).toFixed(1) : 0;
-            return `Beneficio compra medio: ${promCompra}, venta: ${promVenta}`;
+        etiqueta: '#SHOPS',
+        contenedor: '#shops-container',
+        selectorTarjeta: '.shop-card',
+        idEncabezado: 'shops-header',
+        obtenerNombre: tarjeta => {
+            const comentario = tarjeta.querySelector('.shop-comment')?.value.trim();
+            const vnum = tarjeta.querySelector('.shop-vnum')?.value;
+            return comentario || `Tienda ${vnum || ''}`.trim();
         }
     },
     {
         id: 'specials',
-        label: '#SPECIALS',
-        container: '#specials-container',
-        cardSelector: '.special-card',
-        headerId: 'specials-header',
-        stat: () => {
-            const conComentario = Array.from(document.querySelectorAll('#specials-container .special-comment'))
-                .filter(c => c.value.trim() !== '').length;
-            return `Con comentario: ${conComentario}`;
+        etiqueta: '#SPECIALS',
+        contenedor: '#specials-container',
+        selectorTarjeta: '.special-card',
+        idEncabezado: 'specials-header',
+        obtenerNombre: tarjeta => {
+            const nombre = tarjeta.querySelector('.special-name-display')?.textContent.trim();
+            const comentario = tarjeta.querySelector('.special-comment-display')?.textContent.trim();
+            return comentario ? `${nombre} - ${comentario}` : nombre;
         }
     },
     {
         id: 'mobprogs',
-        label: '#MOBPROGS',
-        container: '#mobprogs-container',
-        cardSelector: '.prog-card',
-        headerId: 'mobprogs-header',
-        stat: () => {
-            const lineas = Array.from(document.querySelectorAll('#mobprogs-container .prog-code'))
-                .reduce((acc, t) => acc + t.value.split('\n').length, 0);
-            return `Líneas de código: ${lineas}`;
+        etiqueta: '#MOBPROGS',
+        contenedor: '#mobprogs-container',
+        selectorTarjeta: '.prog-card',
+        idEncabezado: 'mobprogs-header',
+        obtenerNombre: tarjeta => {
+            const vnum = tarjeta.querySelector('.prog-vnum-display')?.textContent.trim();
+            const propietario = tarjeta.querySelector('.prog-owner-display')?.selectedOptions[0]?.textContent.trim();
+            return `${vnum || ''}${propietario ? ' - ' + propietario : ''}`.trim();
         }
     },
     {
         id: 'objprogs',
-        label: '#OBJPROGS',
-        container: '#objprogs-container',
-        cardSelector: '.prog-card',
-        headerId: 'objprogs-header',
-        stat: () => {
-            const lineas = Array.from(document.querySelectorAll('#objprogs-container .prog-code'))
-                .reduce((acc, t) => acc + t.value.split('\n').length, 0);
-            return `Líneas de código: ${lineas}`;
+        etiqueta: '#OBJPROGS',
+        contenedor: '#objprogs-container',
+        selectorTarjeta: '.prog-card',
+        idEncabezado: 'objprogs-header',
+        obtenerNombre: tarjeta => {
+            const vnum = tarjeta.querySelector('.prog-vnum-display')?.textContent.trim();
+            const propietario = tarjeta.querySelector('.prog-owner-display')?.selectedOptions[0]?.textContent.trim();
+            return `${vnum || ''}${propietario ? ' - ' + propietario : ''}`.trim();
         }
     },
     {
         id: 'roomprogs',
-        label: '#ROOMPROGS',
-        container: '#roomprogs-container',
-        cardSelector: '.prog-card',
-        headerId: 'roomprogs-header',
-        stat: () => {
-            const lineas = Array.from(document.querySelectorAll('#roomprogs-container .prog-code'))
-                .reduce((acc, t) => acc + t.value.split('\n').length, 0);
-            return `Líneas de código: ${lineas}`;
+        etiqueta: '#ROOMPROGS',
+        contenedor: '#roomprogs-container',
+        selectorTarjeta: '.prog-card',
+        idEncabezado: 'roomprogs-header',
+        obtenerNombre: tarjeta => {
+            const vnum = tarjeta.querySelector('.prog-vnum-display')?.textContent.trim();
+            const propietario = tarjeta.querySelector('.prog-owner-display')?.selectedOptions[0]?.textContent.trim();
+            return `${vnum || ''}${propietario ? ' - ' + propietario : ''}`.trim();
         }
     }
 ];
@@ -261,20 +236,46 @@ function actualizarResumenYContadores() {
     const resumenDiv = document.getElementById('resumen-contenido');
     if (resumenDiv) resumenDiv.innerHTML = '';
     resumenConfig.forEach(cfg => {
-        const count = document.querySelectorAll(`${cfg.container} ${cfg.cardSelector}`).length;
-        const header = document.getElementById(cfg.headerId);
-        if (header) header.textContent = `${cfg.label} - ${count}`;
+        const tarjetas = document.querySelectorAll(`${cfg.contenedor} ${cfg.selectorTarjeta}`);
+        const cantidad = tarjetas.length;
+        const header = document.getElementById(cfg.idEncabezado);
+        if (header) header.textContent = `${cfg.etiqueta} - ${cantidad}`;
         const navBtn = document.querySelector(`nav button[data-section="${cfg.id}"]`);
-        if (navBtn) navBtn.textContent = `${cfg.label} (${count})`;
+        if (navBtn) navBtn.textContent = `${cfg.etiqueta} (${cantidad})`;
         if (resumenDiv) {
-            const bloque = document.createElement('div');
-            const titulo = document.createElement('h3');
-            titulo.textContent = `${cfg.label} - ${count}`;
-            const dato = document.createElement('p');
-            dato.textContent = cfg.stat();
-            bloque.appendChild(titulo);
-            bloque.appendChild(dato);
-            resumenDiv.appendChild(bloque);
+            const detalles = document.createElement('details');
+            const sumario = document.createElement('summary');
+            sumario.textContent = `${cfg.etiqueta} - ${cantidad}`;
+            detalles.appendChild(sumario);
+            const lista = document.createElement('ul');
+            tarjetas.forEach(tarjeta => {
+                let nombre = '';
+                if (cfg.selectorNombre) {
+                    const elem = tarjeta.querySelector(cfg.selectorNombre);
+                    if (elem) {
+                        if (elem.tagName === 'INPUT' || elem.tagName === 'TEXTAREA') {
+                            nombre = elem.value.trim();
+                        } else if (elem.tagName === 'SELECT') {
+                            nombre = elem.selectedOptions[0]?.textContent.trim() || '';
+                        } else {
+                            nombre = elem.textContent.trim();
+                        }
+                    }
+                } else if (cfg.obtenerNombre) {
+                    nombre = cfg.obtenerNombre(tarjeta);
+                }
+                if (!nombre) nombre = '(sin nombre)';
+                const li = document.createElement('li');
+                li.textContent = nombre;
+                lista.appendChild(li);
+            });
+            if (!lista.childElementCount) {
+                const li = document.createElement('li');
+                li.textContent = 'Sin elementos';
+                lista.appendChild(li);
+            }
+            detalles.appendChild(lista);
+            resumenDiv.appendChild(detalles);
         }
     });
 }

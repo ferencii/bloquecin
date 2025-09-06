@@ -342,6 +342,6 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se amplió el campo de disparadores de los mobs para que ocupe todo el ancho de su tarjeta.
 - Los progs listan en un desplegable todos los propietarios del tipo correspondiente, evitando mostrar mobs en `#OBJPROGS` y `#ROOMPROGS`.
 - Los encabezados de todas las secciones indican ahora la cantidad de elementos que contienen (por ejemplo `#MOBILES - 3`) y el parser reconoce estos sufijos numéricos.
-- Se añadió una sección **RESUMEN** que muestra en un solo lugar las estadísticas principales de cada apartado, como el nivel promedio de los mobs o el peso total de los objetos.
+- Se reemplazó la sección **RESUMEN** por listas desplegables que enumeran los elementos de cada apartado, eliminando las estadísticas.
 
 

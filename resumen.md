@@ -118,6 +118,6 @@
     *   Se corrigió el nombre de archivo importado en `#AREA`, quitando la tilde final y evitando que al guardar se duplique la extensión `.are`.
     *   **Advertencias agrupadas por sección**: La sección ADVERTENCIAS ahora cuenta con listas separadas para MOBILES, OBJETOS y ROOMS.
 
-*   **Contadores y Estadísticas**:
+*   **Contadores y Resumen Visual**:
     *   Los encabezados de cada sección muestran la cantidad de elementos correspondientes y el archivo `.are` generado incluye estos totales.
-    *   Se añadió una sección **RESUMEN** que recopila cifras y estadísticas destacadas, como el nivel promedio de los mobs o el peso acumulado de los objetos.
+    *   La sección **RESUMEN** ofrece listas desplegables con los elementos de cada apartado para consultarlos de forma rápida.
