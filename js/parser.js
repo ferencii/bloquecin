@@ -4,6 +4,7 @@ import { poblarSelectsTienda } from './shops.js';
 import { poblarSelectEspecial } from './specials.js';
 import { gameData } from './config.js';
 import { inicializarTarjetaMob } from './mobiles.js';
+import { inicializarTarjetaRoom } from './rooms.js';
 
 function limpiarAdvertencias() {
     const lista = document.getElementById('lista-advertencias');
@@ -806,8 +807,8 @@ function populateRoomsSection(roomsData) {
         addedCardElement.querySelector('.room-health-regen').value = room.healthRegen;
         addedCardElement.querySelector('.room-clan').value = room.clan;
 
-        // Flags (room.flags) - requires checkbox population
-        populateCheckboxesFromFlags(addedCardElement, '.room-flags-checkbox-group', room.flags);
+        // Flags de habitación
+        poblarCheckboxesPorLeyenda(addedCardElement, 'Flags de Habitación', room.flags);
 
         if (room.extraDescriptions.length > 0) {
             populateExtraDescriptions(addedCardElement, room.extraDescriptions);
@@ -821,6 +822,7 @@ function populateRoomsSection(roomsData) {
         addedCardElement.querySelector('.room-name-display').textContent = room.name;
 
         container.appendChild(addedCardElement);
+        inicializarTarjetaRoom(addedCardElement);
     });
 }
 
@@ -1209,16 +1211,6 @@ function populateProgsSection(progsData, containerId, templateId) {
         addedCardElement.querySelector('.prog-vnum-display').textContent = prog.vnum;
 
         container.appendChild(addedCardElement);
-    });
-}
-
-function populateCheckboxesFromFlags(containerElement, checkboxGroupSelector, flagString) {
-    if (!flagString || flagString === '0') return;
-    const checkboxes = containerElement.querySelectorAll(`${checkboxGroupSelector} input[type="checkbox"]`);
-    checkboxes.forEach(checkbox => {
-        if (flagString.includes(checkbox.value)) {
-            checkbox.checked = true;
-        }
     });
 }
 
