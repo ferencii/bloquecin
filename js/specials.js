@@ -29,6 +29,7 @@ export function poblarSelectEspecial(card) {
     if (commentInput && commentDisplay && hyphenSpan) {
         commentInput.addEventListener('input', () => {
             const texto = commentInput.value.replace(/^\*\s*/, '');
+            commentInput.value = texto;
             commentDisplay.textContent = texto;
             hyphenSpan.style.display = texto ? '' : 'none';
         });
@@ -36,8 +37,31 @@ export function poblarSelectEspecial(card) {
     }
 }
 
+export function inicializarTarjetaSpecial(cardElement) {
+    const header = cardElement.querySelector('.collapsible-header');
+    const content = cardElement.querySelector('.collapsible-content');
+    if (header && content && !header.dataset.colapsado) {
+        header.addEventListener('click', () => {
+            content.classList.toggle('collapsed');
+        });
+        header.dataset.colapsado = 'true';
+    }
+
+    const vnumInput = cardElement.querySelector('.special-vnum');
+    const vnumDisplay = cardElement.querySelector('.special-vnum-display');
+    if (vnumInput && vnumDisplay && !vnumInput.dataset.vnumEscucha) {
+        vnumInput.addEventListener('input', () => {
+            vnumDisplay.textContent = vnumInput.value;
+        });
+        vnumInput.dataset.vnumEscucha = 'true';
+    }
+}
+
 export function setupSpecialsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
-    setupDynamicSection('add-special-btn', 'specials-container', 'special-template', '.special-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, poblarSelectEspecial);
+    setupDynamicSection('add-special-btn', 'specials-container', 'special-template', '.special-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, (card) => {
+        poblarSelectEspecial(card);
+        inicializarTarjetaSpecial(card);
+    });
 }
 
 export function generateSpecialsSection() {
@@ -47,9 +71,9 @@ export function generateSpecialsSection() {
     cards.forEach(card => {
         const vnum = card.querySelector('.special-vnum').value;
         const name = card.querySelector('.special-name').value;
-        const comment = card.querySelector('.special-comment').value;
+        const comment = card.querySelector('.special-comment').value.trim();
         if (vnum && name) {
-            section += `M ${vnum} ${name} ${comment || ''}\n`;
+            section += `M ${vnum} ${name}${comment ? ` * ${comment}` : ''}\n`;
         }
     });
     return section + 'S\n\n';

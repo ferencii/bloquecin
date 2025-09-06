@@ -335,4 +335,5 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se corrigió la importación y generación de la sección `#SET`, reconociendo múltiples tiers y leyendo correctamente los affects.
 - Se añadió la inicialización de tarjetas de sets para mantener el colapsado individual incluso tras usar "Contraer Todo".
 - Se corrigió la sección `#SHOPS` para permitir contraer y expandir cada tarjeta desde su encabezado, incluso después de usar "Contraer Todo".
+- Se corrigió la sección `#SPECIALS` permitiendo contraer y expandir cada tarjeta desde su encabezado incluso tras usar "Contraer Todo" y se ajustó la importación para leer líneas `M vnum nombre * comentario`.
 

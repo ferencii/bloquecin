@@ -368,10 +368,11 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
         // Collapsible logic
         const collapsibleHeader = addedCardElement.querySelector('.collapsible-header');
         const collapsibleContent = addedCardElement.querySelector('.collapsible-content');
-        if (collapsibleHeader && collapsibleContent) {
+        if (collapsibleHeader && collapsibleContent && !collapsibleHeader.dataset.colapsado) {
             collapsibleHeader.addEventListener('click', () => {
                 collapsibleContent.classList.toggle('collapsed');
             });
+            collapsibleHeader.dataset.colapsado = 'true';
         }
 
         // Update vnum display on input change
