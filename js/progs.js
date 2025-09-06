@@ -1,8 +1,87 @@
 import { setupDynamicSection } from './utils.js';
 
+export function inicializarTarjetaProg(cardElement) {
+    const header = cardElement.querySelector('.collapsible-header');
+    const content = cardElement.querySelector('.collapsible-content');
+    if (header && content && !header.dataset.colapsado) {
+        header.addEventListener('click', () => {
+            content.classList.toggle('collapsed');
+        });
+        header.dataset.colapsado = 'true';
+    }
+
+    const vnumInput = cardElement.querySelector('.prog-vnum');
+    const vnumDisplay = cardElement.querySelector('.prog-vnum-display');
+    if (vnumInput && vnumDisplay && !vnumInput.dataset.vnumEscucha) {
+        vnumInput.addEventListener('input', () => {
+            vnumDisplay.textContent = vnumInput.value;
+            actualizarPropietariosProgs();
+        });
+        vnumInput.dataset.vnumEscucha = 'true';
+    }
+}
+
+export function actualizarPropietariosProgs() {
+    const progCards = document.querySelectorAll('.prog-card');
+    progCards.forEach(card => {
+        const vnum = parseInt(card.querySelector('.prog-vnum').value);
+        let texto = '';
+        if (vnum) {
+            const mobs = Array.from(document.querySelectorAll('#mobiles-container .mob-card'));
+            const mob = mobs.find(m => {
+                const lineas = m.querySelector('.mob-triggers')?.value.split('\n') || [];
+                return lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum);
+            });
+            if (mob) {
+                const v = mob.querySelector('.mob-vnum').value;
+                const nombre = mob.querySelector('.mob-name-display').textContent;
+                texto = `| Mob ${v} ${nombre}`;
+            } else {
+                const objs = Array.from(document.querySelectorAll('#objects-container .object-card'));
+                const obj = objs.find(o => {
+                    const lineas = o.querySelector('.obj-triggers')?.value.split('\n') || [];
+                    return lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum);
+                });
+                if (obj) {
+                    const v = obj.querySelector('.obj-vnum').value;
+                    const nombre = obj.querySelector('.obj-name-display').textContent;
+                    texto = `| Objeto ${v} ${nombre}`;
+                } else {
+                    const rooms = Array.from(document.querySelectorAll('#rooms-container .room-card'));
+                    const room = rooms.find(r => {
+                        const lineas = r.querySelector('.room-triggers')?.value.split('\n') || [];
+                        return lineas.some(l => parseInt(l.trim().split(/\s+/)[1]) === vnum);
+                    });
+                    if (room) {
+                        const v = room.querySelector('.room-vnum').value;
+                        const nombre = room.querySelector('.room-name-display').textContent;
+                        texto = `| Habitación ${v} ${nombre}`;
+                    }
+                }
+            }
+        }
+        const ownerSpan = card.querySelector('.prog-owner-display');
+        if (ownerSpan) ownerSpan.textContent = texto;
+    });
+}
+
 export function setupProgsSection(type, vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
     const buttonType = type.replace('s', '');
-    setupDynamicSection(`add-${buttonType}-btn`, `${type}-container`, 'prog-template', '.prog-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector);
+    setupDynamicSection(`add-${buttonType}-btn`, `${type}-container`, 'prog-template', '.prog-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, (card) => {
+        inicializarTarjetaProg(card);
+        actualizarPropietariosProgs();
+    });
+
+    const container = document.getElementById(`${type}-container`);
+    container.querySelectorAll('.prog-card').forEach(card => {
+        inicializarTarjetaProg(card);
+    });
+    container.addEventListener('click', e => {
+        if (e.target.classList.contains('remove-btn')) {
+            actualizarPropietariosProgs();
+        }
+    });
+    actualizarPropietariosProgs();
 }
 
 export function generateProgsSection(containerId, sectionName) {

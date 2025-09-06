@@ -6,6 +6,7 @@ import { gameData } from './config.js';
 import { inicializarTarjetaMob } from './mobiles.js';
 import { inicializarTarjetaRoom } from './rooms.js';
 import { inicializarTarjetaSet } from './sets.js';
+import { inicializarTarjetaProg, actualizarPropietariosProgs } from './progs.js';
 
 // Rellena un <select> con las opciones indicadas y un placeholder inicial.
 // Se usa al reconstruir la sección de resets al importar un área.
@@ -156,6 +157,8 @@ export function parseAreFile(content) {
         populateProgsSection(parsedData.roomprogs, 'roomprogs-container', 'prog-template');
     }
 
+    actualizarPropietariosProgs();
+
     alert('Archivo cargado y listo para parsear!');
 }
 
@@ -274,12 +277,19 @@ function parseMobilesSection(sectionContent) {
 
         const lineaForm = (lineas[i] || '').trim().split(/\s+/);
         mob.form = lineaForm[0] || '0';
-        mob.parts = lineaForm[1] || '0';
-        mob.size = lineaForm[2] || '';
-        mob.material = lineaForm.slice(3).join(' ').replace(/~$/, '').trim();
-        i++;
+       mob.parts = lineaForm[1] || '0';
+       mob.size = lineaForm[2] || '';
+       mob.material = lineaForm.slice(3).join(' ').replace(/~$/, '').trim();
+       i++;
 
-        while (i < lineas.length && !lineas[i].trim().startsWith('#') && lineas[i].trim() !== '') {
+        mob.triggers = [];
+        while (i < lineas.length) {
+            const lineaExtra = lineas[i].trim();
+            if (lineaExtra === '') { i++; continue; }
+            if (lineaExtra.startsWith('#')) break;
+            if (lineaExtra.startsWith('M ')) {
+                mob.triggers.push(lineaExtra.substring(2).replace(/~$/, '').trim());
+            }
             i++;
         }
 
@@ -429,6 +439,10 @@ function populateMobilesSection(mobilesData) {
         addedCardElement.querySelector('.mob-vnum-display').textContent = mob.vnum;
         addedCardElement.querySelector('.mob-name-display').textContent = mob.shortDesc;
 
+        if (mob.triggers && mob.triggers.length > 0) {
+            addedCardElement.querySelector('.mob-triggers').value = mob.triggers.join('\n');
+        }
+
         container.appendChild(addedCardElement);
         // No ajusta estadísticas al importar para preservar valores originales
         inicializarTarjetaMob(addedCardElement, false);
@@ -499,6 +513,7 @@ function parseObjectsSection(sectionContent) {
         obj.applies = [];
         obj.affects = [];
         obj.extraDescriptions = [];
+        obj.triggers = [];
 
         while (i < lineas.length) {
             const opt = lineas[i].trim();
@@ -520,6 +535,9 @@ function parseObjectsSection(sectionContent) {
                 let descRes = extraerTextoHastaTilde(lineas, keywordsRes.indice);
                 obj.extraDescriptions.push({ keywords: keywordsRes.texto, description: descRes.texto });
                 i = descRes.indice;
+            } else if (opt.startsWith('O ')) {
+                obj.triggers.push(opt.substring(2).replace(/~$/, '').trim());
+                i++;
             } else {
                 i++;
             }
@@ -651,6 +669,10 @@ function populateObjectsSection(objectsData) {
         addedCardElement.querySelector('.obj-vnum-display').textContent = obj.vnum;
         addedCardElement.querySelector('.obj-name-display').textContent = obj.shortDesc;
 
+        if (obj.triggers && obj.triggers.length > 0) {
+            addedCardElement.querySelector('.obj-triggers').value = obj.triggers.join('\n');
+        }
+
         container.appendChild(addedCardElement);
         inicializarTarjetaObjeto(addedCardElement);
     });
@@ -744,7 +766,8 @@ function parseRoomsSection(sectionContent) {
                 extraDescriptions: [],
                 manaRegen: '',
                 healthRegen: '',
-                clan: ''
+                clan: '',
+                triggers: []
             };
             room.vnum = parseInt(linea.substring(1));
             i++;
@@ -839,6 +862,11 @@ function parseRoomsSection(sectionContent) {
                     i++;
                     continue;
                 }
+                if (linea.startsWith('R ')) {
+                    room.triggers.push(linea.substring(2).replace(/~$/, '').trim());
+                    i++;
+                    continue;
+                }
 
                 i++;
             }
@@ -913,6 +941,10 @@ function populateRoomsSection(roomsData) {
         // Update Vnum and Name display in header
         addedCardElement.querySelector('.room-vnum-display').textContent = room.vnum;
         addedCardElement.querySelector('.room-name-display').textContent = room.name;
+
+        if (room.triggers && room.triggers.length > 0) {
+            addedCardElement.querySelector('.room-triggers').value = room.triggers.join('\n');
+        }
 
         container.appendChild(addedCardElement);
         inicializarTarjetaRoom(addedCardElement);
@@ -1386,6 +1418,7 @@ function populateProgsSection(progsData, containerId, templateId) {
         addedCardElement.querySelector('.prog-vnum-display').textContent = prog.vnum;
 
         container.appendChild(addedCardElement);
+        inicializarTarjetaProg(addedCardElement);
     });
 }
 

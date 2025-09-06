@@ -336,4 +336,7 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se añadió la inicialización de tarjetas de sets para mantener el colapsado individual incluso tras usar "Contraer Todo".
 - Se corrigió la sección `#SHOPS` para permitir contraer y expandir cada tarjeta desde su encabezado, incluso después de usar "Contraer Todo".
 - Se corrigió la sección `#SPECIALS` permitiendo contraer y expandir cada tarjeta desde su encabezado incluso tras usar "Contraer Todo" y se ajustó la importación para leer líneas `M vnum nombre * comentario`.
+- Se añadieron campos de **Disparadores** a mobs, objetos y habitaciones, permitiendo definir las líneas `M/O/R` asociadas a los programas y generándolas en el archivo `.are`.
+- Se detecta y muestra en las secciones `#MOBPROGS`, `#OBJPROGS` y `#ROOMPROGS` a qué entidad pertenece cada prog dentro del área.
+- Las tarjetas de progs pueden contraerse y expandirse individualmente incluso después de usar "Contraer Todo".
 
