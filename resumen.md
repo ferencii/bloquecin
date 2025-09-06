@@ -86,6 +86,7 @@
     *   **Clase de Maze Ampliada**: Se añadió la clase `10` para laberintos que también consideran las salidas diagonales.
     *   **Importación de Comentarios**: Los resets importados conservan sus comentarios y muestran correctamente los VNUMs.
     *   **Campo de Comentario y Advertencias**: Cada reset cuenta con un campo para comentarios y se advierte cuando los VNUMs referenciados no existen o contienen valores desconocidos.
+    *   **Importación completa de parámetros**: Los resets `E`, `D` y `R` ahora conservan el lugar de vestir, la dirección, el estado de la puerta y la clase de maze al cargar un área.
 *   **Mejoras en la Sección Shops**:
     *   **Listas Desplegables Centralizadas**: Los tipos de objetos que compra la tienda, los porcentajes de compra/venta y las horas de apertura/cierre se seleccionan ahora desde desplegables, alimentados por las nuevas listas `shopObjectTypes`, `shopProfitOptions` y `shopHours` en `js/config.js`.
     *   **Comentarios de Tienda**: Cada tienda puede incluir un comentario opcional; si se especifica, se añade tras un `*` en la línea generada.

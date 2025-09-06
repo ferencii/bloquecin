@@ -329,4 +329,5 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Las advertencias se organizaron en listas separadas para MOBILES, OBJETOS y ROOMS dentro de la sección ADVERTENCIAS.
 - Se corrigió la importación de la sección `#RESETS` mostrando los VNUMs correctos y conservando los comentarios.
 - Se añadió un campo de comentario para cada reset y se generan advertencias cuando los VNUMs referenciados no existen o presentan valores desconocidos.
+- Se corrigió la importación de los resets `E`, `D` y `R`, preservando el lugar de vestir, la dirección, el estado de la puerta y la clase de maze.
 

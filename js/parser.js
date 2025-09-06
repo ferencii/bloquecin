@@ -6,6 +6,24 @@ import { gameData } from './config.js';
 import { inicializarTarjetaMob } from './mobiles.js';
 import { inicializarTarjetaRoom } from './rooms.js';
 
+// Rellena un <select> con las opciones indicadas y un placeholder inicial.
+// Se usa al reconstruir la sección de resets al importar un área.
+function poblarSelectBasico(select, opciones) {
+    const valorPrevio = select.dataset.value || '';
+    select.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = '-- selecciona --';
+    select.appendChild(placeholder);
+    opciones.forEach(opt => {
+        const opcion = document.createElement('option');
+        opcion.value = opt.value;
+        opcion.textContent = opt.label;
+        select.appendChild(opcion);
+    });
+    if (valorPrevio) select.value = valorPrevio;
+}
+
 function limpiarAdvertencias() {
     ['advertencias-mobiles', 'advertencias-objetos', 'advertencias-rooms', 'advertencias-resets'].forEach(id => {
         const lista = document.getElementById(id);
@@ -1074,22 +1092,30 @@ function populateResetsSection(resetsData) {
                 const eInputs = specificTemplate.content.cloneNode(true);
                 eInputs.querySelector('.reset-obj-vnum').dataset.value = reset.vnumObject;
                 eInputs.querySelector('.reset-limit').value = reset.limit;
-                eInputs.querySelector('.reset-wear-location').dataset.value = reset.wearLocation;
+                const wearSelect = eInputs.querySelector('.reset-wear-location');
+                wearSelect.dataset.value = reset.wearLocation;
+                poblarSelectBasico(wearSelect, gameData.resetWearLocations);
                 resetInputsContainer.appendChild(eInputs);
                 break;
             case 'D':
                 specificTemplate = document.getElementById('reset-d-template');
                 const dInputs = specificTemplate.content.cloneNode(true);
                 dInputs.querySelector('.reset-room-vnum').dataset.value = reset.vnumRoom;
-                dInputs.querySelector('.reset-direction').dataset.value = reset.direction;
-                dInputs.querySelector('.reset-state').dataset.value = reset.state;
+                const dirSelect = dInputs.querySelector('.reset-direction');
+                dirSelect.dataset.value = reset.direction;
+                poblarSelectBasico(dirSelect, gameData.resetDirections);
+                const stateSelect = dInputs.querySelector('.reset-state');
+                stateSelect.dataset.value = reset.state;
+                poblarSelectBasico(stateSelect, gameData.resetDoorStates);
                 resetInputsContainer.appendChild(dInputs);
                 break;
             case 'R':
                 specificTemplate = document.getElementById('reset-r-template');
                 const rInputs = specificTemplate.content.cloneNode(true);
                 rInputs.querySelector('.reset-room-vnum').dataset.value = reset.vnumRoom;
-                rInputs.querySelector('.reset-maze-class').dataset.value = reset.mazeClass;
+                const mazeSelect = rInputs.querySelector('.reset-maze-class');
+                mazeSelect.dataset.value = reset.mazeClass;
+                poblarSelectBasico(mazeSelect, gameData.resetMazeClasses);
                 resetInputsContainer.appendChild(rInputs);
                 break;
             default:
