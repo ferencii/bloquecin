@@ -220,23 +220,23 @@ function parseMobilesSection(sectionContent) {
 
         let res;
         res = extraerTextoHastaTilde(lineas, i);
-        mob.keywords = res.texto;
+        mob.keywords = res.texto.replace(/~$/, '').trim();
         i = res.indice;
 
         res = extraerTextoHastaTilde(lineas, i);
-        mob.shortDesc = res.texto;
+        mob.shortDesc = res.texto.replace(/~$/, '').trim();
         i = res.indice;
 
         res = extraerTextoHastaTilde(lineas, i);
-        mob.longDesc = res.texto;
+        mob.longDesc = res.texto.trim();
         i = res.indice;
 
         res = extraerTextoHastaTilde(lineas, i);
-        mob.lookDesc = res.texto;
+        mob.lookDesc = res.texto.trim();
         i = res.indice;
 
         res = extraerTextoHastaTilde(lineas, i);
-        mob.race = res.texto;
+        mob.race = res.texto.replace(/~$/, '').trim();
         i = res.indice;
 
         const lineaAct = (lineas[i++] || '').trim().split(/\s+/);
