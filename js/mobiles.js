@@ -1,6 +1,7 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 import { gameData } from './config.js';
 import { refrescarOpcionesResets } from './resets.js';
+import { actualizarPropietariosProgs } from './progs.js';
 
 // autoAjustar indica si se deben calcular estadísticas al inicializar
 export function inicializarTarjetaMob(cardElement, autoAjustar = true) {
@@ -143,6 +144,12 @@ export function inicializarTarjetaMob(cardElement, autoAjustar = true) {
         });
         nameInput.dataset.nombreEscucha = 'true';
     }
+
+    const triggersInput = cardElement.querySelector('.mob-triggers');
+    if (triggersInput && !triggersInput.dataset.trigEscucha) {
+        triggersInput.addEventListener('input', actualizarPropietariosProgs);
+        triggersInput.dataset.trigEscucha = 'true';
+    }
 }
 
 export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
@@ -155,6 +162,12 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
 
     mobContainer.querySelectorAll('.mob-card').forEach(card => {
         inicializarTarjetaMob(card);
+    });
+
+    mobContainer.addEventListener('click', e => {
+        if (e.target.classList.contains('remove-btn')) {
+            actualizarPropietariosProgs();
+        }
     });
 }
 
@@ -200,6 +213,13 @@ export function generateMobilesSection() {
         const formFlags = getFlagString(mob, 'Forma');
         const partFlags = getFlagString(mob, 'Partes');
         section += `${formFlags} ${partFlags} ${mob.querySelector('.mob-size').value} ${mob.querySelector('.mob-material').value}\n`;
+
+        const triggersText = mob.querySelector('.mob-triggers').value.trim();
+        if (triggersText) {
+            triggersText.split('\n').forEach(linea => {
+                if (linea.trim() !== '') section += `M ${linea.trim()}~\n`;
+            });
+        }
     });
     section += '#0\n\n';
     return section;

@@ -107,6 +107,8 @@
 
 *   **Progs**:
     *   Se eliminó la integración con Blockly y se volvió al editor de texto para MOBPROGS, OBJPROGS y ROOMPROGS.
+    *   Mobs, objetos y habitaciones incluyen un campo de disparadores para enlazar `M/O/R` con los programas.
+    *   Las tarjetas de progs indican a qué entidad pertenecen y pueden contraerse o expandirse individualmente incluso tras usar "Contraer Todo".
 *   **Carga de archivos .are**:
     *   Se corrigió el parser para reconocer solo las secciones principales y respetar los delimitadores internos `#0` y `~`, permitiendo importar áreas completas.
     *   Se ajustó la lectura de la cabecera `#AREA` para separar correctamente el rango de niveles, el creador, los VNUMs y la región, admitiendo variaciones de formato.
