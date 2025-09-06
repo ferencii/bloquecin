@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <title>Chat de Ayuda</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        body { padding: 1rem; }
+        #registro-chat { height: 80vh; overflow-y: auto; border: 1px solid var(--border-color); padding: 0.5rem; margin-bottom: 0.5rem; }
+        #registro-chat p { white-space: pre-line; margin: 0; }
+        #entrada-chat { display: flex; }
+        #entrada-chat input { flex: 1; margin-right: 0.5rem; }
+    </style>
+</head>
+<body>
+    <h2>Asistente de la aplicación</h2>
+    <div id="registro-chat"></div>
+    <div id="entrada-chat">
+        <input id="mensaje-usuario" type="text" placeholder="Escribe tu pregunta..." />
+        <button id="enviar-mensaje">Enviar</button>
+    </div>
+    <script type="module" src="js/chat.js"></script>
+</body>
+</html>

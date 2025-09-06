@@ -343,5 +343,7 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Los progs listan en un desplegable todos los propietarios del tipo correspondiente, evitando mostrar mobs en `#OBJPROGS` y `#ROOMPROGS`.
 - Los encabezados de todas las secciones indican ahora la cantidad de elementos que contienen (por ejemplo `#MOBILES - 3`) y el parser reconoce estos sufijos numéricos.
 - Se reemplazó la sección **RESUMEN** por listas desplegables que enumeran los elementos de cada apartado, eliminando las estadísticas.
+- Se añadió un botón flotante que abre una ventana de chat con la IA. Esta IA responde únicamente dudas sobre la aplicación utilizando la documentación del directorio `documentos/`.
+- Se mejoró la ventana de chat mostrando las respuestas en varias líneas y un aviso de "Procesando..." mientras la IA genera la respuesta.
 
 

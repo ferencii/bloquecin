@@ -11,6 +11,8 @@ import { gameData } from './js/config.js';
 import { parseAreFile } from './js/parser.js';
 
 
+let ventanaChat = null; // Referencia a la ventana del chat IA
+
 function populateMaterialsDatalist() {
     const datalist = document.getElementById('materials-list');
     if (datalist) {
@@ -92,6 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
             reader.readAsText(file);
         }
     });
+
+    // Botón flotante para abrir la ventana de chat con IA
+    const botonChat = document.getElementById('btn-chat-ia');
+    if (botonChat) {
+        botonChat.addEventListener('click', () => {
+            if (!ventanaChat || ventanaChat.closed) {
+                ventanaChat = window.open('chat.html', 'ChatIA', 'width=400,height=600');
+            } else {
+                ventanaChat.focus();
+            }
+        });
+    }
 });
 
 function isValidVnumRange() {
