@@ -40,6 +40,19 @@ export const gameData = {
         "gemini-2.5-flash",
         "gemini-2.5-flash-lite"
     ],
+    // Archivos de documentación que la IA puede consultar
+    archivosDocumentacion: [
+        'mobs.md',
+        'objects.md',
+        'rooms.md',
+        'resets.md',
+        'shops.md',
+        'specials.md',
+        'sets.md',
+        'spec.md',
+        'mobprog reducidoV1.23.md',
+        'petrarea v2.0.md'
+    ],
     // Lista de razas disponibles para los mobs en el juego.
     // Utilizada para poblar los selectores de raza en la interfaz de usuario.
     races: [

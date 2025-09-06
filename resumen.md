@@ -1,3 +1,6 @@
+*   **Asistente IA contextual**:
+    *   Botón flotante siempre visible que abre un chat en una ventana separada.
+    *   El asistente solo responde dudas sobre la aplicación usando la documentación de `documentos/`.
 *   **Controles de Sección Fijos**:
     *   Se añadieron botones para contraer y expandir todas las tarjetas de cada sección.
     *   Los encabezados de sección permanecen fijos al desplazarse, manteniendo visibles los botones de añadir y los nuevos controles.
