@@ -211,35 +211,41 @@ function parseMobilesSection(sectionContent) {
 
     while (i < lineas.length) {
         const linea = lineas[i].trim();
-        if (linea === '#0') break; // Fin de la sección
+        if (linea === '#0') break;
         if (!linea.startsWith('#')) { i++; continue; }
 
         const mob = {};
         mob.vnum = parseInt(linea.substring(1));
         i++;
-        mob.keywords = lineas[i++].replace(/~$/, '').trim();
-        mob.shortDesc = lineas[i++].replace(/~$/, '').trim();
 
-        // Descripciones multilínea
-        const longRes = extraerTextoHastaTilde(lineas, i);
-        mob.longDesc = longRes.texto.trim();
-        i = longRes.indice;
+        let res;
+        res = extraerTextoHastaTilde(lineas, i);
+        mob.keywords = res.texto;
+        i = res.indice;
 
-        const lookRes = extraerTextoHastaTilde(lineas, i);
-        mob.lookDesc = lookRes.texto.trim();
-        i = lookRes.indice;
+        res = extraerTextoHastaTilde(lineas, i);
+        mob.shortDesc = res.texto;
+        i = res.indice;
 
-        mob.race = lineas[i++].replace(/~$/, '').trim();
+        res = extraerTextoHastaTilde(lineas, i);
+        mob.longDesc = res.texto;
+        i = res.indice;
 
-        // Act Flags, Affect Flags, Alineamiento, Grupo
-        const lineaAct = lineas[i++].trim().split(/\s+/);
+        res = extraerTextoHastaTilde(lineas, i);
+        mob.lookDesc = res.texto;
+        i = res.indice;
+
+        res = extraerTextoHastaTilde(lineas, i);
+        mob.race = res.texto;
+        i = res.indice;
+
+        const lineaAct = (lineas[i++] || '').trim().split(/\s+/);
         mob.actFlags = lineaAct[0] || '0';
         mob.affectFlags = lineaAct[1] || '0';
         mob.alignment = parseInt(lineaAct[2]) || 0;
         mob.group = parseInt(lineaAct[3]) || 0;
 
-        // Nivel, Hitroll y dados
-        const lineaStats = lineas[i++].trim().split(/\s+/);
+        const lineaStats = (lineas[i++] || '').trim().split(/\s+/);
         mob.level = parseInt(lineaStats[0]) || 0;
         mob.hitroll = parseInt(lineaStats[1]) || 0;
         mob.hpDice = parsearDados(lineaStats[2]);
@@ -247,35 +253,31 @@ function parseMobilesSection(sectionContent) {
         mob.damageDice = parsearDados(lineaStats[4]);
         mob.damageType = lineaStats[5] || '';
 
-        // Armaduras
-        const lineaAc = lineas[i++].trim().split(/\s+/);
+        const lineaAc = (lineas[i++] || '').trim().split(/\s+/);
         mob.acPierce = parseInt(lineaAc[0]) || 0;
         mob.acBash = parseInt(lineaAc[1]) || 0;
         mob.acSlash = parseInt(lineaAc[2]) || 0;
         mob.acMagic = parseInt(lineaAc[3]) || 0;
 
-        // Flags ofensivas e inmunidades
-        const lineaRes = lineas[i++].trim().split(/\s+/);
+        const lineaRes = (lineas[i++] || '').trim().split(/\s+/);
         mob.offensiveFlags = lineaRes[0] || '0';
         mob.immFlags = lineaRes[1] || '0';
         mob.resFlags = lineaRes[2] || '0';
         mob.vulFlags = lineaRes[3] || '0';
 
-        // Posiciones, sexo y oro
-        const lineaPos = lineas[i++].trim().split(/\s+/);
+        const lineaPos = (lineas[i++] || '').trim().split(/\s+/);
         mob.startPos = lineaPos[0];
         mob.defaultPos = lineaPos[1];
         mob.sex = lineaPos[2];
         mob.gold = parseInt(lineaPos[3]) || 0;
 
-        // Forma, partes, tamaño y material
-        const lineaForm = lineas[i++].trim().split(/\s+/);
+        const lineaForm = (lineas[i] || '').trim().split(/\s+/);
         mob.form = lineaForm[0] || '0';
         mob.parts = lineaForm[1] || '0';
         mob.size = lineaForm[2] || '';
-        mob.material = (lineaForm[3] || '').replace(/~$/, '').trim();
+        mob.material = lineaForm.slice(3).join(' ').replace(/~$/, '').trim();
+        i++;
 
-        // Saltar líneas adicionales como mobprogs
         while (i < lineas.length && !lineas[i].trim().startsWith('#') && lineas[i].trim() !== '') {
             i++;
         }
