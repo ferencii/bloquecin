@@ -427,7 +427,8 @@ function parseObjectsSection(sectionContent) {
         obj.flags = tipoLinea[1] || '0';
         obj.wearLocation = tipoLinea[2] || '0';
 
-        const vValores = (lineas[i++] || '').trim().split(/\s+/);
+        const vLinea = (lineas[i++] || '').trim();
+        const vValores = vLinea.match(/'[^']*'|\S+/g) || [];
         obj.v0 = vValores[0] || '0';
         obj.v1 = vValores[1] || '0';
         obj.v2 = vValores[2] || '0';
@@ -537,12 +538,27 @@ function populateObjectsSection(objectsData) {
         const verificarV = (indice, valor) => {
             const campo = addedCardElement.querySelector(`.obj-v${indice}`);
             if (!campo) return;
-            campo.value = valor;
             if (campo.tagName.toLowerCase() === 'select') {
                 const opciones = Array.from(campo.options).map(o => o.value);
-                if (!opciones.includes(valor)) {
-                    advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
+                const sinComillas = valor.replace(/^'(.*)'$/, '$1');
+                const tieneComillas = valor.startsWith("'") && valor.endsWith("'");
+                if (tieneComillas) {
+                    if (!opciones.includes(sinComillas)) {
+                        advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
+                    }
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = campo.className;
+                    input.value = valor;
+                    campo.replaceWith(input);
+                } else {
+                    campo.value = valor;
+                    if (!opciones.includes(valor)) {
+                        advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
+                    }
                 }
+            } else {
+                campo.value = valor;
             }
         };
 
