@@ -444,6 +444,8 @@ function parseObjectsSection(sectionContent) {
     const lineas = sectionContent.split('\n');
     let i = 0;
     while (i < lineas.length) {
+        if (lineas[i].trim() === '') { i++; continue; }
+
         const linea = lineas[i].trim();
         if (linea === '#0') break;
         if (!linea.startsWith('#')) { i++; continue; }
@@ -469,11 +471,13 @@ function parseObjectsSection(sectionContent) {
         obj.material = res.texto;
         i = res.indice;
 
+        while (i < lineas.length && lineas[i].trim() === '') { i++; }
         const tipoLinea = (lineas[i++] || '').trim().split(/\s+/);
         obj.type = tipoLinea[0] || '';
         obj.flags = tipoLinea[1] || '0';
         obj.wearLocation = tipoLinea[2] || '0';
 
+        while (i < lineas.length && lineas[i].trim() === '') { i++; }
         const vLinea = (lineas[i++] || '').trim();
         const vValores = vLinea.match(/'[^']*'|\S+/g) || [];
         obj.v0 = vValores[0] || '0';
@@ -482,6 +486,7 @@ function parseObjectsSection(sectionContent) {
         obj.v3 = vValores[3] || '0';
         obj.v4 = vValores[4] || '0';
 
+        while (i < lineas.length && lineas[i].trim() === '') { i++; }
         const stats = (lineas[i++] || '').trim().split(/\s+/);
         obj.level = parseInt(stats[0]) || 0;
         obj.weight = parseInt(stats[1]) || 0;
