@@ -1,8 +1,39 @@
 import { setupDynamicSection, getFlagString } from './utils.js';
 import { refrescarOpcionesResets } from './resets.js';
 
+export function inicializarTarjetaRoom(cardElement) {
+    const header = cardElement.querySelector('.collapsible-header');
+    const content = cardElement.querySelector('.collapsible-content');
+    if (header && content && !header.dataset.colapsado) {
+        header.addEventListener('click', () => {
+            content.classList.toggle('collapsed');
+        });
+        header.dataset.colapsado = 'true';
+    }
+
+    const vnumInput = cardElement.querySelector('.room-vnum');
+    const vnumDisplay = cardElement.querySelector('.room-vnum-display');
+    if (vnumInput && vnumDisplay && !vnumInput.dataset.vnumEscucha) {
+        vnumInput.addEventListener('input', () => {
+            vnumDisplay.textContent = vnumInput.value;
+        });
+        vnumInput.dataset.vnumEscucha = 'true';
+    }
+
+    const nameInput = cardElement.querySelector('.room-name');
+    const nameDisplay = cardElement.querySelector('.room-name-display');
+    if (nameInput && nameDisplay && !nameInput.dataset.nombreEscucha) {
+        nameInput.addEventListener('input', () => {
+            nameDisplay.textContent = nameInput.value;
+        });
+        nameInput.dataset.nombreEscucha = 'true';
+        nameInput.dispatchEvent(new Event('input'));
+    }
+}
+
 export function setupRoomsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
-    setupDynamicSection('add-room-btn', 'rooms-container', 'room-template', '.room-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, () => {
+    setupDynamicSection('add-room-btn', 'rooms-container', 'room-template', '.room-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, (cardElement) => {
+        inicializarTarjetaRoom(cardElement);
         refrescarOpcionesResets();
     });
 

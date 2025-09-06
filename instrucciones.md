@@ -324,4 +324,5 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se corrigió la verificación de los valores V1-V4 al importar objetos, aceptando nombres de hechizo entre comillas sin generar advertencias.
 - Se normalizó la comparación de los nombres de hechizo con la lista predefinida para evitar advertencias cuando ya incluyen comillas.
 - Se corrigió la importación de la sección `#ROOMS` para reconocer correctamente las salidas y las descripciones adicionales, permitiendo que las `E` aparezcan antes o después de las salidas.
+- Se corrigió la importación de los flags de las habitaciones y se restauró la posibilidad de contraer sus tarjetas tras cargar un `.are`.
 
