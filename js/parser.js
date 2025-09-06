@@ -541,16 +541,17 @@ function populateObjectsSection(objectsData) {
             if (campo.tagName.toLowerCase() === 'select') {
                 const opciones = Array.from(campo.options).map(o => o.value);
                 const sinComillas = valor.replace(/^'(.*)'$/, '$1');
-                const tieneComillas = valor.startsWith("'") && valor.endsWith("'");
-                if (tieneComillas) {
-                    if (!opciones.includes(sinComillas)) {
-                        advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
-                    }
+                if (opciones.includes(valor)) {
+                    campo.value = valor;
+                } else if (opciones.includes(sinComillas)) {
+                    campo.value = sinComillas;
+                } else if (valor.startsWith("'") && valor.endsWith("'")) {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.className = campo.className;
                     input.value = valor;
                     campo.replaceWith(input);
+                    advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
                 } else {
                     campo.value = valor;
                     if (!opciones.includes(valor)) {
