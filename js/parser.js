@@ -288,12 +288,19 @@ function parseMobilesSection(sectionContent) {
 function extraerTextoHastaTilde(lineas, inicio) {
     const texto = [];
     let indice = inicio;
-    while (indice < lineas.length && lineas[indice].trim() !== '~') {
-        texto.push(lineas[indice]);
-        indice++;
+    while (indice < lineas.length) {
+        const lineaActual = lineas[indice];
+        const posTilde = lineaActual.indexOf('~');
+        if (posTilde !== -1) {
+            texto.push(lineaActual.substring(0, posTilde));
+            indice++;
+            break;
+        } else {
+            texto.push(lineaActual);
+            indice++;
+        }
     }
-    indice++; // saltar la línea con '~'
-    return { texto: texto.join('\n'), indice };
+    return { texto: texto.join('\n').trim(), indice: indice };
 }
 
 function parsearDados(cadena) {
@@ -436,24 +443,29 @@ function parseObjectsSection(sectionContent) {
     let i = 0;
     while (i < lineas.length) {
         const linea = lineas[i].trim();
-        if (linea === '#0') break; // Fin de la sección
+        if (linea === '#0') break;
         if (!linea.startsWith('#')) { i++; continue; }
 
         const obj = {};
         obj.vnum = parseInt(linea.substring(1));
         i++;
-        obj.keywords = (lineas[i++] || '').replace(/~$/, '').trim();
-        obj.shortDesc = (lineas[i++] || '').replace(/~$/, '').trim();
-        // La descripción larga puede ocupar varias líneas hasta encontrar una que termine en "~"
-        const descLarga = [];
-        while (i < lineas.length) {
-            const lineaDesc = lineas[i];
-            descLarga.push(lineaDesc.replace(/~$/, ''));
-            i++;
-            if (lineaDesc.trim().endsWith('~')) break;
-        }
-        obj.longDesc = descLarga.join('\n').trim();
-        obj.material = (lineas[i++] || '').replace(/~$/, '').trim();
+
+        let res;
+        res = extraerTextoHastaTilde(lineas, i);
+        obj.keywords = res.texto;
+        i = res.indice;
+
+        res = extraerTextoHastaTilde(lineas, i);
+        obj.shortDesc = res.texto;
+        i = res.indice;
+
+        res = extraerTextoHastaTilde(lineas, i);
+        obj.longDesc = res.texto;
+        i = res.indice;
+
+        res = extraerTextoHastaTilde(lineas, i);
+        obj.material = res.texto;
+        i = res.indice;
 
         const tipoLinea = (lineas[i++] || '').trim().split(/\s+/);
         obj.type = tipoLinea[0] || '';
@@ -496,9 +508,9 @@ function parseObjectsSection(sectionContent) {
                 obj.affects.push({ type: partes[0], bits: partes.slice(3).join('') });
                 i++;
             } else if (opt === 'E') {
-                const keywords = (lineas[i + 1] || '').replace(/~$/, '').trim();
-                const descRes = extraerTextoHastaTilde(lineas, i + 2);
-                obj.extraDescriptions.push({ keywords, description: descRes.texto.trim() });
+                let keywordsRes = extraerTextoHastaTilde(lineas, i + 1);
+                let descRes = extraerTextoHastaTilde(lineas, keywordsRes.indice);
+                obj.extraDescriptions.push({ keywords: keywordsRes.texto, description: descRes.texto });
                 i = descRes.indice;
             } else {
                 i++;
