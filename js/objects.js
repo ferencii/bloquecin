@@ -143,9 +143,41 @@ export function populateAffectBitSelect(row) {
     if (options.length > 0) select.selectedIndex = 0;
 }
 
+// Configura los eventos de colapso y actualización de encabezados para una tarjeta de objeto
+export function inicializarTarjetaObjeto(cardElement) {
+    const header = cardElement.querySelector('.collapsible-header');
+    const content = cardElement.querySelector('.collapsible-content');
+    if (header && content && !header.dataset.colapsado) {
+        header.addEventListener('click', () => {
+            content.classList.toggle('collapsed');
+        });
+        header.dataset.colapsado = 'true';
+    }
+
+    const vnumInput = cardElement.querySelector('.obj-vnum');
+    const vnumDisplay = cardElement.querySelector('.obj-vnum-display');
+    if (vnumInput && vnumDisplay && !vnumInput.dataset.vnumEscucha) {
+        vnumInput.addEventListener('input', () => {
+            vnumDisplay.textContent = vnumInput.value;
+        });
+        vnumInput.dataset.vnumEscucha = 'true';
+    }
+
+    const nameInput = cardElement.querySelector('.obj-keywords');
+    const nameDisplay = cardElement.querySelector('.obj-name-display');
+    if (nameInput && nameDisplay && !nameInput.dataset.nombreEscucha) {
+        nameInput.addEventListener('input', () => {
+            nameDisplay.textContent = nameInput.value;
+        });
+        nameInput.dataset.nombreEscucha = 'true';
+        nameInput.dispatchEvent(new Event('input'));
+    }
+}
+
 export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
     setupDynamicSection('add-object-btn', 'objects-container', 'object-template', '.object-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, (card) => {
         populateObjectTypeSelect(card);
+        inicializarTarjetaObjeto(card);
         refrescarOpcionesResets();
     });
 
@@ -171,6 +203,10 @@ export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDi
         }
         else if (target.classList.contains('add-extra-btn')) target.previousElementSibling.appendChild(document.getElementById('extra-desc-template').content.cloneNode(true));
         else if (target.classList.contains('remove-sub-btn')) target.parentElement.remove();
+    });
+
+    container.querySelectorAll('.object-card').forEach(card => {
+        inicializarTarjetaObjeto(card);
     });
 }
 

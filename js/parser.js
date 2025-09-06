@@ -1,4 +1,4 @@
-import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI } from './objects.js';
+import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI, inicializarTarjetaObjeto } from './objects.js';
 import { refrescarOpcionesResets } from './resets.js';
 import { poblarSelectsTienda } from './shops.js';
 import { poblarSelectEspecial } from './specials.js';
@@ -651,6 +651,7 @@ function populateObjectsSection(objectsData) {
         addedCardElement.querySelector('.obj-name-display').textContent = obj.shortDesc;
 
         container.appendChild(addedCardElement);
+        inicializarTarjetaObjeto(addedCardElement);
     });
 
     if (advertencias.length > 0) {
