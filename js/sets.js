@@ -27,6 +27,36 @@ export function setupSetSection(vnumRangeCheckFunction, vnumSelector, vnumDispla
     });
 }
 
+export function inicializarTarjetaSet(cardElement) {
+    const header = cardElement.querySelector('.collapsible-header');
+    const content = cardElement.querySelector('.collapsible-content');
+    if (header && content && !header.dataset.colapsado) {
+        header.addEventListener('click', () => {
+            content.classList.toggle('collapsed');
+        });
+        header.dataset.colapsado = 'true';
+    }
+
+    const idInput = cardElement.querySelector('.set-id');
+    const idDisplay = cardElement.querySelector('.set-id-display');
+    if (idInput && idDisplay && !idInput.dataset.vnumEscucha) {
+        idInput.addEventListener('input', () => {
+            idDisplay.textContent = idInput.value;
+        });
+        idInput.dataset.vnumEscucha = 'true';
+    }
+
+    const nameInput = cardElement.querySelector('.set-name');
+    const nameDisplay = cardElement.querySelector('.set-name-display');
+    if (nameInput && nameDisplay && !nameInput.dataset.nombreEscucha) {
+        nameInput.addEventListener('input', () => {
+            nameDisplay.textContent = nameInput.value;
+        });
+        nameInput.dataset.nombreEscucha = 'true';
+        nameInput.dispatchEvent(new Event('input'));
+    }
+}
+
 export function generateSetSection() {
     const setCards = document.querySelectorAll('#sets-container .set-card');
     if (setCards.length === 0) return '#SET\n#0\n\n';
@@ -35,7 +65,7 @@ export function generateSetSection() {
     setCards.forEach(card => {
         const id = card.querySelector('.set-id').value;
         const name = card.querySelector('.set-name').value;
-        section += `${id} ${name}~\n`;
+        section += `#${id}\n${name}~\n`;
 
         card.querySelectorAll('.tier-card').forEach(tier => {
             section += `T ${tier.querySelector('.tier-pieces').value}\n`;
@@ -49,8 +79,9 @@ export function generateSetSection() {
                 const bits = row.querySelector('.affect-bits').value;
                 if (bits) section += `F ${type} 0 0 ${bits}\n`;
             });
+            section += 'End\n';
         });
-        section += 'End\n';
+        section += '\n';
     });
     section += '#0\n\n';
     return section;
