@@ -347,3 +347,4 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se mejoró la ventana de chat mostrando las respuestas en varias líneas y un aviso de "Procesando..." mientras la IA genera la respuesta.
 
 
+

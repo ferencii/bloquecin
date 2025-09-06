@@ -42,7 +42,7 @@ async function enviarMensaje() {
 }
 
 async function consultarIA(textoUsuario) {
-    const instrucciones = `Eres una IA experta en la aplicación web para crear áreas del MUD Petria. Solo respondes preguntas sobre la aplicación y documentos relacionados. Si la pregunta no se relaciona, responde: "Lo siento, solo puedo ayudar con la aplicación." Usa la siguiente documentación para tus respuestas:\n${textoDocumentacion}`;
+    const instrucciones = `Eres una IA experta en la aplicación web para crear áreas del MUD Petria. Solo respondes preguntas sobre la aplicación y documentos relacionados. Si la pregunta no se relaciona, responde: "Lo siento, solo puedo ayudar con la aplicación.". Estructura bien el contenido que vas a mostrar usando bien los saltos de línea, usa lenguaje que sea fácil de entender. Pon ejemplos siempre que puedas. Usa la siguiente documentación para tus respuestas:\n${textoDocumentacion}`;
     const historialPlano = historial.map(m => `${m.rol === 'usuario' ? 'Usuario' : 'IA'}: ${m.contenido}`).join('\n');
     const promptCompleto = `${instrucciones}\n\nHistorial:\n${historialPlano}\n\nUsuario: ${textoUsuario}\nIA:`;
 
