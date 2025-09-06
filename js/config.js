@@ -501,7 +501,7 @@ export const gameData = {
         'warp_stone': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'pill': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
         'potion': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
-        'portal': ['cargas', 'exit flags', 'gate flags', 'Vnum Room', 'CONFIGURAR A 0'], // Assuming 'portals'
+        'portal': ['cargas', 'exit flags', 'gate flags', 'Vnum Room', 'Vnum llave'], // Assuming 'portals'
         'proteccion': ['perforar', 'golpear', 'cortar', 'exótico', 'volumen'],
         'protect': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'clothing': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
@@ -734,39 +734,14 @@ export const gameData = {
 
         drink: {
             v2: [
-                { value: 'vino_tinto', label: 'Vino Tinto' },
-                { value: 'licor_de_monjes', label: 'Licor de Monjes' },
-                { value: 'aguardiente', label: 'Aguardiente' },
-                { value: 'zumo_de_sandia', label: 'Zumo de Sandía' },
-                { value: 'agua_de_mar', label: 'Agua de Mar' },
-                { value: 'ron', label: 'Ron' },
-                { value: 'vino_blanco', label: 'Vino Blanco' },
-                { value: 'vino_rosado', label: 'Vino Rosado' },
-                { value: 'licor_benedictino', label: 'Licor Benedictino' },
-                { value: 'zumo_de_higos', label: 'Zumo de Higos' },
-                { value: 'agua', label: 'Agua' },
-                { value: 'brandy', label: 'Brandy' },
-                { value: 'cerveza', label: 'Cerveza' },
-                { value: 'whisky', label: 'Whisky' },
-                { value: 'leche', label: 'Leche' },
-                { value: 'te', label: 'Té' },
-                { value: 'tila', label: 'Tila' },
-                { value: 'cava', label: 'Cava' },
-                { value: 'limonada', label: 'Limonada' },
-                { value: 'vinito_de_midgaard', label: 'Vinito de Midgaard' },
-                { value: 'absenta', label: 'Absenta' },
-                { value: 'cerveza_negra', label: 'Cerveza Negra' },
-                { value: 'amontillado', label: 'Amontillado' },
-                { value: 'agua_de_acequia', label: 'Agua de Acequia' },
-                { value: 'chupitos_de_borrachin', label: 'Chupitos de Borrachín' },
-                { value: 'zumo_de_naranja', label: 'Zumo de Naranja' },
-                { value: 'cordial', label: 'Cordial' },
-                { value: 'vinagre', label: 'Vinagre' },
-                { value: 'sherry', label: 'Sherry' },
-                { value: 'sorbete_medieval', label: 'Sorbete Medieval' },
-                { value: 'licor_de_cactus', label: 'Licor de Cactus' },
-                { value: 'vodka', label: 'Vodka' },
-                { value: 'hidromiel', label: 'Hidromiel' }
+                'agua', 'cerveza', 'vino tinto', 'brandy', 'licor de monjes',
+                'whisky', 'limonada', 'aguardiente', 'vinito de Midgaard',
+                'zumo de,sandia', 'leche', 'te', 'cafe', 'sangre', 'agua de mar',
+                'tila', 'cerveza negra', 'ron', 'vino blanco', 'cava', 'hidromiel',
+                'vino,rosado', 'licor benedictino', 'vodka', 'zumo de higos',
+                'zumo de naranja', 'absenta', 'tequila', 'licor de cactus',
+                'chupitos de borrachin', 'sorbete medieval', 'amontillado',
+                'anis', 'agua de acequia', 'vinagre', 'cordial', 'kalimocho'
             ],
             v3: [
                 { value: '0', label: 'No envenenando' },
@@ -799,39 +774,14 @@ export const gameData = {
             v0: [{ value: '-1', label: 'Siempre es -1' }],
             v1: [{ value: '-1', label: 'Siempre es -1' }],
             v2: [
-                { value: 'vino_tinto', label: 'Vino Tinto' },
-                { value: 'licor_de_monjes', label: 'Licor de Monjes' },
-                { value: 'aguardiente', label: 'Aguardiente' },
-                { value: 'zumo_de_sandia', label: 'Zumo de Sandía' },
-                { value: 'agua_de_mar', label: 'Agua de Mar' },
-                { value: 'ron', label: 'Ron' },
-                { value: 'vino_blanco', label: 'Vino Blanco' },
-                { value: 'vino_rosado', label: 'Vino Rosado' },
-                { value: 'licor_benedictino', label: 'Licor Benedictino' },
-                { value: 'zumo_de_higos', label: 'Zumo de Higos' },
-                { value: 'agua', label: 'Agua' },
-                { value: 'brandy', label: 'Brandy' },
-                { value: 'cerveza', label: 'Cerveza' },
-                { value: 'whisky', label: 'Whisky' },
-                { value: 'leche', label: 'Leche' },
-                { value: 'te', label: 'Té' },
-                { value: 'tila', label: 'Tila' },
-                { value: 'cava', label: 'Cava' },
-                { value: 'limonada', label: 'Limonada' },
-                { value: 'vinito_de_midgaard', label: 'Vinito de Midgaard' },
-                { value: 'absenta', label: 'Absenta' },
-                { value: 'cerveza_negra', label: 'Cerveza Negra' },
-                { value: 'amontillado', label: 'Amontillado' },
-                { value: 'agua_de_acequia', label: 'Agua de Acequia' },
-                { value: 'chupitos_de_borrachin', label: 'Chupitos de Borrachín' },
-                { value: 'zumo_de_naranja', label: 'Zumo de Naranja' },
-                { value: 'cordial', label: 'Cordial' },
-                { value: 'vinagre', label: 'Vinagre' },
-                { value: 'sherry', label: 'Sherry' },
-                { value: 'sorbete_medieval', label: 'Sorbete Medieval' },
-                { value: 'licor_de_cactus', label: 'Licor de Cactus' },
-                { value: 'vodka', label: 'Vodka' },
-                { value: 'hidromiel', label: 'Hidromiel' }
+                'agua', 'cerveza', 'vino tinto', 'brandy', 'licor de monjes',
+                'whisky', 'limonada', 'aguardiente', 'vinito de Midgaard',
+                'zumo de,sandia', 'leche', 'te', 'cafe', 'sangre', 'agua de mar',
+                'tila', 'cerveza negra', 'ron', 'vino blanco', 'cava', 'hidromiel',
+                'vino,rosado', 'licor benedictino', 'vodka', 'zumo de higos',
+                'zumo de naranja', 'absenta', 'tequila', 'licor de cactus',
+                'chupitos de borrachin', 'sorbete medieval', 'amontillado',
+                'anis', 'agua de acequia', 'vinagre', 'cordial', 'kalimocho'
             ],
             v3: [{ value: '0', label: 'Siempre es 0' }],
             v4: [{ value: '0', label: 'Siempre es 0' }]
@@ -1219,7 +1169,7 @@ export const gameData = {
         },
 
         portal: {
-            v4: [{ value: '0', label: 'Siempre es 0' }]
+
         },
 
         proteccion: {
