@@ -75,6 +75,7 @@
     *   **Flags de Habitación**: Se corrigió la llamada a `getFlagString` en `js/rooms.js`, permitiendo que los flags seleccionados se escriban correctamente en el archivo `.are`.
     *   **Descripciones Adicionales con IA**: Se agregó un prompt específico para habitaciones y la lógica necesaria para que las descripciones extra utilicen instrucciones diferentes según si pertenecen a un objeto o a una habitación.
     *   **Salidas Diagonales**: El selector de salidas permite elegir direcciones diagonales (noreste, noroeste, sureste, suroeste).
+    *   **Importación de Salidas y Extras**: El parser reconoce ahora correctamente las salidas y las descripciones adicionales, admitiendo que las `E` aparezcan antes o después de las salidas.
 *   **Mejoras en la Sección Resets**:
     *   **Selección Desplegable de VNUMs**: Los campos para mobs, objetos y habitaciones fueron reemplazados por menús desplegables que muestran las entidades ya creadas, reduciendo errores al escribir VNUMs manualmente.
     *   **Actualización Automática de Opciones**: Al añadir o eliminar mobs, objetos o habitaciones, las opciones de los reseteos se refrescan automáticamente para reflejar los cambios.

@@ -673,63 +673,119 @@ function populateExtraDescriptions(containerElement, extraDescriptionsData) {
 
 function parseRoomsSection(sectionContent) {
     const habitaciones = [];
-    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
+    const lineas = sectionContent.split('\n');
     let i = 0;
     while (i < lineas.length) {
-        const linea = lineas[i].trim();
+        let linea = lineas[i].trim();
         if (linea === '#0') break; // Fin de la sección
         if (linea.startsWith('#')) {
-            const room = {};
+            const room = {
+                exits: [],
+                extraDescriptions: [],
+                manaRegen: '',
+                healthRegen: '',
+                clan: ''
+            };
             room.vnum = parseInt(linea.substring(1));
             i++;
-            room.name = lineas[i++].replace(/~$/, '').trim();
-            room.description = lineas[i++].replace(/~$/, '').trim();
+            room.name = lineas[i].replace(/~$/, '').trim();
+            i++;
 
-            const linea4 = lineas[i++].split(' ').filter(s => s !== '');
-            room.flags = linea4[0];
-            room.sectorType = parseInt(linea4[1]);
+            const descLines = [];
+            while (i < lineas.length && !lineas[i].includes('~')) {
+                descLines.push(lineas[i]);
+                i++;
+            }
+            descLines.push(lineas[i].replace(/~$/, ''));
+            room.description = descLines.join('\n').trim();
+            i++;
 
-            room.exits = [];
-            room.extraDescriptions = [];
-            room.manaRegen = '';
-            room.healthRegen = '';
-            room.clan = '';
+            const linea4 = lineas[i].trim().split(/\s+/);
+            room.flags = linea4[1] || '0';
+            room.sectorType = parseInt(linea4[2]) || 0;
+            i++;
 
-            while (i < lineas.length && !lineas[i].startsWith('S')) {
-                const lineaInterna = lineas[i].trim();
-                if (lineaInterna.startsWith('D')) {
-                    const partes = lineaInterna.substring(1).trim().split(' ').filter(s => s !== '');
-                    const salida = {
-                        direction: parseInt(partes[0]),
-                        description: lineas[i + 1].replace(/~$/, '').trim(),
-                        keywords: lineas[i + 2].replace(/~$/, '').trim(),
-                        doorState: parseInt(partes[3]),
-                        keyVnum: parseInt(partes[4]),
-                        destinationVnum: parseInt(partes[5])
-                    };
-                    room.exits.push(salida);
-                    i += 5;
-                } else if (lineaInterna.startsWith('E')) {
-                    const lineaClave = lineaInterna.substring(1).trim();
-                    const coincidencia = lineaClave.match(/^(.*?~)\s*(.*)/);
-                    if (coincidencia) {
-                        room.extraDescriptions.push({
-                            keywords: coincidencia[1].trim(),
-                            description: coincidencia[2].replace(/~$/, '').trim()
-                        });
+            while (i < lineas.length) {
+                linea = lineas[i].trim();
+                if (linea === 'S') { i++; break; }
+                if (linea === '') { i++; continue; }
+
+                if (linea.startsWith('D')) {
+                    const direction = parseInt(linea.substring(1));
+                    i++;
+                    const exitDescLines = [];
+                    while (i < lineas.length && !lineas[i].includes('~')) {
+                        exitDescLines.push(lineas[i]);
+                        i++;
                     }
-                } else if (lineaInterna.startsWith('M')) {
-                    room.manaRegen = parseInt(lineaInterna.substring(1).trim());
-                } else if (lineaInterna.startsWith('H')) {
-                    room.healthRegen = parseInt(lineaInterna.substring(1).trim());
-                } else if (lineaInterna.startsWith('C')) {
-                    room.clan = lineaInterna.substring(1).replace(/~$/, '').trim();
+                    exitDescLines.push(lineas[i].replace(/~$/, ''));
+                    i++;
+
+                    const keywordLines = [];
+                    while (i < lineas.length && !lineas[i].includes('~')) {
+                        keywordLines.push(lineas[i]);
+                        i++;
+                    }
+                    keywordLines.push(lineas[i].replace(/~$/, ''));
+                    i++;
+
+                    const puerta = lineas[i].trim().split(/\s+/);
+                    const doorState = parseInt(puerta[0]);
+                    const keyVnum = parseInt(puerta[1]);
+                    const destinationVnum = parseInt(puerta[2]);
+                    i++;
+
+                    room.exits.push({
+                        direction,
+                        description: exitDescLines.join('\n').trim(),
+                        keywords: keywordLines.join(' ').trim(),
+                        doorState,
+                        keyVnum,
+                        destinationVnum
+                    });
+                    continue;
                 }
+
+                if (linea === 'E') {
+                    i++;
+                    const keywords = lineas[i].replace(/~$/, '').trim();
+                    i++;
+                    const extraLines = [];
+                    while (i < lineas.length && !lineas[i].includes('~')) {
+                        extraLines.push(lineas[i]);
+                        i++;
+                    }
+                    extraLines.push(lineas[i].replace(/~$/, ''));
+                    i++;
+                    room.extraDescriptions.push({
+                        keywords,
+                        description: extraLines.join('\n').trim()
+                    });
+                    continue;
+                }
+
+                if (linea.startsWith('M')) {
+                    room.manaRegen = parseInt(linea.substring(1).trim());
+                    i++;
+                    continue;
+                }
+                if (linea.startsWith('H')) {
+                    room.healthRegen = parseInt(linea.substring(1).trim());
+                    i++;
+                    continue;
+                }
+                if (linea.startsWith('C')) {
+                    room.clan = linea.substring(1).replace(/~$/, '').trim();
+                    i++;
+                    continue;
+                }
+
                 i++;
             }
             habitaciones.push(room);
+        } else {
+            i++;
         }
-        i++;
     }
     return habitaciones;
 }
