@@ -438,7 +438,8 @@ function parseObjectsSection(sectionContent) {
         obj.level = parseInt(stats[0]) || 0;
         obj.weight = parseInt(stats[1]) || 0;
         obj.price = parseInt(stats[2]) || 0;
-        obj.isDrinkContainer = (stats[3] === 'G');
+        obj.containerType = stats[3] || 'P';
+        obj.isDrinkContainer = (obj.containerType === 'G');
 
         obj.set = null;
         obj.applies = [];
@@ -530,17 +531,29 @@ function populateObjectsSection(objectsData) {
         verificarFlags('Flags', obj.flags, 'Flags');
         verificarFlags('Lugar de Vestir', obj.wearLocation, 'Lugar de Vestir');
 
-        // V0-V4
-        addedCardElement.querySelector('.obj-v0').value = obj.v0;
-        addedCardElement.querySelector('.obj-v1').value = obj.v1;
-        addedCardElement.querySelector('.obj-v2').value = obj.v2;
-        addedCardElement.querySelector('.obj-v3').value = obj.v3;
-        addedCardElement.querySelector('.obj-v4').value = obj.v4;
+        const verificarV = (indice, valor) => {
+            const campo = addedCardElement.querySelector(`.obj-v${indice}`);
+            if (!campo) return;
+            campo.value = valor;
+            if (campo.tagName.toLowerCase() === 'select') {
+                const opciones = Array.from(campo.options).map(o => o.value);
+                if (!opciones.includes(valor)) {
+                    advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
+                }
+            }
+        };
+
+        for (let v = 0; v <= 4; v++) {
+            verificarV(v, obj[`v${v}`]);
+        }
 
         addedCardElement.querySelector('.obj-level').value = obj.level;
         addedCardElement.querySelector('.obj-weight').value = obj.weight;
         addedCardElement.querySelector('.obj-price').value = obj.price;
         addedCardElement.querySelector('.obj-is-drink-container').checked = obj.isDrinkContainer;
+        if (obj.containerType !== 'P' && obj.containerType !== 'G') {
+            advertencias.push(`Tipo de contenedor desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${obj.containerType}`);
+        }
 
         if (obj.set) {
             const setInput = addedCardElement.querySelector('.obj-set-id');
@@ -548,10 +561,10 @@ function populateObjectsSection(objectsData) {
         }
 
         if (obj.applies.length > 0) {
-            populateApplies(addedCardElement, obj.applies);
+            populateApplies(addedCardElement, obj.applies, advertencias, obj);
         }
         if (obj.affects.length > 0) {
-            populateAffects(addedCardElement, obj.affects);
+            populateAffects(addedCardElement, obj.affects, advertencias, obj);
         }
         if (obj.extraDescriptions.length > 0) {
             populateExtraDescriptions(addedCardElement, obj.extraDescriptions);
@@ -569,7 +582,7 @@ function populateObjectsSection(objectsData) {
     }
 }
 
-function populateApplies(containerElement, appliesData) {
+function populateApplies(containerElement, appliesData, advertencias = [], obj = null) {
     const appliesContainer = containerElement.querySelector('.applies-container');
     const applyTemplate = document.getElementById('apply-template');
 
@@ -577,14 +590,19 @@ function populateApplies(containerElement, appliesData) {
         const newApply = applyTemplate.content.cloneNode(true);
         const addedApplyElement = newApply.querySelector('.sub-item-row');
 
-        addedApplyElement.querySelector('.apply-location').value = apply.location;
+        const select = addedApplyElement.querySelector('.apply-location');
+        select.value = apply.location;
+        const opciones = Array.from(select.options).map(o => o.value);
+        if (!opciones.includes(String(apply.location)) && obj) {
+            advertencias.push(`Apply desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${apply.location}`);
+        }
         addedApplyElement.querySelector('.apply-modifier').value = apply.modifier;
 
         appliesContainer.appendChild(addedApplyElement);
     });
 }
 
-function populateAffects(containerElement, affectsData) {
+function populateAffects(containerElement, affectsData, advertencias = [], obj = null) {
     const affectsContainer = containerElement.querySelector('.affects-container');
     const affectTemplate = document.getElementById('affect-template');
 
@@ -592,9 +610,19 @@ function populateAffects(containerElement, affectsData) {
         const newAffect = affectTemplate.content.cloneNode(true);
         const addedAffectElement = newAffect.querySelector('.sub-item-row');
 
-        addedAffectElement.querySelector('.affect-type').value = affect.type;
+        const typeSelect = addedAffectElement.querySelector('.affect-type');
+        const tipos = Array.from(typeSelect.options).map(o => o.value);
+        typeSelect.value = affect.type;
+        if (!tipos.includes(affect.type) && obj) {
+            advertencias.push(`Tipo de affect desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${affect.type}`);
+        }
         populateAffectBitSelect(addedAffectElement);
-        addedAffectElement.querySelector('.affect-bits').value = affect.bits;
+        const bitSelect = addedAffectElement.querySelector('.affect-bits');
+        bitSelect.value = affect.bits;
+        const opciones = Array.from(bitSelect.options).map(o => o.value);
+        if (!opciones.includes(affect.bits) && obj) {
+            advertencias.push(`Bits de affect desconocidos en objeto ${obj.vnum} (${obj.shortDesc}): ${affect.bits}`);
+        }
 
         affectsContainer.appendChild(addedAffectElement);
     });
