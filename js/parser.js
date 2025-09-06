@@ -527,6 +527,9 @@ function populateObjectsSection(objectsData) {
         addedCardElement.querySelector('.obj-short-desc').value = obj.shortDesc;
         addedCardElement.querySelector('.obj-long-desc').value = obj.longDesc;
         addedCardElement.querySelector('.obj-material').value = obj.material;
+        if (obj.material && !gameData.materials.includes(obj.material)) {
+            advertencias.push(`Material desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${obj.material}`);
+        }
 
         verificarFlags('Flags', obj.flags, 'Flags');
         verificarFlags('Lugar de Vestir', obj.wearLocation, 'Lugar de Vestir');
