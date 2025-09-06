@@ -1,0 +1,451 @@
+/* Estilos Generales - Tema MUD */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+:root {
+    --bg-color: #000000;
+    --primary-color: #0a0a0a;
+    --secondary-color: #1a1a1a;
+    --text-color: #00ff00;
+    --header-color: #33ff33;
+    --input-bg: #111111;
+    --border-color: #008800;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+header h1 {
+    color: var(--header-color);
+    margin: 0;
+    font-size: 1.5rem;
+    text-shadow: 0 0 5px var(--header-color);
+}
+
+#generate-btn {
+    background-color: var(--header-color);
+    color: var(--bg-color);
+    border: 1px solid var(--text-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#generate-btn:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+
+.main-container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+/* Navegación */
+nav {
+    width: 200px;
+    background-color: var(--primary-color);
+    padding: 1rem;
+    border-right: 1px solid var(--border-color);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin-bottom: 0.5rem;
+}
+
+.nav-btn {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    cursor: pointer;
+    text-align: left;
+    border-radius: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+.nav-btn.active {
+    background-color: var(--header-color);
+    color: var(--bg-color);
+    font-weight: bold;
+}
+
+/* Contenido Principal */
+main {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+h2 {
+    color: var(--header-color);
+    border-bottom: 2px solid var(--header-color);
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+/* Formularios */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+textarea,
+select {
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 0.7rem;
+    border-radius: 0;
+    font-family: inherit;
+    font-size: 1rem;
+    max-width: 100%; /* Ensure inputs don't overflow */
+}
+
+.form-group input:focus,
+textarea:focus,
+select:focus {
+    outline: 1px solid var(--header-color);
+    border-color: var(--header-color);
+}
+
+.mob-triggers,
+.obj-triggers,
+.room-triggers {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-inline {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-inline label {
+    margin-bottom: 0;
+}
+
+/* Estilos para tarjetas y sub-elementos */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--bg-color);
+    z-index: 5;
+    padding-top: 1rem;
+}
+
+.section-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.add-btn {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background-color: #333;
+}
+
+.mob-card, .object-card, .room-card, .set-card, .simple-card {
+    background-color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 1.5rem;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.mob-card h4, .object-card h4, .room-card h4, .set-card h4 {
+    margin-top: 0;
+    color: var(--header-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.remove-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #550000;
+    color: #ffaaaa;
+    border: 1px solid #ff5555;
+    padding: 0.3rem 0.8rem;
+    border-radius: 0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.remove-btn:hover {
+    background-color: #880000;
+    color: white;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+}
+
+.full-width { grid-column: 1 / -1; }
+
+.toggles-grid, .v-values-fieldset, fieldset {
+    border: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 1rem;
+    margin-top: 1.5rem;
+}
+
+.toggles-grid legend, .v-values-fieldset legend, fieldset legend {
+    padding: 0 0.5rem;
+    color: var(--header-color);
+    font-weight: bold;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.add-sub-btn {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.sub-item-row, .sub-item-row-grid {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0;
+    background-color: var(--input-bg);
+}
+
+.sub-item-row-grid { display: grid; grid-template-columns: 1fr 2fr 1fr 1fr 1fr 3fr auto; }
+.sub-item-row-grid textarea { grid-column: 1 / -2; margin-top: 0.5rem; }
+.sub-item-row-grid .remove-sub-btn { grid-column: -2 / -1; align-self: center; justify-self: center; }
+
+.remove-sub-btn {
+    background-color: #550000;
+    color: #ffaaaa;
+    border: 1px solid #ff5555;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    padding: 0;
+}
+
+/* Resets */
+#resets-toolbar {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    position: sticky;
+    top: 3.5rem;
+    z-index: 4;
+}
+.add-reset-btn { background-color: var(--secondary-color); border: 1px solid var(--border-color); color: var(--text-color); padding: 0.5rem 1rem; cursor: pointer; }
+#resets-list { background-color: var(--primary-color); padding: 1rem; min-height: 100px; }
+.reset-row { display: flex; align-items: center; gap: 1rem; padding: 1rem; border: 1px solid var(--border-color); background-color: var(--input-bg); margin-bottom: 0.5rem; cursor: grab; }
+.reset-row.dragging { opacity: 0.5; }
+.reset-type-indicator { font-weight: bold; font-size: 1.2rem; color: var(--header-color); border-right: 2px solid var(--border-color); padding-right: 1rem; }
+.reset-inputs { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; }
+.reset-inputs input[type="number"] { width: 80px; padding: 0.5rem; }
+
+/* Sets */
+.tier-card { background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 0; padding: 1.5rem; margin-top: 1rem; }
+.set-card h4, .tier-card h5 { margin-top: 0; color: var(--header-color); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+
+/* Progs */
+.prog-card textarea { font-family: 'Courier New', Courier, monospace; background-color: #0a0a0a; }
+
+.info-message {
+    color: var(--text-color);
+    font-style: italic;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--secondary-color);
+}
+
+.error-message {
+    color: #ff0000;
+    font-weight: bold;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ff0000;
+    background-color: #330000;
+}
+
+/* Collapsible Sections */
+.collapsible-header {
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border-color);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.collapsible-header:hover {
+    background-color: #333;
+}
+
+.collapsible-header h4 {
+    margin: 0;
+    color: var(--header-color);
+}
+
+.collapsible-header .vnum-display {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-left: 1rem;
+}
+
+.collapsible-content {
+    max-height: 5000px; /* Increased to accommodate extensive forms */
+    overflow: hidden;
+    overflow-x: auto; /* Allow horizontal scrolling if content overflows */
+    word-break: break-word; /* Break long words to prevent overflow */
+    transition: max-height 0.3s ease-out;
+    padding: 1rem; /* Matches card padding */
+    border: 1px solid var(--border-color);
+    border-top: none; /* Remove top border to connect with header */
+    background-color: var(--primary-color); /* Matches card background */
+}
+
+.collapsible-content.collapsed {
+    max-height: 0;
+    padding: 0 1.5rem; /* Collapse padding as well */
+}
+
+/* Mobiles, Objects, Rooms & Shops Section Specific Layout */
+.mob-form-layout,
+.object-form-layout,
+.room-form-layout,
+.shop-form-layout {
+    grid-template-columns: 1fr; /* Force a single column */
+}
+
+.mob-form-layout .form-inline,
+.object-form-layout .form-inline,
+.room-form-layout .form-inline,
+.shop-form-layout .form-inline {
+    flex-direction: column; /* Stack elements in inline groups */
+    align-items: flex-start; /* Align them to the left */
+    gap: 0.5rem; /* Reduce gap for stacked elements */
+}
+
+.mob-form-layout .form-inline label,
+.object-form-layout .form-inline label,
+.room-form-layout .form-inline label,
+.shop-form-layout .form-inline label {
+    margin-bottom: 0.5rem; /* Add margin back to labels in inline groups */
+}
+
+/* Resumen */
+#resumen-contenido details {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+#resumen-contenido summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#resumen-contenido ul {
+    margin: 0.5rem 0 0 1rem;
+    padding: 0;
+    list-style: disc;
+}
