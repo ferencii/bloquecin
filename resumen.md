@@ -77,6 +77,7 @@
     *   **Salidas Diagonales**: El selector de salidas permite elegir direcciones diagonales (noreste, noroeste, sureste, suroeste).
     *   **Importación de Salidas y Extras**: El parser reconoce ahora correctamente las salidas y las descripciones adicionales, admitiendo que las `E` aparezcan antes o después de las salidas.
     *   **Flags importados y colapsado**: Al cargar un `.are` se marcan los flags de habitación correspondientes y las tarjetas importadas pueden contraerse desde su encabezado.
+    *   **Advertencias de importación**: Se validan nombres, descripciones, tipo de sector, flags, salidas y extras, mostrando avisos cuando se detectan valores desconocidos o faltantes.
 *   **Mejoras en la Sección Resets**:
     *   **Selección Desplegable de VNUMs**: Los campos para mobs, objetos y habitaciones fueron reemplazados por menús desplegables que muestran las entidades ya creadas, reduciendo errores al escribir VNUMs manualmente.
     *   **Actualización Automática de Opciones**: Al añadir o eliminar mobs, objetos o habitaciones, las opciones de los reseteos se refrescan automáticamente para reflejar los cambios.
@@ -101,3 +102,4 @@
     *   Tras importar un área se actualiza el mensaje de rango de VNUMs, eliminando la advertencia si el rango es válido.
     *   Las advertencias de mobs importados incluyen VNUM y nombre y se registran en la sección ADVERTENCIAS.
     *   Se corrigió el nombre de archivo importado en `#AREA`, quitando la tilde final y evitando que al guardar se duplique la extensión `.are`.
+    *   **Advertencias agrupadas por sección**: La sección ADVERTENCIAS ahora cuenta con listas separadas para MOBILES, OBJETOS y ROOMS.
