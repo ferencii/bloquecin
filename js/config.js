@@ -433,6 +433,7 @@ export const gameData = {
         { value: 'staff', label: 'bastón' },
         { value: 'trash', label: 'basura' },
         { value: 'npc_corpse', label: 'cadáver NPC' },
+        { value: 'object_corpse', label: 'cadáver objeto' },
         { value: 'pc_corpse', label: 'cadáver PJ' },
         { value: 'food', label: 'comida' },
         { value: 'food_buff', label: 'comida con buff' },
@@ -450,6 +451,10 @@ export const gameData = {
         { value: 'light', label: 'luz' },
         { value: 'map', label: 'mapa' },
         { value: 'furniture', label: 'mueble' },
+        // { value: 'pala', label: 'pala' },
+        // { value: 'pico', label: 'pico' },
+        // { value: 'mineral', label: 'mineral' },
+        // { value: 'ore', label: 'ore' },
         { value: 'scroll', label: 'pergamino' },
         { value: 'warp_stone', label: 'piedra de portal y nexus' },
         { value: 'pill', label: 'píldora' },
@@ -458,7 +463,7 @@ export const gameData = {
         { value: 'proteccion', label: 'protección' },
         { value: 'protect', label: 'proteger' },
         { value: 'clothing', label: 'ropa' },
-        { value: 'treasure', label: 'tesoro' },
+        { value: 'tesoro', label: 'tesoro' },
         { value: 'wand', label: 'varita' }
     ],
 
@@ -470,6 +475,7 @@ export const gameData = {
         'staff': ['nivel de hechizo', 'cargas máximas', 'cargas actuales', 'hechizo', 'CONFIGURAR A 0'],
         'trash': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'npc_corpse': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'object_corpse': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'pc_corpse': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'food': ['hours full', 'hour hung', 'CONFIGURAR A 0', '0/A=pois', 'CONFIGURAR A 0'],
         'food_buff': ['duracion', 'Cantidad', 'apply', 'A/I/R/V', 'flags/A=veneno'],
@@ -487,6 +493,10 @@ export const gameData = {
         'light': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'duración de luz', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'map': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'furniture': ['gente', 'total wei', 'fur flags', 'heal bon', 'mana bon'],
+        // 'pala': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        // 'pico': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        // 'mineral': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        // 'ore': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'scroll': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
         'warp_stone': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'pill': ['nivel de hechizo', 'hechizo', 'hechizo', 'hechizo', 'hechizo'],
@@ -495,7 +505,7 @@ export const gameData = {
         'proteccion': ['perforar', 'golpear', 'cortar', 'exótico', 'volumen'],
         'protect': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'clothing': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
-        'treasure': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
+        'tesoro': ['CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0', 'CONFIGURAR A 0'],
         'wand': ['nivel de hechizo', 'cargas máximas', 'cargas actuales', 'hechizo', 'CONFIGURAR A 0'],
         'default': ['Valor 0', 'Valor 1', 'Valor 2', 'Valor 3', 'Valor 4'] // Default for types not explicitly listed
     },
@@ -610,6 +620,13 @@ export const gameData = {
         },
 
         npc_corpse: {
+            v0: [{ value: '0', label: 'Siempre es 0' }],
+            v1: [{ value: '0', label: 'Siempre es 0' }],
+            v2: [{ value: '0', label: 'Siempre es 0' }],
+            v3: [{ value: '0', label: 'Siempre es 0' }],
+            v4: [{ value: '0', label: 'Siempre es 0' }]
+        },
+        object_corpse: {
             v0: [{ value: '0', label: 'Siempre es 0' }],
             v1: [{ value: '0', label: 'Siempre es 0' }],
             v2: [{ value: '0', label: 'Siempre es 0' }],
@@ -874,6 +891,11 @@ export const gameData = {
         furniture: {
 
         },
+
+        // pala: {},
+        // pico: {},
+        // mineral: {},
+        // ore: {},
 
         scroll: {
             v1: [
