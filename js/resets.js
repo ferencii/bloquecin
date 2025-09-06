@@ -71,6 +71,7 @@ function addResetRow(type) {
 
     list.appendChild(rowClone);
     refrescarOpcionesResets();
+    if (window.actualizarResumenYContadores) window.actualizarResumenYContadores();
 }
 
 export function setupResetsSection() {
@@ -86,6 +87,7 @@ export function setupResetsSection() {
         if (e.target.classList.contains('remove-sub-btn')) {
             e.target.closest('.reset-row').remove();
             refrescarOpcionesResets();
+            if (window.actualizarResumenYContadores) window.actualizarResumenYContadores();
         }
     });
 
@@ -107,8 +109,8 @@ export function setupResetsSection() {
 
 export function generateResetsSection() {
     const resetRows = document.querySelectorAll('#resets-list .reset-row');
-    if (resetRows.length === 0) return '#RESETS\nS\n\n';
-    let section = '#RESETS\n';
+    if (resetRows.length === 0) return '#RESETS - 0\nS\n\n';
+    let section = `#RESETS - ${resetRows.length}\n`;
     resetRows.forEach(row => {
         const type = row.dataset.type;
         const userComment = row.querySelector('.reset-comment').value.trim();

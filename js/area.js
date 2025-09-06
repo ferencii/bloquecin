@@ -36,7 +36,7 @@ export function generateAreaSection() {
     const vnumEnd = document.getElementById('area-vnum-end').value;
     const region = document.getElementById('area-region').value.trim();
 
-    let section = '#AREA\n';
+    let section = '#AREA - 1\n';
     let cleanFilename = filename.replace(/~$/, '').trim();
     if (cleanFilename && !cleanFilename.endsWith('.are')) {
         cleanFilename += '.are';

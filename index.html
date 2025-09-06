@@ -82,6 +82,11 @@
                     </button>
                 </li>
                 <li>
+                    <button class="nav-btn" data-section="resumen">
+                        RESUMEN
+                    </button>
+                </li>
+                <li>
                     <button class="nav-btn" data-section="advertencias">
                         ADVERTENCIAS
                     </button>
@@ -91,7 +96,7 @@
         <main>
             <!-- SECTIONS -->
             <section class="content-section active" id="area">
-                <h2>
+                <h2 id="area-header">
                     #AREA
                 </h2>
                 <form id="area-form">
@@ -139,8 +144,8 @@
             </section>
             <section class="content-section" id="mobiles">
                 <div class="section-header">
-                    <h2>
-                        #MOBILES
+                    <h2 id="mobiles-header">
+                        #MOBILES - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -159,8 +164,8 @@
             </section>
             <section class="content-section" id="objects">
                 <div class="section-header">
-                    <h2>
-                        #OBJECTS
+                    <h2 id="objects-header">
+                        #OBJECTS - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -179,8 +184,8 @@
             </section>
             <section class="content-section" id="rooms">
                 <div class="section-header">
-                    <h2>
-                        #ROOMS
+                    <h2 id="rooms-header">
+                        #ROOMS - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -199,8 +204,8 @@
             </section>
             <section class="content-section" id="resets">
                 <div class="section-header">
-                    <h2>
-                        #RESETS
+                    <h2 id="resets-header">
+                        #RESETS - 0
                     </h2>
                 </div>
                 <div id="resets-toolbar">
@@ -239,8 +244,8 @@
             </section>
             <section class="content-section" id="set">
                 <div class="section-header">
-                    <h2>
-                        #SET
+                    <h2 id="set-header">
+                        #SET - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -259,8 +264,8 @@
             </section>
             <section class="content-section" id="shops">
                 <div class="section-header">
-                    <h2>
-                        #SHOPS
+                    <h2 id="shops-header">
+                        #SHOPS - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -279,8 +284,8 @@
             </section>
             <section class="content-section" id="specials">
                 <div class="section-header">
-                    <h2>
-                        #SPECIALS
+                    <h2 id="specials-header">
+                        #SPECIALS - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -299,8 +304,8 @@
             </section>
             <section class="content-section" id="mobprogs">
                 <div class="section-header">
-                    <h2>
-                        #MOBPROGS
+                    <h2 id="mobprogs-header">
+                        #MOBPROGS - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -319,8 +324,8 @@
             </section>
             <section class="content-section" id="objprogs">
                 <div class="section-header">
-                    <h2>
-                        #OBJPROGS
+                    <h2 id="objprogs-header">
+                        #OBJPROGS - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -339,8 +344,8 @@
             </section>
             <section class="content-section" id="roomprogs">
                 <div class="section-header">
-                    <h2>
-                        #ROOMPROGS
+                    <h2 id="roomprogs-header">
+                        #ROOMPROGS - 0
                     </h2>
                     <div class="section-controls">
                         <button class="add-btn collapse-all-btn">
@@ -356,6 +361,12 @@
                 </div>
                 <div id="roomprogs-container">
                 </div>
+            </section>
+            <section class="content-section" id="resumen">
+                <h2 id="resumen-header">
+                    RESUMEN
+                </h2>
+                <div id="resumen-contenido"></div>
             </section>
             <section class="content-section" id="advertencias">
                 <h2>

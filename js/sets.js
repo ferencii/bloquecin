@@ -59,9 +59,9 @@ export function inicializarTarjetaSet(cardElement) {
 
 export function generateSetSection() {
     const setCards = document.querySelectorAll('#sets-container .set-card');
-    if (setCards.length === 0) return '#SET\n#0\n\n';
+    if (setCards.length === 0) return '#SET - 0\n#0\n\n';
 
-    let section = '#SET\n';
+    let section = `#SET - ${setCards.length}\n`;
     setCards.forEach(card => {
         const id = card.querySelector('.set-id').value;
         const name = card.querySelector('.set-name').value;

@@ -404,12 +404,15 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
             postAddCallback(addedCardElement);
         }
 
+        if (window.actualizarResumenYContadores) window.actualizarResumenYContadores();
+
         return addedCardElement; // Return the added card element
     });
 
     container.addEventListener('click', e => {
         if (e.target.classList.contains('remove-btn')) {
             e.target.closest(cardSelector).remove();
+            if (window.actualizarResumenYContadores) window.actualizarResumenYContadores();
         }
         // Dispatch AI generation based on data-ai-target
         else if (e.target.classList.contains('ai-generate-btn')) {
@@ -425,6 +428,7 @@ export function setupDynamicSection(buttonId, containerId, templateId, cardSelec
             }
             // Add more conditions here for other AI buttons
         }
+        if (window.actualizarResumenYContadores) window.actualizarResumenYContadores();
     });
 }
 

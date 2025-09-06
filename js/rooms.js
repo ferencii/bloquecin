@@ -59,9 +59,9 @@ export function setupRoomsSection(vnumRangeCheckFunction, vnumSelector, vnumDisp
 
 export function generateRoomsSection() {
     const roomCards = document.querySelectorAll('#rooms-container .room-card');
-    if (roomCards.length === 0) return '#ROOMS\n#0\n\n';
+    if (roomCards.length === 0) return '#ROOMS - 0\n#0\n\n';
 
-    let section = '#ROOMS\n';
+    let section = `#ROOMS - ${roomCards.length}\n`;
     roomCards.forEach(room => {
         section += `#${room.querySelector('.room-vnum').value}\n`;
         section += `${room.querySelector('.room-name').value}~\n`;
