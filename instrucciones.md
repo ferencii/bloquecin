@@ -343,5 +343,6 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Los progs listan en un desplegable todos los propietarios del tipo correspondiente, evitando mostrar mobs en `#OBJPROGS` y `#ROOMPROGS`.
 - Los encabezados de todas las secciones indican ahora la cantidad de elementos que contienen (por ejemplo `#MOBILES - 3`) y el parser reconoce estos sufijos numéricos.
 - Se reemplazó la sección **RESUMEN** por listas desplegables que enumeran los elementos de cada apartado, eliminando las estadísticas.
+- Se añadió la sección **MAPA** que genera un mapa básico de las habitaciones utilizando sus salidas cardinales.
 
 
