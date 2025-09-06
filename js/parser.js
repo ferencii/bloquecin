@@ -5,6 +5,7 @@ import { poblarSelectEspecial } from './specials.js';
 import { gameData } from './config.js';
 import { inicializarTarjetaMob } from './mobiles.js';
 import { inicializarTarjetaRoom } from './rooms.js';
+import { inicializarTarjetaSet } from './sets.js';
 
 // Rellena un <select> con las opciones indicadas y un placeholder inicial.
 // Se usa al reconstruir la sección de resets al importar un área.
@@ -1161,39 +1162,43 @@ function populateResetsSection(resetsData) {
 
 function parseSetSection(sectionContent) {
     const conjuntos = [];
-    const lineas = sectionContent.split('\n').filter(l => l.trim() !== '');
+    const lineas = sectionContent.split('\n').map(l => l.trim()).filter(l => l !== '');
     let i = 0;
     while (i < lineas.length) {
-        const linea = lineas[i].trim();
-        if (linea === '#0') break; // Fin de la sección
+        const linea = lineas[i];
+        if (linea === '#0') break;
         if (linea.startsWith('#')) {
-            const set = {};
-            set.id = parseInt(linea.substring(1));
+            const set = { id: parseInt(linea.substring(1)), name: '', tiers: [] };
             i++;
-            set.name = lineas[i++].replace(/~$/, '').trim();
-            set.tiers = [];
-
-            while (i < lineas.length && lineas[i].trim() !== 'End') {
-                const lineaTier = lineas[i].trim();
-                if (lineaTier.startsWith('T ')) {
-                    const tier = { pieces: parseInt(lineaTier.substring(2).trim()), applies: [], affects: [] };
+            set.name = lineas[i].replace(/~$/, '').trim();
+            i++;
+            while (i < lineas.length && !lineas[i].startsWith('#')) {
+                if (lineas[i].startsWith('T ')) {
+                    const tier = { pieces: parseInt(lineas[i].substring(2).trim()), applies: [], affects: [] };
+                    i++;
+                    while (i < lineas.length && lineas[i] !== 'End') {
+                        const lt = lineas[i];
+                        if (lt.startsWith('A ')) {
+                            const partes = lt.substring(2).trim().split(/\s+/).map(Number);
+                            tier.applies.push({ location: partes[0], modifier: partes[1] });
+                        } else if (lt.startsWith('F ')) {
+                            const partes = lt.substring(2).trim().split(/\s+/);
+                            const type = partes[0];
+                            const bits = partes.slice(3).join(' ') || partes.slice(1).join(' ');
+                            tier.affects.push({ type, bits });
+                        }
+                        i++;
+                    }
+                    if (lineas[i] === 'End') i++;
                     set.tiers.push(tier);
-                } else if (lineaTier.startsWith('A ')) {
-                    const partes = lineaTier.substring(2).trim().split(' ').map(Number);
-                    if (set.tiers.length > 0) {
-                        set.tiers[set.tiers.length - 1].applies.push({ location: partes[0], modifier: partes[1] });
-                    }
-                } else if (lineaTier.startsWith('F ')) {
-                    const partes = lineaTier.substring(2).trim().split(' ');
-                    if (set.tiers.length > 0) {
-                        set.tiers[set.tiers.length - 1].affects.push({ type: partes[0], bits: partes.slice(1).join(' ') });
-                    }
+                } else {
+                    i++;
                 }
-                i++;
             }
             conjuntos.push(set);
+        } else {
+            i++;
         }
-        i++;
     }
     return conjuntos;
 }
@@ -1219,6 +1224,7 @@ function populateSetSection(setsData) {
         addedCardElement.querySelector('.set-name-display').textContent = set.name;
 
         container.appendChild(addedCardElement);
+        inicializarTarjetaSet(addedCardElement);
     });
 }
 

@@ -332,4 +332,6 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se corrigió la importación de los resets `E`, `D` y `R`, preservando el lugar de vestir, la dirección, el estado de la puerta y la clase de maze.
 - Se corrigió la importación de objetos con descripciones largas en varias líneas para evitar que se omitan.
 - Se restauró la posibilidad de contraer y expandir individualmente las tarjetas de objetos importados incluso después de usar el botón "Contraer Todo".
+- Se corrigió la importación y generación de la sección `#SET`, reconociendo múltiples tiers y leyendo correctamente los affects.
+- Se añadió la inicialización de tarjetas de sets para mantener el colapsado individual incluso tras usar "Contraer Todo".
 
