@@ -103,6 +103,7 @@
     *   **Desplegable de Especiales con Tooltips**: El tipo de especial ahora se elige desde un `<select>` poblado dinámicamente con `js/config.js`, mostrando un tooltip explicativo para cada opción.
     *   **Lista Centralizada de Especiales**: Se añadió `gameData.specials` con todos los nombres y descripciones, eliminando el `<datalist>` embebido en `index.html`.
     *   **Comentario en Encabezado**: El comentario opcional se muestra junto al nombre del especial en el título de la tarjeta para reconocerlo cuando está contraída.
+    *   **Colapsado Individual e Importación Completa**: Cada tarjeta puede contraerse desde su encabezado incluso tras usar "Contraer Todo" y la sección se importa leyendo líneas `M vnum nombre * comentario`.
 
 *   **Progs**:
     *   Se eliminó la integración con Blockly y se volvió al editor de texto para MOBPROGS, OBJPROGS y ROOMPROGS.

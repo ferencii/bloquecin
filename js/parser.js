@@ -1,7 +1,7 @@
 import { populateAffectBitSelect, populateObjectTypeSelect, updateObjectValuesUI, inicializarTarjetaObjeto } from './objects.js';
 import { refrescarOpcionesResets } from './resets.js';
 import { poblarSelectsTienda, inicializarTarjetaShop } from './shops.js';
-import { poblarSelectEspecial } from './specials.js';
+import { poblarSelectEspecial, inicializarTarjetaSpecial } from './specials.js';
 import { gameData } from './config.js';
 import { inicializarTarjetaMob } from './mobiles.js';
 import { inicializarTarjetaRoom } from './rooms.js';
@@ -1307,24 +1307,18 @@ function populateShopsSection(shopsData) {
 
 function parseSpecialsSection(sectionContent) {
     const specials = [];
-    const lines = sectionContent.split('\n').filter(line => line.trim() !== '');
-    let i = 0;
-    while (i < lines.length) {
-        if (lines[i].trim() === 'S') { // End of specials section
-            i++;
-            continue;
+    const lines = sectionContent.split('\n').map(l => l.trim()).filter(l => l !== '');
+    lines.forEach(line => {
+        if (line === 'S') return; // fin de la sección
+        const match = line.match(/^[A-Za-z]\s+(\d+)\s+(\S+)(?:\s+\*\s*(.*))?$/);
+        if (match) {
+            specials.push({
+                vnumMob: parseInt(match[1]),
+                type: match[2],
+                comment: match[3] ? match[3].trim() : ''
+            });
         }
-        const special = {};
-        special.vnumMob = parseInt(lines[i++]);
-        special.type = lines[i++].trim();
-
-        if (lines[i] && lines[i].startsWith('*')) {
-            special.comment = lines[i++].substring(1).trim();
-        } else {
-            special.comment = '';
-        }
-        specials.push(special);
-    }
+    });
     return specials;
 }
 
@@ -1333,22 +1327,21 @@ function populateSpecialsSection(specialsData) {
     const template = document.getElementById('special-template');
 
     specialsData.forEach(special => {
-        const newCard = template.content.cloneNode(true);
-        const addedCardElement = newCard.querySelector('.special-card');
-        poblarSelectEspecial(addedCardElement);
+        const fragment = template.content.cloneNode(true);
+        const card = fragment.querySelector('.special-card');
+        poblarSelectEspecial(card);
 
-        addedCardElement.querySelector('.special-vnum').value = special.vnumMob;
-        const select = addedCardElement.querySelector('.special-name');
+        card.querySelector('.special-vnum').value = special.vnumMob;
+        card.querySelector('.special-vnum-display').textContent = special.vnumMob;
+        const select = card.querySelector('.special-name');
         select.value = special.type;
         select.dispatchEvent(new Event('change'));
-        const commentInput = addedCardElement.querySelector('.special-comment');
-        if (special.comment) {
-            commentInput.value = special.comment;
-        }
+        const commentInput = card.querySelector('.special-comment');
+        if (special.comment) commentInput.value = special.comment;
         commentInput.dispatchEvent(new Event('input'));
-        addedCardElement.querySelector('.special-vnum-display').textContent = special.vnumMob;
 
-        container.appendChild(addedCardElement);
+        container.appendChild(fragment);
+        inicializarTarjetaSpecial(container.lastElementChild);
     });
 }
 
