@@ -919,14 +919,16 @@ function populateExits(containerElement, exitsData, advertencias = [], room = nu
         const descTextarea = addedExitElement.querySelector('.exit-desc');
         descTextarea.value = exit.description;
 
-        if (advertencias && room) {
-            if (!exit.description.trim()) {
-                advertencias.push(`Salida sin descripción en habitación ${room.vnum} (${room.name}) dirección ${exit.direction}`);
-            }
-            if (exit.doorState > 0 && !exit.keywords.trim()) {
-                advertencias.push(`Puerta sin nombre en habitación ${room.vnum} (${room.name}) dirección ${exit.direction}`);
-            }
-        }
+        /*
+          if (advertencias && room) {
+              if (!exit.description.trim()) {
+                  advertencias.push(`Salida sin descripción en habitación ${room.vnum} (${room.name}) dirección ${exit.direction}`);
+              }
+              if (exit.doorState > 0 && !exit.keywords.trim()) {
+                  advertencias.push(`Puerta sin nombre en habitación ${room.vnum} (${room.name}) dirección ${exit.direction}`);
+              }
+          }
+        */
 
         exitsContainer.appendChild(addedExitElement);
     });
