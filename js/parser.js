@@ -563,7 +563,13 @@ function populateObjectsSection(objectsData) {
         };
 
         for (let v = 0; v <= 4; v++) {
-            verificarV(v, obj[`v${v}`]);
+            const vConfig = gameData.objectValueOptions[obj.type]?.[`v${v}`];
+            if (vConfig && vConfig.type === 'checkbox') {
+                const legend = gameData.objectValueLabels[obj.type]?.[v] || `V${v}`;
+                verificarFlags(legend, obj[`v${v}`], legend);
+            } else {
+                verificarV(v, obj[`v${v}`]);
+            }
         }
 
         addedCardElement.querySelector('.obj-level').value = obj.level;

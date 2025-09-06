@@ -319,4 +319,6 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se ampliaron las advertencias al importar objetos comprobando los valores V0-V4, avisando cuando no existen en las listas.
 - Se añadieron advertencias para el indicador P/G, las ubicaciones de apply y los tipos y bits de affect al importar objetos.
 - Se ajustó la importación de objetos para aceptar valores V0-V4 entre comillas simples, preservando el texto original.
+- Se habilitó en objetos de tipo `weapon` la selección múltiple de flags en V4 mediante checkboxes.
+- La lista de flags de arma para V4 se centralizó en `js/config.js` para facilitar su edición.
 

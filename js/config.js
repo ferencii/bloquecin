@@ -559,19 +559,22 @@ export const gameData = {
                 { value: 'digestion', label: 'vomito acido' },
                 { value: 'chill', label: 'pinchazo frío' }
             ],
-            v4: [
-                { value: '0', label: 'Nada' },
-                { value: 'A', label: 'flaming' },
-                { value: 'B', label: 'frost' },
-                { value: 'C', label: 'vampiric' },
-                { value: 'D', label: 'sharp' },
-                { value: 'E', label: 'vorpal' },
-                { value: 'F', label: 'two-handed' },
-                { value: 'G', label: 'shocking' },
-                { value: 'H', label: 'poisoned' },
-                { value: 'I', label: 'Sangriento' },
-                { value: 'J', label: 'Hemorragia' }
-            ]
+            v4: {
+                type: 'checkbox',
+                options: [
+                    { value: '0', label: 'Nada' },
+                    { value: 'A', label: 'flaming' },
+                    { value: 'B', label: 'frost' },
+                    { value: 'C', label: 'vampiric' },
+                    { value: 'D', label: 'sharp' },
+                    { value: 'E', label: 'vorpal' },
+                    { value: 'F', label: 'two-handed' },
+                    { value: 'G', label: 'shocking' },
+                    { value: 'H', label: 'poisoned' },
+                    { value: 'I', label: 'Sangriento' },
+                    { value: 'J', label: 'Hemorragia' }
+                ]
+            }
         },
 
 

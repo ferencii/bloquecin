@@ -8,13 +8,53 @@ export function updateObjectValuesUI(objectCard) {
     const optionsConfig = (gameData.objectValueOptions && gameData.objectValueOptions[type]) || {};
 
     for (let i = 0; i < 5; i++) {
+        const fieldSelector = `.obj-v${i}`;
+        let field = objectCard.querySelector(fieldSelector);
+        const vConfig = optionsConfig[`v${i}`];
+        const vOptions = Array.isArray(vConfig) ? vConfig : vConfig?.options;
+
+        // Si previamente era fieldset pero ya no corresponde, restaurar el campo básico
+        if (field && field.tagName.toLowerCase() === 'fieldset' && !(vConfig && vConfig.type === 'checkbox')) {
+            const grupo = document.createElement('div');
+            grupo.className = 'form-group';
+            const etiqueta = document.createElement('label');
+            etiqueta.dataset.labelFor = `v${i}`;
+            etiqueta.textContent = labels[i] + ':';
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = fieldSelector.slice(1);
+            input.value = '0';
+            grupo.appendChild(etiqueta);
+            grupo.appendChild(input);
+            field.replaceWith(grupo);
+            field = input;
+        }
+
+        // Campo configurado como checkboxes
+        if (vConfig && vConfig.type === 'checkbox') {
+            const fieldset = document.createElement('fieldset');
+            fieldset.className = fieldSelector.slice(1);
+            const legend = document.createElement('legend');
+            legend.textContent = labels[i];
+            fieldset.appendChild(legend);
+            (vOptions || []).forEach(opt => {
+                const etiqueta = document.createElement('label');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.value = typeof opt === 'object' ? opt.value : opt;
+                etiqueta.appendChild(checkbox);
+                etiqueta.append(` ${typeof opt === 'object' ? opt.label : opt}`);
+                fieldset.appendChild(etiqueta);
+            });
+            if (field) field.parentElement.replaceWith(fieldset);
+            else objectCard.querySelector('.v-values-container').appendChild(fieldset);
+            continue;
+        }
+
         const labelElement = objectCard.querySelector(`label[data-label-for="v${i}"]`);
         if (labelElement) labelElement.textContent = labels[i] + ':';
 
-        const fieldSelector = `.obj-v${i}`;
-        let field = objectCard.querySelector(fieldSelector);
         const currentValue = field ? field.value : '0';
-        const vOptions = optionsConfig[`v${i}`];
 
         if (vOptions && vOptions.length > 0) {
             let select;
@@ -151,7 +191,17 @@ export function generateObjectsSection() {
         const wearFlags = getFlagString(obj, 'Lugar de Vestir');
         section += `${type} ${extraFlags} ${wearFlags}\n`;
 
-        section += `${obj.querySelector('.obj-v0').value} ${obj.querySelector('.obj-v1').value} ${obj.querySelector('.obj-v2').value} ${obj.querySelector('.obj-v3').value} ${obj.querySelector('.obj-v4').value}\n`;
+        const vValores = [];
+        for (let i = 0; i < 5; i++) {
+            const vConfig = gameData.objectValueOptions[type]?.[`v${i}`];
+            if (vConfig && vConfig.type === 'checkbox') {
+                const legend = gameData.objectValueLabels[type]?.[i] || `V${i}`;
+                vValores.push(getFlagString(obj, legend));
+            } else {
+                vValores.push(obj.querySelector(`.obj-v${i}`).value);
+            }
+        }
+        section += `${vValores.join(' ')}\n`;
         const isDrinkContainer = obj.querySelector('.obj-is-drink-container').checked ? 'G' : 'P';
         section += `${obj.querySelector('.obj-level').value} ${obj.querySelector('.obj-weight').value} ${obj.querySelector('.obj-price').value} ${isDrinkContainer}\n`;
 

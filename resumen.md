@@ -40,6 +40,10 @@
         *   **Funcionalidad**: Dependiendo del tipo de objeto, los campos V0-V4 ahora pueden mostrarse como `<select>` con opciones predefinidas.
         *   **Configuración**: Se añadió la estructura `objectValueOptions` a `gameData` en `js/config.js`, permitiendo definir listas como tipos de armas, daños o flags para cada V.
         *   **Integración**: `js/objects.js` actualiza dinámicamente estos campos y `js/parser.js` fue adaptado para soportar los nuevos desplegables.
+    *   **Flags de arma múltiples en V4**:
+        *   **Funcionalidad**: Se habilitó en objetos `weapon` la selección de múltiples flags de arma en V4 mediante checkboxes.
+        *   **Importación y generación**: `js/objects.js` y `js/parser.js` manejan estas combinaciones al generar el archivo `.are` y al importar áreas.
+        *   **Configuración**: Las opciones de flags de arma se definen ahora en `js/config.js` para poder modificarlas fácilmente.
     *   **Eliminación de Campos Redundantes**:
         *   **V0-V4**: Se eliminó un grupo redundante de campos de entrada V0-V4 (`<input type="number">`) del `object-template` en `index.html`, asegurando que solo el `fieldset` con las etiquetas dinámicas sea el utilizado.
         *   **Flags y Lugar de Vestir**: Se eliminaron los campos de entrada de texto redundantes para "Flags" y "Lugar de vestir" del `object-template` en `index.html`, manteniendo solo los `fieldset`s con checkboxes.
