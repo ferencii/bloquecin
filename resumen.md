@@ -121,5 +121,3 @@
 *   **Contadores y Resumen Visual**:
     *   Los encabezados de cada sección muestran la cantidad de elementos correspondientes y el archivo `.are` generado incluye estos totales.
     *   La sección **RESUMEN** ofrece listas desplegables con los elementos de cada apartado para consultarlos de forma rápida.
-*   **Mapa de habitaciones**:
-    *   Se añadió una sección MAPA que dibuja en un lienzo las habitaciones creadas y las conecta según sus salidas cardinales.

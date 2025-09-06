@@ -7,7 +7,6 @@ import { setupSetSection, generateSetSection } from './js/sets.js';
 import { setupShopsSection, generateShopsSection } from './js/shops.js';
 import { setupSpecialsSection, generateSpecialsSection } from './js/specials.js';
 import { setupProgsSection, generateProgsSection } from './js/progs.js';
-import { setupMapaSection } from './js/mapa.js';
 import { gameData } from './js/config.js';
 import { parseAreFile } from './js/parser.js';
 
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupProgsSection('mobprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
     setupProgsSection('objprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
     setupProgsSection('roomprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
-    setupMapaSection();
 
     populateMaterialsDatalist(); // Call the new function here
 

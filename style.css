@@ -449,10 +449,3 @@ select:focus {
     padding: 0;
     list-style: disc;
 }
-
-/* Mapa de habitaciones */
-#mapa-canvas {
-    border: 1px solid var(--border-color);
-    background-color: var(--primary-color);
-    margin-top: 1rem;
-}
