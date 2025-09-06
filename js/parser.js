@@ -7,12 +7,19 @@ import { inicializarTarjetaMob } from './mobiles.js';
 import { inicializarTarjetaRoom } from './rooms.js';
 
 function limpiarAdvertencias() {
-    const lista = document.getElementById('lista-advertencias');
-    if (lista) lista.innerHTML = '';
+    ['advertencias-mobiles', 'advertencias-objetos', 'advertencias-rooms'].forEach(id => {
+        const lista = document.getElementById(id);
+        if (lista) lista.innerHTML = '';
+    });
 }
 
-function agregarAdvertencias(mensajes) {
-    const lista = document.getElementById('lista-advertencias');
+function agregarAdvertencias(mensajes, categoria) {
+    const ids = {
+        'MOBILES': 'advertencias-mobiles',
+        'OBJETOS': 'advertencias-objetos',
+        'ROOMS': 'advertencias-rooms'
+    };
+    const lista = document.getElementById(ids[categoria]);
     if (!lista) return;
     mensajes.forEach(msj => {
         const item = document.createElement('li');
@@ -402,7 +409,7 @@ function populateMobilesSection(mobilesData) {
 
     if (advertencias.length > 0) {
         alert('Advertencias al importar mobs:\n' + advertencias.join('\n'));
-        agregarAdvertencias(advertencias);
+        agregarAdvertencias(advertencias, 'MOBILES');
     }
 }
 
@@ -604,7 +611,7 @@ function populateObjectsSection(objectsData) {
 
     if (advertencias.length > 0) {
         alert('Advertencias al importar objetos:\n' + advertencias.join('\n'));
-        agregarAdvertencias(advertencias);
+        agregarAdvertencias(advertencias, 'OBJETOS');
     }
 }
 
@@ -654,7 +661,7 @@ function populateAffects(containerElement, affectsData, advertencias = [], obj =
     });
 }
 
-function populateExtraDescriptions(containerElement, extraDescriptionsData) {
+function populateExtraDescriptions(containerElement, extraDescriptionsData, advertencias = [], entidad = null) {
     const extraDescsContainer =
         containerElement.querySelector('.extras-container') ||
         containerElement.querySelector('.room-extras-container') ||
@@ -667,6 +674,12 @@ function populateExtraDescriptions(containerElement, extraDescriptionsData) {
 
         addedExtraDescElement.querySelector('.extra-keyword').value = extraDesc.keywords;
         addedExtraDescElement.querySelector('.extra-desc').value = extraDesc.description;
+
+        if (advertencias && entidad) {
+            const id = entidad.name ? `${entidad.vnum} (${entidad.name})` : entidad.vnum;
+            if (!extraDesc.keywords) advertencias.push(`Extra sin palabras clave en ${id}`);
+            if (!extraDesc.description) advertencias.push(`Extra sin descripción en ${id}`);
+        }
 
         extraDescsContainer.appendChild(addedExtraDescElement);
     });
@@ -794,27 +807,61 @@ function parseRoomsSection(sectionContent) {
 function populateRoomsSection(roomsData) {
     const container = document.getElementById('rooms-container');
     const template = document.getElementById('room-template');
+    const advertencias = [];
 
     roomsData.forEach(room => {
         const newCard = template.content.cloneNode(true);
         const addedCardElement = newCard.querySelector('.room-card');
 
+        const verificarValor = (selector, valor, nombreCampo) => {
+            const select = addedCardElement.querySelector(selector);
+            if (!select) return;
+            select.value = valor;
+            const opciones = Array.from(select.options).map(o => o.value);
+            if (!opciones.includes(String(valor))) {
+                advertencias.push(`${nombreCampo} desconocido en habitación ${room.vnum} (${room.name}): ${valor}`);
+            }
+        };
+
+        const verificarFlags = (leyenda, flags, nombreCampo) => {
+            poblarCheckboxesPorLeyenda(addedCardElement, leyenda, flags);
+            if (!flags || flags === '0') return;
+            let valores = [];
+            const fieldsets = addedCardElement.querySelectorAll('fieldset');
+            for (const fieldset of fieldsets) {
+                const legend = fieldset.querySelector('legend');
+                if (legend && legend.textContent.trim() === leyenda) {
+                    valores = Array.from(fieldset.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value);
+                    break;
+                }
+            }
+            let restante = flags;
+            valores.sort((a, b) => b.length - a.length).forEach(val => {
+                restante = restante.split(val).join('');
+            });
+            if (restante.trim() !== '') {
+                advertencias.push(`${nombreCampo} desconocidos en habitación ${room.vnum} (${room.name}): ${restante}`);
+            }
+        };
+
         addedCardElement.querySelector('.room-vnum').value = room.vnum;
         addedCardElement.querySelector('.room-name').value = room.name;
         addedCardElement.querySelector('.room-desc').value = room.description;
-        addedCardElement.querySelector('.room-sector').value = room.sectorType;
+        verificarValor('.room-sector', room.sectorType, 'Tipo de sector');
         addedCardElement.querySelector('.room-mana-regen').value = room.manaRegen;
         addedCardElement.querySelector('.room-health-regen').value = room.healthRegen;
         addedCardElement.querySelector('.room-clan').value = room.clan;
 
-        // Flags de habitación
-        poblarCheckboxesPorLeyenda(addedCardElement, 'Flags de Habitación', room.flags);
+        if (!room.name) advertencias.push(`Nombre vacío en habitación ${room.vnum}`);
+        if (!room.description) advertencias.push(`Descripción vacía en habitación ${room.vnum}`);
+
+        verificarFlags('Flags de Habitación', room.flags, 'Flags de Habitación');
 
         if (room.extraDescriptions.length > 0) {
-            populateExtraDescriptions(addedCardElement, room.extraDescriptions);
+            populateExtraDescriptions(addedCardElement, room.extraDescriptions, advertencias, room);
         }
         if (room.exits.length > 0) {
-            populateExits(addedCardElement, room.exits);
+            populateExits(addedCardElement, room.exits, advertencias, room);
         }
 
         // Update Vnum and Name display in header
@@ -824,9 +871,14 @@ function populateRoomsSection(roomsData) {
         container.appendChild(addedCardElement);
         inicializarTarjetaRoom(addedCardElement);
     });
+
+    if (advertencias.length > 0) {
+        alert('Advertencias al importar rooms:\n' + advertencias.join('\n'));
+        agregarAdvertencias(advertencias, 'ROOMS');
+    }
 }
 
-function populateExits(containerElement, exitsData) {
+function populateExits(containerElement, exitsData, advertencias = [], room = null) {
     const exitsContainer = containerElement.querySelector('.exits-container');
     const exitTemplate = document.getElementById('exit-template');
 
@@ -834,12 +886,47 @@ function populateExits(containerElement, exitsData) {
         const newExit = exitTemplate.content.cloneNode(true);
         const addedExitElement = newExit.querySelector('.sub-item-row-grid');
 
-        addedExitElement.querySelector('.exit-dir').value = exit.direction;
-        addedExitElement.querySelector('.exit-keyword').value = exit.keywords;
-        addedExitElement.querySelector('.exit-door-state').value = exit.doorState;
-        addedExitElement.querySelector('.exit-key-vnum').value = exit.keyVnum;
-        addedExitElement.querySelector('.exit-dest-vnum').value = exit.destinationVnum;
-        addedExitElement.querySelector('.exit-desc').value = exit.description;
+        const dirSelect = addedExitElement.querySelector('.exit-dir');
+        dirSelect.value = exit.direction;
+        if (advertencias && room) {
+            const opcionesDir = Array.from(dirSelect.options).map(o => o.value);
+            if (!opcionesDir.includes(String(exit.direction))) {
+                advertencias.push(`Dirección desconocida en habitación ${room.vnum} (${room.name}): ${exit.direction}`);
+            }
+        }
+
+        const keywordInput = addedExitElement.querySelector('.exit-keyword');
+        keywordInput.value = exit.keywords;
+
+        const stateSelect = addedExitElement.querySelector('.exit-door-state');
+        stateSelect.value = exit.doorState;
+        if (advertencias && room) {
+            const opcionesState = Array.from(stateSelect.options).map(o => o.value);
+            if (!opcionesState.includes(String(exit.doorState))) {
+                advertencias.push(`Estado de puerta desconocido en habitación ${room.vnum} (${room.name}): ${exit.doorState}`);
+            }
+        }
+
+        const keyVnumInput = addedExitElement.querySelector('.exit-key-vnum');
+        keyVnumInput.value = exit.keyVnum;
+
+        const destInput = addedExitElement.querySelector('.exit-dest-vnum');
+        destInput.value = exit.destinationVnum;
+        if (advertencias && room && isNaN(exit.destinationVnum)) {
+            advertencias.push(`Destino inválido en habitación ${room.vnum} (${room.name}) dirección ${exit.direction}`);
+        }
+
+        const descTextarea = addedExitElement.querySelector('.exit-desc');
+        descTextarea.value = exit.description;
+
+        if (advertencias && room) {
+            if (!exit.description.trim()) {
+                advertencias.push(`Salida sin descripción en habitación ${room.vnum} (${room.name}) dirección ${exit.direction}`);
+            }
+            if (exit.doorState > 0 && !exit.keywords.trim()) {
+                advertencias.push(`Puerta sin nombre en habitación ${room.vnum} (${room.name}) dirección ${exit.direction}`);
+            }
+        }
 
         exitsContainer.appendChild(addedExitElement);
     });
