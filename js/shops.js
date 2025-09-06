@@ -41,8 +41,41 @@ export function poblarSelectsTienda(card) {
     });
 }
 
+export function inicializarTarjetaShop(cardElement) {
+    const header = cardElement.querySelector('.collapsible-header');
+    const content = cardElement.querySelector('.collapsible-content');
+    if (header && content && !header.dataset.colapsado) {
+        header.addEventListener('click', () => {
+            content.classList.toggle('collapsed');
+        });
+        header.dataset.colapsado = 'true';
+    }
+
+    const vnumInput = cardElement.querySelector('.shop-vnum');
+    const vnumDisplay = cardElement.querySelector('.shop-vnum-display');
+    if (vnumInput && vnumDisplay && !vnumInput.dataset.vnumEscucha) {
+        vnumInput.addEventListener('input', () => {
+            vnumDisplay.textContent = vnumInput.value;
+        });
+        vnumInput.dataset.vnumEscucha = 'true';
+    }
+
+    const commentInput = cardElement.querySelector('.shop-comment');
+    const commentDisplay = cardElement.querySelector('.shop-comment-display');
+    if (commentInput && commentDisplay && !commentInput.dataset.nombreEscucha) {
+        commentInput.addEventListener('input', () => {
+            commentDisplay.textContent = commentInput.value;
+        });
+        commentInput.dataset.nombreEscucha = 'true';
+        commentInput.dispatchEvent(new Event('input'));
+    }
+}
+
 export function setupShopsSection(vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector) {
-    setupDynamicSection('add-shop-btn', 'shops-container', 'shop-template', '.shop-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, poblarSelectsTienda);
+    setupDynamicSection('add-shop-btn', 'shops-container', 'shop-template', '.shop-card', vnumRangeCheckFunction, vnumSelector, vnumDisplaySelector, nameInputSelector, nameDisplaySelector, (card) => {
+        poblarSelectsTienda(card);
+        inicializarTarjetaShop(card);
+    });
 
     const container = document.getElementById('shops-container');
     container.addEventListener('click', (e) => {
