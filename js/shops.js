@@ -85,8 +85,8 @@ export function setupShopsSection(vnumRangeCheckFunction, vnumSelector, vnumDisp
 
 export function generateShopsSection() {
     const cards = document.querySelectorAll('#shops-container .shop-card');
-    if (cards.length === 0) return '#SHOPS\n0\n\n';
-    let section = '#SHOPS\n';
+    if (cards.length === 0) return '#SHOPS - 0\n0\n\n';
+    let section = `#SHOPS - ${cards.length}\n`;
     cards.forEach(card => {
         const vnum = card.querySelector('.shop-vnum').value || 0;
         const buyTypes = Array.from(card.querySelectorAll('.shop-buy-type')).map(i => i.value || 0).filter(v => v != 0);

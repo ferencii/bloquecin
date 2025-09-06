@@ -222,9 +222,9 @@ export function setupObjectsSection(vnumRangeCheckFunction, vnumSelector, vnumDi
 
 export function generateObjectsSection() {
     const objectCards = document.querySelectorAll('#objects-container .object-card');
-    if (objectCards.length === 0) return '#OBJECTS\n#0\n\n';
+    if (objectCards.length === 0) return '#OBJECTS - 0\n#0\n\n';
 
-    let section = '#OBJECTS\n';
+    let section = `#OBJECTS - ${objectCards.length}\n`;
     objectCards.forEach(obj => {
         section += `#${obj.querySelector('.obj-vnum').value}\n`;
         section += `${obj.querySelector('.obj-keywords').value}~\n`;

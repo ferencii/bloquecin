@@ -77,11 +77,12 @@ export function parseAreFile(content) {
 
     for (const linea of lineas) {
         const limpia = linea.trim();
-        if (seccionesPrincipales.includes(limpia)) {
+        const seccionBase = seccionesPrincipales.find(sec => limpia.startsWith(sec));
+        if (seccionBase) {
             if (currentSection) {
                 sections[currentSection] = sectionContent.join('\n');
             }
-            currentSection = limpia;
+            currentSection = seccionBase;
             sectionContent = [];
         } else if (limpia === '#$') {
             if (currentSection) {
@@ -158,6 +159,7 @@ export function parseAreFile(content) {
     }
 
     actualizarPropietariosProgs();
+    if (window.actualizarResumenYContadores) window.actualizarResumenYContadores();
 
     alert('Archivo cargado y listo para parsear!');
 }

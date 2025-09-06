@@ -51,6 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     populateMaterialsDatalist(); // Call the new function here
 
+    actualizarResumenYContadores();
+
+    document.addEventListener('input', actualizarResumenYContadores);
+
     // Controles para contraer y expandir todas las tarjetas de una sección
     document.querySelectorAll('.collapse-all-btn').forEach(boton => {
         boton.addEventListener('click', () => {
@@ -120,3 +124,159 @@ function generateAreFile() {
     link.click();
     link.remove();
 }
+
+const resumenConfig = [
+    {
+        id: 'mobiles',
+        label: '#MOBILES',
+        container: '#mobiles-container',
+        cardSelector: '.mob-card',
+        headerId: 'mobiles-header',
+        stat: () => {
+            const niveles = Array.from(document.querySelectorAll('#mobiles-container .mob-level'))
+                .map(i => parseInt(i.value)).filter(n => !isNaN(n));
+            const promedio = niveles.length ? (niveles.reduce((a, b) => a + b, 0) / niveles.length).toFixed(1) : 0;
+            return `Nivel promedio: ${promedio}`;
+        }
+    },
+    {
+        id: 'objects',
+        label: '#OBJECTS',
+        container: '#objects-container',
+        cardSelector: '.object-card',
+        headerId: 'objects-header',
+        stat: () => {
+            const pesos = Array.from(document.querySelectorAll('#objects-container .object-card .obj-weight'))
+                .map(i => parseInt(i.value)).filter(n => !isNaN(n));
+            const total = pesos.reduce((a, b) => a + b, 0);
+            return `Peso total: ${total}`;
+        }
+    },
+    {
+        id: 'rooms',
+        label: '#ROOMS',
+        container: '#rooms-container',
+        cardSelector: '.room-card',
+        headerId: 'rooms-header',
+        stat: () => {
+            const sectores = new Set(Array.from(document.querySelectorAll('#rooms-container .room-sector')).map(s => s.value));
+            return `Sectores distintos: ${sectores.size}`;
+        }
+    },
+    {
+        id: 'resets',
+        label: '#RESETS',
+        container: '#resets-list',
+        cardSelector: '.reset-row',
+        headerId: 'resets-header',
+        stat: () => {
+            const tipos = {};
+            document.querySelectorAll('#resets-list .reset-row').forEach(r => {
+                const t = r.dataset.type;
+                tipos[t] = (tipos[t] || 0) + 1;
+            });
+            return Object.keys(tipos).length > 0 ?
+                'Tipos: ' + Object.entries(tipos).map(([k, v]) => `${k}:${v}`).join(', ') :
+                'Sin resets';
+        }
+    },
+    {
+        id: 'set',
+        label: '#SET',
+        container: '#sets-container',
+        cardSelector: '.set-card',
+        headerId: 'set-header',
+        stat: () => {
+            const tiers = document.querySelectorAll('#sets-container .tier-card').length;
+            return `Tiers totales: ${tiers}`;
+        }
+    },
+    {
+        id: 'shops',
+        label: '#SHOPS',
+        container: '#shops-container',
+        cardSelector: '.shop-card',
+        headerId: 'shops-header',
+        stat: () => {
+            const compras = Array.from(document.querySelectorAll('#shops-container .shop-buy-profit'))
+                .map(s => parseInt(s.value)).filter(n => !isNaN(n));
+            const ventas = Array.from(document.querySelectorAll('#shops-container .shop-sell-profit'))
+                .map(s => parseInt(s.value)).filter(n => !isNaN(n));
+            const promCompra = compras.length ? (compras.reduce((a,b)=>a+b,0)/compras.length).toFixed(1) : 0;
+            const promVenta = ventas.length ? (ventas.reduce((a,b)=>a+b,0)/ventas.length).toFixed(1) : 0;
+            return `Beneficio compra medio: ${promCompra}, venta: ${promVenta}`;
+        }
+    },
+    {
+        id: 'specials',
+        label: '#SPECIALS',
+        container: '#specials-container',
+        cardSelector: '.special-card',
+        headerId: 'specials-header',
+        stat: () => {
+            const conComentario = Array.from(document.querySelectorAll('#specials-container .special-comment'))
+                .filter(c => c.value.trim() !== '').length;
+            return `Con comentario: ${conComentario}`;
+        }
+    },
+    {
+        id: 'mobprogs',
+        label: '#MOBPROGS',
+        container: '#mobprogs-container',
+        cardSelector: '.prog-card',
+        headerId: 'mobprogs-header',
+        stat: () => {
+            const lineas = Array.from(document.querySelectorAll('#mobprogs-container .prog-code'))
+                .reduce((acc, t) => acc + t.value.split('\n').length, 0);
+            return `Líneas de código: ${lineas}`;
+        }
+    },
+    {
+        id: 'objprogs',
+        label: '#OBJPROGS',
+        container: '#objprogs-container',
+        cardSelector: '.prog-card',
+        headerId: 'objprogs-header',
+        stat: () => {
+            const lineas = Array.from(document.querySelectorAll('#objprogs-container .prog-code'))
+                .reduce((acc, t) => acc + t.value.split('\n').length, 0);
+            return `Líneas de código: ${lineas}`;
+        }
+    },
+    {
+        id: 'roomprogs',
+        label: '#ROOMPROGS',
+        container: '#roomprogs-container',
+        cardSelector: '.prog-card',
+        headerId: 'roomprogs-header',
+        stat: () => {
+            const lineas = Array.from(document.querySelectorAll('#roomprogs-container .prog-code'))
+                .reduce((acc, t) => acc + t.value.split('\n').length, 0);
+            return `Líneas de código: ${lineas}`;
+        }
+    }
+];
+
+function actualizarResumenYContadores() {
+    const resumenDiv = document.getElementById('resumen-contenido');
+    if (resumenDiv) resumenDiv.innerHTML = '';
+    resumenConfig.forEach(cfg => {
+        const count = document.querySelectorAll(`${cfg.container} ${cfg.cardSelector}`).length;
+        const header = document.getElementById(cfg.headerId);
+        if (header) header.textContent = `${cfg.label} - ${count}`;
+        const navBtn = document.querySelector(`nav button[data-section="${cfg.id}"]`);
+        if (navBtn) navBtn.textContent = `${cfg.label} (${count})`;
+        if (resumenDiv) {
+            const bloque = document.createElement('div');
+            const titulo = document.createElement('h3');
+            titulo.textContent = `${cfg.label} - ${count}`;
+            const dato = document.createElement('p');
+            dato.textContent = cfg.stat();
+            bloque.appendChild(titulo);
+            bloque.appendChild(dato);
+            resumenDiv.appendChild(bloque);
+        }
+    });
+}
+
+window.actualizarResumenYContadores = actualizarResumenYContadores;
