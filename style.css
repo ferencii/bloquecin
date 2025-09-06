@@ -430,3 +430,22 @@ select:focus {
 .shop-form-layout .form-inline label {
     margin-bottom: 0.5rem; /* Add margin back to labels in inline groups */
 }
+
+/* Resumen */
+#resumen-contenido details {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+#resumen-contenido summary {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#resumen-contenido ul {
+    margin: 0.5rem 0 0 1rem;
+    padding: 0;
+    list-style: disc;
+}
