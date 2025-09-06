@@ -51,7 +51,10 @@ export const gameData = {
         'sets.md',
         'spec.md',
         'mobprog reducidoV1.23.md',
-        'petrarea v2.0.md'
+        'ankh.are.txt', // Ejemplo de área incluida para referencia
+        'instrucciones.md', // Instrucciones específicas para la IA
+        'resumen.md' // Resumen de la aplicación y su propósito
+
     ],
     // Lista de razas disponibles para los mobs en el juego.
     // Utilizada para poblar los selectores de raza en la interfaz de usuario.
