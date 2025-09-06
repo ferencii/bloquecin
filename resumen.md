@@ -64,6 +64,7 @@
         *   Se ajustó el selector del contenedor de descripciones extra para evitar errores al importar objetos con `E`.
         *   Se ampliaron las advertencias al importar objetos verificando los valores V0-V4 frente a las listas conocidas.
         *   Se añadieron advertencias para el indicador P/G, las ubicaciones de apply y los tipos y bits de affect.
+        *   Los valores V0-V4 entre comillas simples se reconocen y conservan, convirtiendo el campo a texto si es necesario.
 *   **Mejoras en la Sección Rooms**:
     *   **Flags de Habitación**: Se corrigió la llamada a `getFlagString` en `js/rooms.js`, permitiendo que los flags seleccionados se escriban correctamente en el archivo `.are`.
     *   **Descripciones Adicionales con IA**: Se agregó un prompt específico para habitaciones y la lógica necesaria para que las descripciones extra utilicen instrucciones diferentes según si pertenecen a un objeto o a una habitación.

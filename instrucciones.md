@@ -318,4 +318,5 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se corrigió la importación de objetos con descripciones extra al ajustar el selector del contenedor correspondiente.
 - Se ampliaron las advertencias al importar objetos comprobando los valores V0-V4, avisando cuando no existen en las listas.
 - Se añadieron advertencias para el indicador P/G, las ubicaciones de apply y los tipos y bits de affect al importar objetos.
+- Se ajustó la importación de objetos para aceptar valores V0-V4 entre comillas simples, preservando el texto original.
 
