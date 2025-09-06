@@ -322,4 +322,5 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se habilitó en objetos de tipo `weapon` la selección múltiple de flags en V4 mediante checkboxes.
 - La lista de flags de arma para V4 se centralizó en `js/config.js` para facilitar su edición.
 - Se corrigió la verificación de los valores V1-V4 al importar objetos, aceptando nombres de hechizo entre comillas sin generar advertencias.
+- Se normalizó la comparación de los nombres de hechizo con la lista predefinida para evitar advertencias cuando ya incluyen comillas.
 

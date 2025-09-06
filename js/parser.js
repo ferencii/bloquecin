@@ -540,11 +540,12 @@ function populateObjectsSection(objectsData) {
             if (!campo) return;
             if (campo.tagName.toLowerCase() === 'select') {
                 const opciones = Array.from(campo.options).map(o => o.value);
-                const sinComillas = valor.replace(/^'(.*)'$/, '$1');
-                if (opciones.includes(valor)) {
-                    campo.value = valor;
-                } else if (opciones.includes(sinComillas)) {
-                    campo.value = sinComillas;
+                const normalizar = v => v.replace(/^'(.*)'$/, '$1');
+                const opcionesNorm = opciones.map(normalizar);
+                const valorNorm = normalizar(valor);
+                const idx = opcionesNorm.indexOf(valorNorm);
+                if (idx !== -1) {
+                    campo.value = opciones[idx];
                 } else if (valor.startsWith("'") && valor.endsWith("'")) {
                     const input = document.createElement('input');
                     input.type = 'text';
@@ -554,9 +555,7 @@ function populateObjectsSection(objectsData) {
                     advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
                 } else {
                     campo.value = valor;
-                    if (!opciones.includes(valor)) {
-                        advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
-                    }
+                    advertencias.push(`V${indice} desconocido en objeto ${obj.vnum} (${obj.shortDesc}): ${valor}`);
                 }
             } else {
                 campo.value = valor;
