@@ -50,7 +50,14 @@ export const gameData = {
         'specials.md',
         'sets.md',
         'spec.md',
-        'mobprog reducidoV1.23.md',
+        'MOB ACT.md',
+        'MOB AFF.MD',
+        'MOB DAÑO.MD',
+        'MOB INM RES VUL.MD',
+        'MOB OFF.MD',
+        'OBJ FLAGS Y WEAPON.MD',
+        'ROM FLAGS.MD',
+        'mobprog.md',
         'ankh.are.txt', // Ejemplo de área incluida para referencia
         'instrucciones.md', // Instrucciones específicas para la IA
         'resumen.md' // Resumen de la aplicación y su propósito
