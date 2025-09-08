@@ -142,6 +142,7 @@ form {
 
 .form-group input[type="text"],
 .form-group input[type="number"],
+.form-group input[type="color"],
 textarea,
 select {
     background-color: var(--input-bg);
