@@ -9,10 +9,16 @@ import { setupSpecialsSection, generateSpecialsSection } from './js/specials.js'
 import { setupProgsSection, generateProgsSection } from './js/progs.js';
 import { gameData } from './js/config.js';
 import { parseAreFile } from './js/parser.js';
-import { setupTemaSection } from './js/tema.js';
+import { setupTemaSection, obtenerColoresActuales } from './js/tema.js';
 
 
 let ventanaChat = null; // Referencia a la ventana del chat IA
+
+window.addEventListener('tema-aplicado', e => {
+    if (ventanaChat && !ventanaChat.closed) {
+        ventanaChat.postMessage({ tipo: 'tema', colores: e.detail }, '*');
+    }
+});
 
 function populateMaterialsDatalist() {
     const datalist = document.getElementById('materials-list');
@@ -103,6 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
         botonChat.addEventListener('click', () => {
             if (!ventanaChat || ventanaChat.closed) {
                 ventanaChat = window.open('chat.html', 'ChatIA', 'width=400,height=600');
+                if (ventanaChat) {
+                    ventanaChat.addEventListener('load', () => {
+                        ventanaChat.postMessage({ tipo: 'tema', colores: obtenerColoresActuales() }, '*');
+                    }, { once: true });
+                }
             } else {
                 ventanaChat.focus();
             }

@@ -7,6 +7,7 @@
 *   Ofrece cincuenta modos de color roleros o graciosos inspirados en Terry Pratchett.
     *   Permite ajustar individualmente los colores base de la interfaz y guarda la preferencia en el navegador.
     *   El cambio de tema se aplica también a la ventana del chat con la IA.
+    *   Se corrigió la sincronización del tema del chat para reflejar los cambios de color al instante.
 *   **Controles de Sección Fijos**:
     *   Se añadieron botones para contraer y expandir todas las tarjetas de cada sección.
     *   Los encabezados de sección permanecen fijos al desplazarse, manteniendo visibles los botones de añadir y los nuevos controles.

@@ -1,5 +1,5 @@
 import { gameData } from './config.js';
-import { cargarTema } from './tema.js';
+import { cargarTema, aplicarTema } from './tema.js';
 
 // Contenedor de la documentación cargada desde documentos/*.md
 let textoDocumentacion = '';
@@ -8,6 +8,9 @@ const historial = [];
 
 cargarTema();
 window.addEventListener('storage', cargarTema);
+window.addEventListener('message', e => {
+    if (e.data?.tipo === 'tema') aplicarTema(e.data.colores);
+});
 
 async function cargarDocumentacion() {
     const textos = await Promise.all(
