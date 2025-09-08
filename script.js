@@ -148,7 +148,8 @@ const resumenConfig = [
         contenedor: '#mobiles-container',
         selectorTarjeta: '.mob-card',
         idEncabezado: 'mobiles-header',
-        selectorNombre: '.mob-name-display'
+        selectorNombre: '.mob-name-display',
+        selectorVnum: '.mob-vnum-display'
     },
     {
         id: 'objects',
@@ -156,7 +157,8 @@ const resumenConfig = [
         contenedor: '#objects-container',
         selectorTarjeta: '.object-card',
         idEncabezado: 'objects-header',
-        selectorNombre: '.obj-name-display'
+        selectorNombre: '.obj-name-display',
+        selectorVnum: '.obj-vnum-display'
     },
     {
         id: 'rooms',
@@ -164,7 +166,8 @@ const resumenConfig = [
         contenedor: '#rooms-container',
         selectorTarjeta: '.room-card',
         idEncabezado: 'rooms-header',
-        selectorNombre: '.room-name-display'
+        selectorNombre: '.room-name-display',
+        selectorVnum: '.room-vnum-display'
     },
     {
         id: 'resets',
@@ -176,6 +179,12 @@ const resumenConfig = [
             const tipo = fila.dataset.type || '';
             const comentario = fila.querySelector('.reset-comment')?.value.trim();
             return comentario ? `${tipo} - ${comentario}` : tipo;
+        },
+        obtenerVnum: fila => {
+            return Array.from(fila.querySelectorAll('[class*="vnum"]'))
+                .map(el => el.value || el.textContent.trim())
+                .filter(Boolean)
+                .join('/');
         }
     },
     {
@@ -184,7 +193,8 @@ const resumenConfig = [
         contenedor: '#sets-container',
         selectorTarjeta: '.set-card',
         idEncabezado: 'set-header',
-        selectorNombre: '.set-name-display'
+        selectorNombre: '.set-name-display',
+        selectorVnum: '.set-id-display'
     },
     {
         id: 'shops',
@@ -194,9 +204,9 @@ const resumenConfig = [
         idEncabezado: 'shops-header',
         obtenerNombre: tarjeta => {
             const comentario = tarjeta.querySelector('.shop-comment')?.value.trim();
-            const vnum = tarjeta.querySelector('.shop-vnum')?.value;
-            return comentario || `Tienda ${vnum || ''}`.trim();
-        }
+            return comentario || 'Tienda';
+        },
+        selectorVnum: '.shop-vnum-display'
     },
     {
         id: 'specials',
@@ -208,7 +218,8 @@ const resumenConfig = [
             const nombre = tarjeta.querySelector('.special-name-display')?.textContent.trim();
             const comentario = tarjeta.querySelector('.special-comment-display')?.textContent.trim();
             return comentario ? `${nombre} - ${comentario}` : nombre;
-        }
+        },
+        selectorVnum: '.special-vnum-display'
     },
     {
         id: 'mobprogs',
@@ -217,10 +228,10 @@ const resumenConfig = [
         selectorTarjeta: '.prog-card',
         idEncabezado: 'mobprogs-header',
         obtenerNombre: tarjeta => {
-            const vnum = tarjeta.querySelector('.prog-vnum-display')?.textContent.trim();
             const propietario = tarjeta.querySelector('.prog-owner-display')?.selectedOptions[0]?.textContent.trim();
-            return `${vnum || ''}${propietario ? ' - ' + propietario : ''}`.trim();
-        }
+            return propietario || 'Prog';
+        },
+        selectorVnum: '.prog-vnum-display'
     },
     {
         id: 'objprogs',
@@ -229,10 +240,10 @@ const resumenConfig = [
         selectorTarjeta: '.prog-card',
         idEncabezado: 'objprogs-header',
         obtenerNombre: tarjeta => {
-            const vnum = tarjeta.querySelector('.prog-vnum-display')?.textContent.trim();
             const propietario = tarjeta.querySelector('.prog-owner-display')?.selectedOptions[0]?.textContent.trim();
-            return `${vnum || ''}${propietario ? ' - ' + propietario : ''}`.trim();
-        }
+            return propietario || 'Prog';
+        },
+        selectorVnum: '.prog-vnum-display'
     },
     {
         id: 'roomprogs',
@@ -241,10 +252,10 @@ const resumenConfig = [
         selectorTarjeta: '.prog-card',
         idEncabezado: 'roomprogs-header',
         obtenerNombre: tarjeta => {
-            const vnum = tarjeta.querySelector('.prog-vnum-display')?.textContent.trim();
             const propietario = tarjeta.querySelector('.prog-owner-display')?.selectedOptions[0]?.textContent.trim();
-            return `${vnum || ''}${propietario ? ' - ' + propietario : ''}`.trim();
-        }
+            return propietario || 'Prog';
+        },
+        selectorVnum: '.prog-vnum-display'
     }
 ];
 
@@ -280,9 +291,16 @@ function actualizarResumenYContadores() {
                 } else if (cfg.obtenerNombre) {
                     nombre = cfg.obtenerNombre(tarjeta);
                 }
+                let vnum = '';
+                if (cfg.selectorVnum) {
+                    const vnumElem = tarjeta.querySelector(cfg.selectorVnum);
+                    if (vnumElem) vnum = vnumElem.textContent.trim() || vnumElem.value || '';
+                } else if (cfg.obtenerVnum) {
+                    vnum = cfg.obtenerVnum(tarjeta);
+                }
                 if (!nombre) nombre = '(sin nombre)';
                 const li = document.createElement('li');
-                li.textContent = nombre;
+                li.textContent = vnum ? `${nombre} (${vnum})` : nombre;
                 lista.appendChild(li);
             });
             if (!lista.childElementCount) {

@@ -1,9 +1,13 @@
 import { gameData } from './config.js';
+import { cargarTema } from './tema.js';
 
 // Contenedor de la documentación cargada desde documentos/*.md
 let textoDocumentacion = '';
 // Historial simple de mensajes para contextualizar a la IA
 const historial = [];
+
+cargarTema();
+window.addEventListener('storage', cargarTema);
 
 async function cargarDocumentacion() {
     const textos = await Promise.all(

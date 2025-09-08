@@ -25,6 +25,69 @@ const temasPredefinidos = {
         '--header-color': '#0055aa',
         '--input-bg': '#ffffff',
         '--border-color': '#0055aa'
+    },
+    vampirico: {
+        '--bg-color': '#1a0000',
+        '--primary-color': '#330000',
+        '--secondary-color': '#660000',
+        '--text-color': '#ff3333',
+        '--header-color': '#ff6666',
+        '--input-bg': '#330000',
+        '--border-color': '#990000'
+    },
+    druida: {
+        '--bg-color': '#002b00',
+        '--primary-color': '#004400',
+        '--secondary-color': '#006600',
+        '--text-color': '#ccffcc',
+        '--header-color': '#33aa33',
+        '--input-bg': '#003300',
+        '--border-color': '#336633'
+    },
+    taberna: {
+        '--bg-color': '#2b1d0e',
+        '--primary-color': '#3e2a16',
+        '--secondary-color': '#5c3c1f',
+        '--text-color': '#f2e1c2',
+        '--header-color': '#d4a76a',
+        '--input-bg': '#3e2a16',
+        '--border-color': '#d4a76a'
+    },
+    arcano: {
+        '--bg-color': '#0e0e2b',
+        '--primary-color': '#1a1a3e',
+        '--secondary-color': '#242467',
+        '--text-color': '#d1c4e9',
+        '--header-color': '#7e57c2',
+        '--input-bg': '#1a1a3e',
+        '--border-color': '#7e57c2'
+    },
+    hielo: {
+        '--bg-color': '#e0f7ff',
+        '--primary-color': '#c2e9fb',
+        '--secondary-color': '#a6dcef',
+        '--text-color': '#004d66',
+        '--header-color': '#0099cc',
+        '--input-bg': '#ffffff',
+        '--border-color': '#0099cc'
+    },
+    dragon: {
+        '--bg-color': '#330000',
+        '--primary-color': '#661a00',
+        '--secondary-color': '#993300',
+        '--text-color': '#ffcc66',
+        '--header-color': '#ff6600',
+        '--input-bg': '#661a00',
+        '--border-color': '#cc3300'
+    },
+    payaso: {
+        '--bg-color': '#ffffe6',
+        '--primary-color': '#fff2cc',
+        '--secondary-color': '#ffe0e0',
+        '--text-color': '#000099',
+        '--header-color': '#ff00ff',
+        '--input-bg': '#ffffff',
+        '--border-color': '#ff66ff'
     }
 };
 
@@ -60,7 +123,7 @@ function obtenerColoresActuales() {
     return resultado;
 }
 
-function cargarTema() {
+export function cargarTema() {
     const datos = localStorage.getItem('temaPersonalizado');
     if (datos) {
         try {
@@ -69,8 +132,11 @@ function cargarTema() {
         } catch (e) {}
     }
     const selectorModo = document.getElementById('modo-tema');
-    const nombre = Object.keys(temasPredefinidos).find(n => compararTemas(temasPredefinidos[n], obtenerColoresActuales()));
-    selectorModo.value = nombre || 'personalizado';
+
+    if (selectorModo) {
+        const nombre = Object.keys(temasPredefinidos).find(n => compararTemas(temasPredefinidos[n], obtenerColoresActuales()));
+        selectorModo.value = nombre || 'personalizado';
+    }
 }
 
 function compararTemas(a, b) {

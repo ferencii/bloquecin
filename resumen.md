@@ -4,8 +4,9 @@
     *   Las respuestas del chat se muestran con saltos de línea y un aviso de "Procesando..." indica que la IA está pensando.
 *   **Personalización de Tema**:
     *   Se agregó una sección "Tema" en la navegación.
-    *   Ofrece modos de color predefinidos (oscuro, claro y azul).
+    *   Ofrece diez modos de color roleros (oscuro, claro, azul, vampírico, druida, taberna, arcano, hielo, dragón y payaso).
     *   Permite ajustar individualmente los colores base de la interfaz y guarda la preferencia en el navegador.
+    *   El cambio de tema se aplica también a la ventana del chat con la IA.
 *   **Controles de Sección Fijos**:
     *   Se añadieron botones para contraer y expandir todas las tarjetas de cada sección.
     *   Los encabezados de sección permanecen fijos al desplazarse, manteniendo visibles los botones de añadir y los nuevos controles.
@@ -128,4 +129,4 @@
 
 *   **Contadores y Resumen Visual**:
     *   Los encabezados de cada sección muestran la cantidad de elementos correspondientes y el archivo `.are` generado incluye estos totales.
-    *   La sección **RESUMEN** ofrece listas desplegables con los elementos de cada apartado para consultarlos de forma rápida.
+    *   La sección **RESUMEN** ofrece listas desplegables con los elementos de cada apartado para consultarlos de forma rápida e incluye el VNUM de cada elemento entre paréntesis.
