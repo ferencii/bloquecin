@@ -2,6 +2,10 @@
     *   Botón flotante siempre visible que abre un chat en una ventana separada.
     *   El asistente solo responde dudas sobre la aplicación usando la documentación de `documentos/`.
     *   Las respuestas del chat se muestran con saltos de línea y un aviso de "Procesando..." indica que la IA está pensando.
+*   **Personalización de Tema**:
+    *   Se agregó una sección "Tema" en la navegación.
+    *   Ofrece modos de color predefinidos (oscuro, claro y azul).
+    *   Permite ajustar individualmente los colores base de la interfaz y guarda la preferencia en el navegador.
 *   **Controles de Sección Fijos**:
     *   Se añadieron botones para contraer y expandir todas las tarjetas de cada sección.
     *   Los encabezados de sección permanecen fijos al desplazarse, manteniendo visibles los botones de añadir y los nuevos controles.

@@ -345,6 +345,7 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se reemplazó la sección **RESUMEN** por listas desplegables que enumeran los elementos de cada apartado, eliminando las estadísticas.
 - Se añadió un botón flotante que abre una ventana de chat con la IA. Esta IA responde únicamente dudas sobre la aplicación utilizando la documentación del directorio `documentos/`.
 - Se mejoró la ventana de chat mostrando las respuestas en varias líneas y un aviso de "Procesando..." mientras la IA genera la respuesta.
+- Se añadió la sección **TEMA** para personalizar los colores de la interfaz, ofreciendo modos predefinidos y ajustes individuales.
 
 
 
