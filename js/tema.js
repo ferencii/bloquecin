@@ -132,6 +132,7 @@ export function cargarTema() {
         } catch (e) {}
     }
     const selectorModo = document.getElementById('modo-tema');
+
     if (selectorModo) {
         const nombre = Object.keys(temasPredefinidos).find(n => compararTemas(temasPredefinidos[n], obtenerColoresActuales()));
         selectorModo.value = nombre || 'personalizado';
