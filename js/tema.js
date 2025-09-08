@@ -611,20 +611,21 @@ const variablesTema = [
     { var: '--border-color', etiqueta: 'Borde' }
 ];
 
-function aplicarTema(colores) {
+export function aplicarTema(colores) {
     const raiz = document.documentElement;
     Object.entries(colores).forEach(([propiedad, valor]) => {
         raiz.style.setProperty(propiedad, valor);
         const input = document.querySelector(`input[data-var="${propiedad}"]`);
         if (input) input.value = valor;
     });
+    window.dispatchEvent(new CustomEvent('tema-aplicado', { detail: colores }));
 }
 
 function guardarTema(colores) {
     localStorage.setItem('temaPersonalizado', JSON.stringify(colores));
 }
 
-function obtenerColoresActuales() {
+export function obtenerColoresActuales() {
     const estilos = getComputedStyle(document.documentElement);
     const resultado = {};
     variablesTema.forEach(cfg => {
