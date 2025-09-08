@@ -4,7 +4,7 @@
     *   Las respuestas del chat se muestran con saltos de línea y un aviso de "Procesando..." indica que la IA está pensando.
 *   **Personalización de Tema**:
     *   Se agregó una sección "Tema" en la navegación.
-    *   Ofrece diez modos de color roleros (oscuro, claro, azul, vampírico, druida, taberna, arcano, hielo, dragón y payaso).
+*   Ofrece cincuenta modos de color roleros o graciosos inspirados en Terry Pratchett.
     *   Permite ajustar individualmente los colores base de la interfaz y guarda la preferencia en el navegador.
     *   El cambio de tema se aplica también a la ventana del chat con la IA.
 *   **Controles de Sección Fijos**:

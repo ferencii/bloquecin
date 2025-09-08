@@ -347,7 +347,7 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - Se mejoró la ventana de chat mostrando las respuestas en varias líneas y un aviso de "Procesando..." mientras la IA genera la respuesta.
 - Se añadió la sección **TEMA** para personalizar los colores de la interfaz, ofreciendo modos predefinidos y ajustes individuales.
 - El tema seleccionado se aplica también a la ventana del chat con la IA y se sincroniza al modificar los colores.
-- Se ampliaron los modos predefinidos a diez con nombres roleros como Vampírico, Druida del Bosque, Taberna de Ron, Arcano Místico, Fortaleza de Hielo, Guarida de Dragón y Circo del Payaso.
+- Se ampliaron los modos predefinidos a cincuenta con nombres roleros o graciosos inspirados en Terry Pratchett.
 - La sección **RESUMEN** muestra el nombre de cada elemento junto a su VNUM entre paréntesis.
 
 
