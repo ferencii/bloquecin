@@ -9,6 +9,7 @@ import { setupSpecialsSection, generateSpecialsSection } from './js/specials.js'
 import { setupProgsSection, generateProgsSection } from './js/progs.js';
 import { gameData } from './js/config.js';
 import { parseAreFile } from './js/parser.js';
+import { setupTemaSection } from './js/tema.js';
 
 
 let ventanaChat = null; // Referencia a la ventana del chat IA
@@ -52,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupProgsSection('roomprogs', isValidVnumRange, '.prog-vnum', '.prog-vnum-display', null, null);
 
     populateMaterialsDatalist(); // Call the new function here
+    setupTemaSection();
 
     actualizarResumenYContadores();
 
