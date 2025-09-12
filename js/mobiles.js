@@ -173,9 +173,9 @@ export function setupMobilesSection(vnumRangeCheckFunction, vnumSelector, vnumDi
 
 export function generateMobilesSection() {
     const mobCards = document.querySelectorAll('#mobiles-container .mob-card');
-    if (mobCards.length === 0) return '#MOBILES - 0\n#0\n\n';
+    if (mobCards.length === 0) return '#MOBILES\n#0\n\n';
 
-    let section = `#MOBILES - ${mobCards.length}\n`;
+    let section = '#MOBILES\n';
     mobCards.forEach(mob => {
         section += `#${mob.querySelector('.mob-vnum').value}\n`;
         section += `${mob.querySelector('.mob-keywords').value}~\n`;

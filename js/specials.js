@@ -66,8 +66,8 @@ export function setupSpecialsSection(vnumRangeCheckFunction, vnumSelector, vnumD
 
 export function generateSpecialsSection() {
     const cards = document.querySelectorAll('#specials-container .special-card');
-    if (cards.length === 0) return '#SPECIALS - 0\nS\n\n';
-    let section = `#SPECIALS - ${cards.length}\n`;
+    if (cards.length === 0) return '#SPECIALS\nS\n\n';
+    let section = '#SPECIALS\n';
     cards.forEach(card => {
         const vnum = card.querySelector('.special-vnum').value;
         const name = card.querySelector('.special-name').value;

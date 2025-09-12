@@ -129,5 +129,5 @@
     *   **Advertencias agrupadas por sección**: La sección ADVERTENCIAS ahora cuenta con listas separadas para MOBILES, OBJETOS y ROOMS.
 
 *   **Contadores y Resumen Visual**:
-    *   Los encabezados de cada sección muestran la cantidad de elementos correspondientes y el archivo `.are` generado incluye estos totales.
+*   Los encabezados de cada sección muestran la cantidad de elementos correspondientes, pero el archivo `.are` generado ya no incluye estos totales.
     *   La sección **RESUMEN** ofrece listas desplegables con los elementos de cada apartado para consultarlos de forma rápida e incluye el VNUM de cada elemento entre paréntesis.

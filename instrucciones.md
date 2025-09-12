@@ -351,7 +351,7 @@ Adjunta el archivo `aligator.are` como un ejemplo concreto de cómo debe lucir e
 - La sección **RESUMEN** muestra el nombre de cada elemento junto a su VNUM entre paréntesis.
 
 - Se corrigió la sincronización del tema en la ventana del chat de la IA, aplicando los cambios de color en tiempo real.
-
+- Se eliminó la indicación de cantidad en los encabezados del archivo `.are`, evitando los sufijos "- N".
 
 
 
