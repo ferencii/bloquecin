@@ -109,8 +109,8 @@ export function setupResetsSection() {
 
 export function generateResetsSection() {
     const resetRows = document.querySelectorAll('#resets-list .reset-row');
-    if (resetRows.length === 0) return '#RESETS - 0\nS\n\n';
-    let section = `#RESETS - ${resetRows.length}\n`;
+    if (resetRows.length === 0) return '#RESETS\nS\n\n';
+    let section = '#RESETS\n';
     resetRows.forEach(row => {
         const type = row.dataset.type;
         const userComment = row.querySelector('.reset-comment').value.trim();

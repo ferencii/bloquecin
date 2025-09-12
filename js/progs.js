@@ -95,8 +95,8 @@ export function setupProgsSection(type, vnumRangeCheckFunction, vnumSelector, vn
 
 export function generateProgsSection(containerId, sectionName) {
     const cards = document.querySelectorAll(`#${containerId} .prog-card`);
-    if (cards.length === 0) return `#${sectionName} - 0\n#0\n\n`;
-    let section = `#${sectionName} - ${cards.length}\n`;
+    if (cards.length === 0) return `#${sectionName}\n#0\n\n`;
+    let section = `#${sectionName}\n`;
     cards.forEach(card => {
         const vnum = card.querySelector('.prog-vnum').value;
         const code = card.querySelector('.prog-code').value;
