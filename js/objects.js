@@ -13,73 +13,30 @@ export function updateObjectValuesUI(objectCard) {
         let field = objectCard.querySelector(fieldSelector);
         const vConfig = optionsConfig[`v${i}`];
 
-        // Asegurarse de que el label exista y esté actualizado
-        let labelElement = objectCard.querySelector(`label[data-label-for="v${i}"]`);
-        if (!labelElement && field) {
-            labelElement = document.createElement('label');
-            labelElement.dataset.labelFor = `v${i}`;
-            field.parentNode.insertBefore(labelElement, field);
-        }
-        if (labelElement) {
-            labelElement.textContent = labels[i] + ':';
-        }
-
-        // Handle dependent fields
+        let vOptions;
         if (vConfig && vConfig.dependentOn) {
             const dependentFieldSelector = `.obj-${vConfig.dependentOn}`;
             const dependentField = objectCard.querySelector(dependentFieldSelector);
-
-            const updateDependentOptions = () => {
-                const dependentValue = dependentField.value;
-                const newOptions = vConfig.options[dependentValue] || [];
-                let targetField = objectCard.querySelector(fieldSelector);
-                const currentValue = targetField ? targetField.value : '0';
-
-                let select;
-                if (!targetField || targetField.tagName.toLowerCase() !== 'select') {
-                    select = document.createElement('select');
-                    select.className = fieldSelector.slice(1);
-                    if (targetField) {
-                        targetField.replaceWith(select);
-                    }
-                } else {
-                    select = targetField;
-                }
-
-                select.innerHTML = '';
-                newOptions.forEach(opt => {
-                    const optionEl = document.createElement('option');
-                    if (typeof opt === 'object') {
-                        optionEl.value = opt.value;
-                        optionEl.textContent = opt.label;
-                    } else {
-                        optionEl.value = opt;
-                        optionEl.textContent = opt;
-                    }
-                    select.appendChild(optionEl);
-                });
-
-                const values = newOptions.map(opt => typeof opt === 'object' ? opt.value : opt);
-                if (values.includes(currentValue)) {
-                    select.value = currentValue;
-                } else {
-                    select.selectedIndex = 0;
-                }
-            };
+            
+            const dependentValue = dependentField ? dependentField.value : '0';
+            vOptions = vConfig.options[dependentValue] || [];
 
             if (dependentField) {
                 const listenerKey = `_dependentListenerV${i}`;
                 if (dependentField[listenerKey]) {
                     dependentField.removeEventListener('input', dependentField[listenerKey]);
                 }
-                dependentField[listenerKey] = updateDependentOptions;
-                dependentField.addEventListener('input', updateDependentOptions);
-                updateDependentOptions();
+                const listener = () => {
+                    // Al cambiar, es más seguro re-ejecutar toda la lógica para la tarjeta
+                    // para asegurar que los tipos de campo (input/select) se manejen bien.
+                    updateObjectValuesUI(objectCard);
+                };
+                dependentField[listenerKey] = listener;
+                dependentField.addEventListener('input', listener);
             }
-            continue;
+        } else {
+            vOptions = Array.isArray(vConfig) ? vConfig : vConfig?.options;
         }
-        
-        const vOptions = Array.isArray(vConfig) ? vConfig : vConfig?.options;
 
         if (field && field.tagName.toLowerCase() === 'fieldset' && !(vConfig && vConfig.type === 'checkbox')) {
             const grupo = document.createElement('div');
@@ -116,6 +73,9 @@ export function updateObjectValuesUI(objectCard) {
             else objectCard.querySelector('.v-values-container').appendChild(fieldset);
             continue;
         }
+
+        const labelElement = objectCard.querySelector(`label[data-label-for="v${i}"]`);
+        if (labelElement) labelElement.textContent = labels[i] + ':';
 
         const currentValue = field ? field.value : '0';
 
